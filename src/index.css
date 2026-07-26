@@ -1,0 +1,290 @@
+/* ==========================================================================
+   DECODE DESIGN SYSTEM - GLOBAL STYLES & DUAL GOLD/SAPPHIRE PALETTE
+   ========================================================================== */
+
+:root {
+  --bg-dark: #1f0753;
+  --bg-card: rgba(18, 20, 31, 0.45);
+  --bg-card-hover: rgba(24, 27, 42, 0.7);
+  --border-card: rgba(255, 255, 255, 0.05);
+  --border-card-hover: rgba(245, 208, 97, 0.25);
+  
+  --text-primary: #FFFFFF;
+  --text-secondary: #9CA3AF;
+  --text-muted: #6B7280;
+  
+  /* Official DeCode Logo Palette: Metallic Gold + Royal Sapphire Blue */
+  --accent-gold: #F5D061;
+  --accent-gold-bright: #FFDF73;
+  --accent-gold-glow: rgba(245, 208, 97, 0.22);
+  
+  --accent-blue: #0052FF;
+  --accent-cyan: #FFDF73;
+  --accent-blue-glow: rgba(0, 210, 255, 0.2);
+  
+  --gradient-gold-blue: linear-gradient(135deg, #F5D061 0%, #0072FF 100%);
+  --gradient-blue-cyan: linear-gradient(135deg, #0052FF 0%, #00D2FF 100%);
+  
+  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --radius-card: 20px;
+  --radius-pill: 9999px;
+  
+  --shadow-card: 0 10px 30px -10px rgba(0, 0, 0, 0.4);
+  --shadow-lift: 0 20px 40px -10px rgba(0, 0, 0, 0.7), 0 0 25px rgba(245, 208, 97, 0.08);
+
+  --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Reset & Base */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  color-scheme: dark;
+  font-family: var(--font-family);
+  background-color: var(--bg-dark);
+  color: var(--text-primary);
+}
+
+body {
+  overflow-x: hidden;
+  position: relative;
+  background-color: var(--bg-dark);
+  /* Subtle diagonal line grid texture overlay */
+  background-image: 
+    linear-gradient(135deg, rgba(245, 208, 97, 0.012) 25%, transparent 25%),
+    linear-gradient(225deg, rgba(0, 210, 255, 0.012) 25%, transparent 25%),
+    linear-gradient(45deg, rgba(255, 255, 255, 0.012) 25%, transparent 25%),
+    linear-gradient(315deg, rgba(255, 255, 255, 0.012) 25%, transparent 25%);
+  background-size: 48px 48px;
+  background-position: 0 0, 0 24px, 24px -24px, -24px 0px;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--text-primary);
+}
+
+h1 {
+  font-size: clamp(2.5rem, 5.5vw, 4.25rem);
+  line-height: 1.08;
+}
+
+h2 {
+  font-size: clamp(2rem, 4vw, 3.25rem);
+  line-height: 1.15;
+}
+
+p {
+  color: var(--text-secondary);
+  font-size: 1.0625rem;
+  line-height: 1.65;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Radial Glow Gradient Background Effect */
+.glow-bg {
+  position: relative;
+}
+
+.glow-bg::before {
+  content: '';
+  position: absolute;
+  top: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 850px;
+  height: 520px;
+  background: radial-gradient(ellipse at center, rgba(245, 208, 97, 0.06) 0%, rgba(0, 210, 255, 0.03) 45%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Pill Eyebrow Badge */
+.pill-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 18px;
+  border-radius: var(--radius-pill);
+  background: rgba(245, 208, 97, 0.05);
+  border: 1px solid rgba(245, 208, 97, 0.2);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--accent-gold-bright);
+  margin-bottom: 1.25rem;
+  backdrop-filter: blur(8px);
+  transition: border-color 300ms ease, transform 300ms var(--ease-spring), box-shadow 300ms ease;
+}
+
+.pill-badge:hover {
+  border-color: var(--accent-gold);
+  box-shadow: 0 0 16px var(--accent-gold-glow);
+  transform: translateY(-1px);
+}
+
+.pill-badge .badge-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--accent-gold);
+  box-shadow: 0 0 8px var(--accent-gold);
+}
+
+/* Signature Blur-Fade Text Mask Effect */
+.blur-fade-text {
+  position: relative;
+  display: inline-block;
+  mask-image: linear-gradient(to right, rgba(0,0,0,1) 50%, rgba(0,0,0,0.2) 100%);
+  -webkit-mask-image: linear-gradient(to right, rgba(0,0,0,1) 50%, rgba(0,0,0,0.2) 100%);
+  opacity: 0.92;
+  transition: opacity 400ms ease;
+}
+
+/* Clean, Translucent Card Panel Base Styling with Soft Glow */
+.card-panel {
+  background-color: var(--bg-card);
+  border-radius: var(--radius-card);
+  border: 1px solid var(--border-card);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: var(--shadow-card);
+  transition: transform 400ms var(--ease-spring), 
+              box-shadow 400ms var(--ease-spring), 
+              border-color 350ms ease, 
+              background-color 350ms ease;
+  will-change: transform, box-shadow;
+  transform: translate3d(0, 0, 0);
+}
+
+.card-panel:hover {
+  transform: translate3d(0, -6px, 0);
+  box-shadow: var(--shadow-lift);
+  border-color: var(--border-card-hover);
+  background-color: var(--bg-card-hover);
+}
+
+/* DeCode Gradient Buttons */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 28px;
+  border-radius: var(--radius-pill);
+  background: var(--gradient-gold-blue);
+  color: #090A0F;
+  font-weight: 800;
+  font-size: 0.95rem;
+  border: none;
+  cursor: pointer;
+  transition: transform 300ms var(--ease-spring), box-shadow 300ms var(--ease-spring), filter 200ms ease;
+  box-shadow: 0 4px 18px rgba(245, 208, 97, 0.22);
+  will-change: transform;
+}
+
+.btn-primary:hover {
+  transform: scale(1.04) translate3d(0, -1px, 0);
+  box-shadow: 0 10px 32px rgba(245, 208, 97, 0.35), 0 0 25px rgba(0, 210, 255, 0.25);
+  filter: brightness(1.08);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 28px;
+  border-radius: var(--radius-pill);
+  background-color: rgba(255, 255, 255, 0.03);
+  color: #FFFFFF;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border: 1px solid rgba(245, 208, 97, 0.2);
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  transition: background-color 300ms ease, border-color 300ms ease, transform 300ms var(--ease-spring), box-shadow 300ms ease;
+  will-change: transform;
+}
+
+.btn-secondary:hover {
+  background-color: rgba(245, 208, 97, 0.08);
+  border-color: var(--accent-gold);
+  transform: translate3d(0, -2px, 0);
+  box-shadow: 0 0 16px var(--accent-gold-glow);
+}
+
+/* Premium Scroll Reveal (Blur-Fade-Up) */
+.reveal {
+  opacity: 0;
+  transform: translate3d(0, 30px, 0) scale(0.98);
+  filter: blur(8px);
+  transition: opacity 850ms var(--ease-spring), 
+              transform 850ms var(--ease-spring),
+              filter 850ms var(--ease-spring);
+  will-change: opacity, transform, filter;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+  filter: blur(0px);
+}
+
+/* Refined Stagger Delay Helpers */
+.delay-1 { transition-delay: 70ms; }
+.delay-2 { transition-delay: 140ms; }
+.delay-3 { transition-delay: 210ms; }
+.delay-4 { transition-delay: 280ms; }
+.delay-5 { transition-delay: 350ms; }
+.delay-6 { transition-delay: 420ms; }
+
+/* Global Spacious Layout Utilities */
+.section-padding {
+  padding: 120px 32px;
+  max-width: 1280px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 768px) {
+  .section-padding {
+    padding: 72px 20px;
+  }
+}
+
+.section-header {
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto 64px auto;
+}
+
+.section-header h2 {
+  margin-bottom: 16px;
+}
+
+/* GPU-Accelerated Hardware Marquee Keyframes */
+@keyframes marqueeUp {
+  0% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(0, -50%, 0); }
+}
+
+@keyframes marqueeDown {
+  0% { transform: translate3d(0, -50%, 0); }
+  100% { transform: translate3d(0, 0, 0); }
+}
