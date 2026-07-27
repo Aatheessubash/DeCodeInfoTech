@@ -37,10 +37,16 @@ export function AdminDashboard() {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    if (passkeyInput === 'admin' || passkeyInput === 'decode123' || passkeyInput === '') {
+    if (
+      passkeyInput === '782274' ||
+      passkeyInput === 'divinecode01' ||
+      passkeyInput === 'admin' ||
+      passkeyInput === 'decode123' ||
+      passkeyInput === ''
+    ) {
       setIsAuthenticated(true);
     } else {
-      alert('Invalid admin passkey. (Default: admin)');
+      alert('Invalid admin credentials. (Username: divinecode01 / Password: 782274)');
     }
   };
 
