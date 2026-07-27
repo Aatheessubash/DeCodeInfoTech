@@ -62,10 +62,10 @@ const INITIAL_PROJECTS = [
 const INITIAL_SERVICES = [
   {
     id: '01',
-    title: 'Web Design & Experience',
-    desc: 'High-converting UI/UX designs crafted specifically for modern brands, startups, and growing enterprises.',
+    title: 'Modern Website Design Services',
+    desc: 'High-converting UI/UX designs and responsive web design agency services crafted specifically for modern brands, startups, and growing enterprises.',
     deliverables: [
-      'Custom Web & Product Design',
+      'Conversion Focused Website Design',
       'Mobile-First Responsive Layouts',
       'Design Systems & UI Kits',
       'Interactive Wireframes & Prototypes',
@@ -74,24 +74,24 @@ const INITIAL_SERVICES = [
   },
   {
     id: '02',
-    title: 'Full-Stack Web Development',
-    desc: 'Fast, secure, and maintainable web applications engineered with clean code and modern frameworks.',
+    title: 'Full Stack Web Development Services',
+    desc: 'Fast, secure, and maintainable web applications engineered with clean code and modern frameworks by our MERN stack development company experts.',
     deliverables: [
-      'React JS, Next.js & Vite Applications',
+      'React JS, Next JS & Node JS Backend',
       'Custom Web Platforms & Dashboards',
       'API Integration & CMS Setup',
-      'Performance & Speed Optimization',
+      'Performance Optimized Website Development',
     ],
     icon: '⚡',
   },
   {
     id: '03',
-    title: 'Web Application Development',
-    desc: 'Scalable custom software designed to streamline business workflows, automate tasks, and handle high traffic.',
+    title: 'Custom Web Application Development',
+    desc: 'Scalable custom software designed to streamline business workflows, automate tasks, and handle high traffic. We specialize in SaaS product development.',
     deliverables: [
       'SaaS Platforms & Enterprise Portals',
       'Custom Admin Dashboards',
-      'Database Architecture & Security',
+      'MongoDB Application Development',
       'Role-Based Access Control',
     ],
     icon: '⚙',
@@ -99,38 +99,38 @@ const INITIAL_SERVICES = [
   {
     id: '04',
     title: 'Website Optimization & SEO',
-    desc: 'Turn visitor traffic into paying customers with optimized page loading speeds and search rankings.',
+    desc: 'Turn visitor traffic into paying customers with optimized page loading speeds and SEO friendly website development services.',
     deliverables: [
       'Core Web Vitals Optimization',
-      'Technical & On-Page SEO',
+      'Technical SEO and Web Development',
       'Conversion Rate Optimization (CRO)',
       'Cross-Browser & Device Audit',
     ],
-    icon: '📈',
+    icon: '◈',
   },
   {
     id: '05',
     title: 'Website Redesign & Refresh',
-    desc: 'Transform outdated websites into sleek, modern digital products that reflect your true business quality.',
+    desc: 'Transform outdated websites into sleek, modern digital products that reflect your true business quality. We can help you redesign outdated business websites.',
     deliverables: [
       'Modern Visual UI Upgrade',
-      'Mobile Responsiveness Overhaul',
+      'Migrate Website to Modern Tech Stack',
       'Code Refactoring & Cleanup',
       'Content Restructuring',
     ],
-    icon: '🎨',
+    icon: '❖',
   },
   {
     id: '06',
-    title: 'Ongoing Support & Growth',
-    desc: 'Reliable long-term technical support, updates, and maintenance to keep your digital product running smoothly.',
+    title: 'DevOps & Ongoing Support',
+    desc: 'Reliable CI/CD pipeline setup services, Docker DevOps consulting, updates, and maintenance to keep your digital product running smoothly.',
     deliverables: [
-      'Security & Dependency Updates',
-      'Feature Enhancements & Scaling',
+      'GitHub Actions DevOps Automation',
+      'Kubernetes Deployment',
       'Monthly Performance Monitoring',
       'Priority Technical Support',
     ],
-    icon: '🛡',
+    icon: '⬡',
   },
 ];
 
@@ -165,12 +165,12 @@ const INITIAL_TESTIMONIALS = [
 ];
 
 const INITIAL_CONTENT = {
-  heroEyebrow: 'WHERE VISION BECOMES REALITY',
-  heroHeadline: 'We build digital experiences that help businesses grow.',
-  heroSubtext: 'From high-converting websites to complete custom web platforms — DeCode designs, builds, and launches fast, scalable digital products engineered for long-term growth.',
+  heroEyebrow: 'SAAS PRODUCT DEVELOPMENT COMPANY IN INDIA',
+  heroHeadline: 'We build digital experiences that help businesses grow. Leading web development company for startups.',
+  heroSubtext: 'From high-converting modern website design services to complete custom web application development — DeCode designs, builds, and launches fast, scalable digital products engineered for long-term growth. We are your trusted UI UX design and development studio.',
   agencyName: 'DeCode Studio',
   contactEmail: 'hello@decode.com',
-  contactLocation: 'Tamil Nadu, India',
+  contactLocation: 'Coimbatore, Tamil Nadu, India',
 };
 
 export function DataProvider({ children }) {
@@ -196,6 +196,55 @@ export function DataProvider({ children }) {
 
   const [isAdminOpen, setIsAdminOpen] = useState(false);
 
+  const [jobApplications, setJobApplications] = useState(() => {
+    const saved = localStorage.getItem('decode_job_applications');
+    return saved ? JSON.parse(saved) : [];
+  });
+
+  const [jobPostings, setJobPostings] = useState(() => {
+    const saved = localStorage.getItem('decode_job_postings');
+    return saved
+      ? JSON.parse(saved)
+      : [
+          {
+            id: 'job-1',
+            title: 'Senior Full Stack Developer',
+            department: 'Engineering',
+            location: 'Hybrid / Remote',
+            type: 'Full Time',
+            experience: '3+ Years',
+            summary: 'Build high-performance web applications using React.js, Node.js, Express, and cloud deployment pipelines.',
+          },
+          {
+            id: 'job-2',
+            title: 'UI/UX Product Designer',
+            department: 'Design',
+            location: 'Remote',
+            type: 'Full Time',
+            experience: '2+ Years',
+            summary: 'Craft high-converting, aesthetically stunning user interfaces and micro-animations for enterprise and startup clients.',
+          },
+          {
+            id: 'job-3',
+            title: 'Frontend Web Specialist',
+            department: 'Engineering',
+            location: 'Remote',
+            type: 'Full Time',
+            experience: '2+ Years',
+            summary: 'Specialize in building ultra-fast responsive user interfaces, animations, and Core Web Vitals optimization.',
+          },
+          {
+            id: 'job-4',
+            title: 'DevOps & Cloud Engineer',
+            department: 'Infrastructure',
+            location: 'Remote',
+            type: 'Full Time / Contract',
+            experience: '3+ Years',
+            summary: 'Manage automated GitHub Actions CI/CD pipelines, Docker containerization, and AWS/Vercel cloud infrastructure.',
+          },
+        ];
+  });
+
   useEffect(() => {
     localStorage.setItem('decode_projects', JSON.stringify(projects));
   }, [projects]);
@@ -211,6 +260,14 @@ export function DataProvider({ children }) {
   useEffect(() => {
     localStorage.setItem('decode_site_content', JSON.stringify(siteContent));
   }, [siteContent]);
+
+  useEffect(() => {
+    localStorage.setItem('decode_job_applications', JSON.stringify(jobApplications));
+  }, [jobApplications]);
+
+  useEffect(() => {
+    localStorage.setItem('decode_job_postings', JSON.stringify(jobPostings));
+  }, [jobPostings]);
 
   // Project Mutations
   const addProject = (project) => {
@@ -251,6 +308,34 @@ export function DataProvider({ children }) {
     setTestimonials((prev) => prev.filter((t) => t.id !== id));
   };
 
+  // Careers & Job Applications Mutations
+  const addJobApplication = (app) => {
+    setJobApplications((prev) => [
+      { ...app, id: `app-${Date.now()}`, timestamp: new Date().toISOString() },
+      ...prev,
+    ]);
+  };
+
+  const deleteJobApplication = (id) => {
+    setJobApplications((prev) => prev.filter((a) => a.id !== id));
+  };
+
+  const clearJobApplications = () => {
+    setJobApplications([]);
+  };
+
+  const addJobPosting = (job) => {
+    setJobPostings((prev) => [...prev, { ...job, id: `job-${Date.now()}` }]);
+  };
+
+  const updateJobPosting = (id, updated) => {
+    setJobPostings((prev) => prev.map((j) => (j.id === id ? { ...j, ...updated } : j)));
+  };
+
+  const deleteJobPosting = (id) => {
+    setJobPostings((prev) => prev.filter((j) => j.id !== id));
+  };
+
   // Content Mutations
   const updateSiteContent = (newContent) => {
     setSiteContent((prev) => ({ ...prev, ...newContent }));
@@ -261,6 +346,7 @@ export function DataProvider({ children }) {
     setServices(INITIAL_SERVICES);
     setTestimonials(INITIAL_TESTIMONIALS);
     setSiteContent(INITIAL_CONTENT);
+    setJobApplications([]);
     localStorage.clear();
   };
 
@@ -271,6 +357,8 @@ export function DataProvider({ children }) {
         services,
         testimonials,
         siteContent,
+        jobApplications,
+        jobPostings,
         isAdminOpen,
         setIsAdminOpen,
         addProject,
@@ -282,6 +370,12 @@ export function DataProvider({ children }) {
         addTestimonial,
         updateTestimonial,
         deleteTestimonial,
+        addJobApplication,
+        deleteJobApplication,
+        clearJobApplications,
+        addJobPosting,
+        updateJobPosting,
+        deleteJobPosting,
         updateSiteContent,
         resetAllData,
       }}

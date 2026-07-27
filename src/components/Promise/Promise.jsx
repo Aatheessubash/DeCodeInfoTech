@@ -24,25 +24,25 @@ export function PromiseSection() {
       id: '03',
       title: 'Fast Delivery Without Quality Trade-Offs',
       desc: 'We use modern frameworks, automated build pipelines, and efficient workflows to launch high-quality digital products on schedule.',
-      icon: '🚀',
+      icon: '⚙',
     },
     {
       id: '04',
       title: 'Practical Solutions Focused on Business Goals',
       desc: 'Every design choice and feature we build directly aligns with your core business targets — driving user conversion and revenue.',
-      icon: '🎯',
+      icon: '◈',
     },
     {
       id: '05',
       title: 'Long-Term Support After Launch',
       desc: 'Our relationship does not end at deployment. We stand by our work, providing post-launch support, monitoring, and updates.',
-      icon: '🛡',
+      icon: '⬡',
     },
     {
       id: '06',
       title: 'Quality is in the Details',
       desc: 'From microscopic micro-interactions to zero-layout-shift performance, we craft digital experiences that leave a lasting impression.',
-      icon: '💎',
+      icon: '❖',
     },
   ];
 

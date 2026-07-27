@@ -10,22 +10,22 @@ export function Technology() {
   const categories = [
     {
       title: 'Frontend Development',
-      icon: '⚛️',
+      icon: '✦',
       tools: ['React.js', 'Next.js', 'JavaScript', 'TypeScript', 'HTML5', 'CSS3', 'Tailwind CSS', 'Framer Motion'],
     },
     {
       title: 'Backend & Databases',
-      icon: '⚙️',
+      icon: '⚙',
       tools: ['Node.js', 'Express.js', 'REST APIs', 'MongoDB', 'Mongoose', 'Firebase', 'Supabase'],
     },
     {
       title: 'DevOps & Cloud',
-      icon: '☁️',
+      icon: '⚡',
       tools: ['Docker', 'Kubernetes', 'GitHub Actions', 'CI/CD Pipelines', 'Vercel', 'Render', 'Netlify', 'Linux', 'Nginx', 'Cloud Deployment'],
     },
     {
       title: 'Design & Collaboration',
-      icon: '🎨',
+      icon: '❖',
       tools: ['Figma', 'Adobe XD', 'GitHub', 'Postman', 'Notion', 'ClickUp', 'Trello'],
     },
   ];
@@ -36,7 +36,7 @@ export function Technology() {
         <SectionBadge>Technology</SectionBadge>
         <h2>
           Modern technology. <br />
-          <span style={{ color: '#9CA3AF' }}>Practical execution.</span>
+          <span style={{ color: '#64748B' }}>Practical execution.</span>
         </h2>
         <p>
           We choose tools based on what your product needs: speed, reliability, maintainability, and room <BlurFadeText>to grow.</BlurFadeText>

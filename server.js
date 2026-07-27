@@ -3,7 +3,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { sendContactEmail, sendReplyEmail, createTransporter } from './sendMail.js';
+import { sendContactEmail, sendReplyEmail, sendCareerEmail, createTransporter } from './sendMail.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -131,6 +131,39 @@ app.post('/api/contact', rateLimit, async (req, res) => {
     res.status(500).json({
       success: false,
       message: 'Failed to send proposal email. Please try again later.',
+      error: error.message,
+    });
+  }
+});
+
+/**
+ * Handle job application submissions.
+ */
+app.post('/api/careers', rateLimit, async (req, res) => {
+  const { name, email, phone, portfolio, jobTitle, coverLetter } = req.body || {};
+
+  if (!name || !name.trim()) {
+    return res.status(400).json({ success: false, message: 'Candidate name is required.' });
+  }
+
+  if (!isValidEmail(email)) {
+    return res.status(400).json({ success: false, message: 'A valid email address is required.' });
+  }
+
+  try {
+    const result = await sendCareerEmail({ name, email, phone, portfolio, jobTitle, coverLetter });
+
+    res.json({
+      success: true,
+      message: 'Job application submitted successfully! Confirmation email sent.',
+      adminMessageId: result.adminInfo?.messageId,
+      candidateReplySent: !!result.candidateInfo,
+    });
+  } catch (error) {
+    console.error('[/api/careers] Error:', error.message);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to process application email. Please try again later.',
       error: error.message,
     });
   }

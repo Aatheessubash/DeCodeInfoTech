@@ -59,8 +59,8 @@
   gap: 14px;
   padding: 10px 18px;
   border-radius: var(--radius-pill);
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(245, 208, 97, 0.2);
+  background: #F1F5F9;
+  border: 1px solid #E2E8F0;
   backdrop-filter: blur(10px);
 }
 
@@ -74,14 +74,14 @@
   height: 28px;
   border-radius: 50%;
   background: var(--gradient-gold-blue);
-  color: #090A0F;
+  color: #FFFFFF;
   font-size: 11px;
   font-weight: 800;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-left: -8px;
-  border: 2px solid var(--bg-dark);
+  border: 2px solid #FFFFFF;
 }
 
 .avatarPill:first-child {
@@ -94,7 +94,7 @@
 }
 
 .trustText strong {
-  color: var(--accent-gold-bright);
+  color: #0A66C2;
 }
 
 /* BIDIRECTIONAL TICKER CONTAINER */
@@ -158,18 +158,19 @@
   position: relative;
   border-radius: 18px;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  background-color: var(--bg-card);
+  border: 1px solid #E2E8F0;
+  background-color: #FFFFFF;
   cursor: pointer;
   transition: transform 350ms var(--ease-spring), border-color 300ms ease, box-shadow 350ms ease;
   aspect-ratio: 16 / 11;
   flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05);
 }
 
 .tickerCard:hover {
   transform: scale(1.03);
-  border-color: var(--accent-gold);
-  box-shadow: 0 12px 32px rgba(245, 208, 97, 0.25), 0 0 20px rgba(0, 210, 255, 0.2);
+  border-color: #0A66C2;
+  box-shadow: 0 12px 32px rgba(10, 102, 194, 0.18);
 }
 
 .cardImg {
@@ -190,7 +191,7 @@
   left: 0;
   right: 0;
   padding: 16px 14px 12px 14px;
-  background: linear-gradient(to top, rgba(9, 10, 15, 0.95) 0%, rgba(9, 10, 15, 0.4) 65%, transparent 100%);
+  background: linear-gradient(to top, rgba(15, 23, 42, 0.9) 0%, rgba(15, 23, 42, 0.4) 65%, transparent 100%);
   display: flex;
   flex-direction: column;
   gap: 4px;
@@ -201,7 +202,7 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: var(--accent-gold-bright);
+  color: #38BDF8;
 }
 
 .cardTitle {
@@ -219,9 +220,9 @@
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
+  width: 100%;
   height: 100vh;
-  background: rgba(9, 10, 15, 0.85);
+  background: rgba(15, 23, 42, 0.65);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   z-index: 1000;
@@ -233,9 +234,9 @@
 }
 
 .modalCard {
-  background: var(--bg-card);
-  border: 1px solid var(--accent-gold);
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), 0 0 40px var(--accent-gold-glow);
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  box-shadow: 0 25px 60px rgba(15, 23, 42, 0.2);
   border-radius: var(--radius-card);
   max-width: 680px;
   width: 100%;
@@ -251,9 +252,9 @@
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  background: rgba(9, 10, 15, 0.7);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: #FFFFFF;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid #CBD5E1;
+  color: #0F172A;
   font-size: 16px;
   display: flex;
   align-items: center;
@@ -264,9 +265,9 @@
 }
 
 .modalClose:hover {
-  background: var(--accent-gold);
-  color: #090A0F;
-  border-color: var(--accent-gold);
+  background: #0A66C2;
+  color: #FFFFFF;
+  border-color: #0A66C2;
   transform: scale(1.1);
 }
 
@@ -293,7 +294,7 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: var(--accent-gold-bright);
+  color: #0284C7;
   margin-bottom: 8px;
 }
 
@@ -301,12 +302,12 @@
   font-size: 1.5rem;
   font-weight: 800;
   margin-bottom: 12px;
-  color: #FFFFFF;
+  color: #0F172A;
 }
 
 .modalDesc {
   font-size: 0.98rem;
-  color: var(--text-secondary);
+  color: #475569;
   line-height: 1.6;
   margin-bottom: 24px;
 }

@@ -9,36 +9,28 @@ export function FAQ() {
 
   const faqs = [
     {
-      q: 'What types of projects does DeCode specialize in?',
-      a: 'DeCode specializes in custom web applications, SaaS platforms, high-converting business websites, LMS portals, e-commerce applications, and Chrome developer extensions.',
+      q: 'Why should I hire a web development agency for my SaaS startup?',
+      a: 'Hiring a specialized web development agency for startups like DeCode ensures end to end product development in India. We offer modern web application development, scalable architecture, MERN stack expertise, and custom UI/UX design built for conversions.',
     },
     {
-      q: 'How long does it take to complete a project with DeCode?',
-      a: 'A custom high-converting website typically takes 2 to 4 weeks, while complex full-stack web applications and SaaS platforms take between 4 to 8 weeks depending on scope.',
+      q: 'Can you build custom LMS platform development services or enterprise tools?',
+      a: 'Yes, we specialize in custom LMS platform development services, construction management software, agriculture portals, news portals, and SaaS platforms tailored to your business needs.',
     },
     {
-      q: 'What technologies and frameworks do you use?',
-      a: 'Our primary stack includes React.js, Next.js, Vite, TypeScript, Node.js, Express, PostgreSQL, MongoDB, HTML5, CSS Modules, Tailwind CSS, and WebGL/Three.js.',
+      q: 'What modern tech stack and frameworks do you use?',
+      a: 'Our primary tech stack includes React JS, Next JS, Node JS, Express, TypeScript, MongoDB, PostgreSQL, Tailwind CSS, Docker, Kubernetes, and Vercel deployments.',
     },
     {
-      q: 'Do you provide maintenance and support after launch?',
-      a: 'Yes! Every project deployed by DeCode includes dedicated post-launch support, security monitoring, performance audits, and ongoing feature updates.',
+      q: 'How do you improve website speed and Core Web Vitals?',
+      a: 'We perform technical SEO and web development optimization, code splitting, image compression, server-side caching, and DOM cleanup to fix low conversion rates and ensure maximum speed.',
     },
     {
-      q: 'How do we get started on a project?',
-      a: 'Simply fill out our proposal form in the Contact section below with your project goals, budget, and timeline. Our team will schedule an initial discovery call within 24 hours.',
+      q: 'Can you help redesign an outdated business website without losing SEO?',
+      a: 'Absolutely! We specialize in redesigning outdated business websites, optimizing performance, setting up 301 redirects, and providing SEO friendly website development for lead generation.',
     },
     {
-      q: 'Can you redesign our existing outdated website?',
-      a: 'Absolutely. We regularly transform slow, outdated websites into ultra-fast, modern digital platforms with elevated visual aesthetics and improved conversion rates.',
-    },
-    {
-      q: 'Will my website or web app be mobile responsive?',
-      a: 'Yes. All digital products engineered by DeCode are 100% mobile-first responsive, tested across multiple screen resolutions, browsers, and devices.',
-    },
-    {
-      q: 'How is project billing and payment structured?',
-      a: 'We work on transparent, milestone-based pricing (typically 50% deposit upon kickoff and 50% upon final launch and delivery). No hidden fees.',
+      q: 'Do you offer full stack developer services and DevOps consulting in India?',
+      a: 'Yes, DeCode provides full stack web development services in India alongside Docker DevOps consulting, CI/CD pipeline setup with GitHub Actions, and ongoing support for small businesses and startups.',
     },
   ];
 

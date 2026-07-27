@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { createPortal } from 'react-dom';
 import { useData } from '../../context/DataContext';
 import styles from './AdminDashboard.module.css';
 
@@ -21,10 +22,13 @@ export function AdminDashboard() {
     deleteTestimonial,
     updateSiteContent,
     resetAllData,
+    jobApplications,
+    deleteJobApplication,
+    clearJobApplications,
   } = useData();
 
   const [activeTab, setActiveTab] = useState('projects');
-  const [isAuthenticated, setIsAuthenticated] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [passkeyInput, setPasskeyInput] = useState('');
 
   // Editing state
@@ -41,22 +45,21 @@ export function AdminDashboard() {
       passkeyInput === '782274' ||
       passkeyInput === 'divinecode01' ||
       passkeyInput === 'admin' ||
-      passkeyInput === 'decode123' ||
-      passkeyInput === ''
+      passkeyInput === 'decode123'
     ) {
       setIsAuthenticated(true);
     } else {
-      alert('Invalid admin credentials. (Username: divinecode01 / Password: 782274)');
+      alert('Invalid admin credentials. Passkey required.');
     }
   };
 
   const handleSaveContent = (e) => {
     e.preventDefault();
     updateSiteContent(contentForm);
-    alert('Site content updated live!');
+    alert('Site content updated successfully!');
   };
 
-  return (
+  const modalContent = createPortal(
     <div className={styles.backdrop} onClick={() => setIsAdminOpen(false)}>
       <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
         {/* Modal Header */}
@@ -73,7 +76,7 @@ export function AdminDashboard() {
         {!isAuthenticated ? (
           <form className={styles.loginForm} onSubmit={handleLogin}>
             <h3>Admin Passkey Authentication</h3>
-            <p>Enter the passkey to manage projects, services, and live website content.</p>
+            <p>Enter the passkey to manage projects, services, careers, and live website content.</p>
             <input
               type="password"
               placeholder="Enter passkey (default: admin)"
@@ -100,6 +103,12 @@ export function AdminDashboard() {
                 onClick={() => setActiveTab('services')}
               >
                 ⚡ Services ({services.length})
+              </button>
+              <button
+                className={`${styles.tabBtn} ${activeTab === 'careers' ? styles.activeTab : ''}`}
+                onClick={() => setActiveTab('careers')}
+              >
+                🚀 Careers ({jobApplications?.length || 0})
               </button>
               <button
                 className={`${styles.tabBtn} ${activeTab === 'testimonials' ? styles.activeTab : ''}`}
@@ -323,6 +332,78 @@ export function AdminDashboard() {
               </div>
             )}
 
+            {/* TAB: CAREERS & JOB APPLICATIONS */}
+            {activeTab === 'careers' && (
+              <div className={styles.tabContent}>
+                <div className={styles.topActions}>
+                  <h3>Candidate Job Applications</h3>
+                  {jobApplications?.length > 0 && (
+                    <button
+                      className={styles.deleteBtn}
+                      onClick={() => {
+                        if (window.confirm('Clear all received candidate applications?')) {
+                          clearJobApplications();
+                        }
+                      }}
+                    >
+                      Clear All Applications
+                    </button>
+                  )}
+                </div>
+
+                {!jobApplications || jobApplications.length === 0 ? (
+                  <div style={{ padding: '36px 0', textAlign: 'center', color: '#64748B' }}>
+                    No candidate job applications received yet.
+                  </div>
+                ) : (
+                  <div className={styles.itemList}>
+                    {jobApplications.map((app, idx) => (
+                      <div
+                        key={app.id || idx}
+                        className={styles.itemRow}
+                        style={{ flexDirection: 'column', alignItems: 'stretch', gap: '12px', background: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '14px', padding: '20px' }}
+                      >
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '8px' }}>
+                          <div>
+                            <span style={{ background: '#E0F2FE', color: '#0284C7', border: '1px solid #BAE6FD', padding: '4px 12px', borderRadius: '9999px', fontSize: '0.75rem', fontWeight: 800 }}>
+                              {app.jobTitle || 'General Application'}
+                            </span>
+                            <strong style={{ fontSize: '1.1rem', marginLeft: '10px', color: '#0F172A' }}>{app.name}</strong>
+                          </div>
+                          <span style={{ fontSize: '0.8rem', color: '#64748B' }}>
+                            {app.timestamp ? new Date(app.timestamp).toLocaleDateString() : 'Recent'}
+                          </span>
+                        </div>
+
+                        <div style={{ display: 'flex', gap: '20px', fontSize: '0.9rem', color: '#475569', flexWrap: 'wrap' }}>
+                          <div>📧 <strong>Email:</strong> <a href={`mailto:${app.email}`} style={{ color: '#0A66C2' }}>{app.email}</a></div>
+                          {app.phone && <div>📞 <strong>Phone:</strong> {app.phone}</div>}
+                          {app.portfolio && (
+                            <div>🌐 <strong>Portfolio/GitHub:</strong> <a href={app.portfolio} target="_blank" rel="noreferrer" style={{ color: '#0A66C2' }}>{app.portfolio}</a></div>
+                          )}
+                        </div>
+
+                        {app.coverLetter && (
+                          <div style={{ background: '#FFFFFF', border: '1px solid #CBD5E1', padding: '12px 16px', borderRadius: '10px', fontSize: '0.88rem', color: '#334155' }}>
+                            <strong style={{ color: '#0284C7' }}>Cover Letter / Pitch:</strong> {app.coverLetter}
+                          </div>
+                        )}
+
+                        <div style={{ display: 'flex', gap: '10px', marginTop: '4px' }}>
+                          <button
+                            className={styles.deleteBtn}
+                            onClick={() => deleteJobApplication(app.id)}
+                          >
+                            Delete Application
+                          </button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
+
             {/* TAB 3: TESTIMONIALS MANAGEMENT */}
             {activeTab === 'testimonials' && (
               <div className={styles.tabContent}>
@@ -496,4 +577,6 @@ export function AdminDashboard() {
       </div>
     </div>
   );
+
+  return createPortal(modalContent, document.body);
 }

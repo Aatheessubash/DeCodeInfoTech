@@ -24,7 +24,7 @@
 }
 
 .rating {
-  color: var(--accent-gold);
+  color: #0A66C2;
   font-size: 1.1rem;
   letter-spacing: 2px;
   margin-bottom: 16px;
@@ -33,7 +33,7 @@
 .quoteText {
   font-size: 1rem;
   line-height: 1.6;
-  color: var(--text-secondary);
+  color: #475569;
   margin-bottom: 24px;
   font-style: italic;
 }
@@ -50,7 +50,7 @@
   height: 44px;
   border-radius: 50%;
   background: var(--gradient-gold-blue);
-  color: #090A0F;
+  color: #FFFFFF;
   font-weight: 800;
   font-size: 1rem;
   display: flex;
@@ -67,10 +67,10 @@
 .authorName {
   font-size: 1rem;
   font-weight: 700;
-  color: #FFFFFF;
+  color: #0F172A;
 }
 
 .authorRole {
   font-size: 0.8rem;
-  color: var(--text-muted);
+  color: #64748B;
 }

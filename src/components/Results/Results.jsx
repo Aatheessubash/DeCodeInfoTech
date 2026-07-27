@@ -8,14 +8,14 @@ export function Results() {
   const [sectionRef, isVisible] = useIntersectionObserver({ threshold: 0.15 });
 
   const industries = [
-    { name: 'Startups & SaaS', icon: '🚀' },
-    { name: 'Education & Training', icon: '🎓' },
-    { name: 'Construction & Real Estate', icon: '🏗️' },
-    { name: 'Agriculture & Operations', icon: '🌾' },
-    { name: 'Restaurants & Hospitality', icon: '🍽️' },
-    { name: 'Local Service Businesses', icon: '🏪' },
-    { name: 'Agencies & Creators', icon: '🎨' },
-    { name: 'E-commerce Brands', icon: '🛍️' },
+    { name: 'Startups & SaaS', icon: '⚡' },
+    { name: 'Education & Training', icon: '✦' },
+    { name: 'Construction & Real Estate', icon: '⚙' },
+    { name: 'Agriculture & Operations', icon: '⬡' },
+    { name: 'Restaurants & Hospitality', icon: '◈' },
+    { name: 'Local Service Businesses', icon: '❖' },
+    { name: 'Agencies & Creators', icon: '✦' },
+    { name: 'E-commerce Brands', icon: '⚡' },
   ];
 
   return (
@@ -24,7 +24,7 @@ export function Results() {
         <SectionBadge>Industries</SectionBadge>
         <h2>
           Built for different <br />
-          <span style={{ color: '#9CA3AF' }}>kinds of businesses.</span>
+          <span style={{ color: '#64748B' }}>kinds of businesses.</span>
         </h2>
         <p>
           We work with businesses and founders who need a reliable digital presence or a custom system to <BlurFadeText>simplify their work.</BlurFadeText>

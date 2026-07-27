@@ -4,17 +4,17 @@
   left: 0;
   width: 100%;
   z-index: 100;
-  padding: 16px 0;
-  transition: padding 300ms ease, background-color 300ms ease, backdrop-filter 300ms ease, border-color 300ms ease;
+  padding: 14px 0;
+  transition: background-color 300ms ease, backdrop-filter 300ms ease, border-color 300ms ease;
 }
 
 .header.scrolled {
-  padding: 10px 0;
-  background-color: rgba(9, 10, 15, 0.90);
+  padding: 14px 0;
+  background-color: rgba(255, 255, 255, 0.94);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border-bottom: 1px solid rgba(255, 215, 0, 0.3);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  border-bottom: 1px solid #E2E8F0;
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.08);
 }
 
 .container {
@@ -39,15 +39,10 @@
 }
 
 .logoImg {
-  height: 96px;
+  height: 110px;
   width: auto;
   object-fit: contain;
-  filter: drop-shadow(0 0 24px rgba(245, 208, 97, 0.45));
-  transition: height 300ms ease, transform 300ms ease;
-}
-
-.header.scrolled .logoImg {
-  height: 72px;
+  filter: drop-shadow(0 0 16px rgba(10, 102, 194, 0.25));
 }
 
 /* Desktop Navigation Buttons */
@@ -55,10 +50,10 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(241, 245, 249, 0.85);
   padding: 6px 12px;
   border-radius: var(--radius-pill);
-  border: 1px solid rgba(255, 215, 0, 0.3);
+  border: 1px solid #CBD5E1;
   backdrop-filter: blur(10px);
 }
 
@@ -69,50 +64,108 @@
   border-radius: 999px;
   font-size: 0.875rem;
   font-weight: 600;
-  color: var(--text-secondary);
+  color: #475569;
   border: 1px solid transparent;
 
   transform-origin: center;
   transition:
     transform 450ms cubic-bezier(0.22, 1, 0.36, 1),
-    color 300ms ease;
+    color 300ms ease,
+    background-color 300ms ease;
 }
 
 .navBtn:hover {
-  transform: scale(1.08);
-
-  background: linear-gradient(
-    115deg,
-    #fcd056 0%,
-    #B8860B 15%,
-    #D4AF37 30%,
-    #FFF5C3 45%,
-    #FFE27A 50%,
-    #FFF5C3 55%,
-    #D4AF37 70%,
-    #B8860B 85%,
-    #ebbe42 100%
-  );
-
-  background-size: 300% auto;
-  background-position: -200% center;
-
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-
-  animation: rolexGold 3s ease-in-out infinite;
+  transform: scale(1.04);
+  color: #0A66C2;
+  background-color: #FFFFFF;
+  box-shadow: 0 2px 8px rgba(10, 102, 194, 0.12);
 }
 
-@keyframes rolexGold {
-  from {
-    background-position: -200% center;
-  }
-  to {
-    background-position: 200% center;
-  }
+/* Kovai.co Dropdown Styling */
+.dropdownGroup {
+  position: relative;
+  display: inline-block;
 }
 
+.dropdownMenu {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 50%;
+  min-width: 220px;
+  background: #FFFFFF;
+  border-radius: 14px;
+  border: 1px solid #E2E8F0;
+  box-shadow: 0 20px 48px rgba(15, 23, 42, 0.16);
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  z-index: 200;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(-50%) translateY(10px) scale(0.96);
+  transition: opacity 320ms cubic-bezier(0.16, 1, 0.3, 1),
+              transform 320ms cubic-bezier(0.16, 1, 0.3, 1),
+              visibility 320ms ease;
+  pointer-events: none;
+}
+
+/* Mouse hover bridge buffer to prevent mouseLeave flickering */
+.dropdownMenu::before {
+  content: '';
+  position: absolute;
+  top: -14px;
+  left: 0;
+  width: 100%;
+  height: 14px;
+}
+
+.dropdownGroup:hover .dropdownMenu,
+.dropdownMenu.open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+.dropdownItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #0F172A;
+  text-decoration: none;
+  transition: background-color 200ms ease, color 200ms ease;
+}
+
+.dropdownItem:hover {
+  background-color: #F1F5F9;
+  color: #0A66C2;
+}
+
+/* Unified Action Button */
+.actionBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 26px;
+  border-radius: 9999px;
+  background: linear-gradient(135deg, #0A66C2 0%, #0284C7 100%);
+  color: #FFFFFF;
+  font-weight: 800;
+  font-size: 0.95rem;
+  text-decoration: none;
+  box-shadow: 0 4px 16px rgba(10, 102, 194, 0.3);
+  transition: transform 250ms var(--ease-spring), box-shadow 250ms ease;
+}
+
+.actionBtn:hover {
+  transform: translateY(-2px) scale(1.04);
+  box-shadow: 0 8px 24px rgba(10, 102, 194, 0.45);
+}
 
 /* Mobile Hamburger Toggle */
 .hamburger {
@@ -131,14 +184,14 @@
 .bar {
   width: 100%;
   height: 2px;
-  background-color: #FFFFFF;
+  background-color: #0F172A;
   border-radius: 2px;
   transition: transform 300ms ease, opacity 300ms ease, background-color 300ms ease;
 }
 
 .hamburger.active .bar:nth-child(1) {
   transform: translateY(9px) rotate(45deg);
-  background-color: var(--accent-gold);
+  background-color: #0A66C2;
 }
 
 .hamburger.active .bar:nth-child(2) {
@@ -147,7 +200,7 @@
 
 .hamburger.active .bar:nth-child(3) {
   transform: translateY(-9px) rotate(-45deg);
-  background-color: var(--accent-gold);
+  background-color: #0A66C2;
 }
 
 /* Mobile Drawer */
@@ -157,9 +210,10 @@
   top: 100%;
   left: 0;
   width: 100%;
-  background-color: rgba(9, 10, 15, 0.96);
+  background-color: rgba(255, 255, 255, 0.98);
   backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(245, 208, 97, 0.2);
+  border-bottom: 1px solid #E2E8F0;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.1);
   padding: 24px;
 }
 
@@ -172,15 +226,15 @@
 .mobileLink {
   font-size: 1.1rem;
   font-weight: 600;
-  color: var(--text-primary);
+  color: #0F172A;
   padding: 10px 14px;
   border-radius: 12px;
   transition: background-color 200ms ease, color 200ms ease;
 }
 
 .mobileLink:hover {
-  background-color: rgba(245, 208, 97, 0.1);
-  color: var(--accent-gold-bright);
+  background-color: #F1F5F9;
+  color: #0A66C2;
 }
 
 @media (max-width: 900px) {

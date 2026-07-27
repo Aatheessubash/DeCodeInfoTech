@@ -19,7 +19,7 @@
 .categoryTitle {
   font-size: 1.25rem;
   font-weight: 800;
-  color: #FFFFFF;
+  color: #0F172A;
   margin-bottom: 20px;
   display: flex;
   align-items: center;
@@ -27,7 +27,8 @@
 }
 
 .categoryIcon {
-  color: var(--accent-cyan);
+  color: #0284C7;
+  font-size: 1.3rem;
 }
 
 .chipsContainer {
@@ -39,17 +40,18 @@
 .techChip {
   padding: 8px 16px;
   border-radius: var(--radius-pill);
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: #F1F5F9;
+  border: 1px solid #CBD5E1;
   font-size: 0.875rem;
   font-weight: 600;
-  color: var(--text-primary);
+  color: #0F172A;
   transition: all 250ms ease;
 }
 
 .techChip:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: var(--accent-cyan);
-  color: var(--accent-cyan);
+  background: #0A66C2;
+  border-color: #0A66C2;
+  color: #FFFFFF;
   transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(10, 102, 194, 0.2);
 }

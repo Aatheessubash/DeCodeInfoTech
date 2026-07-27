@@ -1,38 +1,35 @@
 import React from 'react';
-import { ParticleBackground } from './components/shared/ParticleBackground';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Navbar } from './components/Navbar/Navbar';
-import { Hero } from './components/Hero/Hero';
-import { Services } from './components/Services/Services';
-import { Portfolio } from './components/Portfolio/Portfolio';
-import { Process } from './components/Process/Process';
-import { Technology } from './components/Technology/Technology';
-import { PromiseSection } from './components/Promise/Promise';
-import { Testimonial } from './components/Testimonial/Testimonial';
-import { Results } from './components/Results/Results';
-import { FAQ } from './components/FAQ/FAQ';
-import { Contact } from './components/Contact/Contact';
 import { Footer } from './components/Footer/Footer';
 import { AdminDashboard } from './components/Admin/AdminDashboard';
+import { Home } from './pages/Home';
+import { ServicesPage } from './pages/ServicesPage';
+import { WorkPage } from './pages/WorkPage';
+import { AboutPage } from './pages/AboutPage';
+import { ContactPage } from './pages/ContactPage';
+import { CareersPage } from './pages/CareersPage';
+import { NotFound } from './pages/NotFound';
 
 export default function App() {
   return (
-    <div className="app-root">
-      <ParticleBackground />
-      <Navbar />
-      <main>
-        <Hero />
-        <Services />
-        <Portfolio />
-        <Process />
-        <Technology />
-        <PromiseSection />
-        <Testimonial />
-        <Results />
-        <FAQ />
-        <Contact />
-      </main>
-      <Footer />
-      <AdminDashboard />
-    </div>
+    <BrowserRouter>
+      <div className="app-root">
+        <Navbar />
+        <main>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/services" element={<ServicesPage />} />
+            <Route path="/work" element={<WorkPage />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/contact" element={<ContactPage />} />
+            <Route path="/careers" element={<CareersPage />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </main>
+        <Footer />
+        <AdminDashboard />
+      </div>
+    </BrowserRouter>
   );
 }

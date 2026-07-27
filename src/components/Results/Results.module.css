@@ -27,9 +27,9 @@
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: var(--accent-cyan);
+  background: #E0F2FE;
+  border: 1px solid #BAE6FD;
+  color: #0284C7;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -40,6 +40,6 @@
 .industryName {
   font-size: 1rem;
   font-weight: 700;
-  color: #FFFFFF;
+  color: #0F172A;
   line-height: 1.3;
 }

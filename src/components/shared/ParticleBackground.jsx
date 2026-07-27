@@ -772,32 +772,5 @@ function SwarmPoints() {
 }
 
 export function ParticleBackground() {
-  return (
-    <div
-      style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        width: '100vw',
-        height: '100vh',
-        pointerEvents: 'none',
-        zIndex: 0,
-        opacity: 0.7,
-      }}
-    >
-      <Canvas
-        camera={{ position: [0, 0, 95], fov: 60 }}
-        gl={{ antialias: true, alpha: true }}
-        onCreated={({ gl }) => {
-          gl.setClearColor(0x000000, 0);
-        }}
-      >
-        <ambientLight intensity={0.6} />
-        <SwarmPoints />
-        <Effects disableGamma>
-          <unrealBloomPass threshold={0.08} strength={0.65} radius={0.55} />
-        </Effects>
-      </Canvas>
-    </div>
-  );
+  return null;
 }

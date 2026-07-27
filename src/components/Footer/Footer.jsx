@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { useData } from '../../context/DataContext';
 import styles from './Footer.module.css';
 
@@ -9,9 +10,9 @@ export function Footer() {
     <footer className={styles.footer}>
       <div className={styles.container}>
         <div className={styles.brandCol}>
-          <a href="#home" className={styles.logoLink}>
+          <Link to="/" className={styles.logoLink}>
             <img src="/DeCode_Logo.png" alt="DeCode Logo" className={styles.logoImg} />
-          </a>
+          </Link>
           <p className={styles.tagline}>
             {siteContent?.heroEyebrow || 'WHERE VISION BECOMES REALITY'}
           </p>
@@ -23,23 +24,23 @@ export function Footer() {
         <div className={styles.linksCol}>
           <h4 className={styles.colTitle}>Navigation</h4>
           <ul className={styles.linkList}>
-            <li><a href="#home">Home</a></li>
-            <li><a href="#services">Services</a></li>
-            <li><a href="#work">Work</a></li>
-            <li><a href="#process">Process</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li><Link to="/">Home</Link></li>
+            <li><Link to="/services">Services</Link></li>
+            <li><Link to="/work">Work</Link></li>
+            <li><Link to="/about">About Us</Link></li>
+            <li><Link to="/careers">Careers & Jobs</Link></li>
+            <li><Link to="/contact">Contact</Link></li>
           </ul>
         </div>
 
         <div className={styles.linksCol}>
           <h4 className={styles.colTitle}>Capabilities</h4>
           <ul className={styles.linkList}>
-            <li><a href="#services">Web App Development</a></li>
-            <li><a href="#services">Full-Stack React & Node</a></li>
-            <li><a href="#services">SaaS Platform Design</a></li>
-            <li><a href="#services">Website Redesign</a></li>
-            <li><a href="#services">Speed & SEO Audit</a></li>
+            <li><Link to="/services">Web App Development</Link></li>
+            <li><Link to="/services">Full-Stack React & Node</Link></li>
+            <li><Link to="/services">SaaS Platform Design</Link></li>
+            <li><Link to="/services">Website Redesign</Link></li>
+            <li><Link to="/services">Speed & SEO Audit</Link></li>
           </ul>
         </div>
 
@@ -47,10 +48,11 @@ export function Footer() {
           <h4 className={styles.colTitle}>Get in Touch</h4>
           <p className={styles.contactText}>{siteContent?.contactLocation || 'Tamil Nadu, India'}</p>
           <p className={styles.contactText}>{siteContent?.contactEmail || 'hello@decode.com'}</p>
-          <a href="#contact" className="btn-primary" style={{ marginTop: '12px' }}>
+          <Link to="/contact" className="btn-primary" style={{ marginTop: '12px' }}>
             Start a Project
-          </a>
+          </Link>
           <button
+            type="button"
             onClick={() => setIsAdminOpen(true)}
             className="btn-secondary"
             style={{ marginTop: '10px', fontSize: '0.8rem', padding: '8px 16px' }}

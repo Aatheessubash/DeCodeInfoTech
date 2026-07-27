@@ -248,6 +248,122 @@ export const sendReplyEmail = async ({
   return transporter.sendMail(replyMailOptions);
 };
 
+// ─── Career Application Email ─────────────────────────────────────────
+
+/**
+ * Sends a notification email to the admin and an automated confirmation
+ * to candidate applying for a job role.
+ */
+export const sendCareerEmail = async ({
+  name,
+  email,
+  phone = '',
+  portfolio = '',
+  jobTitle = 'General Application',
+  coverLetter = '',
+}) => {
+  if (!name || !String(name).trim()) {
+    throw new Error('Name is required.');
+  }
+  if (!isValidEmail(email)) {
+    throw new Error(`Invalid candidate email address: "${email}"`);
+  }
+
+  const safeName = escapeHtml(String(name).trim());
+  const safeEmail = escapeHtml(String(email).trim());
+  const safePhone = escapeHtml(String(phone).trim() || 'Not Provided');
+  const safePortfolio = escapeHtml(String(portfolio).trim() || 'Not Provided');
+  const safeJobTitle = escapeHtml(String(jobTitle).trim());
+  const safeCoverLetter = escapeHtml(String(coverLetter).trim() || 'No cover letter provided.');
+
+  const transporter = createTransporter();
+  const mailFrom = getMailFrom();
+  const adminRecipient = process.env.ADMIN_EMAIL || process.env.SMTP_USER;
+
+  // 1) Admin Notification Email
+  const adminMailOptions = {
+    from: mailFrom,
+    to: adminRecipient,
+    replyTo: safeEmail,
+    subject: `🚀 New Job Application: ${safeJobTitle} - ${safeName}`,
+    text: [
+      `New Job Application Received on DeCode Studio`,
+      `------------------------------------------`,
+      `Position Applied: ${safeJobTitle}`,
+      `Candidate Name  : ${safeName}`,
+      `Email           : ${safeEmail}`,
+      `Phone           : ${safePhone}`,
+      `Portfolio/GitHub: ${safePortfolio}`,
+      ``,
+      `Cover Letter / Pitch:`,
+      `${safeCoverLetter}`,
+    ].join('\n'),
+    html: `
+<div style="font-family:'Segoe UI',Arial,sans-serif;background:#F8FAFC;color:#0F172A;padding:30px;border-radius:16px;max-width:640px;margin:0 auto;border:1px solid #E2E8F0;">
+  <div style="background:linear-gradient(135deg, #0A66C2 0%, #0284C7 100%);padding:20px;border-radius:12px;text-align:center;margin-bottom:24px;">
+    <h2 style="color:#FFFFFF;margin:0;font-size:24px;font-weight:800;">DeCode Studio Careers</h2>
+    <p style="color:#E0F2FE;font-size:15px;margin-top:6px;font-weight:600;">🚀 New Candidate Application Received</p>
+  </div>
+  <table style="width:100%;border-collapse:collapse;margin-bottom:20px;">
+    <tr><td style="padding:10px;border-bottom:1px solid #E2E8F0;font-weight:700;color:#0284C7;">Position:</td><td style="padding:10px;border-bottom:1px solid #E2E8F0;font-weight:800;color:#0F172A;">${safeJobTitle}</td></tr>
+    <tr><td style="padding:10px;border-bottom:1px solid #E2E8F0;font-weight:700;color:#475569;">Candidate Name:</td><td style="padding:10px;border-bottom:1px solid #E2E8F0;">${safeName}</td></tr>
+    <tr><td style="padding:10px;border-bottom:1px solid #E2E8F0;font-weight:700;color:#475569;">Email:</td><td style="padding:10px;border-bottom:1px solid #E2E8F0;"><a href="mailto:${safeEmail}" style="color:#0A66C2;">${safeEmail}</a></td></tr>
+    <tr><td style="padding:10px;border-bottom:1px solid #E2E8F0;font-weight:700;color:#475569;">Phone:</td><td style="padding:10px;border-bottom:1px solid #E2E8F0;">${safePhone}</td></tr>
+    <tr><td style="padding:10px;border-bottom:1px solid #E2E8F0;font-weight:700;color:#475569;">Portfolio / GitHub:</td><td style="padding:10px;border-bottom:1px solid #E2E8F0;"><a href="${safePortfolio}" target="_blank" style="color:#0A66C2;">${safePortfolio}</a></td></tr>
+  </table>
+  <div style="background:#FFFFFF;border:1px solid #CBD5E1;border-radius:12px;padding:20px;margin-bottom:20px;">
+    <h4 style="margin:0 0 10px 0;color:#0284C7;font-size:13px;text-transform:uppercase;letter-spacing:0.08em;">Cover Letter / Candidate Pitch:</h4>
+    <p style="margin:0;color:#334155;line-height:1.6;font-size:14px;white-space:pre-wrap;">${safeCoverLetter}</p>
+  </div>
+</div>`,
+  };
+
+  const adminInfo = await transporter.sendMail(adminMailOptions);
+
+  // 2) Candidate Confirmation Email
+  const candidateMailOptions = {
+    from: mailFrom,
+    to: safeEmail,
+    subject: `Application Received: ${safeJobTitle} at DeCode Studio`,
+    text: [
+      `Hi ${safeName},`,
+      ``,
+      `Thank you for applying for the ${safeJobTitle} position at DeCode Studio!`,
+      `We have received your application and portfolio details. Our engineering leads will review your application and get back to you shortly.`,
+      ``,
+      `Best regards,`,
+      `DeCode Studio Hiring Team`,
+    ].join('\n'),
+    html: `
+<div style="font-family:'Segoe UI',Arial,sans-serif;background:#FFFFFF;color:#0F172A;padding:32px;border-radius:16px;max-width:600px;margin:0 auto;border:1px solid #E2E8F0;box-shadow:0 8px 30px rgba(15,23,42,0.06);">
+  <div style="text-align:center;margin-bottom:24px;">
+    <h2 style="color:#0A66C2;margin:0;font-size:26px;font-weight:800;">DeCode Studio</h2>
+    <p style="color:#0284C7;font-size:16px;font-weight:700;margin-top:6px;">Application Confirmation</p>
+  </div>
+  <p style="font-size:16px;line-height:1.6;color:#0F172A;">Hi <strong>${safeName}</strong>,</p>
+  <p style="font-size:15px;line-height:1.65;color:#475569;">
+    Thank you for applying for the <strong>${safeJobTitle}</strong> position at <strong>DeCode Studio</strong>. We have received your application and details.
+  </p>
+  <div style="background:#F0F9FF;border:1px solid #BAE6FD;padding:16px;border-radius:12px;margin:20px 0;text-align:center;">
+    <p style="margin:0;color:#0284C7;font-size:14px;font-weight:700;">⚡ Status: Application Under Review (Response within 48 hours)</p>
+  </div>
+  <p style="color:#64748B;font-size:14px;margin-top:28px;">
+    Best regards,<br/><strong style="color:#0F172A;font-size:15px;">DeCode Studio Hiring Team</strong>
+  </p>
+</div>`,
+  };
+
+  let candidateInfo = null;
+  let candidateError = null;
+  try {
+    candidateInfo = await transporter.sendMail(candidateMailOptions);
+  } catch (err) {
+    candidateError = err.message;
+  }
+
+  return { adminInfo, candidateInfo, candidateError };
+};
+
 // ─── CLI test runner ──────────────────────────────────────────────────────────
 // Runs only when this file is called directly: `node sendMail.js`
 const isDirectRun =

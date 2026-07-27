@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { Link, NavLink } from 'react-router-dom';
 import styles from './Navbar.module.css';
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [companyDropdownOpen, setCompanyDropdownOpen] = useState(false);
+  const [capabilitiesDropdownOpen, setCapabilitiesDropdownOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -13,41 +16,89 @@ export function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navLinks = [
-    { label: 'Home', href: '#home' },
-    { label: 'Services', href: '#services' },
-    { label: 'Work', href: '#work' },
-    { label: 'Process', href: '#process' },
-    { label: 'About', href: '#about' },
-    { label: 'Contact', href: '#contact' },
-  ];
-
   return (
     <header className={`${styles.header} ${isScrolled ? styles.scrolled : ''}`}>
       <div className={styles.container}>
         {/* Brand Logo */}
-        <a href="#home" className={styles.logoLink}>
+        <Link to="/" className={styles.logoLink}>
           <img
             src="/DeCode_Logo.png"
             alt="DeCode Logo"
             className={styles.logoImg}
           />
-        </a>
+        </Link>
 
-        {/* Visible Desktop Navigation Buttons */}
+        {/* Kovai.co Style Desktop Navigation */}
         <nav className={styles.desktopNav}>
-          {navLinks.map((link) => (
-            <a key={link.label} href={link.href} className={styles.navBtn}>
-              {link.label}
-            </a>
-          ))}
+          <NavLink to="/" className={styles.navBtn}>
+            Home
+          </NavLink>
+
+          {/* Company Dropdown ▾ */}
+          <div
+            className={styles.dropdownGroup}
+            onMouseEnter={() => setCompanyDropdownOpen(true)}
+            onMouseLeave={() => setCompanyDropdownOpen(false)}
+          >
+            <button className={styles.navBtn}>
+              Company {companyDropdownOpen ? '▴' : '▾'}
+            </button>
+            <div className={`${styles.dropdownMenu} ${companyDropdownOpen ? styles.open : ''}`}>
+              <Link to="/about" className={styles.dropdownItem} onClick={() => setCompanyDropdownOpen(false)}>
+               About Us
+              </Link>
+              <Link to="/careers" className={styles.dropdownItem} onClick={() => setCompanyDropdownOpen(false)}>
+                Careers
+              </Link>
+              <Link to="/about" className={styles.dropdownItem} onClick={() => setCompanyDropdownOpen(false)}>
+               Our Quality Promise
+              </Link>
+              <Link to="/about" className={styles.dropdownItem} onClick={() => setCompanyDropdownOpen(false)}>
+               Client Reviews
+              </Link>
+            </div>
+          </div>
+
+          {/* Capabilities Dropdown ▾ */}
+          <div
+            className={styles.dropdownGroup}
+            onMouseEnter={() => setCapabilitiesDropdownOpen(true)}
+            onMouseLeave={() => setCapabilitiesDropdownOpen(false)}
+          >
+            <button className={styles.navBtn}>
+              Capabilities {capabilitiesDropdownOpen ? '▴' : '▾'}
+            </button>
+            <div className={`${styles.dropdownMenu} ${capabilitiesDropdownOpen ? styles.open : ''}`}>
+              <Link to="/services" className={styles.dropdownItem} onClick={() => setCapabilitiesDropdownOpen(false)}>
+               Services
+              </Link>
+              <Link to="/services" className={styles.dropdownItem} onClick={() => setCapabilitiesDropdownOpen(false)}>
+              Tech Stack & DevOps
+              </Link>
+              <Link to="/services" className={styles.dropdownItem} onClick={() => setCapabilitiesDropdownOpen(false)}>
+               Development Process
+              </Link>
+            </div>
+          </div>
+
+          <NavLink to="/work" className={styles.navBtn}>
+            Work
+          </NavLink>
+
+          <NavLink to="/careers" className={styles.navBtn}>
+            Careers
+          </NavLink>
+
+          <NavLink to="/contact" className={styles.navBtn}>
+            Contact
+          </NavLink>
         </nav>
 
         {/* Action Buttons */}
         <div className={styles.actions}>
-          <a href="#contact" className="btn-primary">
+          <Link to="/contact" className={styles.actionBtn}>
             Start a Project
-          </a>
+          </Link>
 
           {/* Mobile Hamburger Toggle */}
           <button
@@ -66,24 +117,32 @@ export function Navbar() {
       {mobileMenuOpen && (
         <div className={styles.mobileDrawer}>
           <nav className={styles.mobileNav}>
-            {navLinks.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                className={styles.mobileLink}
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                {link.label}
-              </a>
-            ))}
-            <a
-              href="#contact"
-              className="btn-primary"
+            <Link to="/" className={styles.mobileLink} onClick={() => setMobileMenuOpen(false)}>
+              Home
+            </Link>
+            <Link to="/services" className={styles.mobileLink} onClick={() => setMobileMenuOpen(false)}>
+              Capabilities & Services
+            </Link>
+            <Link to="/work" className={styles.mobileLink} onClick={() => setMobileMenuOpen(false)}>
+              Selected Work
+            </Link>
+            <Link to="/about" className={styles.mobileLink} onClick={() => setMobileMenuOpen(false)}>
+              Company & About Us
+            </Link>
+            <Link to="/careers" className={styles.mobileLink} onClick={() => setMobileMenuOpen(false)}>
+              Careers & Jobs
+            </Link>
+            <Link to="/contact" className={styles.mobileLink} onClick={() => setMobileMenuOpen(false)}>
+              Contact Us
+            </Link>
+            <Link
+              to="/contact"
+              className={styles.actionBtn}
               onClick={() => setMobileMenuOpen(false)}
-              style={{ marginTop: '1rem', width: '100%', textCenter: 'center' }}
+              style={{ marginTop: '1rem', width: '100%', textAlign: 'center' }}
             >
               Start a Project
-            </a>
+            </Link>
           </nav>
         </div>
       )}
