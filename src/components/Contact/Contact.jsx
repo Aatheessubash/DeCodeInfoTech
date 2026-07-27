@@ -32,7 +32,11 @@ export function Contact() {
     setSubmitting(true);
     setSubmitError('');
     try {
-      const response = await fetch('http://localhost:5000/api/contact', {
+      const endpoint = import.meta.env.VITE_API_URL
+        ? `${import.meta.env.VITE_API_URL.replace(/\/$/, '')}/api/contact`
+        : '/api/contact';
+
+      const response = await fetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),

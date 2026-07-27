@@ -15,8 +15,9 @@ const PORT = process.env.PORT || 5000;
 
 // ─── CORS ─────────────────────────────────────────────────────────────────────
 app.use(cors({
-  origin: ['http://localhost:5173', 'http://localhost:3000'],
-  methods: ['GET', 'POST'],
+  origin: true, // Allow all origins dynamically (includes decodeinfotech.in & localhost)
+  methods: ['GET', 'POST', 'OPTIONS'],
+  credentials: true,
 }));
 app.use(express.json({ limit: '20kb' })); // guard against large payloads
 
