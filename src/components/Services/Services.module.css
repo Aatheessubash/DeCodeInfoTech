@@ -11,13 +11,34 @@
 .scrollTrack {
   display: flex;
   gap: 28px;
+  width: max-width; /* was max-content, but we want to adjust it for responsive */
   width: max-content;
   animation: scrollLeft 35s linear infinite;
   will-change: transform;
 }
 
+@media (max-width: 768px) {
+  .carouselContainer {
+    mask-image: none;
+    -webkit-mask-image: none;
+    padding: 0;
+  }
+  
+  .scrollTrack {
+    animation: none;
+    flex-direction: column;
+    width: 100%;
+  }
+}
+
 .carouselContainer:hover .scrollTrack {
   animation-play-state: paused;
+}
+
+@media (max-width: 768px) {
+  .carouselContainer:hover .scrollTrack {
+    animation-play-state: running; /* no animation to pause */
+  }
 }
 
 @keyframes scrollLeft {
@@ -39,11 +60,13 @@
   transition: transform 300ms ease, box-shadow 300ms ease, border-color 300ms ease;
 }
 
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   .card {
-    width: 310px;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    height: auto;
     padding: 24px;
-    height: 460px;
   }
 }
 
@@ -93,10 +116,11 @@
 }
 
 .title {
-  font-size: 1.3rem;
+  font-size: clamp(1.15rem, 4vw, 1.3rem);
   font-weight: 800;
   margin-bottom: 12px;
   color: #0F172A;
+  word-break: break-word;
 }
 
 .desc {

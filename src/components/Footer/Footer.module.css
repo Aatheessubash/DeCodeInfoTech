@@ -15,6 +15,12 @@
   gap: 48px;
 }
 
+@media (max-width: 414px) {
+  .container {
+    padding: 0 16px 40px 16px;
+  }
+}
+
 .brandCol {
   display: flex;
   flex-direction: column;
@@ -54,6 +60,12 @@
   max-width: 340px;
 }
 
+@media (max-width: 600px) {
+  .desc {
+    max-width: 100%;
+  }
+}
+
 .colTitle {
   font-size: 1rem;
   font-weight: 800;
@@ -84,6 +96,7 @@
   font-size: 0.925rem;
   color: #475569;
   margin-bottom: 8px;
+  word-break: break-word;
 }
 
 .bottomBar {

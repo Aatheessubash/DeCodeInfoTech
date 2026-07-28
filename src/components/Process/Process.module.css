@@ -24,6 +24,12 @@
   height: 100%;
 }
 
+@media (max-width: 414px) {
+  .stepCard {
+    padding: 24px 16px;
+  }
+}
+
 .stepHeader {
   display: flex;
   align-items: center;
@@ -53,6 +59,7 @@
   font-size: 1.35rem;
   margin-bottom: 12px;
   color: #FFFFFF;
+  word-break: break-word;
 }
 
 .stepDesc {

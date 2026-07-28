@@ -16,6 +16,17 @@ export function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [mobileMenuOpen]);
+
   return (
     <header className={`${styles.header} ${isScrolled ? styles.scrolled : ''}`}>
       <div className={styles.container}>
@@ -127,10 +138,10 @@ export function Navbar() {
               Selected Work
             </Link>
             <Link to="/about" className={styles.mobileLink} onClick={() => setMobileMenuOpen(false)}>
-              Company & About Us
+              Company
             </Link>
             <Link to="/careers" className={styles.mobileLink} onClick={() => setMobileMenuOpen(false)}>
-              Careers & Jobs
+              Careers
             </Link>
             <Link to="/contact" className={styles.mobileLink} onClick={() => setMobileMenuOpen(false)}>
               Contact Us

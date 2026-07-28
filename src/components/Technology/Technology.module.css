@@ -16,6 +16,12 @@
   flex-direction: column;
 }
 
+@media (max-width: 414px) {
+  .techCategoryCard {
+    padding: 24px 16px;
+  }
+}
+
 .categoryTitle {
   font-size: 1.25rem;
   font-weight: 800;
@@ -46,6 +52,8 @@
   font-weight: 600;
   color: #0F172A;
   transition: all 250ms ease;
+  word-break: break-word;
+  white-space: normal;
 }
 
 .techChip:hover {
