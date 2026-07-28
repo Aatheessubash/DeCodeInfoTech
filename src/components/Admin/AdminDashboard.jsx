@@ -59,7 +59,7 @@ export function AdminDashboard() {
     alert('Site content updated successfully!');
   };
 
-  const modalContent = createPortal(
+  const modalContent = (
     <div className={styles.backdrop} onClick={() => setIsAdminOpen(false)}>
       <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
         {/* Modal Header */}

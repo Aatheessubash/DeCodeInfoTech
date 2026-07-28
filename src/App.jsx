@@ -10,9 +10,13 @@ import { AboutPage } from './pages/AboutPage';
 import { ContactPage } from './pages/ContactPage';
 import { CareersPage } from './pages/CareersPage';
 import { NotFound } from './pages/NotFound';
+//import App.css
+
+
 
 export default function App() {
   return (
+    <div className="box">
     <BrowserRouter>
       <div className="app-root">
         <Navbar />
@@ -31,5 +35,6 @@ export default function App() {
         <AdminDashboard />
       </div>
     </BrowserRouter>
+    </div>
   );
 }

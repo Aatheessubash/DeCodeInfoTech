@@ -1,3 +1,5 @@
+@import "tailwindcss";
+
 /* ==========================================================================
    DECODE DESIGN SYSTEM - GLOBAL STYLES & DUAL GOLD/SAPPHIRE PALETTE
    ========================================================================== */
@@ -7,7 +9,7 @@
   --bg-card: #FFFFFF;
   --bg-card-hover: #F8FAFC;
   --border-card: #E2E8F0;
-  --border-card-hover: #0A66C2;
+  --border-card-hover: #a247ec;
   
   --text-primary: #0F172A;
   --text-secondary: #475569;
