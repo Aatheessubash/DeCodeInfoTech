@@ -175,8 +175,9 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: 8px;
   padding: 12px 26px;
-  border-radius: 9999px;
+  border-radius: var(--radius-pill);
   background: linear-gradient(135deg, #0A66C2 0%, #0284C7 100%);
   color: #FFFFFF;
   font-weight: 800;

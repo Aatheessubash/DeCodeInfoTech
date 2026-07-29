@@ -2,6 +2,16 @@ import React from 'react';
 import { useIntersectionObserver } from '../../hooks/useIntersectionObserver';
 import { useData } from '../../context/DataContext';
 import styles from './Services.module.css';
+import { MonitorSmartphone, Code2, Cpu, Rocket, RotateCcw, Wrench } from 'lucide-react';
+
+const SERVICE_ICONS = {
+  '01': <MonitorSmartphone className="w-6 h-6" />,
+  '02': <Code2 className="w-6 h-6" />,
+  '03': <Cpu className="w-6 h-6" />,
+  '04': <Rocket className="w-6 h-6" />,
+  '05': <RotateCcw className="w-6 h-6" />,
+  '06': <Wrench className="w-6 h-6" />
+};
 
 export function Services() {
   const [sectionRef, isVisible] = useIntersectionObserver({ threshold: 0.1 });
@@ -31,7 +41,7 @@ export function Services() {
               aria-hidden={index >= services.length}
             >
               <div className={styles.cardHeader}>
-                <span className={styles.icon}>{service.icon}</span>
+                <span className={styles.icon}>{SERVICE_ICONS[service.id] || <Cpu className="w-6 h-6" />}</span>
                 <span className={styles.number}>{service.id}</span>
               </div>
               <h3 className={styles.title}>{service.title}</h3>

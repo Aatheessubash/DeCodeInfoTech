@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import styles from './Navbar.module.css';
+import { ArrowRight } from 'lucide-react';
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -108,7 +109,7 @@ export function Navbar() {
         {/* Action Buttons */}
         <div className={styles.actions}>
           <Link to="/contact" className={styles.actionBtn}>
-            Start a Project
+            Start a Project <ArrowRight className="w-4 h-4" />
           </Link>
 
           {/* Mobile Hamburger Toggle */}
@@ -150,9 +151,9 @@ export function Navbar() {
               to="/contact"
               className={styles.actionBtn}
               onClick={() => setMobileMenuOpen(false)}
-              style={{ marginTop: '1rem', width: '100%', textAlign: 'center' }}
+              style={{ marginTop: '1rem', width: '100%', textAlign: 'center', justifyContent: 'center' }}
             >
-              Start a Project
+              Start a Project <ArrowRight className="w-4 h-4" />
             </Link>
           </nav>
         </div>

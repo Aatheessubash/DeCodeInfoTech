@@ -11,7 +11,8 @@
     "reply-mail": "node replyMail.js",
     "build": "vite build",
     "lint": "oxlint",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "deploy": "git add . && git commit -m \"Auto deploy update\" && git push"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.7",

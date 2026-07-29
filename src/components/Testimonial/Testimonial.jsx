@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './Testimonial.module.css';
 import { useData } from '../../context/DataContext';
 import { useIntersectionObserver } from '../../hooks/useIntersectionObserver';
+import { Star } from 'lucide-react';
 
 export function Testimonial() {
   const [sectionRef, isVisible] = useIntersectionObserver({ threshold: 0.2 });
@@ -27,11 +28,15 @@ export function Testimonial() {
             className={`card-panel ${styles.card} reveal delay-${(idx % 3) + 1} ${isVisible ? 'visible' : ''}`}
           >
             <div className={styles.rating}>
-              {'★'.repeat(t.rating || 5)}
+              {[...Array(t.rating || 5)].map((_, i) => (
+                <Star key={i} className="w-4 h-4 fill-amber-400 text-amber-400" />
+              ))}
             </div>
             <p className={styles.quoteText}>"{t.text}"</p>
             <div className={styles.authorRow}>
-              <div className={styles.avatar}>{t.avatar || '✦'}</div>
+              <div className={styles.avatar}>
+                <img src={`https://i.pravatar.cc/150?u=${t.name.replace(/\s+/g, '')}`} alt={t.name} style={{ width: '100%', height: '100%', borderRadius: '50%', objectFit: 'cover' }} />
+              </div>
               <div className={styles.authorMeta}>
                 <h4 className={styles.authorName}>{t.name}</h4>
                 <p className={styles.authorRole}>{t.role}, {t.company}</p>

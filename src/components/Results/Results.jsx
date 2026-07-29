@@ -3,20 +3,23 @@ import styles from './Results.module.css';
 import { SectionBadge } from '../shared/SectionBadge';
 import { BlurFadeText } from '../shared/BlurFadeText';
 import { useIntersectionObserver } from '../../hooks/useIntersectionObserver';
+import { Rocket, GraduationCap, Building2, Tractor, Utensils, Briefcase, Paintbrush, ShoppingCart } from 'lucide-react';
 
 export function Results() {
   const [sectionRef, isVisible] = useIntersectionObserver({ threshold: 0.15 });
 
   const industries = [
-    { name: 'Startups & SaaS', icon: '⚡' },
-    { name: 'Education & Training', icon: '✦' },
-    { name: 'Construction & Real Estate', icon: '⚙' },
-    { name: 'Agriculture & Operations', icon: '⬡' },
-    { name: 'Restaurants & Hospitality', icon: '◈' },
-    { name: 'Local Service Businesses', icon: '❖' },
-    { name: 'Agencies & Creators', icon: '✦' },
-    { name: 'E-commerce Brands', icon: '⚡' },
+    { name: 'Startups & SaaS', icon: <Rocket className="w-5 h-5" /> },
+    { name: 'Education & Training', icon: <GraduationCap className="w-5 h-5" /> },
+    { name: 'Construction & Real Estate', icon: <Building2 className="w-5 h-5" /> },
+    { name: 'Agriculture & Operations', icon: <Tractor className="w-5 h-5" /> },
+    { name: 'Restaurants & Hospitality', icon: <Utensils className="w-5 h-5" /> },
+    { name: 'Local Service Businesses', icon: <Briefcase className="w-5 h-5" /> },
+    { name: 'Agencies & Creators', icon: <Paintbrush className="w-5 h-5" /> },
+    { name: 'E-commerce Brands', icon: <ShoppingCart className="w-5 h-5" /> },
   ];
+
+  const infiniteIndustries = [...industries, ...industries, ...industries];
 
   return (
     <section className="section-padding glow-bg" ref={sectionRef}>
@@ -31,16 +34,19 @@ export function Results() {
         </p>
       </div>
 
-      <div className={styles.industriesGrid}>
-        {industries.map((ind, idx) => (
-          <div
-            key={ind.name}
-            className={`card-panel ${styles.industryCard} reveal delay-${(idx % 4) + 1} ${isVisible ? 'visible' : ''}`}
-          >
-            <div className={styles.industryIcon}>{ind.icon}</div>
-            <div className={styles.industryName}>{ind.name}</div>
-          </div>
-        ))}
+      <div className={styles.carouselContainer}>
+        <div className={styles.scrollTrack}>
+          {infiniteIndustries.map((ind, idx) => (
+            <div
+              key={`${ind.name}-${idx}`}
+              className={`card-panel ${styles.industryCard}`}
+              aria-hidden={idx >= industries.length}
+            >
+              <div className={styles.industryIcon}>{ind.icon}</div>
+              <div className={styles.industryName}>{ind.name}</div>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );
