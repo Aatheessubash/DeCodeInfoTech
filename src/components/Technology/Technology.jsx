@@ -36,7 +36,7 @@ export function Technology() {
         <SectionBadge>Technology</SectionBadge>
         <h2>
           Modern technology. <br />
-          <span style={{ color: '#64748B' }}>Practical execution.</span>
+          <span style={{ color: 'var(--muted)' }}>Practical execution.</span>
         </h2>
         <p>
           We choose tools based on what your product needs: speed, reliability, maintainability, and room <BlurFadeText>to grow.</BlurFadeText>

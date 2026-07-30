@@ -25,7 +25,7 @@
 .categoryTitle {
   font-size: 1.25rem;
   font-weight: 800;
-  color: #0F172A;
+  color: var(--text);
   margin-bottom: 20px;
   display: flex;
   align-items: center;
@@ -46,11 +46,11 @@
 .techChip {
   padding: 8px 16px;
   border-radius: var(--radius-pill);
-  background: #F1F5F9;
-  border: 1px solid #CBD5E1;
+  background: var(--bg);
+  border: 1px solid var(--lav);
   font-size: 0.875rem;
   font-weight: 600;
-  color: #0F172A;
+  color: var(--text);
   transition: all 250ms ease;
   word-break: break-word;
   white-space: normal;
