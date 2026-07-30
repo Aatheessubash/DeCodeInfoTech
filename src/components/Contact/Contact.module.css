@@ -75,9 +75,9 @@
 .input:focus,
 .select:focus,
 .textarea:focus {
-  border-color: #0A66C2;
+  border-color: var(--accent-gold);
   background: #FFFFFF;
-  box-shadow: 0 0 12px rgba(10, 102, 194, 0.18);
+  box-shadow: 0 0 12px var(--accent-gold-glow);
 }
 
 .select {
@@ -118,7 +118,7 @@
   padding: 48px 32px;
   border-radius: var(--radius-card);
   background: #F0F9FF;
-  border: 1px solid #0A66C2;
+  border: 1px solid var(--accent-gold);
   text-align: center;
   color: #0F172A;
 }
@@ -135,7 +135,7 @@
   align-items: center;
   justify-content: center;
   margin: 0 auto 20px auto;
-  box-shadow: 0 4px 16px rgba(10, 102, 194, 0.25);
+  box-shadow: 0 4px 16px var(--accent-gold-glow);
 }
 
 .successBox h3 {

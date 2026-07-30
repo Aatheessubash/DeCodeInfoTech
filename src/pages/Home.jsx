@@ -3,7 +3,6 @@ import { Hero } from '../components/Hero/Hero';
 import { Services } from '../components/Services/Services';
 import { Portfolio } from '../components/Portfolio/Portfolio';
 import { Testimonial } from '../components/Testimonial/Testimonial';
-import { Results } from '../components/Results/Results';
 import { Contact } from '../components/Contact/Contact';
 
 export function Home() {
@@ -16,7 +15,6 @@ export function Home() {
       <Hero />
       <Services />
       <Portfolio />
-      <Results />
       <Testimonial />
       <Contact />
     </>

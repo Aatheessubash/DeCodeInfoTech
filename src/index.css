@@ -5,36 +5,29 @@
    ========================================================================== */
 
 :root {
-  --bg-dark: #FFFFFF;
-  --bg-card: #FFFFFF;
-  --bg-card-hover: #F8FAFC;
-  --border-card: #E2E8F0;
-  --border-card-hover: #a247ec;
-  
-  --text-primary: #0F172A;
-  --text-secondary: #475569;
-  --text-muted: #64748B;
-  
-  /* Kovai.co & LinkedIn Corporate Light Palette */
-  --accent-gold: #0A66C2;
-  --accent-gold-bright: #0284C7;
-  --accent-gold-glow: rgba(10, 102, 194, 0.15);
-  
-  --accent-blue: #0A66C2;
-  --accent-cyan: #0284C7;
-  --accent-blue-glow: rgba(2, 132, 199, 0.15);
-  
-  --gradient-gold-blue: linear-gradient(135deg, #0A66C2 0%, #0284C7 100%);
-  --gradient-blue-cyan: linear-gradient(135deg, #0284C7 0%, #38BDF8 100%);
-  
+  --primary: #120331;
+  --secondary: #2A0A61;
+  --bg: #F9F7FF;
+  --surface: #fff;
+  --text: #1F1636;
+  --muted: #6B6B83;
+  --gold: #D4AF37;
+  --lav: #DCCEF9;
+
   --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --radius-card: 12px;
   --radius-pill: 10px;
   
-  --shadow-card: 0 4px 20px -2px rgba(15, 23, 42, 0.05), 0 2px 6px -1px rgba(15, 23, 42, 0.03);
-  --shadow-lift: 0 20px 40px -12px rgba(10, 102, 194, 0.15), 0 8px 16px -4px rgba(15, 23, 42, 0.04);
-
+  --shadow-card: 0 4px 20px -2px rgba(18, 3, 49, 0.05), 0 2px 6px -1px rgba(18, 3, 49, 0.03);
+  --shadow-lift: 0 20px 40px -12px rgba(18, 3, 49, 0.15), 0 8px 16px -4px rgba(18, 3, 49, 0.04);
   --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+body.dark {
+  --bg: #0d071c;
+  --surface: #1a1132;
+  --text: #f4f2ff;
+  --muted: #c3bdd8;
 }
 
 /* Reset & Base */
@@ -51,29 +44,39 @@ img, svg, video, canvas {
 
 html {
   scroll-behavior: smooth;
-  color-scheme: light;
+  color-scheme: light dark;
   font-family: var(--font-family);
-  background-color: #FFFFFF;
-  color: var(--text-primary);
+  background-color: var(--bg);
+  color: var(--text);
   overflow-x: hidden;
 }
 
 body {
   overflow-x: hidden;
   position: relative;
-  background-color: #FFFFFF;
+  background-color: var(--bg);
+  color: var(--text);
   background-image: 
-    radial-gradient(ellipse at 50% 0%, rgba(10, 102, 194, 0.06) 0%, transparent 60%),
-    linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 100%);
+    radial-gradient(circle at top left, rgba(220, 206, 249, 0.55), transparent 30%),
+    radial-gradient(circle at bottom right, rgba(212, 175, 55, 0.08), transparent 25%),
+    linear-gradient(#FCFBFF, #F7F3FF);
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body.dark {
+  background-image: 
+    radial-gradient(circle at top left, rgba(94, 73, 155, 0.35), transparent 30%),
+    radial-gradient(circle at bottom right, rgba(212, 175, 55, 0.08), transparent 25%),
+    linear-gradient(#120331, #090312);
 }
 
 /* Typography */
 h1, h2, h3, h4, h5, h6 {
   font-weight: 800;
   letter-spacing: -0.03em;
-  color: var(--text-primary);
+  color: var(--text);
 }
 
 h1 {
@@ -89,7 +92,7 @@ h2 {
 }
 
 p {
-  color: var(--text-secondary);
+  color: var(--muted);
   font-size: 1.0625rem;
   line-height: 1.65;
 }
@@ -112,9 +115,12 @@ a {
   transform: translateX(-50%);
   width: 850px;
   height: 520px;
-  background: radial-gradient(ellipse at center, rgba(10, 102, 194, 0.08) 0%, rgba(2, 132, 199, 0.03) 45%, transparent 70%);
+  background: radial-gradient(ellipse at center, rgba(220, 206, 249, 0.4) 0%, transparent 70%);
   pointer-events: none;
   z-index: 0;
+}
+body.dark .glow-bg::before {
+  background: radial-gradient(ellipse at center, rgba(94, 73, 155, 0.4) 0%, transparent 70%);
 }
 
 /* Pill Eyebrow Badge */
@@ -124,21 +130,27 @@ a {
   gap: 8px;
   padding: 6px 18px;
   border-radius: var(--radius-pill);
-  background: #E0F2FE;
-  border: 1px solid #BAE6FD;
+  background: rgba(220, 206, 249, 0.3);
+  border: 1px solid var(--lav);
   font-size: 0.75rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.12em;
-  color: #0284C7;
+  color: var(--primary);
   margin-bottom: 1.25rem;
   backdrop-filter: blur(8px);
   transition: border-color 300ms ease, transform 300ms var(--ease-spring), box-shadow 300ms ease;
 }
 
+body.dark .pill-badge {
+  background: rgba(94, 73, 155, 0.3);
+  border-color: rgba(94, 73, 155, 0.6);
+  color: var(--lav);
+}
+
 .pill-badge:hover {
-  border-color: var(--accent-gold);
-  box-shadow: 0 0 16px var(--accent-gold-glow);
+  border-color: var(--gold);
+  box-shadow: 0 0 16px rgba(212, 175, 55, 0.2);
   transform: translateY(-1px);
 }
 
@@ -146,8 +158,8 @@ a {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background-color: var(--accent-gold-bright);
-  box-shadow: 0 0 8px var(--accent-gold-bright);
+  background-color: var(--gold);
+  box-shadow: 0 0 8px var(--gold);
 }
 
 /* Signature Blur-Fade Text Mask Effect */
@@ -160,13 +172,13 @@ a {
   transition: opacity 400ms ease;
 }
 
-/* Clean, Translucent Card Panel Base Styling with Soft Glow */
+/* Clean, Translucent Card Panel Base Styling */
 .card-panel {
-  background-color: var(--bg-card);
+  background-color: rgba(255, 255, 255, 0.82);
   border-radius: var(--radius-card);
-  border: 1px solid var(--border-card);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(220, 206, 249, 0.4);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   box-shadow: var(--shadow-card);
   transition: transform 400ms var(--ease-spring), 
               box-shadow 400ms var(--ease-spring), 
@@ -176,11 +188,19 @@ a {
   transform: translate3d(0, 0, 0);
 }
 
+body.dark .card-panel {
+  background-color: rgba(31, 22, 57, 0.88);
+  border-color: rgba(94, 73, 155, 0.4);
+}
+
 .card-panel:hover {
   transform: translate3d(0, -6px, 0);
   box-shadow: var(--shadow-lift);
-  border-color: var(--border-card-hover);
-  background-color: var(--bg-card-hover);
+  border-color: var(--lav);
+}
+
+body.dark .card-panel:hover {
+  border-color: rgba(94, 73, 155, 0.8);
 }
 
 /* DeCode Unified Primary & Secondary Buttons */
@@ -191,22 +211,28 @@ a {
   gap: 8px;
   padding: 14px 28px;
   border-radius: var(--radius-pill);
-  background: linear-gradient(135deg, #0A66C2 0%, #0284C7 100%);
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
   color: #FFFFFF;
   font-weight: 800;
   font-size: 0.95rem;
-  border: none;
+  border: 1px solid var(--gold);
   cursor: pointer;
   text-decoration: none;
   transition: transform 300ms var(--ease-spring), box-shadow 300ms var(--ease-spring), filter 200ms ease;
-  box-shadow: 0 4px 16px rgba(10, 102, 194, 0.3);
+  box-shadow: 0 4px 16px rgba(18, 3, 49, 0.3);
   will-change: transform;
+}
+
+body.dark .btn-primary {
+  background: var(--gold);
+  color: #120331;
+  border-color: var(--gold);
 }
 
 .btn-primary:hover {
   transform: scale(1.04) translate3d(0, -1px, 0);
-  box-shadow: 0 10px 28px rgba(10, 102, 194, 0.45);
-  filter: brightness(1.06);
+  box-shadow: 0 10px 28px rgba(18, 3, 49, 0.45);
+  filter: brightness(1.1);
 }
 
 .btn-secondary {
@@ -216,25 +242,37 @@ a {
   gap: 8px;
   padding: 14px 28px;
   border-radius: var(--radius-pill);
-  background-color: #FFFFFF;
-  color: #0A66C2;
+  background-color: rgba(255, 255, 255, 0.6);
+  color: var(--primary);
   font-weight: 700;
   font-size: 0.95rem;
-  border: 1.5px solid #0A66C2;
+  border: 1.5px solid var(--primary);
   cursor: pointer;
   text-decoration: none;
   backdrop-filter: blur(10px);
   transition: background-color 300ms ease, color 300ms ease, border-color 300ms ease, transform 300ms var(--ease-spring), box-shadow 300ms ease;
-  box-shadow: 0 2px 8px rgba(10, 102, 194, 0.08);
+  box-shadow: 0 2px 8px rgba(18, 3, 49, 0.08);
   will-change: transform;
 }
 
+body.dark .btn-secondary {
+  background-color: rgba(31, 22, 57, 0.6);
+  color: #ffffff;
+  border-color: var(--lav);
+}
+
 .btn-secondary:hover {
-  background-color: #0A66C2;
+  background-color: var(--primary);
   color: #FFFFFF;
-  border-color: #0A66C2;
+  border-color: var(--primary);
   transform: translate3d(0, -2px, 0);
-  box-shadow: 0 6px 20px rgba(10, 102, 194, 0.25);
+  box-shadow: 0 6px 20px rgba(18, 3, 49, 0.2);
+}
+
+body.dark .btn-secondary:hover {
+  background-color: var(--lav);
+  color: var(--primary);
+  border-color: var(--lav);
 }
 
 /* Premium Scroll Reveal (Blur-Fade-Up) */

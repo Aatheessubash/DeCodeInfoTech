@@ -94,7 +94,7 @@
 }
 
 .trustText strong {
-  color: #0A66C2;
+  color: var(--accent-gold);
 }
 
 /* BIDIRECTIONAL TICKER CONTAINER */
@@ -169,8 +169,8 @@
 
 .tickerCard:hover {
   transform: scale(1.03);
-  border-color: #0A66C2;
-  box-shadow: 0 12px 32px rgba(10, 102, 194, 0.18);
+  border-color: var(--accent-gold);
+  box-shadow: 0 12px 32px var(--accent-gold-glow);
 }
 
 .cardImg {
@@ -265,9 +265,9 @@
 }
 
 .modalClose:hover {
-  background: #0A66C2;
+  background: var(--accent-gold);
   color: #FFFFFF;
-  border-color: #0A66C2;
+  border-color: var(--accent-gold);
   transform: scale(1.1);
 }
 
@@ -294,7 +294,7 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: #0284C7;
+  color: var(--accent-gold-bright);
   margin-bottom: 8px;
 }
 

@@ -48,7 +48,7 @@
   font-size: 0.7rem;
   font-weight: 800;
   letter-spacing: 0.12em;
-  color: #0A66C2;
+  color: var(--accent-gold);
 }
 
 .closeBtn {
@@ -67,9 +67,9 @@
 }
 
 .closeBtn:hover {
-  background: #0A66C2;
+  background: var(--accent-gold);
   color: #FFFFFF;
-  border-color: #0A66C2;
+  border-color: var(--accent-gold);
 }
 
 .body {
@@ -111,10 +111,10 @@
 
 .activeTab,
 .tabBtn:hover {
-  background: #0A66C2;
+  background: var(--accent-gold);
   color: #FFFFFF;
-  border-color: #0A66C2;
-  box-shadow: 0 4px 14px rgba(10, 102, 194, 0.25);
+  border-color: var(--accent-gold);
+  box-shadow: 0 4px 14px var(--accent-gold-glow);
 }
 
 .topActions {

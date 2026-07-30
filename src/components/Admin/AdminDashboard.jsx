@@ -365,7 +365,7 @@ export function AdminDashboard() {
                       >
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '8px' }}>
                           <div>
-                            <span style={{ background: '#E0F2FE', color: '#0284C7', border: '1px solid #BAE6FD', padding: '4px 12px', borderRadius: '9999px', fontSize: '0.75rem', fontWeight: 800 }}>
+                            <span style={{ background: 'rgba(255, 255, 255, 0.6)', color: 'var(--accent-gold-bright)', border: '1px solid #5996FF', padding: '4px 12px', borderRadius: '9999px', fontSize: '0.75rem', fontWeight: 800 }}>
                               {app.jobTitle || 'General Application'}
                             </span>
                             <strong style={{ fontSize: '1.1rem', marginLeft: '10px', color: '#0F172A' }}>{app.name}</strong>
@@ -376,16 +376,16 @@ export function AdminDashboard() {
                         </div>
 
                         <div style={{ display: 'flex', gap: '20px', fontSize: '0.9rem', color: '#475569', flexWrap: 'wrap' }}>
-                          <div>📧 <strong>Email:</strong> <a href={`mailto:${app.email}`} style={{ color: '#0A66C2' }}>{app.email}</a></div>
+                          <div>📧 <strong>Email:</strong> <a href={`mailto:${app.email}`} style={{ color: 'var(--accent-gold)' }}>{app.email}</a></div>
                           {app.phone && <div>📞 <strong>Phone:</strong> {app.phone}</div>}
                           {app.portfolio && (
-                            <div>🌐 <strong>Portfolio/GitHub:</strong> <a href={app.portfolio} target="_blank" rel="noreferrer" style={{ color: '#0A66C2' }}>{app.portfolio}</a></div>
+                            <div>🌐 <strong>Portfolio/GitHub:</strong> <a href={app.portfolio} target="_blank" rel="noreferrer" style={{ color: 'var(--accent-gold)' }}>{app.portfolio}</a></div>
                           )}
                         </div>
 
                         {app.coverLetter && (
                           <div style={{ background: '#FFFFFF', border: '1px solid #CBD5E1', padding: '12px 16px', borderRadius: '10px', fontSize: '0.88rem', color: '#334155' }}>
-                            <strong style={{ color: '#0284C7' }}>Cover Letter / Pitch:</strong> {app.coverLetter}
+                            <strong style={{ color: 'var(--accent-gold-bright)' }}>Cover Letter / Pitch:</strong> {app.coverLetter}
                           </div>
                         )}
 

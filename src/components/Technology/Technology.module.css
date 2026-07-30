@@ -33,7 +33,7 @@
 }
 
 .categoryIcon {
-  color: #0284C7;
+  color: var(--accent-gold-bright);
   font-size: 1.3rem;
 }
 
@@ -57,9 +57,9 @@
 }
 
 .techChip:hover {
-  background: #0A66C2;
-  border-color: #0A66C2;
+  background: var(--accent-gold);
+  border-color: var(--accent-gold);
   color: #FFFFFF;
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(10, 102, 194, 0.2);
+  box-shadow: 0 4px 12px var(--accent-gold-glow);
 }

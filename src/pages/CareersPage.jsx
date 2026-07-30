@@ -167,9 +167,9 @@ export function CareersPage() {
                     width: '44px',
                     height: '44px',
                     borderRadius: '50%',
-                    background: '#E0F2FE',
-                    border: '1px solid #BAE6FD',
-                    color: '#0284C7',
+                    background: 'var(--surface)',
+                    color: 'var(--text)',
+                    border: '1px solid var(--lav)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -224,9 +224,9 @@ export function CareersPage() {
                     <div style={{ display: 'flex', gap: '10px', alignItems: 'center', marginBottom: '8px' }}>
                       <span
                         style={{
-                          background: '#E0F2FE',
-                          color: '#0284C7',
-                          border: '1px solid #BAE6FD',
+                          background: 'var(--surface)',
+                          color: 'var(--text)',
+                          border: '1px solid var(--lav)',
                           padding: '4px 12px',
                           borderRadius: '9999px',
                           fontSize: '0.8rem',
@@ -258,13 +258,13 @@ export function CareersPage() {
                 </p>
 
                 <div>
-                  <h4 style={{ fontSize: '0.85rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.08em', color: '#0284C7', marginBottom: '10px' }}>
+                  <h4 style={{ fontSize: '0.85rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--accent-gold-bright)', marginBottom: '10px' }}>
                     Key Requirements:
                   </h4>
                   <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '6px' }}>
                     {job.requirements.map((req, idx) => (
                       <li key={idx} style={{ color: '#475569', fontSize: '0.9rem', display: 'flex', gap: '8px', alignItems: 'flex-start' }}>
-                        <span style={{ color: '#0284C7', fontWeight: 800 }}>✓</span>
+                        <span style={{ color: 'var(--accent-gold-bright)', fontWeight: 800 }}>✓</span>
                         <span>{req}</span>
                       </li>
                     ))}
@@ -330,7 +330,7 @@ export function CareersPage() {
 
             {formSubmitted ? (
               <div style={{ textAlign: 'center', padding: '20px 0' }}>
-                <div style={{ width: '60px', height: '60px', borderRadius: '50%', background: '#E0F2FE', color: '#0284C7', fontSize: '1.8rem', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px auto' }}>
+                <div style={{ width: '60px', height: '60px', borderRadius: '50%', background: 'rgba(255, 255, 255, 0.6)', color: 'var(--accent-gold-bright)', fontSize: '1.8rem', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px auto' }}>
                   ✓
                 </div>
                 <h3 style={{ fontSize: '1.6rem', fontWeight: 800, color: '#0F172A', marginBottom: '10px' }}>

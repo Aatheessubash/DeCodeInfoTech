@@ -50,9 +50,9 @@ export function Hero() {
           {/* Trust Metrics Pill */}
           <div className={styles.trustFooter}>
             <div className={styles.avatars}>
-              <div className={styles.avatarPill}><ShieldCheck className="w-4 h-4 text-sky-600" /></div>
-              <div className={styles.avatarPill}><Zap className="w-4 h-4 text-sky-600" /></div>
-              <div className={styles.avatarPill}><TrendingUp className="w-4 h-4 text-sky-600" /></div>
+              <div className={styles.avatarPill}><ShieldCheck className="w-4 h-4 text-[#120331]" /></div>
+              <div className={styles.avatarPill}><Zap className="w-4 h-4 text-[#120331]" /></div>
+              <div className={styles.avatarPill}><TrendingUp className="w-4 h-4 text-[#120331]" /></div>
             </div>
             <span className={styles.trustText}>
               <strong>{siteContent.agencyName || 'DeCode Studio'}</strong> — Built on trust, speed & measurable business results.

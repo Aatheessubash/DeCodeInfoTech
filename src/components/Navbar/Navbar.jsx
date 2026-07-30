@@ -1,11 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import styles from './Navbar.module.css';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Moon, Sun } from 'lucide-react';
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  useEffect(() => {
+    // Check initial body class for dark mode sync
+    if (document.body.classList.contains('dark')) {
+      setIsDarkMode(true);
+    }
+  }, []);
+
+  const toggleDarkMode = () => {
+    document.body.classList.toggle('dark');
+    setIsDarkMode(!isDarkMode);
+  };
   const [companyDropdownOpen, setCompanyDropdownOpen] = useState(false);
   const [capabilitiesDropdownOpen, setCapabilitiesDropdownOpen] = useState(false);
 
@@ -108,6 +121,24 @@ export function Navbar() {
 
         {/* Action Buttons */}
         <div className={styles.actions}>
+          <button 
+            onClick={toggleDarkMode} 
+            className={styles.themeToggle}
+            aria-label="Toggle Dark Mode"
+            style={{
+              background: 'transparent',
+              border: 'none',
+              cursor: 'pointer',
+              color: isDarkMode ? 'var(--gold)' : 'var(--primary)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: '8px'
+            }}
+          >
+            {isDarkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+          </button>
+          
           <Link to="/contact" className={styles.actionBtn}>
             Start a Project <ArrowRight className="w-4 h-4" />
           </Link>

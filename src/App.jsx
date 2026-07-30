@@ -10,6 +10,7 @@ import { AboutPage } from './pages/AboutPage';
 import { ContactPage } from './pages/ContactPage';
 import { CareersPage } from './pages/CareersPage';
 import { NotFound } from './pages/NotFound';
+import Antigravity from './components/Antigravity';
 //import App.css
 
 
@@ -17,6 +18,25 @@ import { NotFound } from './pages/NotFound';
 export default function App() {
   return (
     <div className="box">
+      <div style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', zIndex: -1 }}>
+        <Antigravity
+          count={80}
+          magnetRadius={14}
+          ringRadius={1}
+          waveSpeed={1.2}
+          waveAmplitude={3.9}
+          particleSize={1.5}
+          lerpSpeed={0.01}
+          color="#3874FF"
+          autoAnimate={false}
+          particleVariance={1}
+          rotationSpeed={0}
+          depthFactor={1}
+          pulseSpeed={3}
+          particleShape="capsule"
+          fieldStrength={10}
+        />
+      </div>
     <BrowserRouter>
       <div className="app-root">
         <Navbar />

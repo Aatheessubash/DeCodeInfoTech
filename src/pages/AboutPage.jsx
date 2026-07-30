@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { PromiseSection } from '../components/Promise/Promise';
+import { BusinessTypes } from '../components/BusinessTypes/BusinessTypes';
 import { Testimonial } from '../components/Testimonial/Testimonial';
 
 export function AboutPage() {
@@ -10,6 +11,7 @@ export function AboutPage() {
   return (
     <div style={{ paddingTop: '80px' }}>
       <PromiseSection />
+      <BusinessTypes />
       <Testimonial />
     </div>
   );
