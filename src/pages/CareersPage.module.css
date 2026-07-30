@@ -1,0 +1,292 @@
+.pageWrapper {
+  padding-top: 140px;
+  min-height: 100vh;
+}
+
+.heroHeadline {
+  font-size: 3rem;
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 16px;
+  line-height: 1.15;
+}
+
+.heroSubtext {
+  color: var(--muted);
+  font-size: 1.15rem;
+  max-width: 680px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* Perks Section */
+.perksSection {
+  background-color: var(--bg);
+  border-top: 1px solid var(--lav);
+  border-bottom: 1px solid var(--lav);
+}
+
+.sectionTitle {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 12px;
+}
+
+.sectionSubtitle {
+  color: var(--muted);
+  font-size: 1rem;
+}
+
+.perksGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 24px;
+}
+
+.perkCard {
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+}
+
+.perkIcon {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--accent-gold-bright, var(--gold));
+  border: 1px solid var(--lav);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  margin-bottom: 16px;
+}
+
+.perkTitle {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.perkDesc {
+  color: var(--muted);
+  font-size: 0.925rem;
+  line-height: 1.5;
+}
+
+/* Open Positions */
+.jobsGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.jobCard {
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  transition: transform 300ms ease, box-shadow 300ms ease, border-color 300ms ease;
+}
+
+.jobCard:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent-gold, var(--gold));
+  box-shadow: 0 12px 32px rgba(212, 175, 55, 0.1);
+}
+
+.jobHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.jobMeta {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.jobDepartment {
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--lav);
+  padding: 4px 12px;
+  border-radius: 9999px;
+  font-size: 0.8rem;
+  font-weight: 800;
+}
+
+.jobLocation {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.jobTitle {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--text);
+}
+
+.jobSummary {
+  color: var(--muted);
+  font-size: 0.975rem;
+  line-height: 1.6;
+}
+
+.reqHeader {
+  font-size: 0.85rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent-gold-bright, var(--gold));
+  margin-bottom: 10px;
+}
+
+.reqList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.reqItem {
+  color: var(--muted);
+  font-size: 0.9rem;
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+}
+
+.reqCheck {
+  color: var(--accent-gold-bright, var(--gold));
+  font-weight: 800;
+}
+
+/* Modal */
+.modalBackdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.modalContent {
+  background: var(--surface);
+  border: 1px solid var(--lav);
+  border-radius: 24px;
+  max-width: 560px;
+  width: 100%;
+  padding: 36px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+  position: relative;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.closeBtn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: var(--bg);
+  border: 1px solid var(--lav);
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 200ms ease;
+}
+
+.closeBtn:hover {
+  background: var(--accent-gold, var(--gold));
+  color: #fff;
+  border-color: var(--accent-gold, var(--gold));
+}
+
+.successIcon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: var(--bg);
+  color: var(--accent-gold-bright, var(--gold));
+  font-size: 1.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px auto;
+  border: 1px solid var(--lav);
+}
+
+.modalTitle {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 20px;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+
+.input {
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: 10px;
+  border: 1px solid var(--lav);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 0.95rem;
+  font-family: inherit;
+  transition: border-color 200ms ease, box-shadow 200ms ease;
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--accent-gold, var(--gold));
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+}
+
+@media (max-width: 640px) {
+  .heroHeadline {
+    font-size: 2.2rem;
+  }
+  .jobHeader {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .modalContent {
+    padding: 24px;
+  }
+}

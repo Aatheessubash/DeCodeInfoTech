@@ -6,18 +6,22 @@ import { ArrowRight, Moon, Sun } from 'lucide-react';
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    return localStorage.getItem('decode_theme') === 'dark';
+  });
 
   useEffect(() => {
-    // Check initial body class for dark mode sync
-    if (document.body.classList.contains('dark')) {
-      setIsDarkMode(true);
+    if (isDarkMode) {
+      document.body.classList.add('dark');
+      localStorage.setItem('decode_theme', 'dark');
+    } else {
+      document.body.classList.remove('dark');
+      localStorage.setItem('decode_theme', 'light');
     }
-  }, []);
+  }, [isDarkMode]);
 
   const toggleDarkMode = () => {
-    document.body.classList.toggle('dark');
-    setIsDarkMode(!isDarkMode);
+    setIsDarkMode((prev) => !prev);
   };
   const [companyDropdownOpen, setCompanyDropdownOpen] = useState(false);
   const [capabilitiesDropdownOpen, setCapabilitiesDropdownOpen] = useState(false);
