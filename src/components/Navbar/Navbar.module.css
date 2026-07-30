@@ -5,17 +5,30 @@
   width: 100%;
   z-index: 990;
   padding: 14px 0;
-  background-color: rgba(236, 211, 243, 0.94);
+  background-color:#ede7fd;
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border-bottom: 2px solid rgba(212, 175, 55, 0.7);
-  box-shadow: 0 4px 16px rgba(212, 175, 55, 0.2);
-  transition: background-color 300ms ease, backdrop-filter 300ms ease, border-color 300ms ease;
+  transition: background-color 300ms ease, backdrop-filter 300ms ease;
 }
 
-body.dark .header {
-  background-color: rgba(18, 3, 49, 0.94);
-  border-bottom: 2px solid rgba(212, 175, 55, 0.5);
+.header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 10%;
+  width: 80%;
+  height: 2px;
+  background-color: rgba(212, 175, 55, 0.7);
+  box-shadow: 0 4px 16px rgba(212, 175, 55, 0.2);
+  transition: background-color 300ms ease;
+}
+
+:global(body.dark) .header {
+  background-color: #211247 /* #1c1237 with 94% opacity */
+}
+
+:global(body.dark) .header::after {
+  background-color: rgba(212, 175, 55, 0.5);
   box-shadow: 0 4px 20px rgba(212, 175, 55, 0.15);
 }
 
@@ -73,10 +86,10 @@ body.dark .header {
   display: flex;
   align-items: center;
   gap: 8px;
-  background: rgba(241, 245, 249, 0.85);
+  background: rgba(255, 255, 255, 0.5);
   padding: 6px 12px;
   border-radius: var(--radius-pill);
-  border: 1px solid #CBD5E1;
+  border: 1px solid rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(10px);
 }
 
@@ -104,9 +117,19 @@ body.dark .header {
   box-shadow: 0 2px 8px rgba(18, 3, 49, 0.12);
 }
 
-body.dark .navBtn:hover {
-  color: var(--gold);
-  background-color: rgba(255, 255, 255, 0.1);
+:global(body.dark) .desktopNav {
+  background: rgba(255, 255, 255, 0.85);
+  border-color: rgba(255, 255, 255, 1);
+}
+
+:global(body.dark) .navBtn {
+  color: #3a2685;
+}
+
+:global(body.dark) .navBtn:hover {
+  color: #4628b4;
+  background-color: #3a2685;
+  box-shadow: 0 4px 12px rgba(70, 40, 180, 0.3);
 }
 
 /* Kovai.co Dropdown Styling */
@@ -203,7 +226,7 @@ body.dark .navBtn:hover {
   transition: transform 250ms var(--ease-spring), box-shadow 250ms ease;
 }
 
-body.dark .actionBtn {
+:global(body.dark) .actionBtn {
   background: var(--gold);
   color: #120331;
 }
@@ -240,14 +263,14 @@ body.dark .actionBtn {
 .bar {
   width: 28px;
   height: 2px;
-  background-color: #0F172A;
-  border-radius: 2px;
-  transition: transform 300ms ease, opacity 300ms ease, background-color 300ms ease;
+  margin: 5px auto;
+  transition: all 0.3s ease-in-out;
+  background-color: var(--text);
 }
 
 .hamburger.active .bar:nth-child(1) {
   transform: translateY(9px) rotate(45deg);
-  background-color: #0F172A;
+  background-color: var(--text);
 }
 
 .hamburger.active .bar:nth-child(2) {
@@ -256,7 +279,7 @@ body.dark .actionBtn {
 
 .hamburger.active .bar:nth-child(3) {
   transform: translateY(-9px) rotate(-45deg);
-  background-color: #0F172A;
+  background-color: var(--text);
 }
 
 /* Mobile Drawer */

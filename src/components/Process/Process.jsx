@@ -46,7 +46,7 @@ export function Process() {
         <SectionBadge>Process</SectionBadge>
         <h2>
           A simple process. <br />
-          <span style={{ color: '#9CA3AF' }}>A better outcome.</span>
+          <span style={{ color: 'var(--muted)' }}>A better outcome.</span>
         </h2>
         <p>
           Clear steps, regular updates, and focused execution from the first conversation <BlurFadeText>to launch.</BlurFadeText>

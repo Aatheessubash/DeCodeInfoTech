@@ -48,7 +48,7 @@ export function Hero() {
           </div>
 
           {/* Trust Metrics Pill */}
-          <div className={styles.trustFooter}>
+          <div className={`${styles.trustFooter} pill-badge`}>
             <div className={styles.avatars}>
               <div className={styles.avatarPill}><ShieldCheck className="w-4 h-4 text-[#120331]" /></div>
               <div className={styles.avatarPill}><Zap className="w-4 h-4 text-[#120331]" /></div>
