@@ -17,17 +17,27 @@
   will-change: transform;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .carouselContainer {
-    mask-image: none;
-    -webkit-mask-image: none;
-    padding: 0;
+    mask-image: linear-gradient(to right, transparent, black 2%, black 98%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 2%, black 98%, transparent);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;  /* IE and Edge */
+    padding: 16px 0;
+  }
+  
+  .carouselContainer::-webkit-scrollbar {
+    display: none;
   }
   
   .scrollTrack {
     animation: none;
-    flex-direction: column;
-    width: 100%;
+    flex-direction: row;
+    width: max-content;
+    gap: 16px;
+    padding: 0 16px;
   }
 }
 
@@ -35,9 +45,9 @@
   animation-play-state: paused;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .carouselContainer:hover .scrollTrack {
-    animation-play-state: running; /* no animation to pause */
+    animation-play-state: paused;
   }
 }
 
@@ -47,33 +57,41 @@
 }
 
 .card {
-  width: 380px;
+  width: 280px;
   flex-shrink: 0;
-  padding: 32px;
+  padding: 20px;
   display: flex;
   flex-direction: column;
-  height: 480px;
-  background: #FFFFFF;
+  height: 360px;
+  background: var(--surface);
   border: 1px solid var(--lav);
-  border-radius: var(--radius-pill);
-  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
   transition: transform 300ms ease, box-shadow 300ms ease, border-color 300ms ease;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .card {
-    width: 100%;
-    max-width: 100%;
-    min-width: 0;
+    width: 260px;
+    height: 340px;
+    padding: 18px;
+    scroll-snap-align: center;
+  }
+}
+
+@media (max-width: 414px) {
+  .card {
+    width: 240px;
     height: auto;
-    padding: 24px;
+    min-height: 320px;
+    padding: 16px;
   }
 }
 
 .card:hover {
   transform: translateY(-6px);
-  border-color: var(--accent-gold);
-  box-shadow: 0 16px 36px var(--accent-gold-glow);
+  border-color: var(--gold);
+  box-shadow: var(--shadow-lift);
 }
 
 .cardHeader {
@@ -84,50 +102,50 @@
 }
 
 .icon {
-  width: 50px;
-  height: 50px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.6);
-  border: 1px solid #5996FF;
-  color: var(--accent-gold-bright);
+  background: transparent;
+  border: 1px solid var(--lav);
+  color: var(--gold);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   transition: all 300ms ease;
 }
 
 .card:hover .icon {
-  background: var(--accent-gold);
-  color: #FFFFFF;
-  border-color: var(--accent-gold);
+  background: var(--gold);
+  color: #120331;
+  border-color: var(--gold);
   transform: scale(1.08);
 }
 
 .number {
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   font-weight: 800;
   letter-spacing: 0.1em;
-  color: var(--accent-gold-bright);
-  background: rgba(255, 255, 255, 0.6);
-  border: 1px solid #5996FF;
-  padding: 4px 12px;
+  color: var(--gold);
+  background: transparent;
+  border: 1px solid var(--lav);
+  padding: 4px 10px;
   border-radius: var(--radius-pill);
 }
 
 .title {
-  font-size: clamp(1.15rem, 4vw, 1.3rem);
+  font-size: clamp(1rem, 3vw, 1.15rem);
   font-weight: 800;
-  margin-bottom: 12px;
-  color: #0F172A;
+  margin-bottom: 8px;
+  color: var(--text);
   word-break: break-word;
 }
 
 .desc {
-  font-size: 0.95rem;
-  color: #475569;
-  line-height: 1.6;
-  margin-bottom: 24px;
+  font-size: 0.875rem;
+  color: var(--muted);
+  line-height: 1.5;
+  margin-bottom: 20px;
 }
 
 .deliverables {
@@ -135,12 +153,12 @@
 }
 
 .delivTitle {
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: var(--accent-gold-bright);
-  margin-bottom: 12px;
+  color: var(--gold);
+  margin-bottom: 10px;
 }
 
 .list {
@@ -156,15 +174,15 @@
   display: flex;
   align-items: flex-start;
   gap: 8px;
-  font-size: 0.875rem;
-  color: #475569;
+  font-size: 0.8rem;
+  color: var(--muted);
   line-height: 1.4;
 }
 
 .checkIcon {
-  width: 16px;
-  height: 16px;
+  width: 14px;
+  height: 14px;
   flex-shrink: 0;
-  color: var(--accent-gold-bright);
+  color: var(--gold);
   margin-top: 2px;
 }

@@ -363,7 +363,7 @@ export function CareersPage() {
                       placeholder="Jane Doe"
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      style={{ width: '100%', padding: '12px 16px', borderRadius: '10px', border: '1px solid #CBD5E1', fontSize: '0.95rem' }}
+                      style={{ width: '100%', padding: '12px 16px', borderRadius: '10px', border: '1px solid #CBD5E1', fontSize: '0.95rem', color: '#0F172A' }}
                     />
                   </div>
 
@@ -377,7 +377,7 @@ export function CareersPage() {
                       placeholder="jane@example.com"
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      style={{ width: '100%', padding: '12px 16px', borderRadius: '10px', border: '1px solid #CBD5E1', fontSize: '0.95rem' }}
+                      style={{ width: '100%', padding: '12px 16px', borderRadius: '10px', border: '1px solid #CBD5E1', fontSize: '0.95rem', color: '#0F172A' }}
                     />
                   </div>
 
@@ -391,7 +391,7 @@ export function CareersPage() {
                       placeholder="https://github.com/username or https://portfolio.com"
                       value={formData.portfolio}
                       onChange={(e) => setFormData({ ...formData, portfolio: e.target.value })}
-                      style={{ width: '100%', padding: '12px 16px', borderRadius: '10px', border: '1px solid #CBD5E1', fontSize: '0.95rem' }}
+                      style={{ width: '100%', padding: '12px 16px', borderRadius: '10px', border: '1px solid #CBD5E1', fontSize: '0.95rem', color: '#0F172A' }}
                     />
                   </div>
 
@@ -404,7 +404,7 @@ export function CareersPage() {
                       placeholder="Tell us briefly about your recent projects and why you want to join DeCode Studio..."
                       value={formData.coverLetter}
                       onChange={(e) => setFormData({ ...formData, coverLetter: e.target.value })}
-                      style={{ width: '100%', padding: '12px 16px', borderRadius: '10px', border: '1px solid #CBD5E1', fontSize: '0.95rem', fontFamily: 'inherit' }}
+                      style={{ width: '100%', padding: '12px 16px', borderRadius: '10px', border: '1px solid #CBD5E1', fontSize: '0.95rem', fontFamily: 'inherit', color: '#0F172A' }}
                     />
                   </div>
 

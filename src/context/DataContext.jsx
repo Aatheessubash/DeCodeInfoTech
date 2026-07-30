@@ -63,72 +63,66 @@ const INITIAL_SERVICES = [
   {
     id: '01',
     title: 'Modern Website Design Services',
-    desc: 'High-converting UI/UX designs and responsive web design agency services crafted specifically for modern brands, startups, and growing enterprises.',
+    desc: 'High-converting UI/UX designs and responsive layouts crafted for modern brands.',
     deliverables: [
-      'Conversion Focused Website Design',
-      'Mobile-First Responsive Layouts',
-      'Design Systems & UI Kits',
-      'Interactive Wireframes & Prototypes',
+      'Conversion Focused Design',
+      'Mobile-First Layouts',
+      'Interactive Prototypes',
     ],
     icon: '✦',
   },
   {
     id: '02',
     title: 'Full Stack Web Development Services',
-    desc: 'Fast, secure, and maintainable web applications engineered with clean code and modern frameworks by our MERN stack development company experts.',
+    desc: 'Fast, secure, and maintainable web apps engineered with modern frameworks.',
     deliverables: [
-      'React JS, Next JS & Node JS Backend',
-      'Custom Web Platforms & Dashboards',
-      'API Integration & CMS Setup',
-      'Performance Optimized Website Development',
+      'React & Node JS Backend',
+      'Custom Web Dashboards',
+      'API Integration',
     ],
     icon: '⚡',
   },
   {
     id: '03',
     title: 'Custom Web Application Development',
-    desc: 'Scalable custom software designed to streamline business workflows, automate tasks, and handle high traffic. We specialize in SaaS product development.',
+    desc: 'Scalable custom software to streamline workflows and handle high traffic.',
     deliverables: [
-      'SaaS Platforms & Enterprise Portals',
+      'SaaS & Enterprise Portals',
       'Custom Admin Dashboards',
-      'MongoDB Application Development',
-      'Role-Based Access Control',
+      'Role-Based Access',
     ],
     icon: '⚙',
   },
   {
     id: '04',
     title: 'Website Optimization & SEO',
-    desc: 'Turn visitor traffic into paying customers with optimized page loading speeds and SEO friendly website development services.',
+    desc: 'Turn traffic into paying customers with optimized speeds and technical SEO.',
     deliverables: [
       'Core Web Vitals Optimization',
-      'Technical SEO and Web Development',
-      'Conversion Rate Optimization (CRO)',
-      'Cross-Browser & Device Audit',
+      'Technical SEO',
+      'Conversion Rate (CRO)',
     ],
     icon: '◈',
   },
   {
     id: '05',
     title: 'Website Redesign & Refresh',
-    desc: 'Transform outdated websites into sleek, modern digital products that reflect your true business quality. We can help you redesign outdated business websites.',
+    desc: 'Transform outdated websites into sleek, modern digital products.',
     deliverables: [
       'Modern Visual UI Upgrade',
-      'Migrate Website to Modern Tech Stack',
-      'Code Refactoring & Cleanup',
-      'Content Restructuring',
+      'Tech Stack Migration',
+      'Code Refactoring',
     ],
     icon: '❖',
   },
   {
     id: '06',
     title: 'DevOps & Ongoing Support',
-    desc: 'Reliable CI/CD pipeline setup services, Docker DevOps consulting, updates, and maintenance to keep your digital product running smoothly.',
+    desc: 'Reliable CI/CD pipeline setup, DevOps consulting, and product maintenance.',
     deliverables: [
-      'GitHub Actions DevOps Automation',
+      'GitHub Actions Automation',
       'Kubernetes Deployment',
-      'Monthly Performance Monitoring',
-      'Priority Technical Support',
+      'Performance Monitoring',
     ],
     icon: '⬡',
   },
@@ -141,7 +135,7 @@ const INITIAL_TESTIMONIALS = [
     role: 'Founder & CEO',
     company: 'Azhagappar Academy',
     avatar: '✦',
-    text: 'DeCode delivered our LMS platform ahead of schedule. The user interface is exceptionally smooth and our student engagement increased by 140% in the first month.',
+    text: 'DeCode delivered ahead of schedule. The UI is exceptionally smooth and student engagement grew by 140%.',
     rating: 5,
   },
   {
@@ -150,7 +144,7 @@ const INITIAL_TESTIMONIALS = [
     role: 'Head of Operations',
     company: 'AgroMate Technologies',
     avatar: '⚡',
-    text: 'Working with the DeCode team was effortless. They understood our complex business requirements immediately and built an ultra-fast web application our farmers love.',
+    text: 'Working with DeCode was effortless. They built an ultra-fast web application that our farmers love.',
     rating: 5,
   },
   {
@@ -159,7 +153,7 @@ const INITIAL_TESTIMONIALS = [
     role: 'Managing Director',
     company: 'Vetrivel Hospitality',
     avatar: '★',
-    text: 'Our online bookings doubled after DeCode redesigned our web app. Their attention to detail, performance optimization, and post-launch support is top tier.',
+    text: 'Our online bookings doubled after DeCode redesigned our web app. Their attention to detail is top tier.',
     rating: 5,
   },
 ];
@@ -180,12 +174,12 @@ export function DataProvider({ children }) {
   });
 
   const [services, setServices] = useState(() => {
-    const saved = localStorage.getItem('decode_services');
+    const saved = localStorage.getItem('decode_services_v2');
     return saved ? JSON.parse(saved) : INITIAL_SERVICES;
   });
 
   const [testimonials, setTestimonials] = useState(() => {
-    const saved = localStorage.getItem('decode_testimonials');
+    const saved = localStorage.getItem('decode_testimonials_v2');
     return saved ? JSON.parse(saved) : INITIAL_TESTIMONIALS;
   });
 
@@ -250,11 +244,11 @@ export function DataProvider({ children }) {
   }, [projects]);
 
   useEffect(() => {
-    localStorage.setItem('decode_services', JSON.stringify(services));
+    localStorage.setItem('decode_services_v2', JSON.stringify(services));
   }, [services]);
 
   useEffect(() => {
-    localStorage.setItem('decode_testimonials', JSON.stringify(testimonials));
+    localStorage.setItem('decode_testimonials_v2', JSON.stringify(testimonials));
   }, [testimonials]);
 
   useEffect(() => {

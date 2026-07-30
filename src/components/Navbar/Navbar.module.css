@@ -3,9 +3,20 @@
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 100;
+  z-index: 990;
   padding: 14px 0;
+  background-color: rgba(236, 211, 243, 0.94);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 2px solid rgba(212, 175, 55, 0.7);
+  box-shadow: 0 4px 16px rgba(212, 175, 55, 0.2);
   transition: background-color 300ms ease, backdrop-filter 300ms ease, border-color 300ms ease;
+}
+
+body.dark .header {
+  background-color: rgba(18, 3, 49, 0.94);
+  border-bottom: 2px solid rgba(212, 175, 55, 0.5);
+  box-shadow: 0 4px 20px rgba(212, 175, 55, 0.15);
 }
 
 /* .header.scrolled {

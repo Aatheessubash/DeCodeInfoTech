@@ -132,8 +132,11 @@
 
 @media (max-width: 600px) {
   .container {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
     gap: 32px;
+  }
+  .brandCol, .contactCol {
+    grid-column: 1 / -1;
   }
   .bottomContainer {
     flex-direction: column;

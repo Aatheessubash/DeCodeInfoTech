@@ -30,7 +30,7 @@
   justify-content: space-between;
   background: transparent;
   border: none;
-  color: #0F172A;
+  color: var(--text);
   font-size: 1.1rem;
   font-weight: 700;
   text-align: left;
@@ -79,7 +79,7 @@
 }
 
 .answerText {
-  color: #475569;
+  color: var(--muted);
   font-size: 1rem;
   line-height: 1.65;
   border-top: 1px solid #E2E8F0;
