@@ -346,3 +346,13 @@ body.dark .btn-secondary:hover {
   0% { transform: translate3d(0, -50%, 0); }
   100% { transform: translate3d(0, 0, 0); }
 }
+
+@keyframes progress {
+  0% { width: 0%; }
+  100% { width: 100%; }
+}
+
+.animate-progress {
+  animation-name: progress;
+}
+
