@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, ArrowRight, Play, Pause } from 'lucide-react';
 
 /* ============================================================
    SLIDE DATA — 5 service category slides with curated content
@@ -554,8 +554,10 @@ export function HeroSlider({ slides = slideData, autoPlayInterval = 4000 }) {
         aria-label="DeCode InfoTech — Service Highlights"
         aria-live="polite"
         tabIndex={0}
-        onMouseEnter={() => setIsPaused(true)}
-        onMouseLeave={() => setIsPaused(false)}
+        onClick={(e) => {
+          if (e.target.closest('a') || e.target.closest('button')) return;
+          setIsPaused((prev) => !prev);
+        }}
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
@@ -569,6 +571,7 @@ export function HeroSlider({ slides = slideData, autoPlayInterval = 4000 }) {
           background: '#020617',
           userSelect: 'none',
           outline: 'none',
+          cursor: 'pointer',
         }}
       >
         {/* ═══ SLIDE PANELS ═══ */}
@@ -635,9 +638,9 @@ export function HeroSlider({ slides = slideData, autoPlayInterval = 4000 }) {
           })}
         </nav>
 
-        {/* ═══ PREV / NEXT ARROW BUTTONS ═══ */}
+        {/* ═══ PREV / NEXT ARROW BUTTONS & PAUSE TOGGLE ═══ */}
         <div
-          aria-label="Slide navigation arrows"
+          aria-label="Slide navigation controls"
           style={{
             position: 'absolute',
             right: 'clamp(16px, 3.5vw, 40px)',
@@ -648,6 +651,20 @@ export function HeroSlider({ slides = slideData, autoPlayInterval = 4000 }) {
             gap: '10px',
           }}
         >
+          {/* Pause / Resume Button */}
+          <button
+            onClick={() => setIsPaused((prev) => !prev)}
+            aria-label={isPaused ? 'Resume auto-play' : 'Pause auto-play'}
+            title={isPaused ? 'Resume auto-play' : 'Pause auto-play'}
+            className="hs-nav-btn"
+            style={{ padding: 'clamp(10px, 1.5vw, 14px)' }}
+          >
+            {isPaused ? (
+              <Play style={{ width: '22px', height: '22px', marginLeft: '2px' }} aria-hidden="true" />
+            ) : (
+              <Pause style={{ width: '22px', height: '22px' }} aria-hidden="true" />
+            )}
+          </button>
           <button
             onClick={handlePrev}
             aria-label="Go to previous slide"
