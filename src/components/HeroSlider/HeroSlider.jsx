@@ -12,7 +12,7 @@ export const slideData = [
     description:
       'Empowering enterprises with tailored software, cloud, and AI solutions for seamless operations and growth.',
     buttonText: 'Read More',
-    buttonLink: '#software-solutions',
+    buttonLink: '/services',
     image:
       'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=2000&q=80',
     alt: 'Custom Software & Microchip Technology',
@@ -26,7 +26,7 @@ export const slideData = [
     description:
       'Interactive, immersive, and AI-powered learning platforms to enhance knowledge retention and engagement.',
     buttonText: 'Read More',
-    buttonLink: '#elearning-solutions',
+    buttonLink: '/services',
     image:
       'https://images.unsplash.com/photo-1501504905252-473c47e087f8?auto=format&fit=crop&w=2000&q=80',
     alt: 'Digital eLearning & Education Tech',
@@ -40,7 +40,7 @@ export const slideData = [
     description:
       'Comprehensive testing strategies to ensure bug-free, reliable, high-quality software.',
     buttonText: 'Read More',
-    buttonLink: '#qa-solutions',
+    buttonLink: '/services',
     image:
       'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=2000&q=80',
     alt: 'Quality Assurance & Software Code Inspection',
@@ -54,7 +54,7 @@ export const slideData = [
     description:
       'Harness the power of cloud and data centers for business resilience and seamless scalability.',
     buttonText: 'Read More',
-    buttonLink: '#cloud-solutions',
+    buttonLink: '/services',
     image:
       'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=2000&q=80',
     alt: 'Data Center Servers & Cloud Computing',
@@ -68,7 +68,7 @@ export const slideData = [
     description:
       'AI-driven automation and vision systems for next-gen industrial efficiency.',
     buttonText: 'Read More',
-    buttonLink: '#ai-vision-solutions',
+    buttonLink: '/services',
     image:
       'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=2000&q=80',
     alt: 'Smart Manufacturing & Industrial Automation',
@@ -253,24 +253,24 @@ function DecorativeCircles({ accentColor, secondaryAccent }) {
    SlidePanel — individual slide with image, overlay, content
    ============================================================ */
 function SlidePanel({ slide, isActive, isExiting, direction }) {
-  // Enter: slide in from the direction of travel
-  // Exit:  slide out in the direction of travel
-  let transform = 'translateX(0px)';
-  let opacity = 0;
+  // Determine text offset based on active state and direction
+  let textTransform = 'translateX(0px)';
+  let textOpacity = 0;
 
   if (isActive) {
-    // Entering — starts offset, transitions to center
-    transform = 'translateX(0px)';
-    opacity = 1;
+    textTransform = 'translateX(0px)';
+    textOpacity = 1;
   } else if (isExiting) {
-    // Exiting — slides out
-    transform = direction === 'next' ? 'translateX(-70px)' : 'translateX(70px)';
-    opacity = 0;
+    textTransform = direction === 'next' ? 'translateX(-50px)' : 'translateX(50px)';
+    textOpacity = 0;
   } else {
-    // Pre-staged — waiting off-screen
-    transform = direction === 'next' ? 'translateX(70px)' : 'translateX(-70px)';
-    opacity = 0;
+    textTransform = direction === 'next' ? 'translateX(50px)' : 'translateX(-50px)';
+    textOpacity = 0;
   }
+
+  // Smooth cubic-bezier spring curve for high-end feel
+  const springEase = 'cubic-bezier(0.16, 1, 0.3, 1)';
+  const fadeEase = 'cubic-bezier(0.4, 0, 0.2, 1)';
 
   return (
     <div
@@ -280,14 +280,13 @@ function SlidePanel({ slide, isActive, isExiting, direction }) {
       style={{
         position: 'absolute',
         inset: 0,
-        opacity,
-        transform,
+        opacity: isActive ? 1 : isExiting ? 0 : 0,
         zIndex: isActive ? 10 : isExiting ? 5 : 0,
-        transition: 'opacity 550ms cubic-bezier(0.4, 0, 0.2, 1), transform 600ms cubic-bezier(0.22, 1, 0.36, 1)',
+        transition: `opacity 850ms ${fadeEase}`,
         pointerEvents: isActive ? 'auto' : 'none',
       }}
     >
-      {/* Background image + Ken Burns zoom */}
+      {/* Background image + continuous smooth scale */}
       <div
         style={{
           position: 'absolute',
@@ -296,8 +295,9 @@ function SlidePanel({ slide, isActive, isExiting, direction }) {
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
-          willChange: 'transform',
-          animation: isActive ? 'heroKenBurns 7s ease-in-out forwards' : 'none',
+          willChange: 'transform, opacity',
+          transform: isActive ? 'scale(1.05) translateZ(0)' : 'scale(1.14) translateZ(0)',
+          transition: `transform 8000ms cubic-bezier(0.25, 1, 0.5, 1), opacity 850ms ${fadeEase}`,
         }}
       >
         {/* Dark gradient overlays for text legibility */}
@@ -306,7 +306,7 @@ function SlidePanel({ slide, isActive, isExiting, direction }) {
             position: 'absolute',
             inset: 0,
             background:
-              'linear-gradient(90deg, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.52) 50%, rgba(0,0,0,0.22) 100%)',
+              'linear-gradient(90deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.55) 50%, rgba(0,0,0,0.25) 100%)',
           }}
         />
         <div
@@ -314,7 +314,7 @@ function SlidePanel({ slide, isActive, isExiting, direction }) {
             position: 'absolute',
             inset: 0,
             background:
-              'linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.55) 100%)',
+              'linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.6) 100%)',
           }}
         />
       </div>
@@ -348,14 +348,22 @@ function SlidePanel({ slide, isActive, isExiting, direction }) {
             style={{
               maxWidth: '680px',
               textAlign: 'left',
-              transform: isActive ? 'translateY(0) scale(1)' : 'translateY(24px) scale(0.97)',
-              opacity: isActive ? 1 : 0,
-              transition:
-                'transform 480ms 100ms cubic-bezier(0.16, 1, 0.3, 1), opacity 400ms 80ms ease',
             }}
           >
-            {/* Category label with decorative line */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '18px' }}>
+            {/* Category label — slides in 1st */}
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '10px',
+                marginBottom: '18px',
+                transform: textTransform,
+                opacity: textOpacity,
+                transition: isActive
+                  ? `transform 700ms 0ms ${springEase}, opacity 550ms 0ms ease`
+                  : `transform 450ms 0ms ease-in, opacity 400ms 0ms ease-in`,
+              }}
+            >
               <span
                 style={{
                   display: 'block',
@@ -379,7 +387,7 @@ function SlidePanel({ slide, isActive, isExiting, direction }) {
               </span>
             </div>
 
-            {/* Main headline */}
+            {/* Headline — slides in 2nd */}
             <h1
               style={{
                 fontSize: 'clamp(1.6rem, 4.5vw, 3.25rem)',
@@ -389,12 +397,17 @@ function SlidePanel({ slide, isActive, isExiting, direction }) {
                 letterSpacing: '-0.02em',
                 marginBottom: 'clamp(14px, 2.5vw, 24px)',
                 textShadow: '0 2px 20px rgba(0,0,0,0.4)',
+                transform: textTransform,
+                opacity: textOpacity,
+                transition: isActive
+                  ? `transform 720ms 70ms ${springEase}, opacity 580ms 70ms ease`
+                  : `transform 450ms 0ms ease-in, opacity 400ms 0ms ease-in`,
               }}
             >
               {slide.headline}
             </h1>
 
-            {/* Description */}
+            {/* Description — slides in 3rd */}
             <p
               style={{
                 fontSize: 'clamp(0.875rem, 1.8vw, 1.1rem)',
@@ -403,21 +416,37 @@ function SlidePanel({ slide, isActive, isExiting, direction }) {
                 marginBottom: 'clamp(22px, 3.5vw, 36px)',
                 maxWidth: '540px',
                 fontWeight: 400,
+                transform: textTransform,
+                opacity: textOpacity,
+                transition: isActive
+                  ? `transform 740ms 140ms ${springEase}, opacity 610ms 140ms ease`
+                  : `transform 450ms 0ms ease-in, opacity 400ms 0ms ease-in`,
               }}
             >
               {slide.description}
             </p>
 
-            {/* CTA Button */}
-            <a
-              href={slide.buttonLink || '#'}
-              className="hs-cta"
-              style={{ '--hs-accent': slide.accentColor }}
+            {/* CTA Button — slides in 4th */}
+            <div
+              style={{
+                transform: textTransform,
+                opacity: textOpacity,
+                transition: isActive
+                  ? `transform 760ms 210ms ${springEase}, opacity 640ms 210ms ease`
+                  : `transform 450ms 0ms ease-in, opacity 400ms 0ms ease-in`,
+              }}
             >
-              <span>{slide.buttonText || 'Read More'}</span>
-              <ArrowRight style={{ width: '18px', height: '18px', flexShrink: 0 }} aria-hidden="true" />
-            </a>
+              <a
+                href={slide.buttonLink || '/services'}
+                className="hs-cta"
+                style={{ '--hs-accent': slide.accentColor }}
+              >
+                <span>{slide.buttonText || 'Read More'}</span>
+                <ArrowRight style={{ width: '18px', height: '18px', flexShrink: 0 }} aria-hidden="true" />
+              </a>
+            </div>
           </div>
+
         </div>
       </div>
     </div>
@@ -436,7 +465,7 @@ export function HeroSlider({ slides = slideData, autoPlayInterval = 4000 }) {
   const touchEndX = useRef(0);
   const exitTimerRef = useRef(null);
 
-  const TRANSITION_MS = 600;
+  const TRANSITION_MS = 900;
 
   const navigate = useCallback((nextIndex, dir) => {
     setDirection(dir);
@@ -525,7 +554,7 @@ export function HeroSlider({ slides = slideData, autoPlayInterval = 4000 }) {
         aria-label="DeCode InfoTech — Service Highlights"
         aria-live="polite"
         tabIndex={0}
-        onClick={() => setIsPaused(true)}
+        onMouseEnter={() => setIsPaused(true)}
         onMouseLeave={() => setIsPaused(false)}
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
