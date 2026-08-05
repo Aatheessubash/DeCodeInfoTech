@@ -148,15 +148,19 @@ const SLIDER_STYLES = `
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     background: rgba(0,0,0,0.42);
-    border: 1.5px solid rgba(255,255,255,0.18);
+    border: 1.5px solid rgba(255,255,255,0.3);
     color: #ffffff;
     cursor: pointer;
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.25);
     transition: background 250ms ease, transform 250ms cubic-bezier(0.16,1,0.3,1), box-shadow 250ms ease;
   }
+  .hs-nav-btn svg {
+    filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.5));
+  }
   .hs-nav-btn:hover {
-    background: rgba(255,255,255,0.18);
+    background: rgba(255,255,255,0.25);
     transform: scale(1.1);
-    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
   }
   .hs-nav-btn:active {
     transform: scale(0.92);
@@ -342,6 +346,7 @@ function SlidePanel({ slide, isActive, isExiting, direction }) {
             maxWidth: '1280px',
             margin: '0 auto',
             padding: 'clamp(32px, 8vw, 96px)',
+            paddingTop: 'clamp(100px, 12vw, 140px)',
           }}
         >
           <div
@@ -565,8 +570,8 @@ export function HeroSlider({ slides = slideData, autoPlayInterval = 4000 }) {
         style={{
           position: 'relative',
           width: '100%',
-          height: 'clamp(500px, 72vh, 680px)',
-          marginTop: 'clamp(70px, 8vw, 110px)',
+          height: '100vh',
+          minHeight: '600px',
           overflow: 'hidden',
           background: '#020617',
           userSelect: 'none',

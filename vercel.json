@@ -1,8 +1,61 @@
 {
+  "trailingSlash": false,
   "rewrites": [
     {
-      "source": "/(.*)",
-      "destination": "/index.html"
+      "source": "/agro",
+      "destination": "https://agro-mate-nine.vercel.app"
+    },
+    {
+      "source": "/agro/:path*",
+      "destination": "https://agro-mate-nine.vercel.app/:path*"
+    },
+    {
+      "source": "/thozha",
+      "destination": "https://thozha-associates.vercel.app"
+    },
+    {
+      "source": "/thozha/:path*",
+      "destination": "https://thozha-associates.vercel.app/:path*"
+    },
+    {
+      "source": "/weather",
+      "destination": "https://www.oly.live"
+    },
+    {
+      "source": "/weather/:path*",
+      "destination": "https://www.oly.live/:path*"
+    },
+    {
+      "source": "/news",
+      "destination": "https://news-app-mpxl.vercel.app"
+    },
+    {
+      "source": "/news/:path*",
+      "destination": "https://news-app-mpxl.vercel.app/:path*"
+    },
+    {
+      "source": "/design",
+      "destination": "https://aatheeswaran.vercel.app/"
+    },
+    {
+      "source": "/design/:path*",
+      "destination": "https://aatheeswaran.vercel.app/:path*"
+    },
+    {
+      "source": "/linkroaster",
+      "destination": "https://link-roaster-tan.vercel.app/"
+    },
+    {
+      "source": "/linkroaster/:path*",
+      "destination": "https://link-roaster-tan.vercel.app/:path*"
+    },
+    {
+      "source": "/",
+      "destination": "https://aatheeswaran.vercel.app/"
+    },
+    {
+      "source": "/:path*",
+      "destination": "https://aatheeswaran.vercel.app/:path*"
     }
   ]
 }
