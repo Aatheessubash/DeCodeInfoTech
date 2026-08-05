@@ -6,7 +6,7 @@
   z-index: 990;
   padding: 14px 0;
   background-color: transparent;
-  transition: background-color 300ms ease, backdrop-filter 300ms ease, box-shadow 300ms ease;
+  transition: background-color 400ms ease, backdrop-filter 300ms ease, box-shadow 300ms ease;
 }
 
 .header::after {
@@ -97,7 +97,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  background: rgba(255, 255, 255, 0.4);
+  background: rgb(250, 245, 245);
   padding: 6px 12px;
   border-radius: var(--radius-pill);
   border: 1px solid rgba(255, 255, 255, 0.6);
