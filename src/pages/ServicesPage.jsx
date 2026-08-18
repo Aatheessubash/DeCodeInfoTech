@@ -8,7 +8,7 @@ export function ServicesPage() {
   }, []);
 
   return (
-    <div style={{ paddingTop: '80px' }}>
+    <div style={{ paddingTop: '110px', minHeight: '100vh' }}>
       <Services />
       <Process />
     </div>
