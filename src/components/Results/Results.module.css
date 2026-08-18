@@ -64,9 +64,39 @@
 @media (max-width: 768px) {
   .carouselContainer {
     padding: 20px 0;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    mask-image: none;
+    -webkit-mask-image: none;
+  }
+  .carouselContainer::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollTrack {
+    animation: none;
+    padding-inline: 20px;
   }
   .industryCard {
     padding: 20px;
     min-width: 280px;
+    scroll-snap-align: center;
+  }
+  .industryCard[aria-hidden='true'] {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .carouselContainer {
+    overflow-x: auto;
+    mask-image: none;
+    -webkit-mask-image: none;
+  }
+  .scrollTrack {
+    animation: none;
+  }
+  .industryCard[aria-hidden='true'] {
+    display: none;
   }
 }

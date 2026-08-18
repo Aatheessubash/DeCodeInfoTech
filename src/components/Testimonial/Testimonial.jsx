@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './Testimonial.module.css';
-import { useData } from '../../context/DataContext';
+import { useData } from '../../context/useData';
 import { useIntersectionObserver } from '../../hooks/useIntersectionObserver';
 import { Star, Quote, BadgeCheck } from 'lucide-react';
 
@@ -47,13 +47,6 @@ export function Testimonial() {
             <p className={styles.quoteText}>"{t.text}"</p>
 
             <div className={styles.authorRow}>
-              <div className={styles.avatarWrapper}>
-                <img
-                  src={`https://i.pravatar.cc/150?u=${t.name.replace(/\s+/g, '')}`}
-                  alt={t.name}
-                  className={styles.avatarImg}
-                />
-              </div>
               <div className={styles.authorMeta}>
                 <h4 className={styles.authorName}>{t.name}</h4>
                 <p className={styles.authorRole}>{t.role}</p>
@@ -66,4 +59,3 @@ export function Testimonial() {
     </section>
   );
 }
-

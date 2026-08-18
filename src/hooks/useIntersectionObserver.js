@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 
-export function useIntersectionObserver(options = { threshold: 0.15, rootMargin: '0px' }) {
+export function useIntersectionObserver({ threshold = 0.15, rootMargin = '0px' } = {}) {
   const ref = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
 
@@ -14,14 +14,14 @@ export function useIntersectionObserver(options = { threshold: 0.15, rootMargin:
         // Once visible, unobserve so animation stays triggered
         observer.unobserve(node);
       }
-    }, options);
+    }, { threshold, rootMargin });
 
     observer.observe(node);
 
     return () => {
       if (node) observer.unobserve(node);
     };
-  }, [options.threshold, options.rootMargin]);
+  }, [threshold, rootMargin]);
 
   return [ref, isVisible];
 }

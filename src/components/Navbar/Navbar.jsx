@@ -1,194 +1,172 @@
-import React, { useState, useEffect } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link, NavLink, useLocation } from 'react-router-dom';
+import { ArrowRight, ChevronDown, Moon, Sun } from 'lucide-react';
 import styles from './Navbar.module.css';
-import { ArrowRight, Moon, Sun } from 'lucide-react';
+
+const navClassName = ({ isActive }) => `${styles.navBtn} ${isActive ? styles.activeNav : ''}`;
 
 export function Navbar() {
-  const [isScrolled, setIsScrolled] = useState(false);
+  const { pathname } = useLocation();
+  const [isScrolled, setIsScrolled] = useState(() => window.scrollY > 30);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [companyDropdownOpen, setCompanyDropdownOpen] = useState(false);
+  const [capabilitiesDropdownOpen, setCapabilitiesDropdownOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(() => {
-    return localStorage.getItem('decode_theme') === 'dark';
+    const savedTheme = localStorage.getItem('decode_theme');
+    return savedTheme ? savedTheme === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
   });
 
   useEffect(() => {
-    if (isDarkMode) {
-      document.body.classList.add('dark');
-      localStorage.setItem('decode_theme', 'dark');
-    } else {
-      document.body.classList.remove('dark');
-      localStorage.setItem('decode_theme', 'light');
-    }
+    document.body.classList.toggle('dark', isDarkMode);
+    document.documentElement.style.colorScheme = isDarkMode ? 'dark' : 'light';
+    localStorage.setItem('decode_theme', isDarkMode ? 'dark' : 'light');
   }, [isDarkMode]);
 
-  const toggleDarkMode = () => {
-    setIsDarkMode((prev) => !prev);
-  };
-  const [companyDropdownOpen, setCompanyDropdownOpen] = useState(false);
-  const [capabilitiesDropdownOpen, setCapabilitiesDropdownOpen] = useState(false);
-
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 30);
-    };
-    window.addEventListener('scroll', handleScroll);
+    const handleScroll = () => setIsScrolled(window.scrollY > 30);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   useEffect(() => {
-    if (mobileMenuOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
+    setMobileMenuOpen(false);
+    setCompanyDropdownOpen(false);
+    setCapabilitiesDropdownOpen(false);
+  }, [pathname]);
+
+  useEffect(() => {
+    if (!mobileMenuOpen) return undefined;
+
+    const previousOverflow = document.body.style.overflow;
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape') setMobileMenuOpen(false);
+    };
+
+    document.body.style.overflow = 'hidden';
+    document.addEventListener('keydown', handleKeyDown);
+
     return () => {
-      document.body.style.overflow = '';
+      document.body.style.overflow = previousOverflow;
+      document.removeEventListener('keydown', handleKeyDown);
     };
   }, [mobileMenuOpen]);
+
+  const closeOnFocusLeave = (setter) => (event) => {
+    if (!event.currentTarget.contains(event.relatedTarget)) setter(false);
+  };
 
   return (
     <header className={`${styles.header} ${isScrolled ? styles.scrolled : ''}`}>
       <div className={styles.container}>
-        {/* Brand Logo */}
-        <Link to="/" className={styles.logoLink}>
+        <Link to="/" className={styles.logoLink} aria-label="DeCode home">
           <img
             src="/DeCode_Logo.png"
-            alt="DeCode Logo"
+            alt="DeCode"
             className={styles.logoImg}
+            width="707"
+            height="353"
+            decoding="async"
           />
         </Link>
 
-        {/* Kovai.co Style Desktop Navigation */}
-        <nav className={styles.desktopNav}>
-          <NavLink to="/" className={styles.navBtn}>
+        <nav className={styles.desktopNav} aria-label="Primary navigation">
+          <NavLink to="/" className={navClassName}>
             Home
           </NavLink>
 
-          {/* Company Dropdown ▾ */}
           <div
             className={styles.dropdownGroup}
             onMouseEnter={() => setCompanyDropdownOpen(true)}
             onMouseLeave={() => setCompanyDropdownOpen(false)}
+            onBlur={closeOnFocusLeave(setCompanyDropdownOpen)}
           >
-            <button className={styles.navBtn}>
-              Company {companyDropdownOpen ? '▴' : '▾'}
+            <button
+              type="button"
+              className={`${styles.navBtn} ${pathname === '/about' || pathname === '/careers' ? styles.activeNav : ''}`}
+              onClick={() => setCompanyDropdownOpen((open) => !open)}
+              aria-expanded={companyDropdownOpen}
+              aria-controls="company-menu"
+            >
+              Company
+              <ChevronDown className={`${styles.chevron} ${companyDropdownOpen ? styles.chevronOpen : ''}`} aria-hidden="true" />
             </button>
-            <div className={`${styles.dropdownMenu} ${companyDropdownOpen ? styles.open : ''}`}>
-              <Link to="/about" className={styles.dropdownItem} onClick={() => setCompanyDropdownOpen(false)}>
-               About Us
-              </Link>
-              <Link to="/careers" className={styles.dropdownItem} onClick={() => setCompanyDropdownOpen(false)}>
-                Careers
-              </Link>
-              <Link to="/about" className={styles.dropdownItem} onClick={() => setCompanyDropdownOpen(false)}>
-               Our Quality Promise
-              </Link>
-              <Link to="/about" className={styles.dropdownItem} onClick={() => setCompanyDropdownOpen(false)}>
-               Client Reviews
-              </Link>
+            <div id="company-menu" className={`${styles.dropdownMenu} ${companyDropdownOpen ? styles.open : ''}`}>
+              <Link to="/about" className={styles.dropdownItem}>About Us</Link>
+              <Link to="/careers" className={styles.dropdownItem}>Careers</Link>
+              <Link to="/about" className={styles.dropdownItem}>Our Quality Promise</Link>
+              <Link to="/about" className={styles.dropdownItem}>Client Reviews</Link>
             </div>
           </div>
 
-          {/* Capabilities Dropdown ▾ */}
           <div
             className={styles.dropdownGroup}
             onMouseEnter={() => setCapabilitiesDropdownOpen(true)}
             onMouseLeave={() => setCapabilitiesDropdownOpen(false)}
+            onBlur={closeOnFocusLeave(setCapabilitiesDropdownOpen)}
           >
-            <button className={styles.navBtn}>
-              Capabilities {capabilitiesDropdownOpen ? '▴' : '▾'}
+            <button
+              type="button"
+              className={`${styles.navBtn} ${pathname === '/services' ? styles.activeNav : ''}`}
+              onClick={() => setCapabilitiesDropdownOpen((open) => !open)}
+              aria-expanded={capabilitiesDropdownOpen}
+              aria-controls="capabilities-menu"
+            >
+              Capabilities
+              <ChevronDown className={`${styles.chevron} ${capabilitiesDropdownOpen ? styles.chevronOpen : ''}`} aria-hidden="true" />
             </button>
-            <div className={`${styles.dropdownMenu} ${capabilitiesDropdownOpen ? styles.open : ''}`}>
-              <Link to="/services" className={styles.dropdownItem} onClick={() => setCapabilitiesDropdownOpen(false)}>
-               Services
-              </Link>
-              <Link to="/services" className={styles.dropdownItem} onClick={() => setCapabilitiesDropdownOpen(false)}>
-              Tech Stack & DevOps
-              </Link>
-              <Link to="/services" className={styles.dropdownItem} onClick={() => setCapabilitiesDropdownOpen(false)}>
-               Development Process
-              </Link>
+            <div id="capabilities-menu" className={`${styles.dropdownMenu} ${capabilitiesDropdownOpen ? styles.open : ''}`}>
+              <Link to="/services" className={styles.dropdownItem}>Services</Link>
+              <Link to="/services" className={styles.dropdownItem}>Tech Stack &amp; DevOps</Link>
+              <Link to="/services" className={styles.dropdownItem}>Development Process</Link>
             </div>
           </div>
 
-          <NavLink to="/work" className={styles.navBtn}>
-            Work
-          </NavLink>
-
-          <NavLink to="/careers" className={styles.navBtn}>
-            Careers
-          </NavLink>
-
-          <NavLink to="/contact" className={styles.navBtn}>
-            Contact
-          </NavLink>
+          <NavLink to="/work" className={navClassName}>Work</NavLink>
+          <NavLink to="/careers" className={navClassName}>Careers</NavLink>
+          <NavLink to="/contact" className={navClassName}>Contact</NavLink>
         </nav>
 
-        {/* Action Buttons */}
         <div className={styles.actions}>
-          <button 
-            onClick={toggleDarkMode} 
+          <button
+            type="button"
+            onClick={() => setIsDarkMode((dark) => !dark)}
             className={styles.themeToggle}
-            aria-label="Toggle Dark Mode"
-            style={{
-              background: 'transparent',
-              border: 'none',
-              cursor: 'pointer',
-              color: isDarkMode ? 'var(--gold)' : 'var(--primary)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              padding: '8px'
-            }}
+            aria-label={isDarkMode ? 'Use light theme' : 'Use dark theme'}
+            aria-pressed={isDarkMode}
           >
-            {isDarkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+            {isDarkMode ? <Sun aria-hidden="true" /> : <Moon aria-hidden="true" />}
           </button>
-          
+
           <Link to="/contact" className={styles.actionBtn}>
-            Start a Project <ArrowRight className="w-4 h-4" />
+            Start a Project <ArrowRight aria-hidden="true" />
           </Link>
 
-          {/* Mobile Hamburger Toggle */}
           <button
+            type="button"
             className={`${styles.hamburger} ${mobileMenuOpen ? styles.active : ''}`}
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label="Toggle menu"
+            onClick={() => setMobileMenuOpen((open) => !open)}
+            aria-label={mobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+            aria-expanded={mobileMenuOpen}
+            aria-controls="mobile-navigation"
           >
-            <span className={styles.bar}></span>
-            <span className={styles.bar}></span>
-            <span className={styles.bar}></span>
+            <span className={styles.bar} />
+            <span className={styles.bar} />
+            <span className={styles.bar} />
           </button>
         </div>
       </div>
 
-      {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
         <div className={styles.mobileDrawer}>
-          <nav className={styles.mobileNav}>
-            <Link to="/" className={styles.mobileLink} onClick={() => setMobileMenuOpen(false)}>
-              Home
-            </Link>
-            <Link to="/services" className={styles.mobileLink} onClick={() => setMobileMenuOpen(false)}>
-              Capabilities & Services
-            </Link>
-            <Link to="/work" className={styles.mobileLink} onClick={() => setMobileMenuOpen(false)}>
-              Selected Work
-            </Link>
-            <Link to="/about" className={styles.mobileLink} onClick={() => setMobileMenuOpen(false)}>
-              Company
-            </Link>
-            <Link to="/careers" className={styles.mobileLink} onClick={() => setMobileMenuOpen(false)}>
-              Careers
-            </Link>
-            <Link to="/contact" className={styles.mobileLink} onClick={() => setMobileMenuOpen(false)}>
-              Contact Us
-            </Link>
-            <Link
-              to="/contact"
-              className={styles.actionBtn}
-              onClick={() => setMobileMenuOpen(false)}
-              style={{ marginTop: '1rem', width: '100%', textAlign: 'center', justifyContent: 'center' }}
-            >
-              Start a Project <ArrowRight className="w-4 h-4" />
+          <nav id="mobile-navigation" className={styles.mobileNav} aria-label="Mobile navigation">
+            <NavLink to="/" className={styles.mobileLink}>Home</NavLink>
+            <NavLink to="/services" className={styles.mobileLink}>Capabilities &amp; Services</NavLink>
+            <NavLink to="/work" className={styles.mobileLink}>Selected Work</NavLink>
+            <NavLink to="/about" className={styles.mobileLink}>Company</NavLink>
+            <NavLink to="/careers" className={styles.mobileLink}>Careers</NavLink>
+            <NavLink to="/contact" className={styles.mobileLink}>Contact Us</NavLink>
+            <Link to="/contact" className={styles.actionBtn}>
+              Start a Project <ArrowRight aria-hidden="true" />
             </Link>
           </nav>
         </div>

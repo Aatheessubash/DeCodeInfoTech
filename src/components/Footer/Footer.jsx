@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useData } from '../../context/DataContext';
+import { useData } from '../../context/useData';
 import styles from './Footer.module.css';
 
 export function Footer() {
-  const { setIsAdminOpen, siteContent } = useData();
+  const { siteContent } = useData();
 
   return (
     <footer className={styles.footer}>
@@ -51,14 +51,13 @@ export function Footer() {
           <Link to="/contact" className="btn-primary" style={{ marginTop: '12px' }}>
             Start a Project
           </Link>
-          <button
-            type="button"
-            onClick={() => setIsAdminOpen(true)}
+          <Link
+            to="/admin"
             className="btn-secondary"
             style={{ marginTop: '10px', fontSize: '0.8rem', padding: '8px 16px' }}
           >
             ⚙ Admin Portal
-          </button>
+          </Link>
         </div>
       </div>
 

@@ -4,9 +4,9 @@
 }
 
 .formCard {
-  background: #FFFFFF;
+  background: var(--surface);
   border-radius: var(--radius-card);
-  border: 1px solid #E2E8F0;
+  border: 1px solid var(--lav);
   padding: 48px 40px;
   box-shadow: 0 20px 50px rgba(15, 23, 42, 0.06);
   backdrop-filter: blur(16px);
@@ -47,7 +47,7 @@
 .label {
   font-size: 0.875rem;
   font-weight: 700;
-  color: #0F172A;
+  color: var(--text);
   letter-spacing: 0.02em;
 }
 
@@ -57,9 +57,9 @@
   width: 100%;
   padding: 14px 18px;
   border-radius: 14px;
-  background: #F8FAFC;
-  border: 1px solid #CBD5E1;
-  color: #0F172A;
+  background: var(--bg);
+  border: 1px solid var(--lav);
+  color: var(--text);
   font-size: 0.95rem;
   font-family: inherit;
   outline: none;
@@ -76,7 +76,7 @@
 .select:focus,
 .textarea:focus {
   border-color: var(--accent-gold);
-  background: #FFFFFF;
+  background: var(--surface);
   box-shadow: 0 0 12px var(--accent-gold-glow);
 }
 
@@ -91,8 +91,8 @@
 }
 
 .select option {
-  background-color: #FFFFFF;
-  color: #0F172A;
+  background-color: var(--surface);
+  color: var(--text);
   padding: 10px;
 }
 
@@ -117,10 +117,10 @@
 .successBox {
   padding: 48px 32px;
   border-radius: var(--radius-card);
-  background: #F0F9FF;
+  background: var(--surface);
   border: 1px solid var(--accent-gold);
   text-align: center;
-  color: #0F172A;
+  color: var(--text);
 }
 
 .successIcon {
@@ -141,7 +141,7 @@
 .successBox h3 {
   font-size: 1.6rem;
   margin-bottom: 12px;
-  color: #0F172A;
+  color: var(--text);
 }
 
 .successBox p {
@@ -161,7 +161,7 @@
   border-radius: 10px;
   background: rgba(239, 68, 68, 0.10);
   border: 1px solid rgba(239, 68, 68, 0.35);
-  color: #fca5a5;
+  color: #b91c1c;
   font-size: 0.9rem;
   font-weight: 600;
   line-height: 1.4;
@@ -170,6 +170,10 @@
 .errorBanner svg {
   flex-shrink: 0;
   color: #f87171;
+}
+
+:global(body.dark) .errorBanner {
+  color: #fca5a5;
 }
 
 .submitBtn:disabled {

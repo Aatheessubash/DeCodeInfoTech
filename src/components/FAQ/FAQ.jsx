@@ -60,6 +60,7 @@ export function FAQ() {
               className={`card-panel ${styles.item} ${isOpen ? styles.itemOpen : ''}`}
             >
               <button
+                type="button"
                 className={styles.questionBtn}
                 onClick={() => toggleAccordion(idx)}
                 aria-expanded={isOpen}

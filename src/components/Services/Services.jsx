@@ -1,6 +1,6 @@
 import React from 'react';
 import { useIntersectionObserver } from '../../hooks/useIntersectionObserver';
-import { useData } from '../../context/DataContext';
+import { useData } from '../../context/useData';
 import styles from './Services.module.css';
 import { MonitorSmartphone, Code2, Cpu, Rocket, RotateCcw, Wrench } from 'lucide-react';
 

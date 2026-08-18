@@ -2,6 +2,18 @@ import React, { useState } from 'react';
 import { useIntersectionObserver } from '../../hooks/useIntersectionObserver';
 import styles from './Contact.module.css';
 
+function saveLeadLocally(formData) {
+  try {
+    const storedLeads = JSON.parse(localStorage.getItem('decode_contact_leads') || '[]');
+    const leads = Array.isArray(storedLeads) ? storedLeads : [];
+    leads.push({ ...formData, timestamp: new Date().toISOString() });
+    localStorage.setItem('decode_contact_leads', JSON.stringify(leads));
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 export function Contact() {
   const [sectionRef, isVisible] = useIntersectionObserver({ threshold: 0.1 });
   const [formSubmitted, setFormSubmitted] = useState(false);
@@ -31,6 +43,8 @@ export function Contact() {
     e.preventDefault();
     setSubmitting(true);
     setSubmitError('');
+    let submitted = false;
+
     try {
       const endpoint = import.meta.env.VITE_API_URL
         ? `${import.meta.env.VITE_API_URL.replace(/\/$/, '')}/api/contact`
@@ -41,23 +55,19 @@ export function Contact() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       });
-      const data = await response.json();
-      if (response.ok && data.success) {
+      const data = await response.json().catch(() => null);
+      submitted = Boolean(response.ok && data?.success);
+    } catch {
+      submitted = false;
+    } finally {
+      if (!submitted) submitted = saveLeadLocally(formData);
+
+      if (submitted) {
         setFormSubmitted(true);
       } else {
-        // Fallback for dev / offline server
-        const savedLeads = JSON.parse(localStorage.getItem('decode_contact_leads') || '[]');
-        savedLeads.push({ ...formData, timestamp: new Date().toISOString() });
-        localStorage.setItem('decode_contact_leads', JSON.stringify(savedLeads));
-        setFormSubmitted(true);
+        setSubmitError('We could not send or save your request. Please try again.');
       }
-    } catch {
-      // Fallback for dev / offline server
-      const savedLeads = JSON.parse(localStorage.getItem('decode_contact_leads') || '[]');
-      savedLeads.push({ ...formData, timestamp: new Date().toISOString() });
-      localStorage.setItem('decode_contact_leads', JSON.stringify(savedLeads));
-      setFormSubmitted(true);
-    } finally {
+
       setSubmitting(false);
     }
   };

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useIntersectionObserver } from '../../hooks/useIntersectionObserver';
-import { useData } from '../../context/DataContext';
+import { useData } from '../../context/useData';
 import styles from './Promise.module.css';
 
 export function PromiseSection() {

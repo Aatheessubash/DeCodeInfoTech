@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useIntersectionObserver } from '../../hooks/useIntersectionObserver';
-import { useData } from '../../context/DataContext';
+import { useData } from '../../context/useData';
 import styles from './Hero.module.css';
 import { ShieldCheck, Zap, TrendingUp, ArrowRight } from 'lucide-react';
 

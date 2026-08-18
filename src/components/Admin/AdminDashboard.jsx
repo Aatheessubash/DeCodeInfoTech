@@ -1,19 +1,43 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { useData } from '../../context/DataContext';
+import {
+  BriefcaseBusiness,
+  ChevronDown,
+  ChevronUp,
+  FileText,
+  FolderOpen,
+  MessageSquareQuote,
+  Pencil,
+  Plus,
+  ShieldCheck,
+  Trash2,
+  Users,
+  Wrench,
+  X,
+} from 'lucide-react';
+import { useData } from '../../context/useData';
+import { JobEditor } from './JobEditor';
+import { ProjectEditor } from './ProjectEditor';
 import styles from './AdminDashboard.module.css';
 
-export function AdminDashboard() {
+const ADMIN_TABS = [
+  { id: 'projects', label: 'Projects', Icon: BriefcaseBusiness },
+  { id: 'services', label: 'Services', Icon: Wrench },
+  { id: 'careers', label: 'Careers', Icon: Users },
+  { id: 'testimonials', label: 'Testimonials', Icon: MessageSquareQuote },
+  { id: 'content', label: 'Site Content', Icon: FileText },
+];
+
+export function AdminDashboard({ onClose }) {
   const {
     projects,
     services,
     testimonials,
     siteContent,
-    isAdminOpen,
-    setIsAdminOpen,
     addProject,
     updateProject,
     deleteProject,
+    moveProject,
     addService,
     updateService,
     deleteService,
@@ -23,6 +47,11 @@ export function AdminDashboard() {
     updateSiteContent,
     resetAllData,
     jobApplications,
+    jobPostings,
+    addJobPosting,
+    updateJobPosting,
+    deleteJobPosting,
+    moveJobPosting,
     deleteJobApplication,
     clearJobApplications,
   } = useData();
@@ -34,10 +63,24 @@ export function AdminDashboard() {
   // Editing state
   const [editingProject, setEditingProject] = useState(null);
   const [editingService, setEditingService] = useState(null);
+  const [editingJob, setEditingJob] = useState(null);
   const [editingTestimonial, setEditingTestimonial] = useState(null);
   const [contentForm, setContentForm] = useState(siteContent);
 
-  if (!isAdminOpen) return null;
+  useEffect(() => {
+    const previousOverflow = document.body.style.overflow;
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape') onClose();
+    };
+
+    document.body.style.overflow = 'hidden';
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [onClose]);
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -59,17 +102,82 @@ export function AdminDashboard() {
     alert('Site content updated successfully!');
   };
 
+  const startNewProject = () => {
+    setEditingProject({
+      id: '',
+      title: '',
+      category: '',
+      image: '',
+      url: 'https://',
+      problem: '',
+      solution: '',
+      tech: [],
+    });
+  };
+
+  const handleSaveProject = (project) => {
+    if (project.id) {
+      updateProject(project.id, project);
+    } else {
+      addProject(project);
+    }
+    setEditingProject(null);
+  };
+
+  const handleDeleteProject = (project) => {
+    if (window.confirm(`Delete “${project.title}” from the portfolio?`)) {
+      deleteProject(project.id);
+      if (editingProject?.id === project.id) setEditingProject(null);
+    }
+  };
+
+  const startNewJob = () => {
+    setEditingJob({
+      id: '',
+      title: '',
+      department: '',
+      location: 'Remote',
+      type: 'Full Time',
+      experience: '',
+      icon: '',
+      summary: '',
+      requirements: [],
+    });
+  };
+
+  const handleSaveJob = (job) => {
+    if (job.id) {
+      updateJobPosting(job.id, job);
+    } else {
+      addJobPosting(job);
+    }
+    setEditingJob(null);
+  };
+
+  const handleDeleteJob = (job) => {
+    if (window.confirm(`Delete ${job.title} from the Careers page?`)) {
+      deleteJobPosting(job.id);
+      if (editingJob?.id === job.id) setEditingJob(null);
+    }
+  };
+
   const modalContent = (
-    <div className={styles.backdrop} onClick={() => setIsAdminOpen(false)}>
-      <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
+    <div className={styles.backdrop} onClick={onClose} role="presentation">
+      <div
+        className={styles.modal}
+        onClick={(e) => e.stopPropagation()}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="admin-dashboard-title"
+      >
         {/* Modal Header */}
         <div className={styles.header}>
           <div className={styles.titleGroup}>
-            <span className={styles.badge}>✦ ADMIN CMS</span>
-            <h2>DeCode Studio Control Panel</h2>
+            <span className={styles.badge}><ShieldCheck size={14} aria-hidden="true" /> ADMIN CMS</span>
+            <h2 id="admin-dashboard-title">DeCode Content Manager</h2>
           </div>
-          <button className={styles.closeBtn} onClick={() => setIsAdminOpen(false)}>
-            ✕
+          <button type="button" className={styles.closeBtn} onClick={onClose} aria-label="Close admin dashboard">
+            <X size={19} aria-hidden="true" />
           </button>
         </div>
 
@@ -78,6 +186,7 @@ export function AdminDashboard() {
             <h3>Admin Passkey Authentication</h3>
             <p>Enter the passkey to manage projects, services, careers, and live website content.</p>
             <input
+              aria-label="Admin passkey"
               type="password"
               placeholder="Enter passkey (default: admin)"
               value={passkeyInput}
@@ -92,148 +201,122 @@ export function AdminDashboard() {
           <div className={styles.body}>
             {/* Tabs */}
             <div className={styles.tabs}>
-              <button
-                className={`${styles.tabBtn} ${activeTab === 'projects' ? styles.activeTab : ''}`}
-                onClick={() => setActiveTab('projects')}
-              >
-                💼 Projects ({projects.length})
-              </button>
-              <button
-                className={`${styles.tabBtn} ${activeTab === 'services' ? styles.activeTab : ''}`}
-                onClick={() => setActiveTab('services')}
-              >
-                ⚡ Services ({services.length})
-              </button>
-              <button
-                className={`${styles.tabBtn} ${activeTab === 'careers' ? styles.activeTab : ''}`}
-                onClick={() => setActiveTab('careers')}
-              >
-                🚀 Careers ({jobApplications?.length || 0})
-              </button>
-              <button
-                className={`${styles.tabBtn} ${activeTab === 'testimonials' ? styles.activeTab : ''}`}
-                onClick={() => setActiveTab('testimonials')}
-              >
-                💬 Testimonials ({testimonials.length})
-              </button>
-              <button
-                className={`${styles.tabBtn} ${activeTab === 'content' ? styles.activeTab : ''}`}
-                onClick={() => setActiveTab('content')}
-              >
-                📝 Site Content
-              </button>
+              {ADMIN_TABS.map(({ id, label, Icon }) => {
+                const counts = {
+                  projects: projects.length,
+                  services: services.length,
+                  careers: jobPostings?.length || 0,
+                  testimonials: testimonials.length,
+                };
+
+                return (
+                  <button
+                    type="button"
+                    key={id}
+                    className={`${styles.tabBtn} ${activeTab === id ? styles.activeTab : ''}`}
+                    onClick={() => setActiveTab(id)}
+                    aria-current={activeTab === id ? 'page' : undefined}
+                  >
+                    <Icon size={17} aria-hidden="true" />
+                    <span>{label}</span>
+                    {counts[id] !== undefined && <strong>{counts[id]}</strong>}
+                  </button>
+                );
+              })}
             </div>
+
+            <div className={styles.workspace}>
 
             {/* TAB 1: PROJECTS MANAGEMENT */}
             {activeTab === 'projects' && (
               <div className={styles.tabContent}>
                 <div className={styles.topActions}>
-                  <h3>Manage Portfolio Projects</h3>
-                  <button
-                    className="btn-primary"
-                    onClick={() =>
-                      setEditingProject({
-                        id: '',
-                        title: '',
-                        category: 'Web Application',
-                        image: '/assets/project-lms.jpg',
-                        problem: '',
-                        solution: '',
-                        tech: ['React.js', 'Vite'],
-                      })
-                    }
-                  >
-                    + Add New Project
+                  <div className={styles.sectionHeading}>
+                    <span>Portfolio</span>
+                    <h3>Manage projects</h3>
+                    <p>Edit content, upload optimized screenshots, and control carousel order.</p>
+                  </div>
+                  <button type="button" className={styles.addButton} onClick={startNewProject}>
+                    <Plus size={17} aria-hidden="true" />
+                    Add project
                   </button>
                 </div>
 
-                <div className={styles.itemList}>
-                  {projects.map((p) => (
-                    <div key={p.id} className={styles.itemRow}>
-                      <img src={p.image} alt={p.title} className={styles.itemThumb} />
-                      <div className={styles.itemDetails}>
-                        <span className={styles.itemTag}>{p.category}</span>
-                        <h4>{p.title}</h4>
-                        <p>{p.problem.substring(0, 70)}...</p>
-                      </div>
-                      <div className={styles.itemBtnGroup}>
-                        <button className={styles.editBtn} onClick={() => setEditingProject(p)}>
-                          Edit
-                        </button>
-                        <button className={styles.deleteBtn} onClick={() => deleteProject(p.id)}>
-                          Delete
-                        </button>
-                      </div>
-                    </div>
-                  ))}
-                </div>
+                <div className={styles.projectWorkspace}>
+                  <div className={styles.projectList} aria-label="Portfolio projects">
+                    {projects.map((project, index) => (
+                      <article
+                        key={project.id}
+                        className={`${styles.projectRow} ${editingProject?.id === project.id ? styles.selectedProject : ''}`}
+                      >
+                        <img src={project.image} alt="" loading="lazy" />
+                        <div className={styles.projectSummary}>
+                          <span>{String(index + 1).padStart(2, '0')} · {project.category}</span>
+                          <h4>{project.title}</h4>
+                          <p>{project.problem?.slice(0, 78)}{project.problem?.length > 78 ? '…' : ''}</p>
+                        </div>
+                        <div className={styles.projectActions}>
+                          <button
+                            type="button"
+                            onClick={() => moveProject(project.id, -1)}
+                            disabled={index === 0}
+                            aria-label={`Move ${project.title} up`}
+                            title="Move up"
+                          >
+                            <ChevronUp size={16} aria-hidden="true" />
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => moveProject(project.id, 1)}
+                            disabled={index === projects.length - 1}
+                            aria-label={`Move ${project.title} down`}
+                            title="Move down"
+                          >
+                            <ChevronDown size={16} aria-hidden="true" />
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => setEditingProject({ ...project })}
+                            aria-label={`Edit ${project.title}`}
+                            title="Edit project"
+                          >
+                            <Pencil size={16} aria-hidden="true" />
+                          </button>
+                          <button
+                            type="button"
+                            className={styles.dangerAction}
+                            onClick={() => handleDeleteProject(project)}
+                            aria-label={`Delete ${project.title}`}
+                            title="Delete project"
+                          >
+                            <Trash2 size={16} aria-hidden="true" />
+                          </button>
+                        </div>
+                      </article>
+                    ))}
+                  </div>
 
-                {editingProject && (
-                  <form
-                    className={styles.editorBox}
-                    onSubmit={(e) => {
-                      e.preventDefault();
-                      if (editingProject.id) {
-                        updateProject(editingProject.id, editingProject);
-                      } else {
-                        addProject(editingProject);
-                      }
-                      setEditingProject(null);
-                    }}
-                  >
-                    <h4>{editingProject.id ? 'Edit Project' : 'New Project'}</h4>
-                    <div className={styles.formGrid}>
-                      <input
-                        type="text"
-                        placeholder="Project Title"
-                        value={editingProject.title}
-                        onChange={(e) => setEditingProject({ ...editingProject, title: e.target.value })}
-                        required
-                        className={styles.input}
+                  <div className={styles.projectEditorPanel}>
+                    {editingProject ? (
+                      <ProjectEditor
+                        key={editingProject.id || 'new-project'}
+                        project={editingProject}
+                        onChange={setEditingProject}
+                        onSave={handleSaveProject}
+                        onCancel={() => setEditingProject(null)}
                       />
-                      <input
-                        type="text"
-                        placeholder="Category"
-                        value={editingProject.category}
-                        onChange={(e) => setEditingProject({ ...editingProject, category: e.target.value })}
-                        required
-                        className={styles.input}
-                      />
-                      <input
-                        type="text"
-                        placeholder="Image URL"
-                        value={editingProject.image}
-                        onChange={(e) => setEditingProject({ ...editingProject, image: e.target.value })}
-                        required
-                        className={styles.input}
-                      />
-                      <textarea
-                        placeholder="The Challenge / Problem"
-                        value={editingProject.problem}
-                        onChange={(e) => setEditingProject({ ...editingProject, problem: e.target.value })}
-                        rows="2"
-                        required
-                        className={styles.input}
-                      />
-                      <textarea
-                        placeholder="The Solution"
-                        value={editingProject.solution}
-                        onChange={(e) => setEditingProject({ ...editingProject, solution: e.target.value })}
-                        rows="2"
-                        required
-                        className={styles.input}
-                      />
-                    </div>
-                    <div className={styles.editorActions}>
-                      <button type="submit" className="btn-primary">
-                        Save Project
-                      </button>
-                      <button type="button" className="btn-secondary" onClick={() => setEditingProject(null)}>
-                        Cancel
-                      </button>
-                    </div>
-                  </form>
-                )}
+                    ) : (
+                      <div className={styles.emptyEditor}>
+                        <FolderOpen size={34} aria-hidden="true" />
+                        <h4>Select a project to edit</h4>
+                        <p>Choose Edit on a project or add a new portfolio item.</p>
+                        <button type="button" className={styles.addButton} onClick={startNewProject}>
+                          <Plus size={17} aria-hidden="true" /> Add project
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                </div>
               </div>
             )}
 
@@ -336,6 +419,107 @@ export function AdminDashboard() {
             {activeTab === 'careers' && (
               <div className={styles.tabContent}>
                 <div className={styles.topActions}>
+                  <div className={styles.sectionHeading}>
+                    <span>Careers</span>
+                    <h3>Manage job posts</h3>
+                    <p>Add, edit, reorder, or remove the roles shown on the public Careers page.</p>
+                  </div>
+                  <button type="button" className={styles.addButton} onClick={startNewJob}>
+                    <Plus size={17} aria-hidden="true" />
+                    Add job post
+                  </button>
+                </div>
+
+                <div className={styles.jobWorkspace}>
+                  <div className={styles.jobPostingList} aria-label="Live job posts">
+                    {jobPostings?.length > 0 ? (
+                      jobPostings.map((job, index) => (
+                        <article
+                          key={job.id}
+                          className={`${styles.jobRow} ${editingJob?.id === job.id ? styles.selectedProject : ''}`}
+                        >
+                          <div className={styles.jobAvatar} aria-hidden="true">
+                            {(job.icon || job.department || 'JB').slice(0, 2).toUpperCase()}
+                          </div>
+                          <div className={styles.jobSummaryAdmin}>
+                            <span>
+                              {String(index + 1).padStart(2, '0')} / {job.department || 'Department'} / {job.type || 'Type'}
+                            </span>
+                            <h4>{job.title}</h4>
+                            <p>{job.location} / {job.experience}</p>
+                          </div>
+                          <div className={styles.projectActions}>
+                            <button
+                              type="button"
+                              onClick={() => moveJobPosting(job.id, -1)}
+                              disabled={index === 0}
+                              aria-label={`Move ${job.title} up`}
+                              title="Move up"
+                            >
+                              <ChevronUp size={16} aria-hidden="true" />
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => moveJobPosting(job.id, 1)}
+                              disabled={index === jobPostings.length - 1}
+                              aria-label={`Move ${job.title} down`}
+                              title="Move down"
+                            >
+                              <ChevronDown size={16} aria-hidden="true" />
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => setEditingJob({ ...job, requirements: job.requirements || [] })}
+                              aria-label={`Edit ${job.title}`}
+                              title="Edit job post"
+                            >
+                              <Pencil size={16} aria-hidden="true" />
+                            </button>
+                            <button
+                              type="button"
+                              className={styles.dangerAction}
+                              onClick={() => handleDeleteJob(job)}
+                              aria-label={`Delete ${job.title}`}
+                              title="Delete job post"
+                            >
+                              <Trash2 size={16} aria-hidden="true" />
+                            </button>
+                          </div>
+                        </article>
+                      ))
+                    ) : (
+                      <div className={styles.emptyEditor}>
+                        <BriefcaseBusiness size={34} aria-hidden="true" />
+                        <h4>No live job posts</h4>
+                        <p>Add a role when hiring opens again.</p>
+                        <button type="button" className={styles.addButton} onClick={startNewJob}>
+                          <Plus size={17} aria-hidden="true" /> Add job post
+                        </button>
+                      </div>
+                    )}
+                  </div>
+
+                  <div className={styles.jobEditorPanel}>
+                    {editingJob ? (
+                      <JobEditor
+                        key={editingJob.id || 'new-job'}
+                        job={editingJob}
+                        onChange={setEditingJob}
+                        onSave={handleSaveJob}
+                        onCancel={() => setEditingJob(null)}
+                      />
+                    ) : (
+                      <div className={styles.emptyEditor}>
+                        <BriefcaseBusiness size={34} aria-hidden="true" />
+                        <h4>Select a job post to edit</h4>
+                        <p>Choose Edit on a role or create a new opening.</p>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                <div className={styles.applicationsSection}>
+                <div className={styles.topActions}>
                   <h3>Candidate Job Applications</h3>
                   {jobApplications?.length > 0 && (
                     <button
@@ -401,6 +585,7 @@ export function AdminDashboard() {
                     ))}
                   </div>
                 )}
+                </div>
               </div>
             )}
 
@@ -572,6 +757,7 @@ export function AdminDashboard() {
                 </div>
               </form>
             )}
+          </div>
           </div>
         )}
       </div>

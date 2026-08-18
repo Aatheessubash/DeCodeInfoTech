@@ -1,61 +1,64 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import { DataContext } from './data-context';
 
-const DataContext = createContext();
+function readStoredData(key, fallback) {
+  try {
+    const saved = localStorage.getItem(key);
+    return saved ? JSON.parse(saved) : fallback;
+  } catch {
+    localStorage.removeItem(key);
+    return fallback;
+  }
+}
+
+function writeStoredData(key, value) {
+  try {
+    localStorage.setItem(key, JSON.stringify(value));
+  } catch {
+    // Keep the in-memory experience working when storage is unavailable.
+  }
+}
 
 const INITIAL_PROJECTS = [
   {
-    id: 'lms',
-    title: 'Azhagappar Academy LMS Platform',
-    category: 'Education / Learning Management',
-    image: '/assets/project-lms.jpg',
-    problem: 'The academy required a centralized digital learning platform to host course materials, manage student enrollments, and track academic progress online.',
-    solution: 'DeCode designed and engineered an intuitive, fast-loading LMS with real-time course analytics, student portals, and automated progress reporting.',
-    tech: ['React.js', 'Node.js', 'PostgreSQL', 'Tailwind CSS'],
+    id: 'azhagappar-academy',
+    title: 'Azhagappar Academy',
+    category: 'EdTech / Video Learning Platform',
+    image: '/assets/portfolio-azhagappar.jpg',
+    problem: 'A video-based online learning platform built for structured course delivery.',
+    solution: 'A streamlined digital learning experience for structured video courses.',
+    url: 'https://azhagapparacademy.com',
+    tech: ['Video Learning', 'Course Delivery'],
   },
   {
-    id: 'construction',
-    title: 'Construction Operations Platform',
-    category: 'Business Operations SaaS',
-    image: '/assets/project-construction.jpg',
-    problem: 'Manual tracking of construction sites, equipment dispatching, and material inventory caused operational delays and budget overruns.',
-    solution: 'We engineered a custom web platform providing real-time project dashboards, resource allocation tools, and automated inventory alerts.',
-    tech: ['React.js', 'TypeScript', 'Express', 'MongoDB'],
+    id: 'thozha-associates',
+    title: 'Thozha Associates',
+    category: 'Construction / Civil Engineering',
+    image: '/assets/portfolio-thozha.jpg',
+    problem: 'Business website for a Pollachi-based civil engineering and construction firm led by Er. Taran D V, showcasing residential, commercial, and renovation services since 2014.',
+    solution: 'A polished company website that presents services, expertise, and project credibility.',
+    url: 'https://decodeinfotech.in/thozha',
+    tech: ['Business Website', 'Responsive Design'],
   },
   {
-    id: 'agro',
-    title: 'AgroMate Agriculture Hub',
-    category: 'AgriTech Web Portal',
-    image: '/assets/project-agro.jpg',
-    problem: 'Local farming communities lacked accessible, real-time market pricing updates, crop disease diagnostics, and direct buyer connections.',
-    solution: 'DeCode built a modern digital web application offering live market feeds, weather forecasting analytics, and a direct trade marketplace.',
-    tech: ['Vite', 'React.js', 'REST API', 'Chart.js'],
+    id: 'neuerung-healthtech',
+    title: 'Neuerung HealthTech',
+    category: 'HealthTech / AI & IoT',
+    image: '/assets/portfolio-neuerung.jpg',
+    problem: 'Corporate site for a healthtech company delivering AI, digital, IoT, and clinical technology solutions to improve healthcare efficiency and patient care.',
+    solution: 'A modern corporate experience communicating a connected healthcare ecosystem.',
+    url: 'https://decodeinfotech.in/neuerung',
+    tech: ['AI', 'IoT', 'HealthTech'],
   },
   {
-    id: 'linkroaster',
-    title: 'Link Roaster Chrome Extension',
-    category: 'Developer & SEO Tool',
-    image: '/assets/project-linkroaster.jpg',
-    problem: 'Webmasters and content teams spent hours manually auditing websites for broken links, redirect chains, and missing SEO tags.',
-    solution: 'We built a high-speed browser extension that instantly scans webpage URLs, highlights broken references, and outputs detailed SEO reports.',
-    tech: ['JavaScript ES6+', 'Chrome Extension API', 'DOM Parser'],
-  },
-  {
-    id: 'restaurant',
-    title: 'Vetrivel Unavagam Web App',
-    category: 'Hospitality & Dining',
-    image: '/assets/project-restaurant.jpg',
-    problem: 'Traditional phone reservations created peak-hour bottlenecks and customer drop-offs during busy weekend dining shifts.',
-    solution: 'DeCode delivered a mobile-responsive restaurant website with contactless menu browsing, automated table bookings, and customer review management.',
-    tech: ['React.js', 'CSS Modules', 'Webhooks', 'Vite'],
-  },
-  {
-    id: 'news',
-    title: 'News & Media Web Portal',
-    category: 'Content Platform',
-    image: '/assets/project-news.jpg',
-    problem: 'A growing news publication needed a high-performance content portal capable of delivering breaking news alerts with zero lag under high traffic spikes.',
-    solution: 'We developed an ultra-fast news web application featuring dynamic category filters, article search, and optimized asset delivery.',
-    tech: ['Next.js', 'React.js', 'GraphQL', 'Vercel'],
+    id: 'hotel-vetri-vel',
+    title: 'Hotel Vetri Vel',
+    category: 'SaaS / POS Billing Software',
+    image: '/assets/portfolio-vetrivel.jpg',
+    problem: 'Real-time point-of-sale and billing system for hotels and restaurants, with live order management, menu master, transaction history, and dashboard analytics.',
+    solution: 'A focused restaurant operations platform for faster orders, billing, and reporting.',
+    url: 'https://www.vetrivelunavagam.com',
+    tech: ['POS', 'Real-time Orders', 'Analytics'],
   },
 ];
 
@@ -167,100 +170,138 @@ const INITIAL_CONTENT = {
   contactLocation: 'Coimbatore, Tamil Nadu, India',
 };
 
+const INITIAL_JOB_POSTINGS = [
+  {
+    id: 'job-1',
+    title: 'Senior Full Stack Developer',
+    department: 'Engineering',
+    location: 'Hybrid / Remote',
+    type: 'Full Time',
+    experience: '3+ Years',
+    icon: 'FS',
+    summary: 'Build high-performance web applications using React.js, Node.js, Express, and modern cloud deployment pipelines.',
+    requirements: [
+      'Strong expertise in React, JavaScript (ES6+), and Node.js REST APIs',
+      'Experience with database schema design (MongoDB, PostgreSQL, or Supabase)',
+      'Familiarity with DevOps workflows, Docker, and CI/CD pipelines',
+      'Passion for writing clean, modular, and maintainable code',
+    ],
+  },
+  {
+    id: 'job-2',
+    title: 'UI/UX Product Designer',
+    department: 'Design',
+    location: 'Remote',
+    type: 'Full Time',
+    experience: '2+ Years',
+    icon: 'UX',
+    summary: 'Craft high-converting, aesthetically stunning user interfaces and micro-animations for enterprise and startup clients.',
+    requirements: [
+      'Proficiency in Figma, design systems, wireframing, and interactive prototyping',
+      'Strong understanding of modern visual aesthetics, typography, and contrast',
+      'Ability to collaborate directly with frontend engineers for pixel-perfect delivery',
+      'Solid portfolio demonstrating real-world Web & Mobile UX designs',
+    ],
+  },
+  {
+    id: 'job-3',
+    title: 'Frontend Web Specialist',
+    department: 'Engineering',
+    location: 'Remote',
+    type: 'Full Time',
+    experience: '2+ Years',
+    icon: 'FE',
+    summary: 'Specialize in building ultra-fast responsive user interfaces, animations, and Core Web Vitals optimization.',
+    requirements: [
+      'Mastery of HTML5, CSS3, Tailwind, Framer Motion, and CSS Modules',
+      'Deep knowledge of React state management and component architecture',
+      'Experience with cross-browser performance tuning and SEO best practices',
+    ],
+  },
+  {
+    id: 'job-4',
+    title: 'DevOps & Cloud Engineer',
+    department: 'Infrastructure',
+    location: 'Remote',
+    type: 'Full Time / Contract',
+    experience: '3+ Years',
+    icon: 'DC',
+    summary: 'Manage automated GitHub Actions CI/CD pipelines, Docker containerization, and AWS/Vercel cloud infrastructure.',
+    requirements: [
+      'Hands-on experience with Docker, Kubernetes, Nginx, and Linux server admin',
+      'Experience setting up automated build & deployment workflows',
+      'Knowledge of cloud security, SSL setup, and infrastructure monitoring',
+    ],
+  },
+];
+
+function normalizeJobPosting(job) {
+  const requirements = Array.isArray(job?.requirements) ? job.requirements : [];
+
+  return {
+    title: '',
+    department: '',
+    location: 'Remote',
+    type: 'Full Time',
+    experience: '',
+    icon: '',
+    summary: '',
+    ...job,
+    requirements,
+  };
+}
+
 export function DataProvider({ children }) {
   const [projects, setProjects] = useState(() => {
-    const saved = localStorage.getItem('decode_projects');
-    return saved ? JSON.parse(saved) : INITIAL_PROJECTS;
+    return readStoredData('decode_projects_v3', INITIAL_PROJECTS);
   });
 
   const [services, setServices] = useState(() => {
-    const saved = localStorage.getItem('decode_services_v2');
-    return saved ? JSON.parse(saved) : INITIAL_SERVICES;
+    return readStoredData('decode_services_v2', INITIAL_SERVICES);
   });
 
   const [testimonials, setTestimonials] = useState(() => {
-    const saved = localStorage.getItem('decode_testimonials_v2');
-    return saved ? JSON.parse(saved) : INITIAL_TESTIMONIALS;
+    return readStoredData('decode_testimonials_v2', INITIAL_TESTIMONIALS);
   });
 
   const [siteContent, setSiteContent] = useState(() => {
-    const saved = localStorage.getItem('decode_site_content');
-    return saved ? JSON.parse(saved) : INITIAL_CONTENT;
+    return readStoredData('decode_site_content', INITIAL_CONTENT);
   });
 
-  const [isAdminOpen, setIsAdminOpen] = useState(false);
-
   const [jobApplications, setJobApplications] = useState(() => {
-    const saved = localStorage.getItem('decode_job_applications');
-    return saved ? JSON.parse(saved) : [];
+    return readStoredData('decode_job_applications', []);
   });
 
   const [jobPostings, setJobPostings] = useState(() => {
-    const saved = localStorage.getItem('decode_job_postings');
-    return saved
-      ? JSON.parse(saved)
-      : [
-          {
-            id: 'job-1',
-            title: 'Senior Full Stack Developer',
-            department: 'Engineering',
-            location: 'Hybrid / Remote',
-            type: 'Full Time',
-            experience: '3+ Years',
-            summary: 'Build high-performance web applications using React.js, Node.js, Express, and cloud deployment pipelines.',
-          },
-          {
-            id: 'job-2',
-            title: 'UI/UX Product Designer',
-            department: 'Design',
-            location: 'Remote',
-            type: 'Full Time',
-            experience: '2+ Years',
-            summary: 'Craft high-converting, aesthetically stunning user interfaces and micro-animations for enterprise and startup clients.',
-          },
-          {
-            id: 'job-3',
-            title: 'Frontend Web Specialist',
-            department: 'Engineering',
-            location: 'Remote',
-            type: 'Full Time',
-            experience: '2+ Years',
-            summary: 'Specialize in building ultra-fast responsive user interfaces, animations, and Core Web Vitals optimization.',
-          },
-          {
-            id: 'job-4',
-            title: 'DevOps & Cloud Engineer',
-            department: 'Infrastructure',
-            location: 'Remote',
-            type: 'Full Time / Contract',
-            experience: '3+ Years',
-            summary: 'Manage automated GitHub Actions CI/CD pipelines, Docker containerization, and AWS/Vercel cloud infrastructure.',
-          },
-        ];
+    const savedJobs = readStoredData(
+      'decode_job_postings_v2',
+      readStoredData('decode_job_postings', INITIAL_JOB_POSTINGS),
+    );
+    return Array.isArray(savedJobs) ? savedJobs.map(normalizeJobPosting) : INITIAL_JOB_POSTINGS;
   });
 
   useEffect(() => {
-    localStorage.setItem('decode_projects', JSON.stringify(projects));
+    writeStoredData('decode_projects_v3', projects);
   }, [projects]);
 
   useEffect(() => {
-    localStorage.setItem('decode_services_v2', JSON.stringify(services));
+    writeStoredData('decode_services_v2', services);
   }, [services]);
 
   useEffect(() => {
-    localStorage.setItem('decode_testimonials_v2', JSON.stringify(testimonials));
+    writeStoredData('decode_testimonials_v2', testimonials);
   }, [testimonials]);
 
   useEffect(() => {
-    localStorage.setItem('decode_site_content', JSON.stringify(siteContent));
+    writeStoredData('decode_site_content', siteContent);
   }, [siteContent]);
 
   useEffect(() => {
-    localStorage.setItem('decode_job_applications', JSON.stringify(jobApplications));
+    writeStoredData('decode_job_applications', jobApplications);
   }, [jobApplications]);
 
   useEffect(() => {
-    localStorage.setItem('decode_job_postings', JSON.stringify(jobPostings));
+    writeStoredData('decode_job_postings_v2', jobPostings);
   }, [jobPostings]);
 
   // Project Mutations
@@ -274,6 +315,18 @@ export function DataProvider({ children }) {
 
   const deleteProject = (id) => {
     setProjects((prev) => prev.filter((p) => p.id !== id));
+  };
+
+  const moveProject = (id, direction) => {
+    setProjects((prev) => {
+      const currentIndex = prev.findIndex((project) => project.id === id);
+      const nextIndex = currentIndex + direction;
+      if (currentIndex < 0 || nextIndex < 0 || nextIndex >= prev.length) return prev;
+
+      const reordered = [...prev];
+      [reordered[currentIndex], reordered[nextIndex]] = [reordered[nextIndex], reordered[currentIndex]];
+      return reordered;
+    });
   };
 
   // Service Mutations
@@ -330,6 +383,18 @@ export function DataProvider({ children }) {
     setJobPostings((prev) => prev.filter((j) => j.id !== id));
   };
 
+  const moveJobPosting = (id, direction) => {
+    setJobPostings((prev) => {
+      const currentIndex = prev.findIndex((job) => job.id === id);
+      const nextIndex = currentIndex + direction;
+      if (currentIndex < 0 || nextIndex < 0 || nextIndex >= prev.length) return prev;
+
+      const reordered = [...prev];
+      [reordered[currentIndex], reordered[nextIndex]] = [reordered[nextIndex], reordered[currentIndex]];
+      return reordered;
+    });
+  };
+
   // Content Mutations
   const updateSiteContent = (newContent) => {
     setSiteContent((prev) => ({ ...prev, ...newContent }));
@@ -341,6 +406,7 @@ export function DataProvider({ children }) {
     setTestimonials(INITIAL_TESTIMONIALS);
     setSiteContent(INITIAL_CONTENT);
     setJobApplications([]);
+    setJobPostings(INITIAL_JOB_POSTINGS);
     localStorage.clear();
   };
 
@@ -353,11 +419,10 @@ export function DataProvider({ children }) {
         siteContent,
         jobApplications,
         jobPostings,
-        isAdminOpen,
-        setIsAdminOpen,
         addProject,
         updateProject,
         deleteProject,
+        moveProject,
         addService,
         updateService,
         deleteService,
@@ -370,6 +435,7 @@ export function DataProvider({ children }) {
         addJobPosting,
         updateJobPosting,
         deleteJobPosting,
+        moveJobPosting,
         updateSiteContent,
         resetAllData,
       }}
@@ -377,8 +443,4 @@ export function DataProvider({ children }) {
       {children}
     </DataContext.Provider>
   );
-}
-
-export function useData() {
-  return useContext(DataContext);
 }

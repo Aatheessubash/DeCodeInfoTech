@@ -11,7 +11,6 @@
 .scrollTrack {
   display: flex;
   gap: 28px;
-  width: max-width; /* was max-content, but we want to adjust it for responsive */
   width: max-content;
   animation: scrollLeft 35s linear infinite;
   will-change: transform;
@@ -38,6 +37,27 @@
     width: max-content;
     gap: 16px;
     padding: 0 16px;
+  }
+
+  .card[aria-hidden='true'] {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .carouselContainer {
+    overflow-x: auto;
+    mask-image: none;
+    -webkit-mask-image: none;
+  }
+
+  .scrollTrack {
+    animation: none;
+    padding-inline: 16px;
+  }
+
+  .card[aria-hidden='true'] {
+    display: none;
   }
 }
 

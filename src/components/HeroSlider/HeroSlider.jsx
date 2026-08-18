@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, ArrowRight, Play, Pause } from 'lucide-react';
 
 /* ============================================================
    SLIDE DATA — 5 service category slides with curated content
    ============================================================ */
-export const slideData = [
+const slideData = [
   {
     id: 1,
     category: 'Software & Technology Solutions',
@@ -14,7 +15,7 @@ export const slideData = [
     buttonText: 'Read More',
     buttonLink: '/services',
     image:
-      'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=2000&q=80',
+      'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1600&q=76',
     alt: 'Custom Software & Microchip Technology',
     accentColor: '#f97316',
     secondaryAccent: '#8b5cf6',
@@ -28,7 +29,7 @@ export const slideData = [
     buttonText: 'Read More',
     buttonLink: '/services',
     image:
-      'https://images.unsplash.com/photo-1501504905252-473c47e087f8?auto=format&fit=crop&w=2000&q=80',
+      'https://images.unsplash.com/photo-1501504905252-473c47e087f8?auto=format&fit=crop&w=1600&q=76',
     alt: 'Digital eLearning & Education Tech',
     accentColor: '#06b6d4',
     secondaryAccent: '#a855f7',
@@ -42,7 +43,7 @@ export const slideData = [
     buttonText: 'Read More',
     buttonLink: '/services',
     image:
-      'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=2000&q=80',
+      'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1600&q=76',
     alt: 'Quality Assurance & Software Code Inspection',
     accentColor: '#10b981',
     secondaryAccent: '#3b82f6',
@@ -56,7 +57,7 @@ export const slideData = [
     buttonText: 'Read More',
     buttonLink: '/services',
     image:
-      'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=2000&q=80',
+      'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1600&q=76',
     alt: 'Data Center Servers & Cloud Computing',
     accentColor: '#38bdf8',
     secondaryAccent: '#f97316',
@@ -70,7 +71,7 @@ export const slideData = [
     buttonText: 'Read More',
     buttonLink: '/services',
     image:
-      'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=2000&q=80',
+      'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1600&q=76',
     alt: 'Smart Manufacturing & Industrial Automation',
     accentColor: '#f59e0b',
     secondaryAccent: '#6366f1',
@@ -171,7 +172,17 @@ const SLIDER_STYLES = `
       font-size: 1rem;
     }
   }
+  @media (prefers-reduced-motion: reduce) {
+    .hs-cta,
+    .hs-cta svg,
+    .hs-dot,
+    .hs-nav-btn {
+      transition: none;
+    }
+  }
 `;
+
+const TRANSITION_MS = 900;
 
 /* ============================================================
    DecorativeCircles — per-slide animated blobs
@@ -278,6 +289,7 @@ function SlidePanel({ slide, isActive, isExiting, direction }) {
 
   return (
     <div
+      role="group"
       aria-hidden={!isActive}
       aria-roledescription="slide"
       aria-label={`Slide: ${slide.category}`}
@@ -441,14 +453,15 @@ function SlidePanel({ slide, isActive, isExiting, direction }) {
                   : `transform 450ms 0ms ease-in, opacity 400ms 0ms ease-in`,
               }}
             >
-              <a
-                href={slide.buttonLink || '/services'}
+              <Link
+                to={slide.buttonLink || '/services'}
                 className="hs-cta"
                 style={{ '--hs-accent': slide.accentColor }}
+                tabIndex={isActive ? 0 : -1}
               >
                 <span>{slide.buttonText || 'Read More'}</span>
                 <ArrowRight style={{ width: '18px', height: '18px', flexShrink: 0 }} aria-hidden="true" />
-              </a>
+              </Link>
             </div>
           </div>
 
@@ -465,22 +478,11 @@ export function HeroSlider({ slides = slideData, autoPlayInterval = 4000 }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [exitingIndex, setExitingIndex] = useState(null);
   const [direction, setDirection] = useState('next'); // 'next' | 'prev'
-  const [isPaused, setIsPaused] = useState(false);
+  const [prefersReducedMotion] = useState(() => window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  const [isPaused, setIsPaused] = useState(prefersReducedMotion);
   const touchStartX = useRef(0);
   const touchEndX = useRef(0);
   const exitTimerRef = useRef(null);
-
-  const TRANSITION_MS = 900;
-
-  const navigate = useCallback((nextIndex, dir) => {
-    setDirection(dir);
-    setCurrentIndex((curr) => {
-      clearTimeout(exitTimerRef.current);
-      setExitingIndex(curr); // current becomes the exiting slide
-      exitTimerRef.current = setTimeout(() => setExitingIndex(null), TRANSITION_MS + 50);
-      return nextIndex;
-    });
-  }, [TRANSITION_MS]);
 
   const handlePrev = useCallback(() => {
     setCurrentIndex((curr) => {
@@ -491,7 +493,7 @@ export function HeroSlider({ slides = slideData, autoPlayInterval = 4000 }) {
       exitTimerRef.current = setTimeout(() => setExitingIndex(null), TRANSITION_MS + 50);
       return next;
     });
-  }, [slides.length, TRANSITION_MS]);
+  }, [slides.length]);
 
   const handleNext = useCallback(() => {
     setCurrentIndex((curr) => {
@@ -502,10 +504,11 @@ export function HeroSlider({ slides = slideData, autoPlayInterval = 4000 }) {
       exitTimerRef.current = setTimeout(() => setExitingIndex(null), TRANSITION_MS + 50);
       return next;
     });
-  }, [slides.length, TRANSITION_MS]);
+  }, [slides.length]);
 
   const handleDotClick = useCallback((index) => {
     setCurrentIndex((curr) => {
+      if (index === curr) return curr;
       const dir = index >= curr ? 'next' : 'prev';
       setDirection(dir);
       clearTimeout(exitTimerRef.current);
@@ -513,17 +516,17 @@ export function HeroSlider({ slides = slideData, autoPlayInterval = 4000 }) {
       exitTimerRef.current = setTimeout(() => setExitingIndex(null), TRANSITION_MS + 50);
       return index;
     });
-  }, [TRANSITION_MS]);
+  }, []);
 
   // Cleanup on unmount
   useEffect(() => () => clearTimeout(exitTimerRef.current), []);
 
   /* Auto-play */
   useEffect(() => {
-    if (isPaused) return;
+    if (isPaused || prefersReducedMotion || slides.length < 2) return;
     const timer = setInterval(handleNext, autoPlayInterval);
     return () => clearInterval(timer);
-  }, [isPaused, handleNext, autoPlayInterval]);
+  }, [isPaused, prefersReducedMotion, slides.length, handleNext, autoPlayInterval]);
 
   /* Touch swipe */
   const handleTouchStart = (e) => {
@@ -557,12 +560,7 @@ export function HeroSlider({ slides = slideData, autoPlayInterval = 4000 }) {
         role="region"
         aria-roledescription="carousel"
         aria-label="DeCode InfoTech — Service Highlights"
-        aria-live="polite"
         tabIndex={0}
-        onClick={(e) => {
-          if (e.target.closest('a') || e.target.closest('button')) return;
-          setIsPaused((prev) => !prev);
-        }}
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
@@ -570,25 +568,29 @@ export function HeroSlider({ slides = slideData, autoPlayInterval = 4000 }) {
         style={{
           position: 'relative',
           width: '100%',
-          height: '100vh',
+          height: '100svh',
           minHeight: '600px',
           overflow: 'hidden',
           background: '#020617',
           userSelect: 'none',
           outline: 'none',
-          cursor: 'pointer',
+          cursor: 'default',
         }}
       >
         {/* ═══ SLIDE PANELS ═══ */}
-        {slides.map((slide, index) => (
-          <SlidePanel
-            key={slide.id}
-            slide={slide}
-            isActive={index === currentIndex}
-            isExiting={index === exitingIndex}
-            direction={direction}
-          />
-        ))}
+        {slides.map((slide, index) => {
+          if (index !== currentIndex && index !== exitingIndex) return null;
+
+          return (
+            <SlidePanel
+              key={slide.id}
+              slide={slide}
+              isActive={index === currentIndex}
+              isExiting={index === exitingIndex}
+              direction={direction}
+            />
+          );
+        })}
 
         {/* ═══ LEFT-SIDE VERTICAL INDICATORS ═══ */}
         <nav
@@ -609,6 +611,7 @@ export function HeroSlider({ slides = slideData, autoPlayInterval = 4000 }) {
             const isSelected = index === currentIndex;
             return (
               <button
+                type="button"
                 key={slide.id}
                 onClick={() => handleDotClick(index)}
                 aria-label={`Go to slide ${index + 1}: ${slide.category}`}
@@ -645,6 +648,7 @@ export function HeroSlider({ slides = slideData, autoPlayInterval = 4000 }) {
 
         {/* ═══ PREV / NEXT ARROW BUTTONS & PAUSE TOGGLE ═══ */}
         <div
+          role="group"
           aria-label="Slide navigation controls"
           style={{
             position: 'absolute',
@@ -658,6 +662,7 @@ export function HeroSlider({ slides = slideData, autoPlayInterval = 4000 }) {
         >
           {/* Pause / Resume Button */}
           <button
+            type="button"
             onClick={() => setIsPaused((prev) => !prev)}
             aria-label={isPaused ? 'Resume auto-play' : 'Pause auto-play'}
             title={isPaused ? 'Resume auto-play' : 'Pause auto-play'}
@@ -671,6 +676,7 @@ export function HeroSlider({ slides = slideData, autoPlayInterval = 4000 }) {
             )}
           </button>
           <button
+            type="button"
             onClick={handlePrev}
             aria-label="Go to previous slide"
             className="hs-nav-btn"
@@ -679,6 +685,7 @@ export function HeroSlider({ slides = slideData, autoPlayInterval = 4000 }) {
             <ChevronLeft style={{ width: '22px', height: '22px' }} aria-hidden="true" />
           </button>
           <button
+            type="button"
             onClick={handleNext}
             aria-label="Go to next slide"
             className="hs-nav-btn"
@@ -708,7 +715,7 @@ export function HeroSlider({ slides = slideData, autoPlayInterval = 4000 }) {
               height: '100%',
               background: `linear-gradient(90deg, ${activeSlide.accentColor}, ${activeSlide.secondaryAccent})`,
               boxShadow: `0 0 10px 3px ${activeSlide.accentColor}55`,
-              animation: isPaused
+              animation: isPaused || prefersReducedMotion
                 ? 'none'
                 : `heroProgressBar ${autoPlayInterval}ms linear forwards`,
             }}

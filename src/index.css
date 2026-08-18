@@ -14,6 +14,17 @@
   --gold: #D4AF37;
   --lav: #DCCEF9;
 
+  /* Compatibility aliases shared by older component styles. */
+  --accent-gold: #B88A12;
+  --accent-gold-bright: #9B7200;
+  --accent-gold-glow: rgba(184, 138, 18, 0.2);
+  --accent-cyan: #087EA4;
+  --gradient-gold-blue: linear-gradient(135deg, #B88A12 0%, #3F63D9 100%);
+  --text-secondary: #6B6B83;
+  --bg-card: rgba(255, 255, 255, 0.86);
+  --border-card: rgba(93, 68, 142, 0.16);
+  --border-card-hover: rgba(184, 138, 18, 0.5);
+
   --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --radius-card: 12px;
   --radius-pill: 10px;
@@ -28,6 +39,15 @@ body.dark {
   --surface: #1a1132;
   --text: #f4f2ff;
   --muted: #c3bdd8;
+  --accent-gold: #D4AF37;
+  --accent-gold-bright: #F2CF5B;
+  --accent-gold-glow: rgba(212, 175, 55, 0.22);
+  --accent-cyan: #67D7F5;
+  --gradient-gold-blue: linear-gradient(135deg, #F2CF5B 0%, #7EA2FF 100%);
+  --text-secondary: #c3bdd8;
+  --bg-card: rgba(31, 22, 57, 0.88);
+  --border-card: rgba(220, 206, 249, 0.22);
+  --border-card-hover: rgba(212, 175, 55, 0.55);
 }
 
 /* Reset & Base */
@@ -63,6 +83,58 @@ body {
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+#root,
+.app-root {
+  min-height: 100vh;
+}
+
+.app-root {
+  display: flex;
+  flex-direction: column;
+}
+
+.app-root > main {
+  flex: 1;
+}
+
+.ambient-background {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 12% 16%, rgba(91, 76, 173, 0.12), transparent 32%),
+    radial-gradient(circle at 84% 72%, rgba(212, 175, 55, 0.09), transparent 30%);
+}
+
+.route-loading {
+  min-height: 55vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.route-loading__spinner {
+  width: 24px;
+  height: 24px;
+  border: 3px solid var(--lav);
+  border-top-color: var(--gold);
+  border-radius: 50%;
+  animation: route-spin 700ms linear infinite;
+}
+
+@keyframes route-spin {
+  to { transform: rotate(360deg); }
+}
+
+:focus-visible {
+  outline: 3px solid var(--accent-gold);
+  outline-offset: 3px;
 }
 
 body.dark {
@@ -355,5 +427,24 @@ body.dark .btn-secondary:hover {
 
 .animate-progress {
   animation-name: progress;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
 }
 

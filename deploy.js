@@ -4,7 +4,7 @@ import readline from 'readline';
 function runCmd(cmd) {
   try {
     return execSync(cmd, { encoding: 'utf8', stdio: ['pipe', 'pipe', 'pipe'] }).trim();
-  } catch (err) {
+  } catch {
     return null;
   }
 }
@@ -64,7 +64,7 @@ async function main() {
   if (hasChanges) {
     try {
       execSync(`git commit -m "${commitMessage.replace(/"/g, '\\"')}"`, { stdio: 'inherit' });
-    } catch (e) {
+    } catch {
       console.log('ℹ️ No new changes to commit.');
     }
   }
@@ -73,7 +73,7 @@ async function main() {
   try {
     execSync(`git push origin ${currentBranch}`, { stdio: 'inherit' });
     console.log(`\n✅ SUCCESSFULLY DEPLOYED TO \x1b[32m${currentBranch}\x1b[0m!\n`);
-  } catch (err) {
+  } catch {
     console.error(`\n❌ Push failed! Please check your network or git credentials.\n`);
     process.exit(1);
   }

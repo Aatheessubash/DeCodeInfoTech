@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { useData } from '../context/DataContext';
+import { useData } from '../context/useData';
 import styles from './CareersPage.module.css';
 
 export function CareersPage() {
@@ -19,7 +18,7 @@ export function CareersPage() {
     coverLetter: '',
   });
 
-  const openPositions = [
+  const defaultOpenPositions = [
     {
       id: 'job-1',
       title: 'Senior Full Stack Developer',
@@ -93,7 +92,30 @@ export function CareersPage() {
     { icon: '❖', title: 'Great Work Culture', desc: 'Collaborative, zero-micromanagement environment with friendly engineering leaders.' },
   ];
 
-  const { addJobApplication } = useData();
+  const { addJobApplication, jobPostings } = useData();
+
+  const openPositions = (jobPostings || defaultOpenPositions).map((job) => ({
+    ...job,
+    icon: job.icon || (job.department || 'JB').slice(0, 2).toUpperCase(),
+    requirements: Array.isArray(job.requirements) ? job.requirements : [],
+  }));
+
+  useEffect(() => {
+    if (!selectedJob) return undefined;
+
+    const previousOverflow = document.body.style.overflow;
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape') setSelectedJob(null);
+    };
+
+    document.body.style.overflow = 'hidden';
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [selectedJob]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -182,6 +204,12 @@ export function CareersPage() {
             </h2>
           </div>
 
+          {openPositions.length === 0 ? (
+            <div className={`card-panel ${styles.emptyJobs}`}>
+              <h3>No Open Roles Right Now</h3>
+              <p>We are not actively hiring today, but you can still reach us through the contact page for future opportunities.</p>
+            </div>
+          ) : (
           <div className={styles.jobsGrid}>
             {openPositions.map((job) => (
               <div key={job.id} className={`card-panel ${styles.jobCard}`}>
@@ -199,6 +227,7 @@ export function CareersPage() {
                   </div>
 
                   <button
+                    type="button"
                     className="btn-primary"
                     onClick={() => {
                       setSelectedJob(job);
@@ -229,27 +258,34 @@ export function CareersPage() {
               </div>
             ))}
           </div>
+          )}
         </div>
       </section>
 
       {/* Application Modal */}
       {selectedJob && (
-        <div className={styles.modalBackdrop} onClick={() => setSelectedJob(null)}>
-          <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
-            <button className={styles.closeBtn} onClick={() => setSelectedJob(null)}>
+        <div className={styles.modalBackdrop} onClick={() => setSelectedJob(null)} role="presentation">
+          <div
+            className={styles.modalContent}
+            onClick={(e) => e.stopPropagation()}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="career-dialog-title"
+          >
+            <button type="button" className={styles.closeBtn} onClick={() => setSelectedJob(null)} aria-label="Close application form">
               ✕
             </button>
 
             {formSubmitted ? (
               <div style={{ textAlign: 'center', padding: '20px 0' }}>
                 <div className={styles.successIcon}>✓</div>
-                <h3 className={styles.modalTitle}>
+                <h3 id="career-dialog-title" className={styles.modalTitle}>
                   Application Received!
                 </h3>
                 <p className={styles.jobSummary} style={{ marginBottom: '24px' }}>
                   Thank you <strong>{formData.name}</strong>. Your application for <strong>{selectedJob.title}</strong> has been submitted. Our engineering leads will review your details and respond via email within 48 hours.
                 </p>
-                <button className="btn-primary" onClick={() => setSelectedJob(null)}>
+                <button type="button" className="btn-primary" onClick={() => setSelectedJob(null)}>
                   Close Window
                 </button>
               </div>
@@ -258,26 +294,31 @@ export function CareersPage() {
                 <div className="pill-badge" style={{ marginBottom: '8px' }}>
                   Applying for {selectedJob.title}
                 </div>
-                <h3 className={styles.modalTitle} style={{ marginBottom: '20px' }}>
+                <h3 id="career-dialog-title" className={styles.modalTitle} style={{ marginBottom: '20px' }}>
                   Submit Your Candidate Application
                 </h3>
 
                 <div className={styles.formGroup}>
                   <div>
-                    <label className={styles.label}>Full Name *</label>
+                    <label htmlFor="career-name" className={styles.label}>Full Name *</label>
                     <input
+                      id="career-name"
+                      name="name"
                       type="text"
                       required
                       placeholder="Jane Doe"
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       className={styles.input}
+                      autoFocus
                     />
                   </div>
 
                   <div>
-                    <label className={styles.label}>Email Address *</label>
+                    <label htmlFor="career-email" className={styles.label}>Email Address *</label>
                     <input
+                      id="career-email"
+                      name="email"
                       type="email"
                       required
                       placeholder="jane@example.com"
@@ -288,8 +329,10 @@ export function CareersPage() {
                   </div>
 
                   <div>
-                    <label className={styles.label}>Portfolio / GitHub URL *</label>
+                    <label htmlFor="career-portfolio" className={styles.label}>Portfolio / GitHub URL *</label>
                     <input
+                      id="career-portfolio"
+                      name="portfolio"
                       type="url"
                       required
                       placeholder="https://github.com/username or https://portfolio.com"
@@ -300,8 +343,10 @@ export function CareersPage() {
                   </div>
 
                   <div>
-                    <label className={styles.label}>Cover Letter / Brief Pitch</label>
+                    <label htmlFor="career-cover-letter" className={styles.label}>Cover Letter / Brief Pitch</label>
                     <textarea
+                      id="career-cover-letter"
+                      name="coverLetter"
                       rows={4}
                       placeholder="Tell us briefly about your recent projects and why you want to join DeCode Studio..."
                       value={formData.coverLetter}
