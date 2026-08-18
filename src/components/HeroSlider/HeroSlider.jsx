@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, ArrowRight, Play, Pause } from 'lucide-react';
 
 /* ============================================================
-   SLIDE DATA — Aligned with DeCode Brand & New Service Offerings
+   SLIDE DATA — 5 Curated Slides Aligned with Brand & Offerings
    ============================================================ */
 const slideData = [
   {
@@ -89,7 +89,7 @@ const slideData = [
 ];
 
 /* ============================================================
-   KEYFRAME CSS — Injected for smooth animations & hover effects
+   STYLES — Silky Cross-Fade & Hardware-Accelerated Animations
    ============================================================ */
 const SLIDER_STYLES = `
   @keyframes heroPulse {
@@ -107,6 +107,63 @@ const SLIDER_STYLES = `
   @keyframes heroProgressBar {
     from { width: 0%; }
     to   { width: 100%; }
+  }
+  .hs-slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 1200ms cubic-bezier(0.4, 0, 0.2, 1),
+                visibility 1200ms cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: opacity, transform;
+    z-index: 1;
+  }
+  .hs-slide.is-active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    z-index: 10;
+  }
+  .hs-slide-bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    transform: scale(1.08);
+    transition: transform 10000ms cubic-bezier(0.25, 1, 0.5, 1);
+    will-change: transform;
+  }
+  .hs-slide.is-active .hs-slide-bg {
+    transform: scale(1.02);
+  }
+  .hs-anim-item {
+    opacity: 0;
+    transform: translateY(22px);
+    transition: opacity 800ms cubic-bezier(0.16, 1, 0.3, 1),
+                transform 800ms cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
+  }
+  .hs-slide.is-active .hs-badge {
+    opacity: 1;
+    transform: translateY(0px);
+    transition-delay: 200ms;
+  }
+  .hs-slide.is-active .hs-headline {
+    opacity: 1;
+    transform: translateY(0px);
+    transition-delay: 350ms;
+  }
+  .hs-slide.is-active .hs-desc {
+    opacity: 1;
+    transform: translateY(0px);
+    transition-delay: 500ms;
+  }
+  .hs-slide.is-active .hs-cta-group {
+    opacity: 1;
+    transform: translateY(0px);
+    transition-delay: 650ms;
   }
   .hs-primary-cta {
     display: inline-flex;
@@ -193,24 +250,22 @@ const SLIDER_STYLES = `
     }
   }
   @media (prefers-reduced-motion: reduce) {
+    .hs-slide,
+    .hs-slide-bg,
+    .hs-anim-item,
     .hs-primary-cta,
     .hs-secondary-cta,
     .hs-dot,
     .hs-nav-btn {
-      transition: none;
+      transition: none !important;
+      animation: none !important;
     }
   }
 `;
 
-const TRANSITION_MS = 1000;
-
-/* ============================================================
-   DecorativeCircles — DeCode Brand Purple & Gold Glow Accents
-   ============================================================ */
 function DecorativeCircles({ accentColor, secondaryAccent }) {
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none z-10" aria-hidden="true">
-      {/* Large brand purple blob — top-right */}
       <div
         style={{
           position: 'absolute',
@@ -225,7 +280,6 @@ function DecorativeCircles({ accentColor, secondaryAccent }) {
           opacity: 0.45,
         }}
       />
-      {/* Brand gold blob — bottom-right */}
       <div
         style={{
           position: 'absolute',
@@ -240,7 +294,6 @@ function DecorativeCircles({ accentColor, secondaryAccent }) {
           opacity: 0.35,
         }}
       />
-      {/* Bright ping dot */}
       <div
         style={{
           position: 'absolute',
@@ -254,7 +307,6 @@ function DecorativeCircles({ accentColor, secondaryAccent }) {
           animation: 'heroPing 3.5s ease-in-out infinite',
         }}
       />
-      {/* Subtle lavender floating dot */}
       <div
         style={{
           position: 'absolute',
@@ -268,7 +320,6 @@ function DecorativeCircles({ accentColor, secondaryAccent }) {
           animation: 'heroPulse 5s ease-in-out infinite 1s',
         }}
       />
-      {/* Tiny gold accent dot */}
       <div
         style={{
           position: 'absolute',
@@ -286,274 +337,24 @@ function DecorativeCircles({ accentColor, secondaryAccent }) {
   );
 }
 
-/* ============================================================
-   SlidePanel — Silky fade & easing with no abrupt cuts
-   ============================================================ */
-function SlidePanel({ slide, isActive, isExiting, direction }) {
-  const springEase = 'cubic-bezier(0.16, 1, 0.3, 1)';
-  const fadeEase = 'cubic-bezier(0.25, 1, 0.5, 1)';
-
-  let textTransform = 'translateX(0px)';
-  let textOpacity = 0;
-
-  if (isActive) {
-    textTransform = 'translateX(0px)';
-    textOpacity = 1;
-  } else if (isExiting) {
-    textTransform = direction === 'next' ? 'translateX(-30px)' : 'translateX(30px)';
-    textOpacity = 0;
-  } else {
-    textTransform = direction === 'next' ? 'translateX(30px)' : 'translateX(-30px)';
-    textOpacity = 0;
-  }
-
-  return (
-    <div
-      role="group"
-      aria-hidden={!isActive}
-      aria-roledescription="slide"
-      aria-label={`Slide: ${slide.category}`}
-      style={{
-        position: 'absolute',
-        inset: 0,
-        opacity: isActive ? 1 : 0,
-        zIndex: isActive ? 10 : isExiting ? 5 : 0,
-        transition: `opacity ${TRANSITION_MS}ms ${fadeEase}`,
-        pointerEvents: isActive ? 'auto' : 'none',
-      }}
-    >
-      {/* Background image + smooth continuous ambient zoom */}
-      <div
-        style={{
-          position: 'absolute',
-          inset: 0,
-          backgroundImage: `url(${slide.image})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
-          willChange: 'transform, opacity',
-          transform: isActive ? 'scale(1.04) translateZ(0)' : 'scale(1.10) translateZ(0)',
-          transition: `transform 9000ms cubic-bezier(0.25, 1, 0.5, 1), opacity ${TRANSITION_MS}ms ${fadeEase}`,
-        }}
-      >
-        {/* Deep brand gradient overlays for readability and luxury aesthetics */}
-        <div
-          style={{
-            position: 'absolute',
-            inset: 0,
-            background:
-              'linear-gradient(90deg, rgba(18, 3, 49, 0.92) 0%, rgba(18, 3, 49, 0.65) 55%, rgba(18, 3, 49, 0.35) 100%)',
-          }}
-        />
-        <div
-          style={{
-            position: 'absolute',
-            inset: 0,
-            background:
-              'linear-gradient(180deg, rgba(18, 3, 49, 0.3) 0%, transparent 40%, rgba(18, 3, 49, 0.8) 100%)',
-          }}
-        />
-      </div>
-
-      {/* Brand animated decorative circles */}
-      <DecorativeCircles
-        accentColor={slide.accentColor}
-        secondaryAccent={slide.secondaryAccent}
-      />
-
-      {/* Content layout */}
-      <div
-        style={{
-          position: 'relative',
-          zIndex: 20,
-          width: '100%',
-          height: '100%',
-          display: 'flex',
-          alignItems: 'center',
-        }}
-      >
-        <div
-          style={{
-            width: '100%',
-            maxWidth: '1280px',
-            margin: '0 auto',
-            padding: 'clamp(28px, 7vw, 96px)',
-            paddingTop: 'clamp(90px, 11vw, 130px)',
-          }}
-        >
-          <div
-            style={{
-              maxWidth: '720px',
-              textAlign: 'left',
-            }}
-          >
-            {/* Category label */}
-            <div
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '10px',
-                padding: '6px 14px',
-                borderRadius: '999px',
-                background: 'rgba(255, 255, 255, 0.08)',
-                border: `1px solid ${slide.accentColor}55`,
-                marginBottom: '18px',
-                transform: textTransform,
-                opacity: textOpacity,
-                transition: isActive
-                  ? `transform 750ms 50ms ${springEase}, opacity 600ms 50ms ease`
-                  : `transform 400ms 0ms ease, opacity 350ms 0ms ease`,
-              }}
-            >
-              <span
-                style={{
-                  display: 'block',
-                  width: '8px',
-                  height: '8px',
-                  borderRadius: '50%',
-                  background: slide.accentColor,
-                  boxShadow: `0 0 8px ${slide.accentColor}`,
-                }}
-              />
-              <span
-                style={{
-                  fontSize: 'clamp(0.72rem, 1.4vw, 0.84rem)',
-                  fontWeight: 700,
-                  letterSpacing: '0.14em',
-                  textTransform: 'uppercase',
-                  color: '#ffffff',
-                }}
-              >
-                {slide.category}
-              </span>
-            </div>
-
-            {/* Headline */}
-            <h1
-              style={{
-                fontSize: 'clamp(1.8rem, 4.8vw, 3.4rem)',
-                fontWeight: 800,
-                color: '#ffffff',
-                lineHeight: 1.12,
-                letterSpacing: '-0.02em',
-                marginBottom: 'clamp(14px, 2.2vw, 22px)',
-                textShadow: '0 2px 24px rgba(0,0,0,0.5)',
-                transform: textTransform,
-                opacity: textOpacity,
-                transition: isActive
-                  ? `transform 780ms 100ms ${springEase}, opacity 620ms 100ms ease`
-                  : `transform 400ms 0ms ease, opacity 350ms 0ms ease`,
-              }}
-            >
-              {slide.headline}
-            </h1>
-
-            {/* Description */}
-            <p
-              style={{
-                fontSize: 'clamp(0.92rem, 1.8vw, 1.12rem)',
-                color: 'rgba(255,255,255,0.86)',
-                lineHeight: 1.65,
-                marginBottom: 'clamp(24px, 3.5vw, 36px)',
-                maxWidth: '600px',
-                fontWeight: 400,
-                transform: textTransform,
-                opacity: textOpacity,
-                transition: isActive
-                  ? `transform 800ms 160ms ${springEase}, opacity 640ms 160ms ease`
-                  : `transform 400ms 0ms ease, opacity 350ms 0ms ease`,
-              }}
-            >
-              {slide.description}
-            </p>
-
-            {/* CTA Button Group */}
-            <div
-              style={{
-                display: 'flex',
-                flexWrap: 'wrap',
-                gap: '14px',
-                alignItems: 'center',
-                transform: textTransform,
-                opacity: textOpacity,
-                transition: isActive
-                  ? `transform 820ms 220ms ${springEase}, opacity 660ms 220ms ease`
-                  : `transform 400ms 0ms ease, opacity 350ms 0ms ease`,
-              }}
-            >
-              <Link
-                to={slide.primaryCtaLink || '/contact'}
-                className="hs-primary-cta"
-                style={{ '--hs-accent': slide.accentColor }}
-                tabIndex={isActive ? 0 : -1}
-              >
-                <span>{slide.primaryCtaText || 'Start a Conversation'}</span>
-                <ArrowRight style={{ width: '18px', height: '18px', flexShrink: 0 }} aria-hidden="true" />
-              </Link>
-
-              <Link
-                to={slide.secondaryCtaLink || '/services'}
-                className="hs-secondary-cta"
-                tabIndex={isActive ? 0 : -1}
-              >
-                <span>{slide.secondaryCtaText || 'Explore Our Services'}</span>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-/* ============================================================
-   HeroSlider — Main Exported Component
-   ============================================================ */
 export function HeroSlider({ slides = slideData, autoPlayInterval = 5500 }) {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [exitingIndex, setExitingIndex] = useState(null);
-  const [direction, setDirection] = useState('next');
   const [prefersReducedMotion] = useState(() => window.matchMedia('(prefers-reduced-motion: reduce)').matches);
   const [isPaused, setIsPaused] = useState(prefersReducedMotion);
   const touchStartX = useRef(0);
   const touchEndX = useRef(0);
-  const exitTimerRef = useRef(null);
 
   const handlePrev = useCallback(() => {
-    setCurrentIndex((curr) => {
-      const next = (curr - 1 + slides.length) % slides.length;
-      setDirection('prev');
-      clearTimeout(exitTimerRef.current);
-      setExitingIndex(curr);
-      exitTimerRef.current = setTimeout(() => setExitingIndex(null), TRANSITION_MS + 50);
-      return next;
-    });
+    setCurrentIndex((curr) => (curr - 1 + slides.length) % slides.length);
   }, [slides.length]);
 
   const handleNext = useCallback(() => {
-    setCurrentIndex((curr) => {
-      const next = (curr + 1) % slides.length;
-      setDirection('next');
-      clearTimeout(exitTimerRef.current);
-      setExitingIndex(curr);
-      exitTimerRef.current = setTimeout(() => setExitingIndex(null), TRANSITION_MS + 50);
-      return next;
-    });
+    setCurrentIndex((curr) => (curr + 1) % slides.length);
   }, [slides.length]);
 
   const handleDotClick = useCallback((index) => {
-    setCurrentIndex((curr) => {
-      if (index === curr) return curr;
-      const dir = index >= curr ? 'next' : 'prev';
-      setDirection(dir);
-      clearTimeout(exitTimerRef.current);
-      setExitingIndex(curr);
-      exitTimerRef.current = setTimeout(() => setExitingIndex(null), TRANSITION_MS + 50);
-      return index;
-    });
+    setCurrentIndex(index);
   }, []);
-
-  useEffect(() => () => clearTimeout(exitTimerRef.current), []);
 
   useEffect(() => {
     if (isPaused || prefersReducedMotion || slides.length < 2) return;
@@ -608,18 +409,170 @@ export function HeroSlider({ slides = slideData, autoPlayInterval = 5500 }) {
           cursor: 'default',
         }}
       >
-        {/* ═══ SLIDE PANELS ═══ */}
+        {/* ═══ PERSISTENT SLIDES WITH CSS CROSS-FADE ═══ */}
         {slides.map((slide, index) => {
-          if (index !== currentIndex && index !== exitingIndex) return null;
+          const isActive = index === currentIndex;
 
           return (
-            <SlidePanel
+            <div
               key={slide.id}
-              slide={slide}
-              isActive={index === currentIndex}
-              isExiting={index === exitingIndex}
-              direction={direction}
-            />
+              className={`hs-slide ${isActive ? 'is-active' : ''}`}
+              role="group"
+              aria-hidden={!isActive}
+              aria-roledescription="slide"
+              aria-label={`Slide ${index + 1}: ${slide.category}`}
+            >
+              {/* Background image */}
+              <div
+                className="hs-slide-bg"
+                style={{ backgroundImage: `url(${slide.image})` }}
+              >
+                {/* Luxury gradient overlays */}
+                <div
+                  style={{
+                    position: 'absolute',
+                    inset: 0,
+                    background:
+                      'linear-gradient(90deg, rgba(18, 3, 49, 0.92) 0%, rgba(18, 3, 49, 0.65) 55%, rgba(18, 3, 49, 0.35) 100%)',
+                  }}
+                />
+                <div
+                  style={{
+                    position: 'absolute',
+                    inset: 0,
+                    background:
+                      'linear-gradient(180deg, rgba(18, 3, 49, 0.3) 0%, transparent 40%, rgba(18, 3, 49, 0.8) 100%)',
+                  }}
+                />
+              </div>
+
+              {/* Decorative Brand Circles */}
+              <DecorativeCircles
+                accentColor={slide.accentColor}
+                secondaryAccent={slide.secondaryAccent}
+              />
+
+              {/* Slide Content */}
+              <div
+                style={{
+                  position: 'relative',
+                  zIndex: 20,
+                  width: '100%',
+                  height: '100%',
+                  display: 'flex',
+                  alignItems: 'center',
+                }}
+              >
+                <div
+                  style={{
+                    width: '100%',
+                    maxWidth: '1280px',
+                    margin: '0 auto',
+                    padding: 'clamp(28px, 7vw, 96px)',
+                    paddingTop: 'clamp(90px, 11vw, 130px)',
+                  }}
+                >
+                  <div style={{ maxWidth: '720px', textAlign: 'left' }}>
+                    {/* Badge */}
+                    <div
+                      className="hs-anim-item hs-badge"
+                      style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '10px',
+                        padding: '6px 14px',
+                        borderRadius: '999px',
+                        background: 'rgba(255, 255, 255, 0.08)',
+                        border: `1px solid ${slide.accentColor}55`,
+                        marginBottom: '18px',
+                      }}
+                    >
+                      <span
+                        style={{
+                          display: 'block',
+                          width: '8px',
+                          height: '8px',
+                          borderRadius: '50%',
+                          background: slide.accentColor,
+                          boxShadow: `0 0 8px ${slide.accentColor}`,
+                        }}
+                      />
+                      <span
+                        style={{
+                          fontSize: 'clamp(0.72rem, 1.4vw, 0.84rem)',
+                          fontWeight: 700,
+                          letterSpacing: '0.14em',
+                          textTransform: 'uppercase',
+                          color: '#ffffff',
+                        }}
+                      >
+                        {slide.category}
+                      </span>
+                    </div>
+
+                    {/* Headline */}
+                    <h1
+                      className="hs-anim-item hs-headline"
+                      style={{
+                        fontSize: 'clamp(1.8rem, 4.8vw, 3.4rem)',
+                        fontWeight: 800,
+                        color: '#ffffff',
+                        lineHeight: 1.12,
+                        letterSpacing: '-0.02em',
+                        marginBottom: 'clamp(14px, 2.2vw, 22px)',
+                        textShadow: '0 2px 24px rgba(0,0,0,0.5)',
+                      }}
+                    >
+                      {slide.headline}
+                    </h1>
+
+                    {/* Description */}
+                    <p
+                      className="hs-anim-item hs-desc"
+                      style={{
+                        fontSize: 'clamp(0.92rem, 1.8vw, 1.12rem)',
+                        color: 'rgba(255,255,255,0.86)',
+                        lineHeight: 1.65,
+                        marginBottom: 'clamp(24px, 3.5vw, 36px)',
+                        maxWidth: '600px',
+                        fontWeight: 400,
+                      }}
+                    >
+                      {slide.description}
+                    </p>
+
+                    {/* CTAs */}
+                    <div
+                      className="hs-anim-item hs-cta-group"
+                      style={{
+                        display: 'flex',
+                        flexWrap: 'wrap',
+                        gap: '14px',
+                        alignItems: 'center',
+                      }}
+                    >
+                      <Link
+                        to={slide.primaryCtaLink || '/contact'}
+                        className="hs-primary-cta"
+                        style={{ '--hs-accent': slide.accentColor }}
+                        tabIndex={isActive ? 0 : -1}
+                      >
+                        <span>{slide.primaryCtaText || 'Start a Conversation'}</span>
+                        <ArrowRight style={{ width: '18px', height: '18px', flexShrink: 0 }} aria-hidden="true" />
+                      </Link>
+
+                      <Link
+                        to={slide.secondaryCtaLink || '/services'}
+                        className="hs-secondary-cta"
+                        tabIndex={isActive ? 0 : -1}
+                      >
+                        <span>{slide.secondaryCtaText || 'Explore Our Services'}</span>
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           );
         })}
 
