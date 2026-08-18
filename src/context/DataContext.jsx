@@ -19,113 +19,125 @@ function writeStoredData(key, value) {
   }
 }
 
+
 const INITIAL_PROJECTS = [
   {
     id: 'azhagappar-academy',
     title: 'Azhagappar Academy',
     category: 'EdTech / Video Learning Platform',
     image: '/assets/portfolio-azhagappar.jpg',
-    problem: 'A video-based online learning platform built for structured course delivery.',
-    solution: 'A streamlined digital learning experience for structured video courses.',
+    problem: 'A video-based online learning platform built for structured course delivery, interactive quizzes, and seamless student progress tracking.',
+    solution: 'A streamlined digital learning experience for structured video courses and student lifecycle management.',
     url: 'https://azhagapparacademy.com',
-    tech: ['Video Learning', 'Course Delivery'],
+    tech: ['React.js', 'Node.js', 'Video Streaming', 'AWS S3'],
   },
   {
     id: 'thozha-associates',
     title: 'Thozha Associates',
     category: 'Construction / Civil Engineering',
     image: '/assets/portfolio-thozha.jpg',
-    problem: 'Business website for a Pollachi-based civil engineering and construction firm led by Er. Taran D V, showcasing residential, commercial, and renovation services since 2014.',
-    solution: 'A polished company website that presents services, expertise, and project credibility.',
+    problem: 'Corporate digital presence for a leading civil engineering & construction firm showcasing turnkey residential, commercial, and renovation projects.',
+    solution: 'A high-converting portfolio and lead capture web experience establishing engineering credibility.',
     url: 'https://decodeinfotech.in/thozha',
-    tech: ['Business Website', 'Responsive Design'],
+    tech: ['React', 'CSS Modules', 'SEO', 'Lead Funnel'],
   },
   {
     id: 'neuerung-healthtech',
     title: 'Neuerung HealthTech',
     category: 'HealthTech / AI & IoT',
     image: '/assets/portfolio-neuerung.jpg',
-    problem: 'Corporate site for a healthtech company delivering AI, digital, IoT, and clinical technology solutions to improve healthcare efficiency and patient care.',
-    solution: 'A modern corporate experience communicating a connected healthcare ecosystem.',
+    problem: 'Enterprise portal for an innovative healthtech brand integrating AI-driven diagnostic tools, clinical workflows, and IoT device telemetry.',
+    solution: 'A modern, secure healthcare interface communicating advanced connected clinical technology.',
     url: 'https://decodeinfotech.in/neuerung',
-    tech: ['AI', 'IoT', 'HealthTech'],
+    tech: ['AI Diagnostics', 'IoT Telemetry', 'HealthTech UX', 'Cloud API'],
   },
   {
     id: 'hotel-vetri-vel',
     title: 'Hotel Vetri Vel',
     category: 'SaaS / POS Billing Software',
     image: '/assets/portfolio-vetrivel.jpg',
-    problem: 'Real-time point-of-sale and billing system for hotels and restaurants, with live order management, menu master, transaction history, and dashboard analytics.',
-    solution: 'A focused restaurant operations platform for faster orders, billing, and reporting.',
+    problem: 'Real-time multi-counter point-of-sale and kitchen order ticketing (KOT) billing system built for high-throughput hospitality operations.',
+    solution: 'An ultra-fast cloud POS system with live menu configuration, billing printers, and real-time sales reporting.',
     url: 'https://www.vetrivelunavagam.com',
-    tech: ['POS', 'Real-time Orders', 'Analytics'],
+    tech: ['Cloud POS', 'Live WebSockets', 'Analytics', 'Thermal Print API'],
   },
 ];
 
 const INITIAL_SERVICES = [
   {
     id: '01',
-    title: 'Modern Website Design Services',
-    desc: 'High-converting UI/UX designs and responsive layouts crafted for modern brands.',
+    title: 'Software & Technology Solutions',
+    desc: 'Empowering enterprises with bespoke software, cloud architectures, and robust API integrations designed for seamless scalability.',
     deliverables: [
-      'Conversion Focused Design',
-      'Mobile-First Layouts',
-      'Interactive Prototypes',
-    ],
-    icon: '✦',
-  },
-  {
-    id: '02',
-    title: 'Full Stack Web Development Services',
-    desc: 'Fast, secure, and maintainable web apps engineered with modern frameworks.',
-    deliverables: [
-      'React & Node JS Backend',
-      'Custom Web Dashboards',
-      'API Integration',
+      'Custom Enterprise Software',
+      'Cloud Architecture & Microservices',
+      'API Design & Third-Party Integration',
     ],
     icon: '⚡',
   },
   {
-    id: '03',
-    title: 'Custom Web Application Development',
-    desc: 'Scalable custom software to streamline workflows and handle high traffic.',
+    id: '02',
+    title: 'Industrial Automation – AI & IoT',
+    desc: 'Transforming manufacturing and industrial workflows with smart IoT telemetry, machine learning, and computer vision systems.',
     deliverables: [
-      'SaaS & Enterprise Portals',
-      'Custom Admin Dashboards',
-      'Role-Based Access',
-    ],
-    icon: '⚙',
-  },
-  {
-    id: '04',
-    title: 'Website Optimization & SEO',
-    desc: 'Turn traffic into paying customers with optimized speeds and technical SEO.',
-    deliverables: [
-      'Core Web Vitals Optimization',
-      'Technical SEO',
-      'Conversion Rate (CRO)',
-    ],
-    icon: '◈',
-  },
-  {
-    id: '05',
-    title: 'Website Redesign & Refresh',
-    desc: 'Transform outdated websites into sleek, modern digital products.',
-    deliverables: [
-      'Modern Visual UI Upgrade',
-      'Tech Stack Migration',
-      'Code Refactoring',
+      'IoT Sensor Telemetry & Remote Control',
+      'AI Vision & Automated Quality Inspection',
+      'Smart Factory & SCADA Integration',
     ],
     icon: '❖',
   },
   {
-    id: '06',
-    title: 'DevOps & Ongoing Support',
-    desc: 'Reliable CI/CD pipeline setup, DevOps consulting, and product maintenance.',
+    id: '03',
+    title: 'UI/UX Design & Prototyping',
+    desc: 'Crafting intuitive, conversion-focused user interfaces and design systems that delight users and drive business metrics.',
     deliverables: [
-      'GitHub Actions Automation',
-      'Kubernetes Deployment',
-      'Performance Monitoring',
+      'User Research & Interactive Wireframes',
+      'Figma Prototypes & Design Systems',
+      'Conversion Rate Optimization (CRO)',
+    ],
+    icon: '✦',
+  },
+  {
+    id: '04',
+    title: 'SaaS & Custom Web App Development',
+    desc: 'Engineering high-performance, secure, and multi-tenant web applications built to scale effortlessly under heavy loads.',
+    deliverables: [
+      'Multi-Tenant SaaS Architecture',
+      'Interactive Analytics Dashboards',
+      'Role-Based Access & Security',
+    ],
+    icon: '⚙',
+  },
+  {
+    id: '05',
+    title: 'Digital Content Creation & Media',
+    desc: 'Strategic brand storytelling, technical copywriting, motion graphics, and digital media production that captures attention.',
+    deliverables: [
+      'Brand & Product Storytelling',
+      'High-Impact Visual Assets & Graphics',
+      'Technical Copy & Video Media',
+    ],
+    icon: '◈',
+  },
+  {
+    id: '06',
+    title: 'Mobile App Development',
+    desc: 'Building responsive, feature-rich iOS and Android mobile applications delivering native performance and fluid user journeys.',
+    deliverables: [
+      'Cross-Platform iOS & Android Apps',
+      'Offline-First Sync & Push Notifications',
+      'App Store & Play Store Deployment',
+    ],
+    icon: '📱',
+  },
+  {
+    id: '07',
+    title: 'Maintenance, Cloud & Ongoing Support',
+    desc: 'Reliable CI/CD automation, proactive server monitoring, regular security updates, and SLA-backed engineering support.',
+    deliverables: [
+      'Automated CI/CD & Cloud Infrastructure',
+      '24/7 Uptime & Performance Monitoring',
+      'Security Audits & SLA Maintenance',
     ],
     icon: '⬡',
   },
@@ -162,11 +174,13 @@ const INITIAL_TESTIMONIALS = [
 ];
 
 const INITIAL_CONTENT = {
-  heroEyebrow: 'SAAS PRODUCT DEVELOPMENT COMPANY IN INDIA',
-  heroHeadline: 'We build digital experiences that help businesses grow. Leading web development company for startups.',
-  heroSubtext: 'From high-converting modern website design services to complete custom web application development — DeCode designs, builds, and launches fast, scalable digital products engineered for long-term growth. We are your trusted UI UX design and development studio.',
-  agencyName: 'DeCode Studio',
-  contactEmail: 'hello@decode.com',
+  heroEyebrow: 'INNOVATION & TECHNOLOGY SOLUTIONS',
+  heroHeadline: 'Transforming Ideas Into Technology That Moves Businesses Forward',
+  heroSubtext: 'From custom software and industrial IoT to scalable SaaS and mobile apps — DeCode designs, engineers, and scales high-performance digital solutions tailored to your business goals.',
+  heroPrimaryCta: 'Start a Conversation',
+  heroSecondaryCta: 'Explore Our Services',
+  agencyName: 'DeCode InfoTech',
+  contactEmail: 'contact@decodeinfotech.com',
   contactLocation: 'Coimbatore, Tamil Nadu, India',
 };
 
@@ -253,11 +267,11 @@ function normalizeJobPosting(job) {
 
 export function DataProvider({ children }) {
   const [projects, setProjects] = useState(() => {
-    return readStoredData('decode_projects_v3', INITIAL_PROJECTS);
+    return readStoredData('decode_projects_v4', INITIAL_PROJECTS);
   });
 
   const [services, setServices] = useState(() => {
-    return readStoredData('decode_services_v2', INITIAL_SERVICES);
+    return readStoredData('decode_services_v3', INITIAL_SERVICES);
   });
 
   const [testimonials, setTestimonials] = useState(() => {
@@ -265,7 +279,7 @@ export function DataProvider({ children }) {
   });
 
   const [siteContent, setSiteContent] = useState(() => {
-    return readStoredData('decode_site_content', INITIAL_CONTENT);
+    return readStoredData('decode_site_content_v2', INITIAL_CONTENT);
   });
 
   const [jobApplications, setJobApplications] = useState(() => {
@@ -281,11 +295,11 @@ export function DataProvider({ children }) {
   });
 
   useEffect(() => {
-    writeStoredData('decode_projects_v3', projects);
+    writeStoredData('decode_projects_v4', projects);
   }, [projects]);
 
   useEffect(() => {
-    writeStoredData('decode_services_v2', services);
+    writeStoredData('decode_services_v3', services);
   }, [services]);
 
   useEffect(() => {
@@ -293,16 +307,12 @@ export function DataProvider({ children }) {
   }, [testimonials]);
 
   useEffect(() => {
-    writeStoredData('decode_site_content', siteContent);
+    writeStoredData('decode_site_content_v2', siteContent);
   }, [siteContent]);
 
   useEffect(() => {
     writeStoredData('decode_job_applications', jobApplications);
   }, [jobApplications]);
-
-  useEffect(() => {
-    writeStoredData('decode_job_postings_v2', jobPostings);
-  }, [jobPostings]);
 
   // Project Mutations
   const addProject = (project) => {

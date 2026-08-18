@@ -2,15 +2,25 @@ import React from 'react';
 import { useIntersectionObserver } from '../../hooks/useIntersectionObserver';
 import { useData } from '../../context/useData';
 import styles from './Services.module.css';
-import { MonitorSmartphone, Code2, Cpu, Rocket, RotateCcw, Wrench } from 'lucide-react';
+import {
+  Code2,
+  Cpu,
+  Palette,
+  Cloud,
+  Video,
+  Smartphone,
+  Wrench,
+  Sparkles,
+} from 'lucide-react';
 
 const SERVICE_ICONS = {
-  '01': <MonitorSmartphone className="w-6 h-6" />,
-  '02': <Code2 className="w-6 h-6" />,
-  '03': <Cpu className="w-6 h-6" />,
-  '04': <Rocket className="w-6 h-6" />,
-  '05': <RotateCcw className="w-6 h-6" />,
-  '06': <Wrench className="w-6 h-6" />
+  '01': <Code2 className="w-6 h-6" />,
+  '02': <Cpu className="w-6 h-6" />,
+  '03': <Palette className="w-6 h-6" />,
+  '04': <Cloud className="w-6 h-6" />,
+  '05': <Video className="w-6 h-6" />,
+  '06': <Smartphone className="w-6 h-6" />,
+  '07': <Wrench className="w-6 h-6" />,
 };
 
 export function Services() {
@@ -26,9 +36,9 @@ export function Services() {
           <span className="badge-dot"></span>
           Core Capabilities
         </div>
-        <h2>Services Built for Real Business Growth</h2>
+        <h2>Technology Solutions Built Around Your Business</h2>
         <p>
-          At <strong>{siteContent.agencyName || 'DeCode'}</strong>, we combine strategic design with clean engineering to deliver fast, reliable digital products.
+          At <strong>{siteContent.agencyName || 'DeCode InfoTech'}</strong>, we combine strategic engineering, industrial innovation, and intuitive design to deliver scalable technology solutions.
         </p>
       </div>
 
@@ -41,7 +51,9 @@ export function Services() {
               aria-hidden={index >= services.length}
             >
               <div className={styles.cardHeader}>
-                <span className={styles.icon}>{SERVICE_ICONS[service.id] || <Cpu className="w-6 h-6" />}</span>
+                <span className={styles.icon}>
+                  {SERVICE_ICONS[service.id] || <Sparkles className="w-6 h-6" />}
+                </span>
                 <span className={styles.number}>{service.id}</span>
               </div>
               <h3 className={styles.title}>{service.title}</h3>

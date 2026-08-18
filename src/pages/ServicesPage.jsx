@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { Services } from '../components/Services/Services';
-import { Technology } from '../components/Technology/Technology';
 import { Process } from '../components/Process/Process';
 
 export function ServicesPage() {
@@ -11,7 +10,6 @@ export function ServicesPage() {
   return (
     <div style={{ paddingTop: '80px' }}>
       <Services />
-      <Technology />
       <Process />
     </div>
   );

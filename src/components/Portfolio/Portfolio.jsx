@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { ArrowLeft, ArrowRight, ExternalLink } from 'lucide-react';
+import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { useData } from '../../context/useData';
 import styles from './Portfolio.module.css';
 
@@ -90,16 +90,6 @@ export function Portfolio() {
                 <div className={styles.tags} aria-label="Project technologies">
                   {activeProject.tech?.map((tag) => <span key={tag}>{tag}</span>)}
                 </div>
-                <a
-                  className={styles.visitLink}
-                  href={activeProject.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={`Visit ${activeProject.title} website (opens in a new tab)`}
-                >
-                  Visit Site
-                  <ExternalLink size={16} aria-hidden="true" />
-                </a>
               </div>
             </div>
           </article>

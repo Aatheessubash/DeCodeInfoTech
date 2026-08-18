@@ -612,6 +612,7 @@ export function AdminDashboard({ onClose }) {
                   </button>
                 </div>
 
+
                 <div className={styles.itemList}>
                   {testimonials.map((t) => (
                     <div key={t.id} className={styles.itemRow}>
@@ -704,7 +705,7 @@ export function AdminDashboard({ onClose }) {
                     <label>Agency Name</label>
                     <input
                       type="text"
-                      value={contentForm.agencyName}
+                      value={contentForm.agencyName || ''}
                       onChange={(e) => setContentForm({ ...contentForm, agencyName: e.target.value })}
                       className={styles.input}
                     />
@@ -713,16 +714,16 @@ export function AdminDashboard({ onClose }) {
                     <label>Hero Badge Eyebrow</label>
                     <input
                       type="text"
-                      value={contentForm.heroEyebrow}
+                      value={contentForm.heroEyebrow || ''}
                       onChange={(e) => setContentForm({ ...contentForm, heroEyebrow: e.target.value })}
                       className={styles.input}
                     />
                   </div>
                   <div className={styles.fieldGroup}>
-                    <label>Hero Headline</label>
+                    <label>Hero Headline / Tagline</label>
                     <input
                       type="text"
-                      value={contentForm.heroHeadline}
+                      value={contentForm.heroHeadline || ''}
                       onChange={(e) => setContentForm({ ...contentForm, heroHeadline: e.target.value })}
                       className={styles.input}
                     />
@@ -731,8 +732,37 @@ export function AdminDashboard({ onClose }) {
                     <label>Contact Email</label>
                     <input
                       type="text"
-                      value={contentForm.contactEmail}
+                      value={contentForm.contactEmail || ''}
                       onChange={(e) => setContentForm({ ...contentForm, contactEmail: e.target.value })}
+                      className={styles.input}
+                    />
+                  </div>
+                  <div className={styles.fieldGroup}>
+                    <label>Contact Location</label>
+                    <input
+                      type="text"
+                      value={contentForm.contactLocation || ''}
+                      onChange={(e) => setContentForm({ ...contentForm, contactLocation: e.target.value })}
+                      className={styles.input}
+                    />
+                  </div>
+                  <div className={styles.fieldGroup}>
+                    <label>Hero Primary CTA Button</label>
+                    <input
+                      type="text"
+                      value={contentForm.heroPrimaryCta || ''}
+                      onChange={(e) => setContentForm({ ...contentForm, heroPrimaryCta: e.target.value })}
+                      placeholder="Start a Conversation"
+                      className={styles.input}
+                    />
+                  </div>
+                  <div className={styles.fieldGroup}>
+                    <label>Hero Secondary CTA Button</label>
+                    <input
+                      type="text"
+                      value={contentForm.heroSecondaryCta || ''}
+                      onChange={(e) => setContentForm({ ...contentForm, heroSecondaryCta: e.target.value })}
+                      placeholder="Explore Our Services"
                       className={styles.input}
                     />
                   </div>
@@ -740,7 +770,7 @@ export function AdminDashboard({ onClose }) {
                     <label>Hero Subtext</label>
                     <textarea
                       rows="3"
-                      value={contentForm.heroSubtext}
+                      value={contentForm.heroSubtext || ''}
                       onChange={(e) => setContentForm({ ...contentForm, heroSubtext: e.target.value })}
                       className={styles.input}
                     />

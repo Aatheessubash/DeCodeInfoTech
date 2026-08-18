@@ -25,25 +25,25 @@ export function Hero() {
         <div className={`${styles.content} reveal ${isVisible ? 'visible' : ''}`}>
           <div className="pill-badge">
             <span className="badge-dot"></span>
-            {siteContent.heroEyebrow || 'WHERE VISION BECOMES REALITY'}
+            {siteContent.heroEyebrow || 'INNOVATION & TECHNOLOGY SOLUTIONS'}
           </div>
 
           <h1 className={styles.headline}>
-            {siteContent.heroHeadline || 'We build digital experiences that help businesses grow.'}
+            {siteContent.heroHeadline || 'Transforming Ideas Into Technology That Moves Businesses Forward'}
           </h1>
 
           <p className={styles.subtext}>
             {siteContent.heroSubtext ||
-              'From high-converting websites to complete custom web platforms — DeCode designs, builds, and launches fast, scalable digital products engineered for long-term growth.'}
+              'From custom software and industrial IoT to scalable SaaS and mobile apps — DeCode designs, engineers, and scales high-performance digital solutions tailored to your business goals.'}
           </p>
 
           <div className={styles.ctaGroup}>
-            <a href="#contact" className="btn-primary">
-              Start a Project
+            <a href="/contact" className="btn-primary">
+              {siteContent.heroPrimaryCta || 'Start a Conversation'}
               <ArrowRight className="w-5 h-5" />
             </a>
-            <a href="#work" className="btn-secondary">
-              Explore Our Work
+            <a href="/services" className="btn-secondary">
+              {siteContent.heroSecondaryCta || 'Explore Our Services'}
             </a>
           </div>
 
@@ -55,7 +55,7 @@ export function Hero() {
               <div className={styles.avatarPill}><TrendingUp className="w-4 h-4 text-[#120331]" /></div>
             </div>
             <span className={styles.trustText}>
-              <strong>{siteContent.agencyName || 'DeCode Studio'}</strong> — Built on trust, speed & measurable business results.
+              <strong>{siteContent.agencyName || 'DeCode InfoTech'}</strong> — Built on trust, speed & measurable business results.
             </span>
           </div>
         </div>
@@ -119,10 +119,10 @@ export function Hero() {
               <h3 className={styles.modalTitle}>{activeModalProject.title}</h3>
               <p className={styles.modalDesc}>{activeModalProject.problem || activeModalProject.desc}</p>
               <div className={styles.modalActions}>
-                <a href="#contact" className="btn-primary" onClick={() => setActiveModalProject(null)}>
+                <a href="/contact" className="btn-primary" onClick={() => setActiveModalProject(null)}>
                   Discuss Similar Project
                 </a>
-                <a href="#work" className="btn-secondary" onClick={() => setActiveModalProject(null)}>
+                <a href="/work" className="btn-secondary" onClick={() => setActiveModalProject(null)}>
                   View All Portfolio
                 </a>
               </div>

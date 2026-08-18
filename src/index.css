@@ -34,22 +34,6 @@
   --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-body.dark {
-  --bg: #0d071c;
-  --surface: #1a1132;
-  --text: #f4f2ff;
-  --muted: #c3bdd8;
-  --accent-gold: #D4AF37;
-  --accent-gold-bright: #F2CF5B;
-  --accent-gold-glow: rgba(212, 175, 55, 0.22);
-  --accent-cyan: #67D7F5;
-  --gradient-gold-blue: linear-gradient(135deg, #F2CF5B 0%, #7EA2FF 100%);
-  --text-secondary: #c3bdd8;
-  --bg-card: rgba(31, 22, 57, 0.88);
-  --border-card: rgba(220, 206, 249, 0.22);
-  --border-card-hover: rgba(212, 175, 55, 0.55);
-}
-
 /* Reset & Base */
 *, *::before, *::after {
   box-sizing: border-box;
@@ -64,7 +48,7 @@ img, svg, video, canvas {
 
 html {
   scroll-behavior: smooth;
-  color-scheme: light dark;
+  color-scheme: light;
   font-family: var(--font-family);
   background-color: var(--bg);
   color: var(--text);
@@ -72,8 +56,6 @@ html {
 }
 
 body {
-  overflow-x: hidden;
-  position: relative;
   background-color: var(--bg);
   color: var(--text);
   /* background-image: 

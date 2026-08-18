@@ -3,178 +3,198 @@ import { Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, ArrowRight, Play, Pause } from 'lucide-react';
 
 /* ============================================================
-   SLIDE DATA — 5 service category slides with curated content
+   SLIDE DATA — Aligned with DeCode Brand & New Service Offerings
    ============================================================ */
 const slideData = [
   {
     id: 1,
     category: 'Software & Technology Solutions',
-    headline: 'Build, Scale & Innovate With Custom Software Solutions',
+    headline: 'Transforming Ideas Into Technology That Moves Businesses Forward',
     description:
-      'Empowering enterprises with tailored software, cloud, and AI solutions for seamless operations and growth.',
-    buttonText: 'Read More',
-    buttonLink: '/services',
+      'From custom software architectures to intelligent automation, DeCode designs and engineers scalable digital solutions tailored to your business growth.',
+    primaryCtaText: 'Start a Conversation',
+    primaryCtaLink: '/contact',
+    secondaryCtaText: 'Explore Our Services',
+    secondaryCtaLink: '/services',
     image:
-      'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1600&q=76',
-    alt: 'Custom Software & Microchip Technology',
-    accentColor: '#f97316',
-    secondaryAccent: '#8b5cf6',
+      'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1800&q=80',
+    alt: 'Custom Enterprise Software Engineering',
+    accentColor: '#D4AF37', // DeCode Gold
+    secondaryAccent: '#7C3AED', // Royal Purple
   },
   {
     id: 2,
-    category: 'eLearning Solutions',
-    headline: 'Revolutionize Learning With Smart eLearning Solutions',
+    category: 'Industrial Automation – AI & IoT',
+    headline: 'Power Smarter Manufacturing With AI Vision & Smart IoT',
     description:
-      'Interactive, immersive, and AI-powered learning platforms to enhance knowledge retention and engagement.',
-    buttonText: 'Read More',
-    buttonLink: '/services',
+      'Transform factory floors and industrial operations with IoT telemetry, automated computer vision, and real-time process intelligence.',
+    primaryCtaText: 'Start a Conversation',
+    primaryCtaLink: '/contact',
+    secondaryCtaText: 'Explore Our Services',
+    secondaryCtaLink: '/services',
     image:
-      'https://images.unsplash.com/photo-1501504905252-473c47e087f8?auto=format&fit=crop&w=1600&q=76',
-    alt: 'Digital eLearning & Education Tech',
-    accentColor: '#06b6d4',
-    secondaryAccent: '#a855f7',
+      'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1800&q=80',
+    alt: 'Industrial Automation & IoT Systems',
+    accentColor: '#38BDF8', // Cyan / Sapphire
+    secondaryAccent: '#6D28D9', // Deep Purple
   },
   {
     id: 3,
-    category: 'QA Solutions',
-    headline: 'Deliver Flawless Products With Expert QA',
+    category: 'UI/UX Design & SaaS Development',
+    headline: 'High-Converting Digital Products & Multi-Tenant SaaS',
     description:
-      'Comprehensive testing strategies to ensure bug-free, reliable, high-quality software.',
-    buttonText: 'Read More',
-    buttonLink: '/services',
+      'Craft intuitive design systems and cloud-native SaaS platforms engineered for high throughput, robust security, and seamless adoption.',
+    primaryCtaText: 'Start a Conversation',
+    primaryCtaLink: '/contact',
+    secondaryCtaText: 'Explore Our Services',
+    secondaryCtaLink: '/services',
     image:
-      'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1600&q=76',
-    alt: 'Quality Assurance & Software Code Inspection',
-    accentColor: '#10b981',
-    secondaryAccent: '#3b82f6',
+      'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1800&q=80',
+    alt: 'UI UX Design and SaaS Architecture',
+    accentColor: '#F59E0B', // Warm Gold
+    secondaryAccent: '#8B5CF6', // Lavender Purple
   },
   {
     id: 4,
-    category: 'Data Center & Cloud Solutions',
-    headline: 'Secure, Scalable, And Efficient Cloud Solutions',
+    category: 'Mobile App & Full-Stack Development',
+    headline: 'Native iOS, Android & Scalable Web Applications',
     description:
-      'Harness the power of cloud and data centers for business resilience and seamless scalability.',
-    buttonText: 'Read More',
-    buttonLink: '/services',
+      'Deliver ultra-responsive mobile applications and modern web portals with offline sync, fast animations, and cloud-backed reliability.',
+    primaryCtaText: 'Start a Conversation',
+    primaryCtaLink: '/contact',
+    secondaryCtaText: 'Explore Our Services',
+    secondaryCtaLink: '/services',
     image:
-      'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1600&q=76',
-    alt: 'Data Center Servers & Cloud Computing',
-    accentColor: '#38bdf8',
-    secondaryAccent: '#f97316',
+      'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1800&q=80',
+    alt: 'Mobile & Full Stack Web Apps',
+    accentColor: '#D4AF37', // Brand Gold
+    secondaryAccent: '#3B82F6', // Blue Accent
   },
   {
     id: 5,
-    category: 'Industry 4.0 & AI Vision',
-    headline: 'Power Smarter Manufacturing With AI Vision',
+    category: 'Maintenance, Cloud & DevOps Support',
+    headline: 'Resilient Cloud Infrastructure & 24/7 Ongoing Support',
     description:
-      'AI-driven automation and vision systems for next-gen industrial efficiency.',
-    buttonText: 'Read More',
-    buttonLink: '/services',
+      'Automated CI/CD workflows, secure container deployment, proactive monitoring, and SLA-backed maintenance to keep your business running nonstop.',
+    primaryCtaText: 'Start a Conversation',
+    primaryCtaLink: '/contact',
+    secondaryCtaText: 'Explore Our Services',
+    secondaryCtaLink: '/services',
     image:
-      'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1600&q=76',
-    alt: 'Smart Manufacturing & Industrial Automation',
-    accentColor: '#f59e0b',
-    secondaryAccent: '#6366f1',
+      'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1800&q=80',
+    alt: 'Data Center & Cloud Infrastructure',
+    accentColor: '#60A5FA', // Sky Blue
+    secondaryAccent: '#7C3AED', // Royal Violet
   },
 ];
 
 /* ============================================================
-   KEYFRAME CSS — injected once via <style> tag
+   KEYFRAME CSS — Injected for smooth animations & hover effects
    ============================================================ */
 const SLIDER_STYLES = `
-  @keyframes heroKenBurns {
-    0%   { transform: scale(1.05); }
-    100% { transform: scale(1.14); }
-  }
   @keyframes heroPulse {
-    0%, 100% { transform: scale(1);    opacity: 0.28; }
-    50%       { transform: scale(1.18); opacity: 0.5;  }
+    0%, 100% { transform: scale(1); opacity: 0.35; }
+    50%      { transform: scale(1.15); opacity: 0.6; }
   }
   @keyframes heroFloat {
-    0%, 100% { transform: translateY(0px);  }
-    50%       { transform: translateY(-22px); }
+    0%, 100% { transform: translateY(0px); }
+    50%      { transform: translateY(-16px); }
   }
   @keyframes heroPing {
-    0%, 100% { transform: scale(1);    opacity: 0.75; }
-    50%       { transform: scale(1.65); opacity: 0;    }
+    0%, 100% { transform: scale(1); opacity: 0.8; }
+    50%      { transform: scale(1.6); opacity: 0; }
   }
   @keyframes heroProgressBar {
     from { width: 0%; }
     to   { width: 100%; }
   }
-  .hs-cta {
+  .hs-primary-cta {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    padding: 12px 28px;
+    padding: 13px 28px;
     border-radius: 9999px;
-    font-weight: 600;
-    font-size: 0.9rem;
-    letter-spacing: 0.03em;
+    font-weight: 700;
+    font-size: 0.92rem;
+    letter-spacing: 0.02em;
     background: #ffffff;
-    color: #0f172a;
-    border: 2px solid transparent;
+    color: #120331;
+    border: 2px solid #ffffff;
     cursor: pointer;
     text-decoration: none;
-    transition: background 320ms ease, color 320ms ease, border-color 320ms ease,
-                transform 320ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 320ms ease;
-    box-shadow: 0 4px 18px rgba(0,0,0,0.25);
-    will-change: transform;
+    transition: all 300ms cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
   }
-  .hs-cta:hover {
-    background: var(--hs-accent, #f97316);
-    color: #ffffff;
-    border-color: var(--hs-accent, #f97316);
+  .hs-primary-cta:hover {
+    background: var(--hs-accent, #D4AF37);
+    color: #120331;
+    border-color: var(--hs-accent, #D4AF37);
     transform: translateY(-2px);
-    box-shadow: 0 10px 28px -4px rgba(0,0,0,0.35);
+    box-shadow: 0 10px 28px rgba(0,0,0,0.4);
   }
-  .hs-cta svg {
-    transition: transform 300ms ease;
+  .hs-secondary-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 13px 26px;
+    border-radius: 9999px;
+    font-weight: 600;
+    font-size: 0.92rem;
+    letter-spacing: 0.02em;
+    background: rgba(255, 255, 255, 0.12);
+    color: #ffffff;
+    border: 1.5px solid rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(10px);
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 300ms cubic-bezier(0.16, 1, 0.3, 1);
   }
-  .hs-cta:hover svg {
-    transform: translateX(4px);
+  .hs-secondary-cta:hover {
+    background: rgba(255, 255, 255, 0.25);
+    border-color: #ffffff;
+    color: #ffffff;
+    transform: translateY(-2px);
   }
   .hs-dot {
-    transition: height 480ms cubic-bezier(0.16, 1, 0.3, 1),
-                opacity 300ms ease,
-                box-shadow 300ms ease;
+    transition: height 500ms cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 350ms ease,
+                background-color 350ms ease,
+                box-shadow 350ms ease;
     border-radius: 9999px;
-    width: 3px;
+    width: 4px;
   }
   .hs-nav-btn {
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 9999px;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    background: rgba(0,0,0,0.42);
-    border: 1.5px solid rgba(255,255,255,0.3);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    background: rgba(18, 3, 49, 0.65);
+    border: 1.5px solid rgba(255, 255, 255, 0.3);
     color: #ffffff;
     cursor: pointer;
-    box-shadow: 0 0 12px rgba(255, 255, 255, 0.25);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
     transition: background 250ms ease, transform 250ms cubic-bezier(0.16,1,0.3,1), box-shadow 250ms ease;
   }
-  .hs-nav-btn svg {
-    filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.5));
-  }
   .hs-nav-btn:hover {
-    background: rgba(255,255,255,0.25);
-    transform: scale(1.1);
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+    background: rgba(212, 175, 55, 0.35);
+    border-color: #D4AF37;
+    transform: scale(1.08);
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
   }
   .hs-nav-btn:active {
-    transform: scale(0.92);
+    transform: scale(0.94);
   }
   @media (min-width: 768px) {
-    .hs-cta {
-      padding: 14px 36px;
+    .hs-primary-cta, .hs-secondary-cta {
+      padding: 14px 32px;
       font-size: 1rem;
     }
   }
   @media (prefers-reduced-motion: reduce) {
-    .hs-cta,
-    .hs-cta svg,
+    .hs-primary-cta,
+    .hs-secondary-cta,
     .hs-dot,
     .hs-nav-btn {
       transition: none;
@@ -182,82 +202,84 @@ const SLIDER_STYLES = `
   }
 `;
 
-const TRANSITION_MS = 900;
+const TRANSITION_MS = 1000;
 
 /* ============================================================
-   DecorativeCircles — per-slide animated blobs
+   DecorativeCircles — DeCode Brand Purple & Gold Glow Accents
    ============================================================ */
 function DecorativeCircles({ accentColor, secondaryAccent }) {
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none z-10" aria-hidden="true">
-      {/* Large purple/secondary blob — top-right */}
+      {/* Large brand purple blob — top-right */}
       <div
         style={{
           position: 'absolute',
-          top: '-40px',
-          right: '6%',
-          width: 'clamp(160px, 20vw, 300px)',
-          height: 'clamp(160px, 20vw, 300px)',
+          top: '-30px',
+          right: '8%',
+          width: 'clamp(180px, 22vw, 320px)',
+          height: 'clamp(180px, 22vw, 320px)',
           borderRadius: '50%',
           background: secondaryAccent,
+          filter: 'blur(90px)',
+          animation: 'heroPulse 7s ease-in-out infinite',
+          opacity: 0.45,
+        }}
+      />
+      {/* Brand gold blob — bottom-right */}
+      <div
+        style={{
+          position: 'absolute',
+          bottom: '-10px',
+          right: '22%',
+          width: 'clamp(160px, 20vw, 280px)',
+          height: 'clamp(160px, 20vw, 280px)',
+          borderRadius: '50%',
+          background: accentColor,
           filter: 'blur(80px)',
-          animation: 'heroPulse 6s ease-in-out infinite',
+          animation: 'heroFloat 9s ease-in-out infinite',
+          opacity: 0.35,
         }}
       />
-      {/* Large orange/accent blob — bottom-right */}
+      {/* Bright ping dot */}
       <div
         style={{
           position: 'absolute',
-          bottom: '-20px',
-          right: '20%',
-          width: 'clamp(140px, 18vw, 260px)',
-          height: 'clamp(140px, 18vw, 260px)',
+          top: '26%',
+          right: '30%',
+          width: '18px',
+          height: '18px',
           borderRadius: '50%',
           background: accentColor,
-          filter: 'blur(70px)',
-          animation: 'heroFloat 8s ease-in-out infinite',
+          boxShadow: `0 0 20px 6px ${accentColor}88`,
+          animation: 'heroPing 3.5s ease-in-out infinite',
         }}
       />
-      {/* Small bright ping circle */}
+      {/* Subtle lavender floating dot */}
       <div
         style={{
           position: 'absolute',
-          top: '28%',
-          right: '33%',
-          width: '22px',
-          height: '22px',
-          borderRadius: '50%',
-          background: accentColor,
-          boxShadow: `0 0 22px 8px ${accentColor}55`,
-          animation: 'heroPing 3s ease-in-out infinite',
-        }}
-      />
-      {/* Secondary medium circle */}
-      <div
-        style={{
-          position: 'absolute',
-          bottom: '30%',
-          right: '10%',
-          width: '40px',
-          height: '40px',
+          bottom: '28%',
+          right: '12%',
+          width: '32px',
+          height: '32px',
           borderRadius: '50%',
           background: secondaryAccent,
-          boxShadow: `0 0 24px 8px ${secondaryAccent}44`,
-          animation: 'heroPulse 4.5s ease-in-out infinite 1s',
+          boxShadow: `0 0 20px 6px ${secondaryAccent}55`,
+          animation: 'heroPulse 5s ease-in-out infinite 1s',
         }}
       />
-      {/* Tiny accent dot */}
+      {/* Tiny gold accent dot */}
       <div
         style={{
           position: 'absolute',
-          top: '62%',
-          right: '46%',
-          width: '12px',
-          height: '12px',
+          top: '64%',
+          right: '42%',
+          width: '10px',
+          height: '10px',
           borderRadius: '50%',
           background: accentColor,
-          boxShadow: `0 0 12px 4px ${accentColor}66`,
-          animation: 'heroFloat 5s ease-in-out infinite 0.7s',
+          boxShadow: `0 0 12px 4px ${accentColor}88`,
+          animation: 'heroFloat 6s ease-in-out infinite 0.5s',
         }}
       />
     </div>
@@ -265,10 +287,12 @@ function DecorativeCircles({ accentColor, secondaryAccent }) {
 }
 
 /* ============================================================
-   SlidePanel — individual slide with image, overlay, content
+   SlidePanel — Silky fade & easing with no abrupt cuts
    ============================================================ */
 function SlidePanel({ slide, isActive, isExiting, direction }) {
-  // Determine text offset based on active state and direction
+  const springEase = 'cubic-bezier(0.16, 1, 0.3, 1)';
+  const fadeEase = 'cubic-bezier(0.25, 1, 0.5, 1)';
+
   let textTransform = 'translateX(0px)';
   let textOpacity = 0;
 
@@ -276,16 +300,12 @@ function SlidePanel({ slide, isActive, isExiting, direction }) {
     textTransform = 'translateX(0px)';
     textOpacity = 1;
   } else if (isExiting) {
-    textTransform = direction === 'next' ? 'translateX(-50px)' : 'translateX(50px)';
+    textTransform = direction === 'next' ? 'translateX(-30px)' : 'translateX(30px)';
     textOpacity = 0;
   } else {
-    textTransform = direction === 'next' ? 'translateX(50px)' : 'translateX(-50px)';
+    textTransform = direction === 'next' ? 'translateX(30px)' : 'translateX(-30px)';
     textOpacity = 0;
   }
-
-  // Smooth cubic-bezier spring curve for high-end feel
-  const springEase = 'cubic-bezier(0.16, 1, 0.3, 1)';
-  const fadeEase = 'cubic-bezier(0.4, 0, 0.2, 1)';
 
   return (
     <div
@@ -296,13 +316,13 @@ function SlidePanel({ slide, isActive, isExiting, direction }) {
       style={{
         position: 'absolute',
         inset: 0,
-        opacity: isActive ? 1 : isExiting ? 0 : 0,
+        opacity: isActive ? 1 : 0,
         zIndex: isActive ? 10 : isExiting ? 5 : 0,
-        transition: `opacity 850ms ${fadeEase}`,
+        transition: `opacity ${TRANSITION_MS}ms ${fadeEase}`,
         pointerEvents: isActive ? 'auto' : 'none',
       }}
     >
-      {/* Background image + continuous smooth scale */}
+      {/* Background image + smooth continuous ambient zoom */}
       <div
         style={{
           position: 'absolute',
@@ -312,17 +332,17 @@ function SlidePanel({ slide, isActive, isExiting, direction }) {
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
           willChange: 'transform, opacity',
-          transform: isActive ? 'scale(1.05) translateZ(0)' : 'scale(1.14) translateZ(0)',
-          transition: `transform 8000ms cubic-bezier(0.25, 1, 0.5, 1), opacity 850ms ${fadeEase}`,
+          transform: isActive ? 'scale(1.04) translateZ(0)' : 'scale(1.10) translateZ(0)',
+          transition: `transform 9000ms cubic-bezier(0.25, 1, 0.5, 1), opacity ${TRANSITION_MS}ms ${fadeEase}`,
         }}
       >
-        {/* Dark gradient overlays for text legibility */}
+        {/* Deep brand gradient overlays for readability and luxury aesthetics */}
         <div
           style={{
             position: 'absolute',
             inset: 0,
             background:
-              'linear-gradient(90deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.55) 50%, rgba(0,0,0,0.25) 100%)',
+              'linear-gradient(90deg, rgba(18, 3, 49, 0.92) 0%, rgba(18, 3, 49, 0.65) 55%, rgba(18, 3, 49, 0.35) 100%)',
           }}
         />
         <div
@@ -330,18 +350,18 @@ function SlidePanel({ slide, isActive, isExiting, direction }) {
             position: 'absolute',
             inset: 0,
             background:
-              'linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.6) 100%)',
+              'linear-gradient(180deg, rgba(18, 3, 49, 0.3) 0%, transparent 40%, rgba(18, 3, 49, 0.8) 100%)',
           }}
         />
       </div>
 
-      {/* Animated decorative circles */}
+      {/* Brand animated decorative circles */}
       <DecorativeCircles
         accentColor={slide.accentColor}
         secondaryAccent={slide.secondaryAccent}
       />
 
-      {/* Content — left-aligned, vertically centered */}
+      {/* Content layout */}
       <div
         style={{
           position: 'relative',
@@ -357,114 +377,129 @@ function SlidePanel({ slide, isActive, isExiting, direction }) {
             width: '100%',
             maxWidth: '1280px',
             margin: '0 auto',
-            padding: 'clamp(32px, 8vw, 96px)',
-            paddingTop: 'clamp(100px, 12vw, 140px)',
+            padding: 'clamp(28px, 7vw, 96px)',
+            paddingTop: 'clamp(90px, 11vw, 130px)',
           }}
         >
           <div
             style={{
-              maxWidth: '680px',
+              maxWidth: '720px',
               textAlign: 'left',
             }}
           >
-            {/* Category label — slides in 1st */}
+            {/* Category label */}
             <div
               style={{
-                display: 'flex',
+                display: 'inline-flex',
                 alignItems: 'center',
                 gap: '10px',
+                padding: '6px 14px',
+                borderRadius: '999px',
+                background: 'rgba(255, 255, 255, 0.08)',
+                border: `1px solid ${slide.accentColor}55`,
                 marginBottom: '18px',
                 transform: textTransform,
                 opacity: textOpacity,
                 transition: isActive
-                  ? `transform 700ms 0ms ${springEase}, opacity 550ms 0ms ease`
-                  : `transform 450ms 0ms ease-in, opacity 400ms 0ms ease-in`,
+                  ? `transform 750ms 50ms ${springEase}, opacity 600ms 50ms ease`
+                  : `transform 400ms 0ms ease, opacity 350ms 0ms ease`,
               }}
             >
               <span
                 style={{
                   display: 'block',
-                  width: '24px',
-                  height: '2px',
-                  borderRadius: '2px',
+                  width: '8px',
+                  height: '8px',
+                  borderRadius: '50%',
                   background: slide.accentColor,
-                  flexShrink: 0,
+                  boxShadow: `0 0 8px ${slide.accentColor}`,
                 }}
               />
               <span
                 style={{
-                  fontSize: 'clamp(0.7rem, 1.5vw, 0.875rem)',
-                  fontWeight: 600,
-                  letterSpacing: '0.2em',
+                  fontSize: 'clamp(0.72rem, 1.4vw, 0.84rem)',
+                  fontWeight: 700,
+                  letterSpacing: '0.14em',
                   textTransform: 'uppercase',
-                  color: slide.accentColor,
+                  color: '#ffffff',
                 }}
               >
                 {slide.category}
               </span>
             </div>
 
-            {/* Headline — slides in 2nd */}
+            {/* Headline */}
             <h1
               style={{
-                fontSize: 'clamp(1.6rem, 4.5vw, 3.25rem)',
+                fontSize: 'clamp(1.8rem, 4.8vw, 3.4rem)',
                 fontWeight: 800,
                 color: '#ffffff',
-                lineHeight: 1.1,
+                lineHeight: 1.12,
                 letterSpacing: '-0.02em',
-                marginBottom: 'clamp(14px, 2.5vw, 24px)',
-                textShadow: '0 2px 20px rgba(0,0,0,0.4)',
+                marginBottom: 'clamp(14px, 2.2vw, 22px)',
+                textShadow: '0 2px 24px rgba(0,0,0,0.5)',
                 transform: textTransform,
                 opacity: textOpacity,
                 transition: isActive
-                  ? `transform 720ms 70ms ${springEase}, opacity 580ms 70ms ease`
-                  : `transform 450ms 0ms ease-in, opacity 400ms 0ms ease-in`,
+                  ? `transform 780ms 100ms ${springEase}, opacity 620ms 100ms ease`
+                  : `transform 400ms 0ms ease, opacity 350ms 0ms ease`,
               }}
             >
               {slide.headline}
             </h1>
 
-            {/* Description — slides in 3rd */}
+            {/* Description */}
             <p
               style={{
-                fontSize: 'clamp(0.875rem, 1.8vw, 1.1rem)',
-                color: 'rgba(255,255,255,0.82)',
+                fontSize: 'clamp(0.92rem, 1.8vw, 1.12rem)',
+                color: 'rgba(255,255,255,0.86)',
                 lineHeight: 1.65,
-                marginBottom: 'clamp(22px, 3.5vw, 36px)',
-                maxWidth: '540px',
+                marginBottom: 'clamp(24px, 3.5vw, 36px)',
+                maxWidth: '600px',
                 fontWeight: 400,
                 transform: textTransform,
                 opacity: textOpacity,
                 transition: isActive
-                  ? `transform 740ms 140ms ${springEase}, opacity 610ms 140ms ease`
-                  : `transform 450ms 0ms ease-in, opacity 400ms 0ms ease-in`,
+                  ? `transform 800ms 160ms ${springEase}, opacity 640ms 160ms ease`
+                  : `transform 400ms 0ms ease, opacity 350ms 0ms ease`,
               }}
             >
               {slide.description}
             </p>
 
-            {/* CTA Button — slides in 4th */}
+            {/* CTA Button Group */}
             <div
               style={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                gap: '14px',
+                alignItems: 'center',
                 transform: textTransform,
                 opacity: textOpacity,
                 transition: isActive
-                  ? `transform 760ms 210ms ${springEase}, opacity 640ms 210ms ease`
-                  : `transform 450ms 0ms ease-in, opacity 400ms 0ms ease-in`,
+                  ? `transform 820ms 220ms ${springEase}, opacity 660ms 220ms ease`
+                  : `transform 400ms 0ms ease, opacity 350ms 0ms ease`,
               }}
             >
               <Link
-                to={slide.buttonLink || '/services'}
-                className="hs-cta"
+                to={slide.primaryCtaLink || '/contact'}
+                className="hs-primary-cta"
                 style={{ '--hs-accent': slide.accentColor }}
                 tabIndex={isActive ? 0 : -1}
               >
-                <span>{slide.buttonText || 'Read More'}</span>
+                <span>{slide.primaryCtaText || 'Start a Conversation'}</span>
                 <ArrowRight style={{ width: '18px', height: '18px', flexShrink: 0 }} aria-hidden="true" />
+              </Link>
+
+              <Link
+                to={slide.secondaryCtaLink || '/services'}
+                className="hs-secondary-cta"
+                tabIndex={isActive ? 0 : -1}
+              >
+                <span>{slide.secondaryCtaText || 'Explore Our Services'}</span>
               </Link>
             </div>
           </div>
-
         </div>
       </div>
     </div>
@@ -472,12 +507,12 @@ function SlidePanel({ slide, isActive, isExiting, direction }) {
 }
 
 /* ============================================================
-   HeroSlider — main exported component
+   HeroSlider — Main Exported Component
    ============================================================ */
-export function HeroSlider({ slides = slideData, autoPlayInterval = 4000 }) {
+export function HeroSlider({ slides = slideData, autoPlayInterval = 5500 }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [exitingIndex, setExitingIndex] = useState(null);
-  const [direction, setDirection] = useState('next'); // 'next' | 'prev'
+  const [direction, setDirection] = useState('next');
   const [prefersReducedMotion] = useState(() => window.matchMedia('(prefers-reduced-motion: reduce)').matches);
   const [isPaused, setIsPaused] = useState(prefersReducedMotion);
   const touchStartX = useRef(0);
@@ -518,17 +553,14 @@ export function HeroSlider({ slides = slideData, autoPlayInterval = 4000 }) {
     });
   }, []);
 
-  // Cleanup on unmount
   useEffect(() => () => clearTimeout(exitTimerRef.current), []);
 
-  /* Auto-play */
   useEffect(() => {
     if (isPaused || prefersReducedMotion || slides.length < 2) return;
     const timer = setInterval(handleNext, autoPlayInterval);
     return () => clearInterval(timer);
   }, [isPaused, prefersReducedMotion, slides.length, handleNext, autoPlayInterval]);
 
-  /* Touch swipe */
   const handleTouchStart = (e) => {
     touchStartX.current = e.targetTouches[0].clientX;
   };
@@ -543,7 +575,6 @@ export function HeroSlider({ slides = slideData, autoPlayInterval = 4000 }) {
     touchEndX.current = 0;
   };
 
-  /* Keyboard navigation */
   const handleKeyDown = (e) => {
     if (e.key === 'ArrowLeft') handlePrev();
     if (e.key === 'ArrowRight') handleNext();
@@ -559,7 +590,7 @@ export function HeroSlider({ slides = slideData, autoPlayInterval = 4000 }) {
         id="hero-slider"
         role="region"
         aria-roledescription="carousel"
-        aria-label="DeCode InfoTech — Service Highlights"
+        aria-label="DeCode InfoTech — Technology Highlights"
         tabIndex={0}
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
@@ -569,9 +600,9 @@ export function HeroSlider({ slides = slideData, autoPlayInterval = 4000 }) {
           position: 'relative',
           width: '100%',
           height: '100svh',
-          minHeight: '600px',
+          minHeight: '620px',
           overflow: 'hidden',
-          background: '#020617',
+          background: '#120331',
           userSelect: 'none',
           outline: 'none',
           cursor: 'default',
@@ -597,7 +628,7 @@ export function HeroSlider({ slides = slideData, autoPlayInterval = 4000 }) {
           aria-label="Slide indicators"
           style={{
             position: 'absolute',
-            left: 'clamp(16px, 3vw, 32px)',
+            left: 'clamp(16px, 3vw, 36px)',
             top: '50%',
             transform: 'translateY(-50%)',
             zIndex: 30,
@@ -634,11 +665,11 @@ export function HeroSlider({ slides = slideData, autoPlayInterval = 4000 }) {
                     height: isSelected ? '38px' : '8px',
                     background: isSelected
                       ? `linear-gradient(180deg, ${activeSlide.accentColor}, ${activeSlide.secondaryAccent})`
-                      : 'rgba(255,255,255,0.35)',
+                      : 'rgba(255,255,255,0.3)',
                     boxShadow: isSelected
-                      ? `0 0 12px 4px ${activeSlide.accentColor}55`
+                      ? `0 0 14px 3px ${activeSlide.accentColor}77`
                       : 'none',
-                    opacity: isSelected ? 1 : 0.55,
+                    opacity: isSelected ? 1 : 0.5,
                   }}
                 />
               </button>
@@ -660,19 +691,18 @@ export function HeroSlider({ slides = slideData, autoPlayInterval = 4000 }) {
             gap: '10px',
           }}
         >
-          {/* Pause / Resume Button */}
           <button
             type="button"
             onClick={() => setIsPaused((prev) => !prev)}
             aria-label={isPaused ? 'Resume auto-play' : 'Pause auto-play'}
             title={isPaused ? 'Resume auto-play' : 'Pause auto-play'}
             className="hs-nav-btn"
-            style={{ padding: 'clamp(10px, 1.5vw, 14px)' }}
+            style={{ padding: 'clamp(10px, 1.4vw, 14px)' }}
           >
             {isPaused ? (
-              <Play style={{ width: '22px', height: '22px', marginLeft: '2px' }} aria-hidden="true" />
+              <Play style={{ width: '20px', height: '20px', marginLeft: '2px' }} aria-hidden="true" />
             ) : (
-              <Pause style={{ width: '22px', height: '22px' }} aria-hidden="true" />
+              <Pause style={{ width: '20px', height: '20px' }} aria-hidden="true" />
             )}
           </button>
           <button
@@ -680,23 +710,22 @@ export function HeroSlider({ slides = slideData, autoPlayInterval = 4000 }) {
             onClick={handlePrev}
             aria-label="Go to previous slide"
             className="hs-nav-btn"
-            style={{ padding: 'clamp(10px, 1.5vw, 14px)' }}
+            style={{ padding: 'clamp(10px, 1.4vw, 14px)' }}
           >
-            <ChevronLeft style={{ width: '22px', height: '22px' }} aria-hidden="true" />
+            <ChevronLeft style={{ width: '20px', height: '20px' }} aria-hidden="true" />
           </button>
           <button
             type="button"
             onClick={handleNext}
             aria-label="Go to next slide"
             className="hs-nav-btn"
-            style={{ padding: 'clamp(10px, 1.5vw, 14px)' }}
+            style={{ padding: 'clamp(10px, 1.4vw, 14px)' }}
           >
-            <ChevronRight style={{ width: '22px', height: '22px' }} aria-hidden="true" />
+            <ChevronRight style={{ width: '20px', height: '20px' }} aria-hidden="true" />
           </button>
         </div>
 
-
-        {/* ═══ PROGRESS BAR — bottom edge ═══ */}
+        {/* ═══ PROGRESS BAR ═══ */}
         <div
           aria-hidden="true"
           style={{
@@ -705,7 +734,7 @@ export function HeroSlider({ slides = slideData, autoPlayInterval = 4000 }) {
             left: 0,
             width: '100%',
             height: '3px',
-            background: 'rgba(255,255,255,0.08)',
+            background: 'rgba(255,255,255,0.1)',
             zIndex: 30,
           }}
         >
@@ -714,7 +743,7 @@ export function HeroSlider({ slides = slideData, autoPlayInterval = 4000 }) {
             style={{
               height: '100%',
               background: `linear-gradient(90deg, ${activeSlide.accentColor}, ${activeSlide.secondaryAccent})`,
-              boxShadow: `0 0 10px 3px ${activeSlide.accentColor}55`,
+              boxShadow: `0 0 10px 2px ${activeSlide.accentColor}66`,
               animation: isPaused || prefersReducedMotion
                 ? 'none'
                 : `heroProgressBar ${autoPlayInterval}ms linear forwards`,

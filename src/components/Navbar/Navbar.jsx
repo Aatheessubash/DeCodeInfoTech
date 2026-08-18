@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
-import { ArrowRight, ChevronDown, Moon, Sun } from 'lucide-react';
+import { ArrowRight, ChevronDown } from 'lucide-react';
 import styles from './Navbar.module.css';
 
 const navClassName = ({ isActive }) => `${styles.navBtn} ${isActive ? styles.activeNav : ''}`;
@@ -11,16 +11,12 @@ export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [companyDropdownOpen, setCompanyDropdownOpen] = useState(false);
   const [capabilitiesDropdownOpen, setCapabilitiesDropdownOpen] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(() => {
-    const savedTheme = localStorage.getItem('decode_theme');
-    return savedTheme ? savedTheme === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
-  });
 
   useEffect(() => {
-    document.body.classList.toggle('dark', isDarkMode);
-    document.documentElement.style.colorScheme = isDarkMode ? 'dark' : 'light';
-    localStorage.setItem('decode_theme', isDarkMode ? 'dark' : 'light');
-  }, [isDarkMode]);
+    document.body.classList.remove('dark');
+    document.documentElement.style.colorScheme = 'light';
+    localStorage.removeItem('decode_theme');
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 30);
@@ -115,8 +111,7 @@ export function Navbar() {
               <ChevronDown className={`${styles.chevron} ${capabilitiesDropdownOpen ? styles.chevronOpen : ''}`} aria-hidden="true" />
             </button>
             <div id="capabilities-menu" className={`${styles.dropdownMenu} ${capabilitiesDropdownOpen ? styles.open : ''}`}>
-              <Link to="/services" className={styles.dropdownItem}>Services</Link>
-              <Link to="/services" className={styles.dropdownItem}>Tech Stack &amp; DevOps</Link>
+              <Link to="/services" className={styles.dropdownItem}>Services &amp; Solutions</Link>
               <Link to="/services" className={styles.dropdownItem}>Development Process</Link>
             </div>
           </div>
@@ -127,16 +122,6 @@ export function Navbar() {
         </nav>
 
         <div className={styles.actions}>
-          <button
-            type="button"
-            onClick={() => setIsDarkMode((dark) => !dark)}
-            className={styles.themeToggle}
-            aria-label={isDarkMode ? 'Use light theme' : 'Use dark theme'}
-            aria-pressed={isDarkMode}
-          >
-            {isDarkMode ? <Sun aria-hidden="true" /> : <Moon aria-hidden="true" />}
-          </button>
-
           <Link to="/contact" className={styles.actionBtn}>
             Start a Project <ArrowRight aria-hidden="true" />
           </Link>
