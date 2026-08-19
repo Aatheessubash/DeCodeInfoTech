@@ -87,9 +87,15 @@
   filter: drop-shadow(0 0 24px rgba(212, 175, 55, 0.8));
 }
 
+@media (max-width: 768px) {
+  .logoImg {
+    height: 64px;
+  }
+}
+
 @media (max-width: 414px) {
   .logoImg {
-    height: 60px;
+    height: 54px;
   }
 }
 

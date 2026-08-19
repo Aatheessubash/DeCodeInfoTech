@@ -69,8 +69,11 @@
   background: var(--accent-gold);
   color: #FFFFFF;
   border-color: var(--accent-gold);
-  transform: rotate(180deg);
   box-shadow: 0 4px 12px var(--accent-gold-glow);
+}
+
+.iconOpen {
+  transform: rotate(45deg);
 }
 
 .answerBody {

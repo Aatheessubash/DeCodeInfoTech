@@ -47,7 +47,7 @@ export function Footer() {
         <div className={styles.contactCol}>
           <h4 className={styles.colTitle}>Get in Touch</h4>
           <p className={styles.contactText}>{siteContent?.contactLocation || 'Tamil Nadu, India'}</p>
-          <p className={styles.contactText}>{siteContent?.contactEmail || 'hello@decode.com'}</p>
+          <p className={styles.contactText}>{siteContent?.contactEmail || 'contact@decodeinfotech.com'}</p>
           <Link to="/contact" className="btn-primary" style={{ marginTop: '12px' }}>
             Start a Project
           </Link>

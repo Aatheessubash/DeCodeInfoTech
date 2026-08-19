@@ -34,14 +34,14 @@ export function Testimonial() {
               <div className={styles.ratingRow}>
                 <div className={styles.stars}>
                   {[...Array(t.rating || 5)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-[#D4AF37] text-[#D4AF37]" />
+                    <Star key={i} size={16} style={{ fill: '#D4AF37', color: '#D4AF37' }} aria-hidden="true" />
                   ))}
                 </div>
                 <span className={styles.verifiedBadge}>
-                  <BadgeCheck className="w-3.5 h-3.5 text-blue-500" /> Verified
+                  <BadgeCheck size={14} style={{ color: '#3b82f6' }} aria-hidden="true" /> Verified
                 </span>
               </div>
-              <Quote className={styles.quoteIcon} />
+              <Quote size={26} className={styles.quoteIcon} aria-hidden="true" />
             </div>
 
             <p className={styles.quoteText}>"{t.text}"</p>

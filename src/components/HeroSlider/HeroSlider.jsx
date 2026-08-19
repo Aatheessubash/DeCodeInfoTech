@@ -510,21 +510,40 @@ export function HeroSlider({ slides = slideData, autoPlayInterval = 5500 }) {
                       </span>
                     </div>
 
-                    {/* Headline */}
-                    <h1
-                      className="hs-anim-item hs-headline"
-                      style={{
-                        fontSize: 'clamp(1.8rem, 4.8vw, 3.4rem)',
-                        fontWeight: 800,
-                        color: '#ffffff',
-                        lineHeight: 1.12,
-                        letterSpacing: '-0.02em',
-                        marginBottom: 'clamp(14px, 2.2vw, 22px)',
-                        textShadow: '0 2px 24px rgba(0,0,0,0.5)',
-                      }}
-                    >
-                      {slide.headline}
-                    </h1>
+                    {/* Headline — only the active slide renders an h1 for proper SEO */}
+                    {isActive ? (
+                      <h1
+                        className="hs-anim-item hs-headline"
+                        style={{
+                          fontSize: 'clamp(1.8rem, 4.8vw, 3.4rem)',
+                          fontWeight: 800,
+                          color: '#ffffff',
+                          lineHeight: 1.12,
+                          letterSpacing: '-0.02em',
+                          marginBottom: 'clamp(14px, 2.2vw, 22px)',
+                          textShadow: '0 2px 24px rgba(0,0,0,0.5)',
+                        }}
+                      >
+                        {slide.headline}
+                      </h1>
+                    ) : (
+                      <p
+                        className="hs-anim-item hs-headline"
+                        role="heading"
+                        aria-level="2"
+                        style={{
+                          fontSize: 'clamp(1.8rem, 4.8vw, 3.4rem)',
+                          fontWeight: 800,
+                          color: '#ffffff',
+                          lineHeight: 1.12,
+                          letterSpacing: '-0.02em',
+                          marginBottom: 'clamp(14px, 2.2vw, 22px)',
+                          textShadow: '0 2px 24px rgba(0,0,0,0.5)',
+                        }}
+                      >
+                        {slide.headline}
+                      </p>
+                    )}
 
                     {/* Description */}
                     <p

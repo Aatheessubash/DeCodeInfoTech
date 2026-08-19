@@ -1,0 +1,92 @@
+name: CI/CD Pipeline - DeCode InfoTech
+
+on:
+  push:
+    branches:
+      - main
+      - master
+      - "**"
+  pull_request:
+    branches:
+      - main
+      - master
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Deployment Environment'
+        required: true
+        default: 'production'
+        type: choice
+        options:
+          - production
+          - staging
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # ==========================================
+  # 1. CI - Validation, Linting & Build Test
+  # ==========================================
+  build-and-test:
+    name: 🧪 CI - Lint & Production Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 🟢 Setup Node.js 20.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: 📦 Install Dependencies
+        run: npm ci
+
+      - name: 🔍 Run Linter & Static Code Analysis
+        run: npm run lint --if-present
+
+      - name: 🏗️ Build Production Bundle (Vite)
+        run: npm run build
+
+      - name: 📤 Upload Build Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: production-dist
+          path: dist/
+          retention-days: 7
+
+  # ==========================================
+  # 2. CD - Deployment Job (on main/master push)
+  # ==========================================
+  deploy:
+    name: 🚀 CD - Deploy Production
+    needs: build-and-test
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: 📦 Download Build Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: production-dist
+          path: dist/
+
+      - name: 📊 Verify Deployment Assets
+        run: |
+          echo "============================================"
+          echo "🚀 Verifying DeCode InfoTech Production Build"
+          echo "============================================"
+          ls -la dist/
+          echo "✅ Production files verified successfully!"

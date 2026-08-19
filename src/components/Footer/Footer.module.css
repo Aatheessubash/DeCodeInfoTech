@@ -34,7 +34,7 @@
 }
 
 .logoImg {
-  height: 125px;
+  height: 72px;
   width: auto;
   object-fit: contain;
   filter: drop-shadow(0 0 16px rgba(207, 236, 243, 0.4));
@@ -142,5 +142,19 @@
     flex-direction: column;
     gap: 8px;
     text-align: center;
+  }
+}
+
+@media (max-width: 414px) {
+  .container {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  .linksCol {
+    grid-column: auto;
+  }
+  .bottomContainer {
+    padding: 0 16px;
+    font-size: 0.8rem;
   }
 }

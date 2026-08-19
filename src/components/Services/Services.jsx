@@ -14,13 +14,13 @@ import {
 } from 'lucide-react';
 
 const SERVICE_ICONS = {
-  '01': <Code2 className="w-6 h-6" />,
-  '02': <Cpu className="w-6 h-6" />,
-  '03': <Palette className="w-6 h-6" />,
-  '04': <Cloud className="w-6 h-6" />,
-  '05': <Video className="w-6 h-6" />,
-  '06': <Smartphone className="w-6 h-6" />,
-  '07': <Wrench className="w-6 h-6" />,
+  '01': <Code2 size={24} aria-hidden="true" />,
+  '02': <Cpu size={24} aria-hidden="true" />,
+  '03': <Palette size={24} aria-hidden="true" />,
+  '04': <Cloud size={24} aria-hidden="true" />,
+  '05': <Video size={24} aria-hidden="true" />,
+  '06': <Smartphone size={24} aria-hidden="true" />,
+  '07': <Wrench size={24} aria-hidden="true" />,
 };
 
 export function Services() {
@@ -52,7 +52,7 @@ export function Services() {
             >
               <div className={styles.cardHeader}>
                 <span className={styles.icon}>
-                  {SERVICE_ICONS[service.id] || <Sparkles className="w-6 h-6" />}
+                  {SERVICE_ICONS[service.id] || <Sparkles size={24} aria-hidden="true" />}
                 </span>
                 <span className={styles.number}>{service.id}</span>
               </div>

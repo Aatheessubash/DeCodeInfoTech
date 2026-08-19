@@ -9,14 +9,14 @@ export function Results() {
   const [sectionRef, isVisible] = useIntersectionObserver({ threshold: 0.15 });
 
   const industries = [
-    { name: 'Startups & SaaS', icon: <Rocket className="w-5 h-5" /> },
-    { name: 'Education & Training', icon: <GraduationCap className="w-5 h-5" /> },
-    { name: 'Construction & Real Estate', icon: <Building2 className="w-5 h-5" /> },
-    { name: 'Agriculture & Operations', icon: <Tractor className="w-5 h-5" /> },
-    { name: 'Restaurants & Hospitality', icon: <Utensils className="w-5 h-5" /> },
-    { name: 'Local Service Businesses', icon: <Briefcase className="w-5 h-5" /> },
-    { name: 'Agencies & Creators', icon: <Paintbrush className="w-5 h-5" /> },
-    { name: 'E-commerce Brands', icon: <ShoppingCart className="w-5 h-5" /> },
+    { name: 'Startups & SaaS', icon: <Rocket size={20} aria-hidden="true" /> },
+    { name: 'Education & Training', icon: <GraduationCap size={20} aria-hidden="true" /> },
+    { name: 'Construction & Real Estate', icon: <Building2 size={20} aria-hidden="true" /> },
+    { name: 'Agriculture & Operations', icon: <Tractor size={20} aria-hidden="true" /> },
+    { name: 'Restaurants & Hospitality', icon: <Utensils size={20} aria-hidden="true" /> },
+    { name: 'Local Service Businesses', icon: <Briefcase size={20} aria-hidden="true" /> },
+    { name: 'Agencies & Creators', icon: <Paintbrush size={20} aria-hidden="true" /> },
+    { name: 'E-commerce Brands', icon: <ShoppingCart size={20} aria-hidden="true" /> },
   ];
 
   const infiniteIndustries = [...industries, ...industries, ...industries];

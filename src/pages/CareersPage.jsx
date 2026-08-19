@@ -3,10 +3,6 @@ import { useData } from '../context/useData';
 import styles from './CareersPage.module.css';
 
 export function CareersPage() {
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
   const [selectedJob, setSelectedJob] = useState(null);
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [formData, setFormData] = useState({
@@ -163,69 +159,52 @@ export function CareersPage() {
 
       {/* Why Work With Us Section */}
       <section className={`section-padding ${styles.perksSection}`}>
-        <div style={{ maxWidth: '1240px', margin: '0 auto', padding: '0 24px' }}>
-          <div style={{ textAlign: 'center', marginBottom: '48px' }}>
-            <h2 className={styles.sectionTitle}>
-              Why Engineers & Designers Love DeCode
-            </h2>
-            <p className={styles.sectionSubtitle}>
-              We build a environment where people thrive, learn, and take pride in their craft.
-            </p>
-          </div>
-
-          <div className={styles.perksGrid}>
-            {perks.map((perk, i) => (
-              <div key={i} className={`card-panel ${styles.perkCard}`}>
-                <div className={styles.perkIcon}>
-                  {perk.icon}
-                </div>
-                <h3 className={styles.perkTitle}>
-                  {perk.title}
-                </h3>
-                <p className={styles.perkDesc}>
-                  {perk.desc}
-                </p>
-              </div>
-            ))}
-          </div>
+        <div style={{ textAlign: 'center', marginBottom: '48px' }}>
+          <h2 className={styles.sectionTitle}>
+            Why Engineers &amp; Designers Love DeCode
+          </h2>
+          <p className={styles.sectionSubtitle}>
+            We build an environment where people thrive, learn, and take pride in their craft.
+          </p>
+        </div>
+        <div className={styles.perksGrid}>
+          {perks.map((perk, i) => (
+            <div key={i} className={`card-panel ${styles.perkCard}`}>
+              <div className={styles.perkIcon}>{perk.icon}</div>
+              <h3 className={styles.perkTitle}>{perk.title}</h3>
+              <p className={styles.perkDesc}>{perk.desc}</p>
+            </div>
+          ))}
         </div>
       </section>
 
       {/* Open Positions Section */}
       <section className="section-padding">
-        <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '0 24px' }}>
-          <div style={{ textAlign: 'center', marginBottom: '48px' }}>
-            <div className="pill-badge" style={{ marginBottom: '12px' }}>
-              <span className="badge-dot"></span>
-              Current Openings
-            </div>
-            <h2 className={styles.sectionTitle}>
-              Explore Open Roles
-            </h2>
+        <div style={{ textAlign: 'center', marginBottom: '48px' }}>
+          <div className="pill-badge" style={{ marginBottom: '12px' }}>
+            <span className="badge-dot"></span>
+            Current Openings
           </div>
+          <h2 className={styles.sectionTitle}>Explore Open Roles</h2>
+        </div>
 
-          {openPositions.length === 0 ? (
-            <div className={`card-panel ${styles.emptyJobs}`}>
-              <h3>No Open Roles Right Now</h3>
-              <p>We are not actively hiring today, but you can still reach us through the contact page for future opportunities.</p>
-            </div>
-          ) : (
+        {openPositions.length === 0 ? (
+          <div className={`card-panel ${styles.emptyJobs}`}>
+            <h3>No Open Roles Right Now</h3>
+            <p>We are not actively hiring today, but you can still reach us through the contact page for future opportunities.</p>
+          </div>
+        ) : (
           <div className={styles.jobsGrid}>
             {openPositions.map((job) => (
               <div key={job.id} className={`card-panel ${styles.jobCard}`}>
                 <div className={styles.jobHeader}>
                   <div>
                     <div className={styles.jobMeta}>
-                      <span className={styles.jobDepartment}>
-                        {job.department}
-                      </span>
+                      <span className={styles.jobDepartment}>{job.department}</span>
                       <span className={styles.jobLocation}>{job.location} • {job.type}</span>
                     </div>
-                    <h3 className={styles.jobTitle}>
-                      {job.title}
-                    </h3>
+                    <h3 className={styles.jobTitle}>{job.title}</h3>
                   </div>
-
                   <button
                     type="button"
                     className="btn-primary"
@@ -238,14 +217,10 @@ export function CareersPage() {
                   </button>
                 </div>
 
-                <p className={styles.jobSummary}>
-                  {job.summary}
-                </p>
+                <p className={styles.jobSummary}>{job.summary}</p>
 
                 <div>
-                  <h4 className={styles.reqHeader}>
-                    Key Requirements:
-                  </h4>
+                  <h4 className={styles.reqHeader}>Key Requirements:</h4>
                   <ul className={styles.reqList}>
                     {job.requirements.map((req, idx) => (
                       <li key={idx} className={styles.reqItem}>
@@ -258,8 +233,7 @@ export function CareersPage() {
               </div>
             ))}
           </div>
-          )}
-        </div>
+        )}
       </section>
 
       {/* Application Modal */}
@@ -272,7 +246,12 @@ export function CareersPage() {
             aria-modal="true"
             aria-labelledby="career-dialog-title"
           >
-            <button type="button" className={styles.closeBtn} onClick={() => setSelectedJob(null)} aria-label="Close application form">
+            <button
+              type="button"
+              className={styles.closeBtn}
+              onClick={() => setSelectedJob(null)}
+              aria-label="Close application form"
+            >
               ✕
             </button>
 
@@ -292,6 +271,7 @@ export function CareersPage() {
             ) : (
               <form onSubmit={handleSubmit}>
                 <div className="pill-badge" style={{ marginBottom: '8px' }}>
+                  <span className="badge-dot"></span>
                   Applying for {selectedJob.title}
                 </div>
                 <h3 id="career-dialog-title" className={styles.modalTitle} style={{ marginBottom: '20px' }}>

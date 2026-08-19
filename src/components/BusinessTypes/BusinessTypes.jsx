@@ -6,37 +6,37 @@ import styles from './BusinessTypes.module.css';
 const BUSINESS_TYPES = [
   {
     id: 'startup',
-    icon: <Rocket className="w-7 h-7" />,
+    icon: <Rocket size={28} aria-hidden="true" />,
     title: 'Startups & Scale-ups',
     desc: 'Launch your MVP faster or scale your existing product with modern architectures built for rapid growth and agility.'
   },
   {
     id: 'ecommerce',
-    icon: <ShoppingCart className="w-7 h-7" />,
+    icon: <ShoppingCart size={28} aria-hidden="true" />,
     title: 'E-Commerce Brands',
     desc: 'High-converting, lightning-fast storefronts using headless commerce to provide premium shopping experiences.'
   },
   {
     id: 'enterprise',
-    icon: <Building2 className="w-7 h-7" />,
+    icon: <Building2 size={28} aria-hidden="true" />,
     title: 'Enterprise IT',
     desc: 'Secure, scalable custom internal tools and dashboards that streamline operations and replace outdated legacy systems.'
   },
   {
     id: 'saas',
-    icon: <Globe className="w-7 h-7" />,
+    icon: <Globe size={28} aria-hidden="true" />,
     title: 'SaaS Platforms',
     desc: 'Robust multi-tenant architectures, subscription billing integrations, and intuitive user interfaces.'
   },
   {
     id: 'agency',
-    icon: <Briefcase className="w-7 h-7" />,
+    icon: <Briefcase size={28} aria-hidden="true" />,
     title: 'Creative Agencies',
     desc: 'White-label development partnerships to bring your stunning designs to life with pixel-perfect precision.'
   },
   {
     id: 'community',
-    icon: <Users className="w-7 h-7" />,
+    icon: <Users size={28} aria-hidden="true" />,
     title: 'Communities & Non-profits',
     desc: 'Accessible, fast, and highly interactive platforms to engage audiences and manage memberships efficiently.'
   }

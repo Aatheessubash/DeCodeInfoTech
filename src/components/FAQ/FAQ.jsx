@@ -4,7 +4,6 @@ import styles from './FAQ.module.css';
 
 export function FAQ() {
   const [sectionRef, isVisible] = useIntersectionObserver({ threshold: 0.1 });
-  /* FIX #5: All accordion items collapsed by default (-1 means none open) */
   const [openIdx, setOpenIdx] = useState(-1);
 
   const faqs = [
@@ -64,12 +63,13 @@ export function FAQ() {
                 className={styles.questionBtn}
                 onClick={() => toggleAccordion(idx)}
                 aria-expanded={isOpen}
+                aria-controls={`faq-answer-${idx}`}
               >
                 <span className={styles.questionText}>{faq.q}</span>
-                <span className={styles.icon}>{isOpen ? '−' : '+'}</span>
+                <span className={`${styles.icon} ${isOpen ? styles.iconOpen : ''}`} aria-hidden="true">+</span>
               </button>
               {isOpen && (
-                <div className={styles.answerBody}>
+                <div id={`faq-answer-${idx}`} className={styles.answerBody} role="region">
                   <p className={styles.answerText}>{faq.a}</p>
                 </div>
               )}
