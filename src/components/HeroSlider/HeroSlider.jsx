@@ -169,45 +169,43 @@ const SLIDER_STYLES = `
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    padding: 13px 28px;
-    border-radius: 9999px;
-    font-weight: 700;
+    padding: 11px 26px;
+    border-radius: 10px;
+    font-weight: 600;
     font-size: 0.92rem;
-    letter-spacing: 0.02em;
-    background: #ffffff;
-    color: #120331;
-    border: 2px solid #ffffff;
+    letter-spacing: 0.01em;
+    background: transparent;
+    color: #ffffff;
+    border: 1.5px solid #ffffff;
     cursor: pointer;
     text-decoration: none;
-    transition: all 300ms cubic-bezier(0.16, 1, 0.3, 1);
-    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    transition: all 250ms cubic-bezier(0.16, 1, 0.3, 1);
   }
   .hs-primary-cta:hover {
-    background: var(--hs-accent, #D4AF37);
-    color: #120331;
-    border-color: var(--hs-accent, #D4AF37);
+    background: var(--hs-accent, #7C3AED);
+    color: #ffffff;
+    border-color: var(--hs-accent, #7C3AED);
     transform: translateY(-2px);
-    box-shadow: 0 10px 28px rgba(0,0,0,0.4);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
   }
   .hs-secondary-cta {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    padding: 13px 26px;
-    border-radius: 9999px;
+    padding: 11px 26px;
+    border-radius: 10px;
     font-weight: 600;
     font-size: 0.92rem;
-    letter-spacing: 0.02em;
-    background: rgba(255, 255, 255, 0.12);
+    letter-spacing: 0.01em;
+    background: transparent;
     color: #ffffff;
-    border: 1.5px solid rgba(255, 255, 255, 0.4);
-    backdrop-filter: blur(10px);
+    border: 1.5px solid rgba(255, 255, 255, 0.5);
     cursor: pointer;
     text-decoration: none;
-    transition: all 300ms cubic-bezier(0.16, 1, 0.3, 1);
+    transition: all 250ms cubic-bezier(0.16, 1, 0.3, 1);
   }
   .hs-secondary-cta:hover {
-    background: rgba(255, 255, 255, 0.25);
+    background: rgba(255, 255, 255, 0.2);
     border-color: #ffffff;
     color: #ffffff;
     transform: translateY(-2px);
@@ -242,6 +240,14 @@ const SLIDER_STYLES = `
   }
   .hs-nav-btn:active {
     transform: scale(0.94);
+  }
+  @media (max-width: 640px) {
+    .hs-primary-cta, .hs-secondary-cta {
+      width: 100%;
+      justify-content: center;
+      padding: 12px 20px;
+      font-size: 0.88rem;
+    }
   }
   @media (min-width: 768px) {
     .hs-primary-cta, .hs-secondary-cta {
@@ -468,8 +474,10 @@ export function HeroSlider({ slides = slideData, autoPlayInterval = 5500 }) {
                     width: '100%',
                     maxWidth: '1280px',
                     margin: '0 auto',
-                    padding: 'clamp(28px, 7vw, 96px)',
-                    paddingTop: 'clamp(90px, 11vw, 130px)',
+                    padding: 'clamp(20px, 5vw, 96px)',
+                    paddingLeft: 'clamp(38px, 6vw, 96px)',
+                    paddingTop: 'clamp(85px, 12vw, 130px)',
+                    paddingBottom: 'clamp(80px, 12vw, 100px)',
                   }}
                 >
                   <div style={{ maxWidth: '720px', textAlign: 'left' }}>

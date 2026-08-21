@@ -80,10 +80,10 @@
   min-height: 460px;
   height: auto;
   background: #FFFFFF;
-  border: 1.5px solid #E2E8F0;
-  border-radius: 16px;
-  box-shadow: 0 4px 20px -2px rgba(18, 3, 49, 0.06), 0 2px 6px -1px rgba(18, 3, 49, 0.03);
-  transition: transform 300ms ease, box-shadow 300ms ease, border-color 300ms ease;
+  border: 1px solid rgba(124, 58, 237, 0.1);
+  border-radius: 20px;
+  box-shadow: 0 4px 20px -2px rgba(18, 14, 44, 0.04), 0 2px 6px -1px rgba(18, 14, 44, 0.02);
+  transition: transform 300ms var(--ease-spring), box-shadow 300ms var(--ease-spring), border-color 300ms ease;
   justify-content: space-between;
 }
 
@@ -106,8 +106,8 @@
 
 .card:hover {
   transform: translateY(-6px);
-  border-color: #D4AF37;
-  box-shadow: 0 16px 36px -6px rgba(18, 3, 49, 0.12), 0 6px 14px -3px rgba(18, 3, 49, 0.06);
+  border-color: rgba(124, 58, 237, 0.35);
+  box-shadow: 0 16px 36px -6px rgba(124, 58, 237, 0.14), 0 6px 14px -3px rgba(18, 14, 44, 0.04);
 }
 
 .cardHeader {
@@ -120,10 +120,10 @@
 .icon {
   width: 48px;
   height: 48px;
-  border-radius: 12px;
-  background: #F8FAFC;
-  border: 1px solid #E2E8F0;
-  color: #120331;
+  border-radius: 14px;
+  background: #F3E8FF;
+  border: 1px solid #E9D5FF;
+  color: var(--accent-purple);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -132,19 +132,19 @@
 }
 
 .card:hover .icon {
-  background: #120331;
-  color: #D4AF37;
-  border-color: #120331;
+  background: var(--accent-purple);
+  color: #FFFFFF;
+  border-color: var(--accent-purple);
   transform: scale(1.06);
 }
 
 .number {
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   font-weight: 800;
   letter-spacing: 0.1em;
-  color: #8A6508;
-  background: #FEF9C3;
-  border: 1px solid rgba(212, 175, 55, 0.35);
+  color: var(--accent-purple);
+  background: #F3E8FF;
+  border: 1px solid #E9D5FF;
   padding: 4px 10px;
   border-radius: 999px;
 }
@@ -154,20 +154,20 @@
   font-weight: 800;
   line-height: 1.3;
   margin-bottom: 10px;
-  color: #0F172A;
+  color: var(--primary);
 }
 
 .desc {
   font-size: 0.88rem;
-  color: #475569;
-  line-height: 1.55;
+  color: var(--muted);
+  line-height: 1.6;
   margin-bottom: 22px;
 }
 
 .deliverables {
   margin-top: auto;
   padding-top: 16px;
-  border-top: 1px dashed #E2E8F0;
+  border-top: 1px dashed rgba(124, 58, 237, 0.15);
 }
 
 .delivTitle {
@@ -175,7 +175,7 @@
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: #8A6508;
+  color: var(--accent-purple);
   margin-bottom: 12px;
 }
 
@@ -193,7 +193,7 @@
   align-items: flex-start;
   gap: 8px;
   font-size: 0.84rem;
-  color: #1E293B;
+  color: #334155;
   font-weight: 500;
   line-height: 1.42;
 }
@@ -202,6 +202,6 @@
   width: 15px;
   height: 15px;
   flex-shrink: 0;
-  color: #B88A12;
+  color: var(--accent-purple);
   margin-top: 2px;
 }

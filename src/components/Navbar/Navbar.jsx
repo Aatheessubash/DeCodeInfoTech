@@ -7,19 +7,13 @@ const navClassName = ({ isActive }) => `${styles.navBtn} ${isActive ? styles.act
 
 export function Navbar() {
   const { pathname } = useLocation();
-  const [isScrolled, setIsScrolled] = useState(() => window.scrollY > 30);
+  const [isScrolled, setIsScrolled] = useState(() => window.scrollY > 20);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [companyDropdownOpen, setCompanyDropdownOpen] = useState(false);
   const [capabilitiesDropdownOpen, setCapabilitiesDropdownOpen] = useState(false);
 
   useEffect(() => {
-    document.body.classList.remove('dark');
-    document.documentElement.style.colorScheme = 'light';
-    localStorage.removeItem('decode_theme');
-  }, []);
-
-  useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 30);
+    const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -57,7 +51,7 @@ export function Navbar() {
         <Link to="/" className={styles.logoLink} aria-label="DeCode home">
           <img
             src="/DeCode_Logo.png"
-            alt="DeCode"
+            alt="DeCode Infotech"
             className={styles.logoImg}
             width="707"
             height="353"
@@ -83,14 +77,13 @@ export function Navbar() {
               aria-expanded={companyDropdownOpen}
               aria-controls="company-menu"
             >
-              Company
+              About
               <ChevronDown className={`${styles.chevron} ${companyDropdownOpen ? styles.chevronOpen : ''}`} aria-hidden="true" />
             </button>
             <div id="company-menu" className={`${styles.dropdownMenu} ${companyDropdownOpen ? styles.open : ''}`}>
               <Link to="/about" className={styles.dropdownItem}>About Us</Link>
               <Link to="/careers" className={styles.dropdownItem}>Careers</Link>
               <Link to="/about" className={styles.dropdownItem}>Our Quality Promise</Link>
-              <Link to="/about" className={styles.dropdownItem}>Client Reviews</Link>
             </div>
           </div>
 
@@ -107,23 +100,23 @@ export function Navbar() {
               aria-expanded={capabilitiesDropdownOpen}
               aria-controls="capabilities-menu"
             >
-              Capabilities
+              Services
               <ChevronDown className={`${styles.chevron} ${capabilitiesDropdownOpen ? styles.chevronOpen : ''}`} aria-hidden="true" />
             </button>
             <div id="capabilities-menu" className={`${styles.dropdownMenu} ${capabilitiesDropdownOpen ? styles.open : ''}`}>
-              <Link to="/services" className={styles.dropdownItem}>Services &amp; Solutions</Link>
+              <Link to="/services" className={styles.dropdownItem}>All Services</Link>
               <Link to="/services" className={styles.dropdownItem}>Development Process</Link>
             </div>
           </div>
 
-          <NavLink to="/work" className={navClassName}>Work</NavLink>
+          <NavLink to="/work" className={navClassName}>Portfolio</NavLink>
           <NavLink to="/careers" className={navClassName}>Careers</NavLink>
           <NavLink to="/contact" className={navClassName}>Contact</NavLink>
         </nav>
 
         <div className={styles.actions}>
           <Link to="/contact" className={styles.actionBtn}>
-            Start a Project <ArrowRight aria-hidden="true" />
+            Get Started
           </Link>
 
           <button
@@ -145,13 +138,13 @@ export function Navbar() {
         <div className={styles.mobileDrawer}>
           <nav id="mobile-navigation" className={styles.mobileNav} aria-label="Mobile navigation">
             <NavLink to="/" className={styles.mobileLink}>Home</NavLink>
-            <NavLink to="/services" className={styles.mobileLink}>Capabilities &amp; Services</NavLink>
-            <NavLink to="/work" className={styles.mobileLink}>Selected Work</NavLink>
-            <NavLink to="/about" className={styles.mobileLink}>Company</NavLink>
+            <NavLink to="/about" className={styles.mobileLink}>About</NavLink>
+            <NavLink to="/services" className={styles.mobileLink}>Services</NavLink>
+            <NavLink to="/work" className={styles.mobileLink}>Portfolio</NavLink>
             <NavLink to="/careers" className={styles.mobileLink}>Careers</NavLink>
-            <NavLink to="/contact" className={styles.mobileLink}>Contact Us</NavLink>
+            <NavLink to="/contact" className={styles.mobileLink}>Contact</NavLink>
             <Link to="/contact" className={styles.actionBtn}>
-              Start a Project <ArrowRight aria-hidden="true" />
+              Get Started <ArrowRight className="w-4 h-4 inline ml-1" aria-hidden="true" />
             </Link>
           </nav>
         </div>
@@ -159,3 +152,5 @@ export function Navbar() {
     </header>
   );
 }
+
+export default Navbar;

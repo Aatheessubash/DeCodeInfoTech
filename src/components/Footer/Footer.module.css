@@ -1,7 +1,7 @@
 .footer {
-  background: linear-gradient(135deg, #120331, #24105A, #120331);
-  color: #fff;
-  border-top: 1px solid rgba(220, 206, 249, 0.15);
+  background: #0F0C20;
+  color: #FFFFFF;
+  border-top: 1px solid rgba(124, 58, 237, 0.15);
   padding-top: 80px;
   position: relative;
   z-index: 10;
@@ -30,25 +30,24 @@
 
 .logoLink {
   display: inline-block;
-  margin-bottom: 12px;
+  margin-bottom: 14px;
 }
 
 .logoImg {
-  height: 72px;
+  height: 52px;
   width: auto;
   object-fit: contain;
-  filter: drop-shadow(0 0 16px rgba(207, 236, 243, 0.4));
 }
 
 .tagline {
   font-size: 0.725rem;
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: 0.12em;
-  background-color: rgba(255, 255, 255, 0.1);
-  color: var(--gold);
-  border: 1px solid var(--gold);
+  background-color: rgba(124, 58, 237, 0.15);
+  color: #C084FC;
+  border: 1px solid rgba(124, 58, 237, 0.3);
   padding: 4px 12px;
-  border-radius: var(--radius-pill);
+  border-radius: 9999px;
   text-transform: uppercase;
   margin-bottom: 14px;
   display: inline-block;
@@ -56,7 +55,7 @@
 
 .desc {
   font-size: 0.925rem;
-  color: #c3bdd8;
+  color: #94A3B8;
   line-height: 1.6;
   max-width: 340px;
 }
@@ -68,10 +67,11 @@
 }
 
 .colTitle {
-  font-size: 1rem;
-  font-weight: 800;
-  color: #fff;
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: #FFFFFF;
   margin-bottom: 20px;
+  letter-spacing: -0.01em;
 }
 
 .linkList {
@@ -82,28 +82,28 @@
 }
 
 .linkList a {
-  font-size: 0.925rem;
-  color: #c3bdd8;
+  font-size: 0.92rem;
+  color: #94A3B8;
   transition: color 200ms ease, transform 200ms ease;
   display: inline-block;
 }
 
 .linkList a:hover {
-  color: var(--gold);
+  color: #C084FC;
   transform: translateX(4px);
 }
 
 .contactText {
-  font-size: 0.925rem;
-  color: #c3bdd8;
+  font-size: 0.92rem;
+  color: #94A3B8;
   margin-bottom: 8px;
   word-break: break-word;
 }
 
 .bottomBar {
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
   padding: 24px 0;
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.25);
 }
 
 .bottomContainer {
@@ -114,13 +114,13 @@
   align-items: center;
   justify-content: space-between;
   font-size: 0.85rem;
-  color: #c3bdd8;
+  color: #94A3B8;
 }
 
 .tag {
-  color: var(--gold);
-  font-weight: 700;
-  letter-spacing: 0.08em;
+  color: #C084FC;
+  font-weight: 600;
+  letter-spacing: 0.06em;
 }
 
 @media (max-width: 900px) {

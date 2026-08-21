@@ -4,16 +4,17 @@
 }
 
 .heroHeadline {
-  font-size: 3rem;
+  font-size: clamp(2rem, 5vw, 3rem);
   font-weight: 800;
   color: var(--text);
   margin-bottom: 16px;
   line-height: 1.15;
+  word-break: break-word;
 }
 
 .heroSubtext {
   color: var(--muted);
-  font-size: 1.15rem;
+  font-size: clamp(0.95rem, 2vw, 1.15rem);
   max-width: 680px;
   margin: 0 auto;
   line-height: 1.6;
@@ -27,10 +28,11 @@
 }
 
 .sectionTitle {
-  font-size: 2.2rem;
+  font-size: clamp(1.6rem, 4vw, 2.2rem);
   font-weight: 800;
   color: var(--text);
   margin-bottom: 12px;
+  word-break: break-word;
 }
 
 .sectionSubtitle {
@@ -40,14 +42,27 @@
 
 .perksGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 24px;
+}
+
+@media (max-width: 480px) {
+  .perksGrid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
 }
 
 .perkCard {
   padding: 28px;
   display: flex;
   flex-direction: column;
+}
+
+@media (max-width: 480px) {
+  .perkCard {
+    padding: 20px 16px;
+  }
 }
 
 .perkIcon {
@@ -87,7 +102,7 @@
 .emptyJobs {
   max-width: 680px;
   margin: 0 auto;
-  padding: 34px;
+  padding: 34px 20px;
   text-align: center;
 }
 
@@ -112,6 +127,19 @@
   transition: transform 300ms ease, box-shadow 300ms ease, border-color 300ms ease;
 }
 
+@media (max-width: 640px) {
+  .jobCard {
+    padding: 24px 18px;
+    gap: 16px;
+  }
+}
+
+@media (max-width: 414px) {
+  .jobCard {
+    padding: 20px 14px;
+  }
+}
+
 .jobCard:hover {
   transform: translateY(-4px);
   border-color: var(--accent-gold, var(--gold));
@@ -126,11 +154,22 @@
   gap: 16px;
 }
 
+@media (max-width: 640px) {
+  .jobHeader {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .jobHeader button {
+    width: 100%;
+  }
+}
+
 .jobMeta {
   display: flex;
   gap: 10px;
   align-items: center;
   margin-bottom: 8px;
+  flex-wrap: wrap;
 }
 
 .jobDepartment {
@@ -149,7 +188,7 @@
 }
 
 .jobTitle {
-  font-size: 1.4rem;
+  font-size: clamp(1.2rem, 3vw, 1.4rem);
   font-weight: 800;
   color: var(--text);
 }
@@ -189,6 +228,7 @@
 .reqCheck {
   color: var(--accent-gold-bright, var(--gold));
   font-weight: 800;
+  flex-shrink: 0;
 }
 
 /* Modal */
@@ -205,32 +245,40 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 24px;
+  padding: 16px;
 }
 
 .modalContent {
   background: var(--surface);
   border: 1px solid var(--lav);
-  border-radius: 24px;
+  border-radius: 20px;
   max-width: 560px;
   width: 100%;
-  padding: 36px;
+  padding: 32px 28px;
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
   position: relative;
   max-height: 90vh;
+  max-height: 90dvh;
   overflow-y: auto;
+}
+
+@media (max-width: 480px) {
+  .modalContent {
+    padding: 24px 16px;
+    border-radius: 16px;
+  }
 }
 
 .closeBtn {
   position: absolute;
-  top: 20px;
-  right: 20px;
+  top: 16px;
+  right: 16px;
   background: var(--bg);
   border: 1px solid var(--lav);
   border-radius: 50%;
   width: 36px;
   height: 36px;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   cursor: pointer;
   color: var(--text);
   display: flex;
@@ -260,10 +308,11 @@
 }
 
 .modalTitle {
-  font-size: 1.5rem;
+  font-size: clamp(1.2rem, 3vw, 1.5rem);
   font-weight: 800;
   color: var(--text);
   margin-bottom: 20px;
+  word-break: break-word;
 }
 
 .formGroup {
@@ -292,21 +341,15 @@
   transition: border-color 200ms ease, box-shadow 200ms ease;
 }
 
+@media (max-width: 480px) {
+  .input {
+    padding: 10px 12px;
+    font-size: 0.9rem;
+  }
+}
+
 .input:focus {
   outline: none;
   border-color: var(--accent-gold, var(--gold));
   box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
-}
-
-@media (max-width: 640px) {
-  .heroHeadline {
-    font-size: 2.2rem;
-  }
-  .jobHeader {
-    flex-direction: column;
-    align-items: stretch;
-  }
-  .modalContent {
-    padding: 24px;
-  }
 }

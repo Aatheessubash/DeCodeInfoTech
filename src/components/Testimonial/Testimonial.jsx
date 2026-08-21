@@ -9,18 +9,18 @@ export function Testimonial() {
   const { testimonials, siteContent } = useData();
 
   return (
-    <section className={`section-padding glow-bg ${styles.testimonialSection}`} ref={sectionRef}>
+    <section id="testimonials" className={`section-padding ${styles.testimonialSection}`} ref={sectionRef}>
       <div className={`section-header reveal ${isVisible ? 'visible' : ''}`}>
         <div className="pill-badge">
           <span className="badge-dot" />
-          <span>Trust & Results</span>
+          <span>Trust &amp; Results</span>
         </div>
         <h2 className={styles.heading}>
-          Client Testimonials & <span className={styles.highlight}>Feedback</span>
+          Client Testimonials &amp; <span className={styles.highlight}>Feedback</span>
         </h2>
         <p className={styles.subheading}>
           Discover what founders and project leaders say about working with{' '}
-          <strong>{siteContent.agencyName || 'DeCode Studio'}</strong>.
+          <strong>{siteContent?.agencyName || 'DeCode Infotech'}</strong>.
         </p>
       </div>
 
@@ -34,14 +34,14 @@ export function Testimonial() {
               <div className={styles.ratingRow}>
                 <div className={styles.stars}>
                   {[...Array(t.rating || 5)].map((_, i) => (
-                    <Star key={i} size={16} style={{ fill: '#D4AF37', color: '#D4AF37' }} aria-hidden="true" />
+                    <Star key={i} size={15} style={{ fill: '#7C3AED', color: '#7C3AED' }} aria-hidden="true" />
                   ))}
                 </div>
                 <span className={styles.verifiedBadge}>
-                  <BadgeCheck size={14} style={{ color: '#3b82f6' }} aria-hidden="true" /> Verified
+                  <BadgeCheck size={13} style={{ color: '#7C3AED' }} aria-hidden="true" /> Verified
                 </span>
               </div>
-              <Quote size={26} className={styles.quoteIcon} aria-hidden="true" />
+              <Quote size={24} className={styles.quoteIcon} aria-hidden="true" />
             </div>
 
             <p className={styles.quoteText}>"{t.text}"</p>
@@ -59,3 +59,5 @@ export function Testimonial() {
     </section>
   );
 }
+
+export default Testimonial;

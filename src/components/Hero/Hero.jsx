@@ -1,135 +1,52 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import { useIntersectionObserver } from '../../hooks/useIntersectionObserver';
 import { useData } from '../../context/useData';
 import styles from './Hero.module.css';
-import { ShieldCheck, Zap, TrendingUp, ArrowRight } from 'lucide-react';
+import { ArrowRight, Sparkles } from 'lucide-react';
 
 export function Hero() {
   const [heroRef, isVisible] = useIntersectionObserver({ threshold: 0.1 });
-  const [activeModalProject, setActiveModalProject] = useState(null);
-  const { projects, siteContent } = useData();
-
-  // Split projects into 2 columns for ticker
-  const mid = Math.ceil(projects.length / 2);
-  const col1Projects = projects.slice(0, mid);
-  const col2Projects = projects.slice(mid);
-
-  // Duplicate arrays to guarantee seamless, uninterrupted infinity loop
-  const infiniteCol1 = [...col1Projects, ...col1Projects];
-  const infiniteCol2 = col2Projects.length > 0 ? [...col2Projects, ...col2Projects] : infiniteCol1;
+  const { siteContent } = useData();
 
   return (
-    <section id="home" className={`glow-bg ${styles.hero}`} ref={heroRef}>
+    <section id="home" className={`glow-hero-bg ${styles.heroSection}`} ref={heroRef}>
       <div className={styles.container}>
-        {/* LEFT COLUMN: HERO CONTENT */}
         <div className={`${styles.content} reveal ${isVisible ? 'visible' : ''}`}>
-          <div className="pill-badge">
-            <span className="badge-dot"></span>
-            {siteContent.heroEyebrow || 'INNOVATION & TECHNOLOGY SOLUTIONS'}
+          {/* Eyebrow Badge */}
+          <div className={styles.badgeWrapper}>
+            <div className="pill-badge">
+              <Sparkles className="w-3.5 h-3.5" aria-hidden="true" />
+              <span>{siteContent?.heroEyebrow || 'TECHNOLOGY. STRATEGY. IMPACT.'}</span>
+            </div>
           </div>
 
+          {/* Main Hero Headline */}
           <h1 className={styles.headline}>
-            {siteContent.heroHeadline || 'Transforming Ideas Into Technology That Moves Businesses Forward'}
+            Decoding the Future of <br className={styles.breakOnDesktop} />
+            <span className="text-purple">Digital Innovation.</span>
           </h1>
 
+          {/* Subtext */}
           <p className={styles.subtext}>
-            {siteContent.heroSubtext ||
-              'From custom software and industrial IoT to scalable SaaS and mobile apps — DeCode designs, engineers, and scales high-performance digital solutions tailored to your business goals.'}
+            {siteContent?.heroSubtext ||
+              'We partner with forward-thinking enterprises to design, build, and scale transformative digital products that drive measurable impact and technical superiority.'}
           </p>
 
+          {/* Action CTAs */}
           <div className={styles.ctaGroup}>
-            <a href="/contact" className="btn-primary">
-              {siteContent.heroPrimaryCta || 'Start a Conversation'}
-              <ArrowRight className="w-5 h-5" />
-            </a>
-            <a href="/services" className="btn-secondary">
-              {siteContent.heroSecondaryCta || 'Explore Our Services'}
-            </a>
-          </div>
-
-          {/* Trust Metrics Pill */}
-          <div className={`${styles.trustFooter} pill-badge`}>
-            <div className={styles.avatars}>
-              <div className={styles.avatarPill}><ShieldCheck className="w-4 h-4 text-[#120331]" /></div>
-              <div className={styles.avatarPill}><Zap className="w-4 h-4 text-[#120331]" /></div>
-              <div className={styles.avatarPill}><TrendingUp className="w-4 h-4 text-[#120331]" /></div>
-            </div>
-            <span className={styles.trustText}>
-              <strong>{siteContent.agencyName || 'DeCode InfoTech'}</strong> — Built on trust, speed & measurable business results.
-            </span>
-          </div>
-        </div>
-
-        {/* RIGHT COLUMN: BIDIRECTIONAL INFINITY MARQUEE TICKER */}
-        <div className={`${styles.tickerWrapper} reveal delay-2 ${isVisible ? 'visible' : ''}`}>
-          {/* Column 1: DOWN TO UP (Scroll Up - 25s) */}
-          <div className={`${styles.tickerColumn} ${styles.column1}`}>
-            <div className={`${styles.trackUp} ${styles.track}`}>
-              {infiniteCol1.map((item, idx) => (
-                <div
-                  key={`col1-${idx}`}
-                  className={styles.tickerCard}
-                  onClick={() => setActiveModalProject(item)}
-                  title="Click to preview project"
-                >
-                  <img src={item.image} alt={item.title} className={styles.cardImg} loading="lazy" />
-                  <div className={styles.cardOverlay}>
-                    <span className={styles.cardTag}>{item.category}</span>
-                    <h4 className={styles.cardTitle}>{item.title}</h4>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Column 2: UP TO DOWN (Scroll Down - 30s) */}
-          <div className={`${styles.tickerColumn} ${styles.column2}`}>
-            <div className={`${styles.trackDown} ${styles.track}`}>
-              {infiniteCol2.map((item, idx) => (
-                <div
-                  key={`col2-${idx}`}
-                  className={styles.tickerCard}
-                  onClick={() => setActiveModalProject(item)}
-                  title="Click to preview project"
-                >
-                  <img src={item.image} alt={item.title} className={styles.cardImg} loading="lazy" />
-                  <div className={styles.cardOverlay}>
-                    <span className={styles.cardTag}>{item.category}</span>
-                    <h4 className={styles.cardTitle}>{item.title}</h4>
-                  </div>
-                </div>
-              ))}
-            </div>
+            <Link to="/contact" className="btn-primary">
+              <span>{siteContent?.heroPrimaryCta || 'Start A Project'}</span>
+              <ArrowRight className="w-4 h-4" aria-hidden="true" />
+            </Link>
+            <Link to="/services" className="btn-secondary">
+              <span>{siteContent?.heroSecondaryCta || 'Explore Services'}</span>
+            </Link>
           </div>
         </div>
       </div>
-
-      {/* INTERACTIVE LIGHTBOX PREVIEW MODAL */}
-      {activeModalProject && (
-        <div className={styles.modalBackdrop} onClick={() => setActiveModalProject(null)}>
-          <div className={styles.modalCard} onClick={(e) => e.stopPropagation()}>
-            <button className={styles.modalClose} onClick={() => setActiveModalProject(null)}>
-              ✕
-            </button>
-            <div className={styles.modalImgWrapper}>
-              <img src={activeModalProject.image} alt={activeModalProject.title} className={styles.modalImg} />
-            </div>
-            <div className={styles.modalBody}>
-              <span className={styles.modalTag}>{activeModalProject.category}</span>
-              <h3 className={styles.modalTitle}>{activeModalProject.title}</h3>
-              <p className={styles.modalDesc}>{activeModalProject.problem || activeModalProject.desc}</p>
-              <div className={styles.modalActions}>
-                <a href="/contact" className="btn-primary" onClick={() => setActiveModalProject(null)}>
-                  Discuss Similar Project
-                </a>
-                <a href="/work" className="btn-secondary" onClick={() => setActiveModalProject(null)}>
-                  View All Portfolio
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
     </section>
   );
 }
+
+export default Hero;

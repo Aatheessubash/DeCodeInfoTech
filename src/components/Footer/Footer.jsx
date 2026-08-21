@@ -28,7 +28,7 @@ export function Footer() {
             <li><Link to="/services">Services</Link></li>
             <li><Link to="/work">Work</Link></li>
             <li><Link to="/about">About Us</Link></li>
-            <li><Link to="/careers">Careers & Jobs</Link></li>
+            <li><Link to="/careers">Careers &amp; Jobs</Link></li>
             <li><Link to="/contact">Contact</Link></li>
           </ul>
         </div>
@@ -37,10 +37,10 @@ export function Footer() {
           <h4 className={styles.colTitle}>Capabilities</h4>
           <ul className={styles.linkList}>
             <li><Link to="/services">Web App Development</Link></li>
-            <li><Link to="/services">Full-Stack React & Node</Link></li>
+            <li><Link to="/services">Full-Stack React &amp; Node</Link></li>
             <li><Link to="/services">SaaS Platform Design</Link></li>
             <li><Link to="/services">Website Redesign</Link></li>
-            <li><Link to="/services">Speed & SEO Audit</Link></li>
+            <li><Link to="/services">Speed &amp; SEO Audit</Link></li>
           </ul>
         </div>
 
@@ -48,15 +48,8 @@ export function Footer() {
           <h4 className={styles.colTitle}>Get in Touch</h4>
           <p className={styles.contactText}>{siteContent?.contactLocation || 'Tamil Nadu, India'}</p>
           <p className={styles.contactText}>{siteContent?.contactEmail || 'contact@decodeinfotech.com'}</p>
-          <Link to="/contact" className="btn-primary" style={{ marginTop: '12px' }}>
+          <Link to="/contact" className="btn-primary" style={{ marginTop: '14px' }}>
             Start a Project
-          </Link>
-          <Link
-            to="/admin"
-            className="btn-secondary"
-            style={{ marginTop: '10px', fontSize: '0.8rem', padding: '8px 16px' }}
-          >
-            ⚙ Admin Portal
           </Link>
         </div>
       </div>
@@ -70,3 +63,5 @@ export function Footer() {
     </footer>
   );
 }
+
+export default Footer;
