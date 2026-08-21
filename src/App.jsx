@@ -56,7 +56,7 @@ export default function App() {
               <Route path="/about" element={<AboutPage />} />
               <Route path="/contact" element={<ContactPage />} />
               <Route path="/careers" element={<CareersPage />} />
-              <Route path="/admin" element={<AdminRoute />} />
+              <Route path="/SA" element={<AdminRoute />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Suspense>
