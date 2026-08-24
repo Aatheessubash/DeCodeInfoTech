@@ -66,6 +66,14 @@ export function Process() {
   const containerRef = useRef(null);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [activeStepIndex, setActiveStepIndex] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth <= 540);
+    checkMobile();
+    window.addEventListener('resize', checkMobile, { passive: true });
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -73,7 +81,6 @@ export function Process() {
       const rect = containerRef.current.getBoundingClientRect();
       const windowHeight = window.innerHeight;
 
-      // Calculate progress through section (0 to 1)
       const totalDist = rect.height - windowHeight * 0.3;
       const currentPassed = windowHeight * 0.7 - rect.top;
       const progress = Math.min(Math.max(currentPassed / totalDist, 0), 1);
@@ -90,13 +97,12 @@ export function Process() {
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll();
-
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
     <section id="process" className={`section-padding ${styles.processSection}`} ref={containerRef}>
-      <div className="section-header reveal visible" style={{ marginBottom: '24px' }}>
+      <div className="section-header reveal" style={{ marginBottom: '24px' }}>
         <SectionBadge>Process</SectionBadge>
         <h2 className={styles.sectionTitle}>
           A simple process. <br />
@@ -109,20 +115,21 @@ export function Process() {
       </div>
 
       <div className={styles.horizontalTrackContainer}>
-        {/* Straight Left-to-Right Horizontal Progress Line */}
-        <div className={styles.straightTrackWrapper}>
-          <div className={styles.trackBaseLine} />
-          <div
-            className={styles.trackGlowLine}
-            style={{ width: `${Math.min(scrollProgress * 100, 100)}%` }}
-          >
-            {/* Glowing Traveling Pulse Head */}
-            <div className={styles.travelingPulseHead} />
+        {/* Horizontal progress line — only renders on desktop (CSS hides on mobile/tablet) */}
+        {!isMobile && (
+          <div className={styles.straightTrackWrapper}>
+            <div className={styles.trackBaseLine} />
+            <div
+              className={styles.trackGlowLine}
+              style={{ width: `${Math.min(scrollProgress * 100, 100)}%` }}
+            >
+              <div className={styles.travelingPulseHead} />
+            </div>
           </div>
-        </div>
+        )}
 
-        {/* Straight Horizontal Stages Grid */}
-        <div className={styles.stagesRow}>
+        {/* Steps grid — auto adapts via CSS: 6-col desktop / 3-col tablet / vertical mobile */}
+        <div className={`${styles.stagesRow} reveal delay-1`}>
           {PROCESS_STEPS.map((step, idx) => {
             const IconComponent = step.icon;
             const isPassed = idx <= activeStepIndex && scrollProgress > 0.02;
@@ -135,7 +142,7 @@ export function Process() {
                   isCurrent ? styles.stageActive : ''
                 }`}
               >
-                {/* Milestone Node on the Straight Line */}
+                {/* Milestone Node */}
                 <div className={styles.milestoneNode}>
                   <div
                     className={styles.nodeCircle}
@@ -153,12 +160,12 @@ export function Process() {
                   <span className={styles.nodeNumberPill}>{step.number}</span>
                 </div>
 
-                {/* Small Round Stepping-Stone Disc */}
+                {/* Info Card */}
                 <div className={styles.discCard}>
                   <h3 className={styles.discTitle}>{step.title}</h3>
                   <span className={styles.discTag}>{step.tag}</span>
                   <p className={styles.discDesc}>{step.desc}</p>
-                  
+
                   <div className={styles.chipsRow}>
                     {step.tags.map((t, i) => (
                       <span key={i} className={styles.chip}>

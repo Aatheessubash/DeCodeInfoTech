@@ -27,7 +27,7 @@
 }
 
 /* ============================================================
-   STRAIGHT HORIZONTAL LEFT-TO-RIGHT TRACK CONTAINER
+   DESKTOP: STRAIGHT HORIZONTAL LEFT-TO-RIGHT TRACK
    ============================================================ */
 
 .horizontalTrackContainer {
@@ -68,7 +68,7 @@
   transition: width 200ms ease-out;
 }
 
-/* Glowing Traveling Pulse Head on the Straight Line */
+/* Glowing Traveling Pulse Head */
 .travelingPulseHead {
   position: absolute;
   right: -6px;
@@ -84,16 +84,12 @@
 }
 
 @keyframes pulseHead {
-  0% {
-    transform: scale(1);
-  }
-  100% {
-    transform: scale(1.3);
-  }
+  0% { transform: scale(1); }
+  100% { transform: scale(1.3); }
 }
 
 /* ============================================================
-   STAGES ROW: 6 COLUMNS ALONG THE STRAIGHT LINE
+   STAGES ROW: 6 COLUMNS DESKTOP
    ============================================================ */
 
 .stagesRow {
@@ -112,7 +108,7 @@
   transition: all 300ms ease;
 }
 
-/* Milestone Node on top of the straight line */
+/* Milestone Node */
 .milestoneNode {
   position: relative;
   display: flex;
@@ -159,7 +155,7 @@
   border-color: #E9D5FF;
 }
 
-/* Small Round Stepping-Stone Disc Card */
+/* Disc Card */
 .discCard {
   width: 100%;
   max-width: 175px;
@@ -235,52 +231,125 @@
 }
 
 /* ============================================================
-   RESPONSIVE: SMOOTH HORIZONTAL SCROLL TRACK
+   TABLET: 2-COLUMN GRID (769px – 980px)
    ============================================================ */
 
-@media (max-width: 980px) {
-  .horizontalTrackContainer {
-    overflow-x: auto;
-    padding: 0 16px 16px 16px;
-    scrollbar-width: thin;
-    scrollbar-color: rgba(124, 58, 237, 0.3) transparent;
+@media (max-width: 980px) and (min-width: 541px) {
+  /* Hide the horizontal progress line on tablet */
+  .straightTrackWrapper {
+    display: none;
   }
 
   .stagesRow {
-    min-width: 880px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
   }
 
-  .straightTrackWrapper {
-    min-width: calc(880px - 140px);
-    left: 70px;
+  .stageColumn {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .discCard {
+    max-width: 100%;
+    width: 100%;
+    border-radius: 18px;
   }
 }
+
+/* ============================================================
+   MOBILE: VERTICAL STACKED TIMELINE (≤540px)
+   ============================================================ */
 
 @media (max-width: 540px) {
   .processSection {
     padding: 32px 0 44px 0;
   }
 
-  .stagesRow {
-    min-width: 820px;
-    gap: 8px;
+  /* Hide the horizontal scrolling track line */
+  .straightTrackWrapper {
+    display: none;
   }
 
-  .discCard {
-    padding: 12px 8px;
-    border-radius: 16px;
+  /* Remove grid, switch to vertical flex */
+  .stagesRow {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    padding: 0 16px;
+    position: relative;
+  }
+
+  /* Vertical connecting line down the left side */
+  .stagesRow::before {
+    content: '';
+    position: absolute;
+    left: 38px;
+    top: 22px;
+    bottom: 22px;
+    width: 2px;
+    background: linear-gradient(180deg, #7C3AED 0%, #9333EA 60%, rgba(124,58,237,0.12) 100%);
+    border-radius: 999px;
+    z-index: 1;
+  }
+
+  /* Each step: row layout — node on left, card on right */
+  .stageColumn {
+    flex-direction: row;
+    align-items: flex-start;
+    text-align: left;
+    gap: 14px;
+    padding: 0 0 22px 0;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* Milestone node stays inline on the left */
+  .milestoneNode {
+    flex-shrink: 0;
+    margin-bottom: 0;
+    align-items: center;
+    width: 54px;
   }
 
   .nodeCircle {
-    width: 38px;
-    height: 38px;
+    width: 40px;
+    height: 40px;
+    position: relative;
+    z-index: 2;
+    background: #FFFFFF;
+  }
+
+  .nodeNumberPill {
+    margin-top: 4px;
+    font-size: 0.6rem;
+  }
+
+  /* Card fills the remaining space */
+  .discCard {
+    flex: 1;
+    max-width: 100%;
+    border-radius: 16px;
+    padding: 14px 14px 12px 14px;
+    align-items: flex-start;
+    text-align: left;
   }
 
   .discTitle {
-    font-size: 0.88rem;
+    font-size: 0.95rem;
   }
 
   .discDesc {
-    font-size: 0.64rem;
+    font-size: 0.7rem;
+  }
+
+  .chipsRow {
+    justify-content: flex-start;
+  }
+
+  /* Active state on mobile */
+  .stageActive .nodeCircle {
+    transform: scale(1.1);
+    box-shadow: 0 0 16px rgba(124, 58, 237, 0.35);
   }
 }
