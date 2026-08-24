@@ -17,67 +17,27 @@
   align-items: stretch;
 }
 
-@media (max-width: 900px) {
-  .carouselContainer {
-    mask-image: linear-gradient(to right, transparent 0%, black 2%, black 98%, transparent 100%);
-    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 2%, black 98%, transparent 100%);
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-    padding: 16px 0 28px 0;
-  }
-  
-  .carouselContainer::-webkit-scrollbar {
-    display: none;
-  }
-  
-  .scrollTrack {
-    animation: none;
-    flex-direction: row;
-    width: max-content;
-    gap: 16px;
-    padding: 0 16px;
-  }
-
-  .card[aria-hidden='true'] {
-    display: none;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .carouselContainer {
-    overflow-x: auto;
-    mask-image: none;
-    -webkit-mask-image: none;
-  }
-
-  .scrollTrack {
-    animation: none;
-    padding-inline: 16px;
-  }
-
-  .card[aria-hidden='true'] {
-    display: none;
-  }
-}
-
-.carouselContainer:hover .scrollTrack {
+.carouselContainer:hover .scrollTrack,
+.carouselContainer:active .scrollTrack {
   animation-play-state: paused;
 }
 
 @keyframes scrollLeft {
-  0% { transform: translate3d(0, 0, 0); }
-  100% { transform: translate3d(-50%, 0, 0); }
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
 }
 
 .card {
-  width: 330px;
+  width: 320px;
   flex-shrink: 0;
-  padding: 28px 24px;
+  padding: 26px 22px;
   display: flex;
   flex-direction: column;
-  min-height: 460px;
+  min-height: 440px;
   height: auto;
   background: #FFFFFF;
   border: 1px solid rgba(124, 58, 237, 0.1);
@@ -85,23 +45,6 @@
   box-shadow: 0 4px 20px -2px rgba(18, 14, 44, 0.04), 0 2px 6px -1px rgba(18, 14, 44, 0.02);
   transition: transform 300ms var(--ease-spring), box-shadow 300ms var(--ease-spring), border-color 300ms ease;
   justify-content: space-between;
-}
-
-@media (max-width: 900px) {
-  .card {
-    width: 290px;
-    min-height: 440px;
-    padding: 22px 18px;
-    scroll-snap-align: center;
-  }
-}
-
-@media (max-width: 414px) {
-  .card {
-    width: 260px;
-    min-height: 420px;
-    padding: 18px 16px;
-  }
 }
 
 .card:hover {
@@ -129,6 +72,7 @@
   justify-content: center;
   font-size: 1.3rem;
   transition: all 300ms ease;
+  flex-shrink: 0;
 }
 
 .card:hover .icon {
@@ -150,7 +94,7 @@
 }
 
 .title {
-  font-size: 1.18rem;
+  font-size: 1.15rem;
   font-weight: 800;
   line-height: 1.3;
   margin-bottom: 10px;
@@ -158,10 +102,10 @@
 }
 
 .desc {
-  font-size: 0.88rem;
+  font-size: 0.86rem;
   color: var(--muted);
-  line-height: 1.6;
-  margin-bottom: 22px;
+  line-height: 1.55;
+  margin-bottom: 20px;
 }
 
 .deliverables {
@@ -192,10 +136,10 @@
   display: flex;
   align-items: flex-start;
   gap: 8px;
-  font-size: 0.84rem;
+  font-size: 0.82rem;
   color: #334155;
   font-weight: 500;
-  line-height: 1.42;
+  line-height: 1.4;
 }
 
 .checkIcon {
@@ -204,4 +148,196 @@
   flex-shrink: 0;
   color: var(--accent-purple);
   margin-top: 2px;
+}
+
+/* ============================================================
+   RESPONSIVE INFINITE MARQUEE & SMALLER COMPACT MOBILE CARDS
+   ============================================================ */
+
+@media (max-width: 900px) {
+  .carouselContainer {
+    padding: 20px 0 32px 0;
+    mask-image: linear-gradient(to right, transparent 0%, black 2%, black 98%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 2%, black 98%, transparent 100%);
+  }
+
+  .scrollTrack {
+    gap: 18px;
+    animation-duration: 36s;
+  }
+
+  .card {
+    width: 260px;
+    min-height: 380px;
+    padding: 20px 16px;
+    border-radius: 16px;
+  }
+
+  .cardHeader {
+    margin-bottom: 14px;
+  }
+
+  .icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+  }
+
+  .title {
+    font-size: 1.05rem;
+    margin-bottom: 8px;
+  }
+
+  .desc {
+    font-size: 0.82rem;
+    line-height: 1.5;
+    margin-bottom: 14px;
+  }
+
+  .deliverables {
+    padding-top: 12px;
+  }
+
+  .delivTitle {
+    font-size: 0.72rem;
+    margin-bottom: 8px;
+  }
+
+  .list {
+    gap: 7px;
+  }
+
+  .list li {
+    font-size: 0.78rem;
+    gap: 7px;
+  }
+}
+
+@media (max-width: 600px) {
+  .carouselContainer {
+    padding: 16px 0 28px 0;
+  }
+
+  .scrollTrack {
+    gap: 14px;
+    animation-duration: 30s;
+  }
+
+  .card {
+    width: 230px;
+    min-height: 340px;
+    padding: 16px 14px;
+    border-radius: 14px;
+  }
+
+  .cardHeader {
+    margin-bottom: 10px;
+  }
+
+  .icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+  }
+
+  .icon svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .number {
+    font-size: 0.7rem;
+    padding: 2px 8px;
+  }
+
+  .title {
+    font-size: 0.96rem;
+    margin-bottom: 6px;
+  }
+
+  .desc {
+    font-size: 0.76rem;
+    line-height: 1.45;
+    margin-bottom: 10px;
+  }
+
+  .deliverables {
+    padding-top: 10px;
+  }
+
+  .delivTitle {
+    font-size: 0.68rem;
+    margin-bottom: 6px;
+  }
+
+  .list {
+    gap: 6px;
+  }
+
+  .list li {
+    font-size: 0.73rem;
+    gap: 6px;
+    line-height: 1.35;
+  }
+
+  .checkIcon {
+    width: 13px;
+    height: 13px;
+    margin-top: 1px;
+  }
+}
+
+@media (max-width: 414px) {
+  .scrollTrack {
+    gap: 12px;
+    animation-duration: 26s;
+  }
+
+  .card {
+    width: 210px;
+    min-height: 320px;
+    padding: 14px 12px;
+    border-radius: 12px;
+  }
+
+  .icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+  }
+
+  .icon svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .title {
+    font-size: 0.9rem;
+  }
+
+  .desc {
+    font-size: 0.72rem;
+    line-height: 1.4;
+  }
+
+  .list li {
+    font-size: 0.69rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .carouselContainer {
+    overflow-x: auto;
+    mask-image: none;
+    -webkit-mask-image: none;
+  }
+
+  .scrollTrack {
+    animation: none;
+    padding-inline: 16px;
+  }
+
+  .card[aria-hidden='true'] {
+    display: none;
+  }
 }

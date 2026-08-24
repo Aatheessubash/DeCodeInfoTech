@@ -1,69 +1,427 @@
-.processGrid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 28px;
+.processSection {
+  position: relative;
+  overflow: hidden;
+  background-color: #FFFFFF;
+  padding: 50px 0 80px 0;
 }
 
-@media (max-width: 1024px) {
-  .processGrid {
-    grid-template-columns: repeat(2, 1fr);
-  }
+.sectionTitle {
+  font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--primary);
+  margin-top: 12px;
+  margin-bottom: 10px;
 }
 
-@media (max-width: 640px) {
-  .processGrid {
-    grid-template-columns: 1fr;
-  }
+.highlightText {
+  color: var(--muted);
 }
 
-.stepCard {
-  padding: 36px 32px;
+.sectionDesc {
+  font-size: 1rem;
+  color: var(--muted);
+  max-width: 580px;
+  margin: 0 auto;
+  line-height: 1.55;
+}
+
+/* ============================================================
+   ZIGZAG CONTAINER
+   ============================================================ */
+
+.zigzagContainer {
+  position: relative;
+  max-width: 860px;
+  margin: 50px auto 0 auto;
+  padding: 0 20px;
   display: flex;
   flex-direction: column;
-  position: relative;
-  height: 100%;
 }
 
-@media (max-width: 414px) {
-  .stepCard {
-    padding: 24px 16px;
+.zigzagBlock {
+  position: relative;
+  width: 100%;
+}
+
+/* ============================================================
+   STAGE ROW: ALTERNATING LEFT & RIGHT
+   ============================================================ */
+
+.stageRow {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  z-index: 3;
+}
+
+.stageLeft {
+  flex-direction: row;
+  justify-content: flex-start;
+  padding-left: 40px;
+}
+
+.stageRight {
+  flex-direction: row-reverse;
+  justify-content: flex-start;
+  padding-right: 40px;
+}
+
+.cardWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ============================================================
+   UNIFIED CIRCULAR STEPPING-STONE DISC (NOT MULTICOLOR)
+   ============================================================ */
+
+.circularDisc {
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  border: 2px solid rgba(124, 58, 237, 0.18);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 16px 20px;
+  box-sizing: border-box;
+  position: relative;
+  transition: all 400ms cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 8px 24px -4px rgba(18, 14, 44, 0.05), 0 2px 8px -1px rgba(124, 58, 237, 0.03);
+}
+
+.circularDisc:hover {
+  transform: translateY(-5px) scale(1.03);
+  border-color: #7C3AED;
+  box-shadow: 0 16px 36px -6px rgba(124, 58, 237, 0.18), 0 4px 14px -2px rgba(212, 175, 55, 0.12);
+}
+
+.discPassed {
+  border-color: rgba(124, 58, 237, 0.35);
+}
+
+.discActive {
+  transform: scale(1.05);
+  border-color: #7C3AED;
+  box-shadow: 0 0 30px rgba(124, 58, 237, 0.25), 0 0 10px rgba(212, 175, 55, 0.35);
+}
+
+/* Floating Crown Step Number Badge */
+.topNumberBadge {
+  position: absolute;
+  top: -12px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #7C3AED 0%, #0D9488 100%);
+  color: #FFFFFF;
+  font-size: 0.76rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid #FFFFFF;
+  box-shadow: 0 3px 10px rgba(124, 58, 237, 0.35);
+  z-index: 4;
+}
+
+/* Inner Circular Icon Orb */
+.innerIconOrb {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: #F3E8FF;
+  border: 1.5px solid #E9D5FF;
+  color: #7C3AED;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 6px;
+  transition: all 300ms ease;
+}
+
+.circularDisc:hover .innerIconOrb {
+  transform: scale(1.08) rotate(4deg);
+  background: #7C3AED;
+  color: #FFFFFF;
+  border-color: #7C3AED;
+}
+
+/* Title & Tag */
+.discTitle {
+  font-size: 1.12rem;
+  font-weight: 800;
+  color: var(--primary);
+  margin-bottom: 2px;
+  line-height: 1.2;
+}
+
+.discTag {
+  font-size: 0.64rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: #F3E8FF;
+  color: #7C3AED;
+  border: 1px solid #E9D5FF;
+  margin-bottom: 6px;
+}
+
+.discDesc {
+  font-size: 0.72rem;
+  color: #475569;
+  line-height: 1.35;
+  max-width: 180px;
+  margin-bottom: 8px;
+}
+
+/* Mini Tag Chips */
+.discChipsRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.discChip {
+  font-size: 0.6rem;
+  font-weight: 600;
+  padding: 1px 6px;
+  border-radius: 999px;
+  border: 1px solid rgba(124, 58, 237, 0.14);
+  background: #F8FAFC;
+  color: #475569;
+}
+
+/* Floating Active Peacock Feather Badge */
+.activeFeatherBadge {
+  position: absolute;
+  bottom: -12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.66rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  background: linear-gradient(135deg, #7C3AED 0%, #0D9488 100%);
+  padding: 2px 10px;
+  border-radius: 999px;
+  border: 2px solid #FFFFFF;
+  box-shadow: 0 3px 12px rgba(124, 58, 237, 0.35);
+  animation: pulseBadge 1.5s ease-in-out infinite alternate;
+  z-index: 4;
+}
+
+@keyframes pulseBadge {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.06);
   }
 }
 
-.stepHeader {
+/* ============================================================
+   DIAGONAL ZIGZAG CONNECTOR WITH PEACOCK FEATHERS
+   ============================================================ */
+
+.connectorTrack {
+  position: relative;
+  width: 100%;
+  height: 90px;
+  margin: -16px 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.connectorSvg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.svgPathBase {
+  fill: none;
+  stroke: rgba(124, 58, 237, 0.14);
+  stroke-width: 2.5;
+  stroke-dasharray: 6 6;
+}
+
+.svgPathActive {
+  fill: none;
+  stroke: transparent;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  transition: stroke 400ms ease, filter 400ms ease;
+}
+
+.svgPathFilled {
+  stroke: #7C3AED;
+  filter: drop-shadow(0 0 6px rgba(124, 58, 237, 0.45));
+}
+
+/* Peacock Feathers along the Diagonal */
+.diagonalFeathersGroup {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  margin-bottom: 20px;
+  justify-content: center;
+  gap: 22px;
 }
 
-.stepNum {
-  font-size: 2.2rem;
-  font-weight: 900;
-  color: var(--accent-cyan);
-  letter-spacing: -0.04em;
+.featherItem {
+  display: flex;
+  align-items: center;
 }
 
-.stepBadge {
-  padding: 4px 12px;
-  border-radius: var(--radius-pill);
-  background: var(--surface);
-  border: 1px solid var(--lav);
-  font-size: 0.75rem;
-  font-weight: 700;
-  color: var(--muted);
-  text-transform: uppercase;
+.centerFeatherFollower {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: featherFlutter 2s ease-in-out infinite alternate;
 }
 
-.stepTitle {
-  font-size: 1.35rem;
-  margin-bottom: 12px;
-  color: var(--text);
-  word-break: break-word;
+@keyframes featherFlutter {
+  0% {
+    transform: translateY(0) scale(1);
+  }
+  100% {
+    transform: translateY(-4px) scale(1.08);
+  }
 }
 
-.stepDesc {
-  font-size: 0.95rem;
-  color: var(--muted);
-  line-height: 1.6;
+.peacockSvg {
+  opacity: 0.35;
+  filter: grayscale(40%);
+  transition: all 400ms ease;
+}
+
+.peacockActive {
+  opacity: 1;
+  filter: drop-shadow(0 0 8px rgba(124, 58, 237, 0.5)) drop-shadow(0 0 3px rgba(212, 175, 55, 0.6));
+}
+
+/* ============================================================
+   RESPONSIVE ZIGZAG (TABLET & MOBILE)
+   ============================================================ */
+
+@media (max-width: 768px) {
+  .zigzagContainer {
+    margin-top: 36px;
+    padding: 0 16px;
+  }
+
+  .stageLeft {
+    padding-left: 10px;
+  }
+
+  .stageRight {
+    padding-right: 10px;
+  }
+
+  .circularDisc {
+    width: 215px;
+    height: 215px;
+    padding: 12px 14px;
+  }
+
+  .innerIconOrb {
+    width: 38px;
+    height: 38px;
+  }
+
+  .discTitle {
+    font-size: 1.02rem;
+  }
+
+  .discDesc {
+    font-size: 0.67rem;
+    max-width: 150px;
+  }
+
+  .connectorTrack {
+    height: 70px;
+    margin: -10px 0;
+  }
+
+  .diagonalFeathersGroup {
+    gap: 14px;
+  }
+}
+
+@media (max-width: 520px) {
+  .processSection {
+    padding: 36px 0 50px 0;
+  }
+
+  .stageLeft {
+    padding-left: 0;
+    justify-content: flex-start;
+  }
+
+  .stageRight {
+    padding-right: 0;
+    justify-content: flex-end;
+  }
+
+  .circularDisc {
+    width: 180px;
+    height: 180px;
+    padding: 10px 8px;
+  }
+
+  .topNumberBadge {
+    width: 26px;
+    height: 26px;
+    font-size: 0.68rem;
+    top: -10px;
+  }
+
+  .innerIconOrb {
+    width: 32px;
+    height: 32px;
+    margin-bottom: 3px;
+  }
+
+  .discTitle {
+    font-size: 0.9rem;
+  }
+
+  .discTag {
+    font-size: 0.56rem;
+    padding: 1px 6px;
+    margin-bottom: 3px;
+  }
+
+  .discDesc {
+    font-size: 0.6rem;
+    line-height: 1.22;
+    max-width: 140px;
+    margin-bottom: 4px;
+  }
+
+  .discChip {
+    font-size: 0.52rem;
+    padding: 0 4px;
+  }
+
+  .connectorTrack {
+    height: 60px;
+    margin: -6px 0;
+  }
+
+  .diagonalFeathersGroup {
+    gap: 8px;
+  }
 }

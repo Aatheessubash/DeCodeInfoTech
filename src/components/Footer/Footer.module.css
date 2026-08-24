@@ -34,9 +34,25 @@
 }
 
 .logoImg {
-  height: 52px;
+  height: 72px;
   width: auto;
+  max-width: 240px;
   object-fit: contain;
+  transition: transform 300ms ease, height 300ms ease;
+}
+
+@media (max-width: 768px) {
+  .logoImg {
+    height: 62px;
+    max-width: 200px;
+  }
+}
+
+@media (max-width: 414px) {
+  .logoImg {
+    height: 54px;
+    max-width: 170px;
+  }
 }
 
 .tagline {

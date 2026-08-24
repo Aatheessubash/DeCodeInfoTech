@@ -67,20 +67,35 @@
 
 /* Made logo bigger as requested */
 .logoImg {
-  height: 72px;
+  height: 84px;
   width: auto;
+  max-width: 280px;
   object-fit: contain;
   transition: transform 300ms ease, height 300ms ease;
 }
 
+.header.scrolled .logoImg {
+  height: 72px;
+}
+
 @media (max-width: 768px) {
   .logoImg {
+    height: 68px;
+    max-width: 220px;
+  }
+
+  .header.scrolled .logoImg {
     height: 58px;
   }
 }
 
 @media (max-width: 414px) {
   .logoImg {
+    height: 58px;
+    max-width: 180px;
+  }
+
+  .header.scrolled .logoImg {
     height: 50px;
   }
 }

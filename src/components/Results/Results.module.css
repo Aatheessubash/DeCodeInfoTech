@@ -20,7 +20,8 @@
   padding-left: 24px;
 }
 
-.scrollTrack:hover {
+.scrollTrack:hover,
+.scrollTrack:active {
   animation-play-state: paused;
 }
 
@@ -33,6 +34,13 @@
   flex-shrink: 0;
   background: var(--surface);
   border: 1px solid var(--lav);
+  border-radius: 16px;
+  transition: transform 300ms var(--ease-spring), border-color 300ms ease;
+}
+
+.industryCard:hover {
+  transform: translateY(-4px);
+  border-color: var(--gold);
 }
 
 .industryIcon {
@@ -61,29 +69,77 @@
   100% { transform: translate3d(-33.33%, 0, 0); }
 }
 
+/* ============================================================
+   RESPONSIVE INFINITE MARQUEE & SMALLER COMPACT CARDS
+   ============================================================ */
+
 @media (max-width: 768px) {
   .carouselContainer {
     padding: 20px 0;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scrollbar-width: none;
-    mask-image: none;
-    -webkit-mask-image: none;
+    mask-image: linear-gradient(to right, transparent, black 4%, black 96%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 4%, black 96%, transparent);
   }
-  .carouselContainer::-webkit-scrollbar {
-    display: none;
-  }
+
   .scrollTrack {
-    animation: none;
-    padding-inline: 20px;
+    gap: 16px;
+    animation-duration: 32s;
+    padding-left: 16px;
   }
+
   .industryCard {
-    padding: 20px;
-    min-width: 280px;
-    scroll-snap-align: center;
+    padding: 14px 20px;
+    min-width: 220px;
+    gap: 12px;
+    border-radius: 12px;
   }
-  .industryCard[aria-hidden='true'] {
-    display: none;
+
+  .industryIcon {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+  }
+
+  .industryIcon svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .industryName {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .carouselContainer {
+    padding: 16px 0;
+  }
+
+  .scrollTrack {
+    gap: 12px;
+    animation-duration: 26s;
+    padding-left: 12px;
+  }
+
+  .industryCard {
+    padding: 10px 16px;
+    min-width: 180px;
+    gap: 10px;
+    border-radius: 10px;
+  }
+
+  .industryIcon {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+  }
+
+  .industryIcon svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .industryName {
+    font-size: 0.85rem;
   }
 }
 
