@@ -1,82 +1,88 @@
 .testimonialSection {
-  padding: 90px 0;
+  padding: 48px 0 60px 0;
   position: relative;
   overflow: hidden;
   background-color: #FFFFFF;
 }
 
 .heading {
-  font-size: clamp(2rem, 4vw, 2.75rem);
+  font-size: clamp(1.6rem, 3.2vw, 2.3rem);
   font-weight: 800;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.025em;
   color: var(--primary);
-  margin-top: 16px;
-  margin-bottom: 12px;
+  margin-top: 10px;
+  margin-bottom: 8px;
 }
 
 .highlight {
-  background: linear-gradient(135deg, #7C3AED 0%, #9333EA 50%, #6366F1 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: var(--accent-purple);
 }
 
 .subheading {
-  font-size: 1.05rem;
+  font-size: 0.92rem;
   color: var(--muted);
-  max-width: 600px;
+  max-width: 580px;
   margin: 0 auto;
-  line-height: 1.6;
+  line-height: 1.5;
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-  margin-top: 56px;
-  max-width: 1240px;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 0 24px;
-}
+/* ============================================================
+   1-BY-1 SMOOTH MOVE CAROUSEL CONTAINER
+   ============================================================ */
 
-@media (max-width: 1024px) {
-  .grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 24px;
-  }
-}
-
-@media (max-width: 640px) {
-  .grid {
-    grid-template-columns: 1fr;
-    padding: 0 16px;
-  }
-}
-
-.card {
+.carouselContainer {
   position: relative;
+  max-width: 680px;
+  margin: 32px auto 0 auto;
+  padding: 0 44px;
+  box-sizing: border-box;
+}
+
+.carouselViewport {
+  overflow: hidden;
+  border-radius: 24px;
+  width: 100%;
+}
+
+.carouselTrack {
+  display: flex;
+  width: 100%;
+  transition: transform 650ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+
+.carouselSlide {
+  min-width: 100%;
+  width: 100%;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  padding: 4px;
+}
+
+/* Small, Sleek Compact Card */
+.compactCard {
   background: #FFFFFF;
-  border: 1px solid rgba(124, 58, 237, 0.1);
-  border-radius: 20px;
-  padding: 28px 24px;
+  border: 1px solid rgba(124, 58, 237, 0.14);
+  border-radius: 22px;
+  padding: 28px 28px 24px 28px;
+  box-shadow: 0 8px 30px -4px rgba(18, 14, 44, 0.06), 0 2px 8px -1px rgba(124, 58, 237, 0.03);
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  box-shadow: 0 4px 20px -2px rgba(18, 14, 44, 0.04);
-  transition: all 350ms var(--ease-spring);
+  box-sizing: border-box;
+  position: relative;
+  transition: all 300ms ease;
 }
 
-.card:hover {
-  transform: translateY(-6px);
-  border-color: rgba(124, 58, 237, 0.3);
-  box-shadow: 0 20px 40px -10px rgba(124, 58, 237, 0.12);
+.compactCard:hover {
+  border-color: rgba(124, 58, 237, 0.35);
+  box-shadow: 0 16px 36px -6px rgba(124, 58, 237, 0.14);
 }
 
 .cardHeader {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }
 
 .ratingRow {
@@ -95,44 +101,49 @@
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  font-size: 0.72rem;
-  font-weight: 600;
-  color: var(--accent-purple);
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #7C3AED;
   background: #F3E8FF;
-  padding: 3px 9px;
-  border-radius: 12px;
+  border: 1px solid #E9D5FF;
+  padding: 2px 8px;
+  border-radius: 999px;
 }
 
 .quoteIcon {
-  width: 24px;
-  height: 24px;
-  color: #C084FC;
-  opacity: 0.6;
-  transition: all 300ms ease;
-}
-
-.card:hover .quoteIcon {
-  color: var(--accent-purple);
-  opacity: 1;
-  transform: scale(1.1);
+  color: rgba(124, 58, 237, 0.25);
 }
 
 .quoteText {
-  font-size: 0.96rem;
-  line-height: 1.65;
-  color: var(--text);
+  font-size: 1.02rem;
+  line-height: 1.6;
+  color: #1E293B;
+  font-weight: 500;
+  margin-bottom: 20px;
   font-style: italic;
-  font-weight: 450;
-  margin-bottom: 24px;
-  flex-grow: 1;
 }
 
 .authorRow {
   display: flex;
   align-items: center;
   gap: 14px;
-  padding-top: 18px;
+  padding-top: 16px;
   border-top: 1px solid rgba(124, 58, 237, 0.08);
+}
+
+.authorAvatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #7C3AED 0%, #0D9488 100%);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(124, 58, 237, 0.25);
 }
 
 .authorMeta {
@@ -141,22 +152,113 @@
 }
 
 .authorName {
-  font-size: 0.95rem;
-  font-weight: 750;
+  font-size: 0.96rem;
+  font-weight: 800;
   color: var(--primary);
-  line-height: 1.3;
+  margin-bottom: 2px;
 }
 
 .authorRole {
-  font-size: 0.8rem;
-  color: var(--muted);
-  margin-top: 1px;
+  font-size: 0.78rem;
+  color: #64748B;
+  margin: 0;
 }
 
-.companyTag {
-  display: inline-block;
-  font-size: 0.75rem;
-  font-weight: 700;
-  color: var(--accent-purple);
-  margin-top: 2px;
+.companyName {
+  color: #7C3AED;
+  font-weight: 600;
+}
+
+/* ============================================================
+   NAVIGATION ARROWS
+   ============================================================ */
+
+.navArrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  border: 1px solid rgba(124, 58, 237, 0.18);
+  color: #7C3AED;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(18, 14, 44, 0.08);
+  transition: all 250ms ease;
+  z-index: 5;
+}
+
+.navArrow:hover {
+  background: #7C3AED;
+  color: #FFFFFF;
+  border-color: #7C3AED;
+  transform: translateY(-50%) scale(1.08);
+}
+
+.prevArrow {
+  left: 0;
+}
+
+.nextArrow {
+  right: 0;
+}
+
+/* ============================================================
+   DOTS INDICATORS
+   ============================================================ */
+
+.dotsRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(124, 58, 237, 0.2);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: all 300ms ease;
+}
+
+.activeDot {
+  width: 26px;
+  background: #7C3AED;
+  box-shadow: 0 0 10px rgba(124, 58, 237, 0.4);
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 640px) {
+  .carouselContainer {
+    padding: 0 28px;
+    margin-top: 24px;
+  }
+
+  .compactCard {
+    padding: 20px 18px 18px 18px;
+    border-radius: 18px;
+  }
+
+  .quoteText {
+    font-size: 0.92rem;
+    line-height: 1.5;
+    margin-bottom: 16px;
+  }
+
+  .navArrow {
+    width: 30px;
+    height: 30px;
+  }
 }

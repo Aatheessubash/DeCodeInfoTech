@@ -35,7 +35,7 @@ export function Portfolio() {
 
   return (
     <section id="work" className={`section-padding ${styles.section}`}>
-      <div className="section-header">
+      <div className="section-header reveal">
         <div className="pill-badge">
           <span className="badge-dot" />
           Our Work
@@ -47,7 +47,7 @@ export function Portfolio() {
         </p>
       </div>
 
-      <div className={styles.showcase}>
+      <div className={`${styles.showcase} reveal delay-2`}>
         <button
           type="button"
           className={`${styles.navButton} ${styles.previousButton}`}

@@ -17,7 +17,6 @@ function saveLeadLocally(formData) {
 }
 
 export function Contact() {
-  const [sectionRef, isVisible] = useIntersectionObserver({ threshold: 0.1 });
   const { siteContent } = useData();
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [formData, setFormData] = useState({
@@ -76,8 +75,8 @@ export function Contact() {
   };
 
   return (
-    <section id="contact" className={`section-padding ${styles.contactSection}`} ref={sectionRef}>
-      <div className={`section-header reveal ${isVisible ? 'visible' : ''}`}>
+    <section id="contact" className={`section-padding ${styles.contactSection}`}>
+      <div className="section-header reveal">
         <div className="pill-badge">
           <span className="badge-dot"></span>
           Start Your Project
@@ -88,7 +87,7 @@ export function Contact() {
         </p>
       </div>
 
-      <div className={`${styles.mainWrapper} reveal delay-1 ${isVisible ? 'visible' : ''}`}>
+      <div className={`${styles.mainWrapper} reveal delay-1`}>
         {/* LEFT COLUMN: PARTNERSHIP DEAL / HANDSHAKE IMAGE & TRUST HIGHLIGHTS */}
         <div className={styles.sideCol}>
           <div className={styles.dealCard}>

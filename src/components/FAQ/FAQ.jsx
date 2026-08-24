@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
-import { useIntersectionObserver } from '../../hooks/useIntersectionObserver';
 import styles from './FAQ.module.css';
 
 export function FAQ() {
-  const [sectionRef, isVisible] = useIntersectionObserver({ threshold: 0.1 });
   const [openIdx, setOpenIdx] = useState(-1);
 
   const faqs = [
@@ -38,8 +36,8 @@ export function FAQ() {
   };
 
   return (
-    <section id="faq" className="section-padding" ref={sectionRef}>
-      <div className={`section-header reveal ${isVisible ? 'visible' : ''}`}>
+    <section id="faq" className="section-padding">
+      <div className="section-header reveal">
         <div className="pill-badge">
           <span className="badge-dot"></span>
           Common Questions
@@ -50,7 +48,7 @@ export function FAQ() {
         </p>
       </div>
 
-      <div className={`${styles.accordionWrapper} reveal delay-1 ${isVisible ? 'visible' : ''}`}>
+      <div className={`${styles.accordionWrapper} reveal delay-1`}>
         {faqs.map((faq, idx) => {
           const isOpen = openIdx === idx;
           return (

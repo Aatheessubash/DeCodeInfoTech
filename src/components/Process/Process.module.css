@@ -1,69 +1,286 @@
-.processGrid {
+.processSection {
+  position: relative;
+  overflow: hidden;
+  background-color: #FFFFFF;
+  padding: 44px 0 60px 0;
+}
+
+.sectionTitle {
+  font-size: clamp(1.6rem, 3.2vw, 2.3rem);
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  color: var(--primary);
+  margin-top: 10px;
+  margin-bottom: 8px;
+}
+
+.highlightText {
+  color: var(--muted);
+}
+
+.sectionDesc {
+  font-size: 0.92rem;
+  color: var(--muted);
+  max-width: 580px;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+
+/* ============================================================
+   STRAIGHT HORIZONTAL LEFT-TO-RIGHT TRACK CONTAINER
+   ============================================================ */
+
+.horizontalTrackContainer {
+  position: relative;
+  max-width: 1140px;
+  margin: 40px auto 0 auto;
+  padding: 0 20px;
+}
+
+/* Straight Line Track */
+.straightTrackWrapper {
+  position: absolute;
+  top: 22px;
+  left: calc(20px + (100% - 40px) / 12);
+  right: calc(20px + (100% - 40px) / 12);
+  height: 4px;
+  z-index: 1;
+}
+
+.trackBaseLine {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(124, 58, 237, 0.14);
+  border-radius: 999px;
+}
+
+.trackGlowLine {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background: linear-gradient(90deg, #7C3AED 0%, #9333EA 50%, #D4AF37 100%);
+  border-radius: 999px;
+  box-shadow: 0 0 12px rgba(124, 58, 237, 0.5), 0 0 6px rgba(212, 175, 55, 0.4);
+  transition: width 200ms ease-out;
+}
+
+/* Glowing Traveling Pulse Head on the Straight Line */
+.travelingPulseHead {
+  position: absolute;
+  right: -6px;
+  top: -4px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #D4AF37;
+  border: 2px solid #FFFFFF;
+  box-shadow: 0 0 12px rgba(212, 175, 55, 0.8), 0 0 20px rgba(124, 58, 237, 0.6);
+  animation: pulseHead 1.4s ease-in-out infinite alternate;
+  z-index: 4;
+}
+
+@keyframes pulseHead {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.3);
+  }
+}
+
+/* ============================================================
+   STAGES ROW: 6 COLUMNS ALONG THE STRAIGHT LINE
+   ============================================================ */
+
+.stagesRow {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 28px;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 12px;
+  position: relative;
+  z-index: 2;
 }
 
-@media (max-width: 1024px) {
-  .processGrid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 640px) {
-  .processGrid {
-    grid-template-columns: 1fr;
-  }
-}
-
-.stepCard {
-  padding: 36px 32px;
+.stageColumn {
   display: flex;
   flex-direction: column;
-  position: relative;
-  height: 100%;
+  align-items: center;
+  text-align: center;
+  transition: all 300ms ease;
 }
 
-@media (max-width: 414px) {
-  .stepCard {
-    padding: 24px 16px;
+/* Milestone Node on top of the straight line */
+.milestoneNode {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 16px;
+  z-index: 3;
+}
+
+.nodeCircle {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  border: 2px solid rgba(124, 58, 237, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(18, 14, 44, 0.05);
+  transition: all 350ms cubic-bezier(0.16, 1, 0.3, 1);
+  margin-bottom: 4px;
+}
+
+.nodeNumberPill {
+  font-size: 0.64rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  padding: 1px 6px;
+  border-radius: 999px;
+  border: 1px solid rgba(124, 58, 237, 0.15);
+  background: #FFFFFF;
+  color: #64748B;
+  transition: all 300ms ease;
+}
+
+.stageActive .nodeCircle {
+  transform: scale(1.15);
+  border-color: #7C3AED;
+}
+
+.stageActive .nodeNumberPill {
+  background: #F3E8FF;
+  color: #7C3AED;
+  border-color: #E9D5FF;
+}
+
+/* Small Round Stepping-Stone Disc Card */
+.discCard {
+  width: 100%;
+  max-width: 175px;
+  background: #FFFFFF;
+  border: 1px solid rgba(124, 58, 237, 0.14);
+  border-radius: 20px;
+  padding: 16px 12px 14px 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 4px 14px -2px rgba(18, 14, 44, 0.04);
+  transition: all 300ms cubic-bezier(0.16, 1, 0.3, 1);
+  box-sizing: border-box;
+}
+
+.discCard:hover {
+  transform: translateY(-4px);
+  border-color: rgba(124, 58, 237, 0.38);
+  box-shadow: 0 12px 28px -4px rgba(124, 58, 237, 0.12);
+}
+
+.stageActive .discCard {
+  border-color: rgba(124, 58, 237, 0.45);
+  box-shadow: 0 10px 24px -4px rgba(124, 58, 237, 0.14), 0 0 10px rgba(212, 175, 55, 0.2);
+}
+
+.discTitle {
+  font-size: 0.96rem;
+  font-weight: 800;
+  color: var(--primary);
+  margin-bottom: 2px;
+  line-height: 1.2;
+}
+
+.discTag {
+  font-size: 0.58rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 1px 6px;
+  border-radius: 999px;
+  background: #F3E8FF;
+  color: #7C3AED;
+  border: 1px solid #E9D5FF;
+  margin-bottom: 6px;
+}
+
+.discDesc {
+  font-size: 0.68rem;
+  color: #475569;
+  line-height: 1.35;
+  margin-bottom: 8px;
+}
+
+.chipsRow {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 3px;
+  width: 100%;
+  padding-top: 6px;
+  border-top: 1px solid rgba(124, 58, 237, 0.08);
+}
+
+.chip {
+  font-size: 0.56rem;
+  font-weight: 600;
+  padding: 1px 5px;
+  border-radius: 999px;
+  border: 1px solid rgba(124, 58, 237, 0.12);
+  background: #F8FAFC;
+  color: #475569;
+}
+
+/* ============================================================
+   RESPONSIVE: SMOOTH HORIZONTAL SCROLL TRACK
+   ============================================================ */
+
+@media (max-width: 980px) {
+  .horizontalTrackContainer {
+    overflow-x: auto;
+    padding: 0 16px 16px 16px;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(124, 58, 237, 0.3) transparent;
+  }
+
+  .stagesRow {
+    min-width: 880px;
+  }
+
+  .straightTrackWrapper {
+    min-width: calc(880px - 140px);
+    left: 70px;
   }
 }
 
-.stepHeader {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 20px;
-}
+@media (max-width: 540px) {
+  .processSection {
+    padding: 32px 0 44px 0;
+  }
 
-.stepNum {
-  font-size: 2.2rem;
-  font-weight: 900;
-  color: var(--accent-cyan);
-  letter-spacing: -0.04em;
-}
+  .stagesRow {
+    min-width: 820px;
+    gap: 8px;
+  }
 
-.stepBadge {
-  padding: 4px 12px;
-  border-radius: var(--radius-pill);
-  background: var(--surface);
-  border: 1px solid var(--lav);
-  font-size: 0.75rem;
-  font-weight: 700;
-  color: var(--muted);
-  text-transform: uppercase;
-}
+  .discCard {
+    padding: 12px 8px;
+    border-radius: 16px;
+  }
 
-.stepTitle {
-  font-size: 1.35rem;
-  margin-bottom: 12px;
-  color: var(--text);
-  word-break: break-word;
-}
+  .nodeCircle {
+    width: 38px;
+    height: 38px;
+  }
 
-.stepDesc {
-  font-size: 0.95rem;
-  color: var(--muted);
-  line-height: 1.6;
+  .discTitle {
+    font-size: 0.88rem;
+  }
+
+  .discDesc {
+    font-size: 0.64rem;
+  }
 }

@@ -1,21 +1,19 @@
 import React from 'react';
-import { useIntersectionObserver } from '../../hooks/useIntersectionObserver';
 import { useData } from '../../context/useData';
 import styles from './WhoWeAre.module.css';
 import { Award } from 'lucide-react';
 
 export function WhoWeAre() {
-  const [sectionRef, isVisible] = useIntersectionObserver({ threshold: 0.15 });
   const { siteContent } = useData();
 
   return (
-    <section id="about" className={styles.section} ref={sectionRef}>
+    <section id="about" className={styles.section}>
       <div className={styles.container}>
         <div className={styles.grid}>
           {/* LEFT COLUMN: TEXT & STATS */}
-          <div className={`${styles.leftCol} reveal ${isVisible ? 'visible' : ''}`}>
+          <div className={`${styles.leftCol} reveal reveal-left`}>
             <span className={styles.eyebrow}>WHO WE ARE</span>
-            
+
             <h2 className={styles.headline}>
               Sophisticated solutions for complex challenges.
             </h2>
@@ -25,12 +23,12 @@ export function WhoWeAre() {
             </p>
 
             <div className={styles.statsRow}>
-              <div className={styles.statCard}>
+              <div className={`${styles.statCard} reveal delay-3`}>
                 <div className={styles.statNumber}>200+</div>
                 <div className={styles.statLabel}>PROJECTS DELIVERED</div>
               </div>
 
-              <div className={styles.statCard}>
+              <div className={`${styles.statCard} reveal delay-4`}>
                 <div className={styles.statNumber}>98%</div>
                 <div className={styles.statLabel}>CLIENT RETENTION</div>
               </div>
@@ -38,7 +36,7 @@ export function WhoWeAre() {
           </div>
 
           {/* RIGHT COLUMN: TEAM IMAGE & FLOATING AWARD BADGE */}
-          <div className={`${styles.rightCol} reveal delay-2 ${isVisible ? 'visible' : ''}`}>
+          <div className={`${styles.rightCol} reveal reveal-right delay-2`}>
             <div className={styles.imageWrapper}>
               <img
                 src="/assets/who-we-are.jpg"

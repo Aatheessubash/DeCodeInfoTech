@@ -14,35 +14,34 @@ import {
 } from 'lucide-react';
 
 const SERVICE_ICONS = {
-  '01': <Code2 size={24} aria-hidden="true" />,
-  '02': <Cpu size={24} aria-hidden="true" />,
-  '03': <Palette size={24} aria-hidden="true" />,
-  '04': <Cloud size={24} aria-hidden="true" />,
-  '05': <Video size={24} aria-hidden="true" />,
-  '06': <Smartphone size={24} aria-hidden="true" />,
-  '07': <Wrench size={24} aria-hidden="true" />,
+  '01': <Code2 size={20} aria-hidden="true" />,
+  '02': <Cpu size={20} aria-hidden="true" />,
+  '03': <Palette size={20} aria-hidden="true" />,
+  '04': <Cloud size={20} aria-hidden="true" />,
+  '05': <Video size={20} aria-hidden="true" />,
+  '06': <Smartphone size={20} aria-hidden="true" />,
+  '07': <Wrench size={20} aria-hidden="true" />,
 };
 
 export function Services() {
-  const [sectionRef, isVisible] = useIntersectionObserver({ threshold: 0.1 });
   const { services, siteContent } = useData();
 
   const infiniteServices = [...services, ...services];
 
   return (
-    <section id="services" className="section-padding" ref={sectionRef}>
-      <div className={`section-header reveal ${isVisible ? 'visible' : ''}`}>
+    <section id="services" className={`section-padding ${styles.servicesSection}`}>
+      <div className="section-header reveal" style={{ marginBottom: '20px' }}>
         <div className="pill-badge">
           <span className="badge-dot"></span>
           Core Capabilities
         </div>
-        <h2>Technology Solutions Built Around Your Business</h2>
-        <p>
-          At <strong>{siteContent.agencyName || 'DeCode InfoTech'}</strong>, we combine strategic engineering, industrial innovation, and intuitive design to deliver scalable technology solutions.
+        <h2 className={styles.sectionHeading}>Technology Solutions Built Around Your Business</h2>
+        <p className={styles.sectionSub}>
+          At <strong>{siteContent.agencyName || 'DeCode InfoTech'}</strong>, we combine strategic engineering, AI innovation, and intuitive design to deliver scalable technology.
         </p>
       </div>
 
-      <div className={styles.carouselContainer}>
+      <div className={`${styles.carouselContainer} reveal-scale delay-2`}>
         <div className={styles.scrollTrack}>
           {infiniteServices.map((service, index) => (
             <div
@@ -52,25 +51,25 @@ export function Services() {
             >
               <div className={styles.cardHeader}>
                 <span className={styles.icon}>
-                  {SERVICE_ICONS[service.id] || <Sparkles size={24} aria-hidden="true" />}
+                  {SERVICE_ICONS[service.id] || <Sparkles size={20} aria-hidden="true" />}
                 </span>
                 <span className={styles.number}>{service.id}</span>
               </div>
               <h3 className={styles.title}>{service.title}</h3>
               <p className={styles.desc}>{service.desc}</p>
-              <div className={styles.deliverables}>
-                <h4 className={styles.delivTitle}>What We Deliver:</h4>
-                <ul className={styles.list}>
-                  {service.deliverables?.map((item, i) => (
-                    <li key={i}>
-                      <svg className={styles.checkIcon} viewBox="0 0 20 20" fill="currentColor">
-                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                      </svg>
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              
+              {service.deliverables && service.deliverables.length > 0 && (
+                <div className={styles.deliverables}>
+                  <div className={styles.tagsRow}>
+                    {service.deliverables.slice(0, 3).map((item, i) => (
+                      <span key={i} className={styles.delivChip}>
+                        <span className={styles.chipDot} />
+                        {item}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
           ))}
         </div>
@@ -78,3 +77,5 @@ export function Services() {
     </section>
   );
 }
+
+export default Services;
