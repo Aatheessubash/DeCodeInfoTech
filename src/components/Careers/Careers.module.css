@@ -1,0 +1,363 @@
+.careersSection {
+  position: relative;
+  border-top: 1px solid var(--lav);
+  border-bottom: 1px solid var(--lav);
+  scroll-margin-top: 96px;
+}
+
+.heroHeadline {
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 16px;
+  line-height: 1.15;
+  word-break: break-word;
+}
+
+.heroSubtext {
+  color: var(--muted);
+  font-size: clamp(0.95rem, 2vw, 1.15rem);
+  max-width: 680px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* Perks Section */
+.perksSection {
+  margin: 48px 0;
+}
+
+.sectionTitle {
+  font-size: clamp(1.6rem, 4vw, 2.2rem);
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 12px;
+  word-break: break-word;
+}
+
+.sectionSubtitle {
+  color: var(--muted);
+  font-size: 1rem;
+}
+
+.perksGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+@media (max-width: 480px) {
+  .perksGrid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+
+.perkCard {
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  transition: transform 300ms ease, box-shadow 300ms ease, border-color 300ms ease;
+}
+
+.perkCard:hover {
+  transform: translateY(-4px);
+  border-color: rgba(124, 58, 237, 0.3);
+  box-shadow: 0 12px 30px rgba(124, 58, 237, 0.1);
+}
+
+@media (max-width: 480px) {
+  .perkCard {
+    padding: 20px 16px;
+  }
+}
+
+.perkIcon {
+  width: 46px;
+  height: 46px;
+  border-radius: 14px;
+  background: var(--lav-light);
+  color: var(--accent-purple);
+  border: 1px solid var(--accent-purple-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  margin-bottom: 18px;
+}
+
+.perkTitle {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.perkDesc {
+  color: var(--muted);
+  font-size: 0.925rem;
+  line-height: 1.55;
+}
+
+/* Open Positions */
+.jobsGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.emptyJobs {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 34px 20px;
+  text-align: center;
+}
+
+.emptyJobs h3 {
+  margin: 0 0 8px;
+  color: var(--text);
+  font-size: 1.35rem;
+}
+
+.emptyJobs p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.jobCard {
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  transition: transform 300ms ease, box-shadow 300ms ease, border-color 300ms ease;
+}
+
+@media (max-width: 640px) {
+  .jobCard {
+    padding: 24px 18px;
+    gap: 16px;
+  }
+}
+
+@media (max-width: 414px) {
+  .jobCard {
+    padding: 20px 14px;
+  }
+}
+
+.jobCard:hover {
+  transform: translateY(-4px);
+  border-color: rgba(124, 58, 237, 0.35);
+  box-shadow: 0 16px 36px rgba(124, 58, 237, 0.12);
+}
+
+.jobHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+@media (max-width: 640px) {
+  .jobHeader {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .jobHeader button {
+    width: 100%;
+  }
+}
+
+.jobMeta {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+
+.jobDepartment {
+  background: var(--lav-light);
+  color: var(--accent-purple);
+  border: 1px solid var(--accent-purple-border);
+  padding: 4px 12px;
+  border-radius: 9999px;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.jobLocation {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.jobTitle {
+  font-size: clamp(1.2rem, 3vw, 1.4rem);
+  font-weight: 800;
+  color: var(--text);
+}
+
+.jobSummary {
+  color: var(--muted);
+  font-size: 0.975rem;
+  line-height: 1.6;
+}
+
+.reqHeader {
+  font-size: 0.85rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent-purple);
+  margin-bottom: 10px;
+}
+
+.reqList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.reqItem {
+  color: var(--muted);
+  font-size: 0.9rem;
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+}
+
+.reqCheck {
+  color: var(--accent-purple);
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+/* Modal */
+.modalBackdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(18, 14, 44, 0.65);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.modalContent {
+  background: var(--surface);
+  border: 1px solid var(--lav);
+  border-radius: 20px;
+  max-width: 560px;
+  width: 100%;
+  padding: 32px 28px;
+  box-shadow: 0 20px 50px rgba(18, 14, 44, 0.25);
+  position: relative;
+  max-height: 90vh;
+  max-height: 90dvh;
+  overflow-y: auto;
+}
+
+@media (max-width: 480px) {
+  .modalContent {
+    padding: 24px 16px;
+    border-radius: 16px;
+  }
+}
+
+.closeBtn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: var(--bg-subtle);
+  border: 1px solid var(--lav);
+  border-radius: 5px;
+  width: 36px;
+  height: 36px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 200ms ease;
+}
+
+.closeBtn:hover {
+  background: var(--accent-purple);
+  color: #fff;
+  border-color: var(--accent-purple);
+}
+
+.successIcon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: var(--lav-light);
+  color: var(--accent-purple);
+  font-size: 1.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px auto;
+  border: 1px solid var(--accent-purple-border);
+}
+
+.modalTitle {
+  font-size: clamp(1.2rem, 3vw, 1.5rem);
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 20px;
+  word-break: break-word;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+
+.input {
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: 10px;
+  border: 1px solid var(--lav);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 0.95rem;
+  font-family: inherit;
+  transition: border-color 200ms ease, box-shadow 200ms ease;
+}
+
+@media (max-width: 480px) {
+  .input {
+    padding: 10px 12px;
+    font-size: 0.9rem;
+  }
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--accent-purple);
+  box-shadow: 0 0 0 3px var(--accent-purple-glow);
+}
+

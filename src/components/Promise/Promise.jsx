@@ -47,13 +47,13 @@ export function PromiseSection() {
   ];
 
   return (
-    <section id="about" className="section-padding glow-bg" ref={sectionRef}>
+    <section id="standards" className="section-padding glow-bg" ref={sectionRef}>
       <div className={`section-header reveal ${isVisible ? 'visible' : ''}`}>
         <div className="pill-badge">
           <span className="badge-dot"></span>
-          About {siteContent?.agencyName || 'DeCode'}
+          Our Quality Standards
         </div>
-        <h2>Our Core Foundation & Engineering Standards</h2>
+        <h2>Our Core Foundation &amp; Engineering Standards</h2>
         <p>
           <strong>{siteContent?.agencyName || 'DeCode'}</strong> is a modern software studio that designs, builds, and launches fast, scalable websites and custom web applications.
         </p>
@@ -79,3 +79,4 @@ export function PromiseSection() {
 }
 
 export const Promise = PromiseSection;
+export default PromiseSection;

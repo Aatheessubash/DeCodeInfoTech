@@ -1,16 +1,16 @@
-import { lazy, Suspense, useCallback, useEffect, useState, useRef } from 'react';
+import React, { lazy, Suspense, useCallback, useEffect, useState, useRef } from 'react';
 import { BrowserRouter, Routes, Route, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { Navbar } from './components/Navbar/Navbar';
 import { Footer } from './components/Footer/Footer';
+import { Home } from './pages/Home';
+import { ErrorBoundary } from './components/shared/ErrorBoundary';
+import { ScrollToTop } from './components/shared/ScrollToTop';
 
-const Home = lazy(() => import('./pages/Home').then((module) => ({ default: module.Home })));
-const ServicesPage = lazy(() => import('./pages/ServicesPage').then((module) => ({ default: module.ServicesPage })));
-const CareersPage = lazy(() => import('./pages/CareersPage').then((module) => ({ default: module.CareersPage })));
 const NotFound = lazy(() => import('./pages/NotFound').then((module) => ({ default: module.NotFound })));
 const AdminDashboard = lazy(() => import('./components/Admin/AdminDashboard').then((module) => ({ default: module.AdminDashboard })));
 
 /* ===========================================================
-   GOD-LEVEL PAGE TRANSITION WRAPPER
+   PAGE TRANSITION WRAPPER
    =========================================================== */
 function PageTransition({ children }) {
   const location = useLocation();
@@ -26,7 +26,7 @@ function PageTransition({ children }) {
         setTransitionStage('fadeIn');
         prevPath.current = location.pathname;
         window.scrollTo({ top: 0, behavior: 'instant' });
-      }, 380);
+      }, 250);
       return () => clearTimeout(timer);
     } else {
       setDisplayChildren(children);
@@ -44,21 +44,40 @@ function PageTransition({ children }) {
 }
 
 /* ===========================================================
-   ROUTE EFFECTS: HASH SCROLLING
+   ROUTE EFFECTS: PRECISE HASH SCROLLING WITH NAVBAR OFFSET
    =========================================================== */
 function RouteEffects() {
   const { pathname, hash } = useLocation();
 
   useEffect(() => {
     if (hash) {
-      setTimeout(() => {
-        const id = hash.replace('#', '');
+      const id = hash.replace('#', '');
+      let attempts = 0;
+
+      const performScroll = () => {
         const element = document.getElementById(id);
         if (element) {
-          element.scrollIntoView({ behavior: 'smooth' });
+          const headerOffset = 84;
+          const elementPosition = element.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth',
+          });
+        } else if (attempts < 6) {
+          attempts += 1;
+          setTimeout(performScroll, 80);
         }
-      }, 420);
-      return;
+      };
+
+      // Slight timeout to ensure layout is measured
+      const timer = setTimeout(performScroll, 120);
+      return () => clearTimeout(timer);
+    } else if (pathname === '/') {
+      if (!window.location.hash && window.scrollY > 0) {
+        window.scrollTo({ top: 0, behavior: 'instant' });
+      }
     }
   }, [pathname, hash]);
 
@@ -93,7 +112,7 @@ function ScrollRevealObserver() {
 
     observeAll();
 
-    // Re-observe on DOM changes (for lazy-loaded sections)
+    // Re-observe on DOM changes (for dynamic lists & CMS updates)
     const mutationObserver = new MutationObserver(observeAll);
     mutationObserver.observe(document.body, { childList: true, subtree: true });
 
@@ -166,30 +185,48 @@ function AdminRoute() {
 
 export default function App() {
   return (
-    <BrowserRouter>
-      <RouteEffects />
-      <ScrollRevealObserver />
-      <CursorGlow />
-      <div className="ambient-background" aria-hidden="true" />
-      <div className="app-root">
-        <Navbar />
-        <main>
-          <Suspense fallback={<RouteFallback />}>
-            <Routes>
-              <Route path="/" element={<PageTransition><Home /></PageTransition>} />
-              <Route path="/services" element={<PageTransition><ServicesPage /></PageTransition>} />
-              <Route path="/careers" element={<PageTransition><CareersPage /></PageTransition>} />
-              <Route path="/about" element={<Navigate to="/#about" replace />} />
-              <Route path="/work" element={<Navigate to="/#work" replace />} />
-              <Route path="/portfolio" element={<Navigate to="/#work" replace />} />
-              <Route path="/contact" element={<Navigate to="/#contact" replace />} />
-              <Route path="/SA" element={<AdminRoute />} />
-              <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
-            </Routes>
-          </Suspense>
-        </main>
-        <Footer />
-      </div>
-    </BrowserRouter>
+    <ErrorBoundary>
+      <BrowserRouter>
+        <RouteEffects />
+        <ScrollRevealObserver />
+        <CursorGlow />
+        <ScrollToTop />
+        <div className="ambient-background" aria-hidden="true" />
+        <div className="app-root">
+          <Navbar />
+          <main>
+            <Suspense fallback={<RouteFallback />}>
+              <Routes>
+                {/* Single Page Application Main Route */}
+                <Route path="/" element={<Home />} />
+
+                {/* Legacy / Direct Route Aliases gracefully redirect to Single Page Section Anchors */}
+                <Route path="/about" element={<Navigate to="/#about" replace />} />
+                <Route path="/standards" element={<Navigate to="/#standards" replace />} />
+                <Route path="/services" element={<Navigate to="/#services" replace />} />
+                <Route path="/technology" element={<Navigate to="/#technology" replace />} />
+                <Route path="/process" element={<Navigate to="/#process" replace />} />
+                <Route path="/work" element={<Navigate to="/#projects" replace />} />
+                <Route path="/portfolio" element={<Navigate to="/#projects" replace />} />
+                <Route path="/projects" element={<Navigate to="/#projects" replace />} />
+                <Route path="/industries" element={<Navigate to="/#industries" replace />} />
+                <Route path="/testimonials" element={<Navigate to="/#testimonials" replace />} />
+                <Route path="/team" element={<Navigate to="/#team" replace />} />
+                <Route path="/careers" element={<Navigate to="/#careers" replace />} />
+                <Route path="/faq" element={<Navigate to="/#faq" replace />} />
+                <Route path="/contact" element={<Navigate to="/#contact" replace />} />
+
+                {/* Secure CMS / Admin route */}
+                <Route path="/SA" element={<AdminRoute />} />
+
+                {/* Catch-all 404 Route */}
+                <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
+              </Routes>
+            </Suspense>
+          </main>
+          <Footer />
+        </div>
+      </BrowserRouter>
+    </ErrorBoundary>
   );
 }

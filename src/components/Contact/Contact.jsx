@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useIntersectionObserver } from '../../hooks/useIntersectionObserver';
 import { useData } from '../../context/useData';
 import styles from './Contact.module.css';
 import { Mail, MapPin, CheckCircle2, ShieldCheck, Zap, ArrowRight } from 'lucide-react';

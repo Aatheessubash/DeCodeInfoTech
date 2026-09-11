@@ -2,28 +2,29 @@
   position: relative;
   overflow: hidden;
   background-color: #FFFFFF;
-  padding: 44px 0 60px 0;
+  padding: 56px 0 68px 0;
 }
 
 .sectionTitle {
-  font-size: clamp(1.6rem, 3.2vw, 2.3rem);
-  font-weight: 800;
-  letter-spacing: -0.025em;
-  color: var(--primary);
+  font-size: clamp(1.9rem, 3.8vw, 2.8rem);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  color: var(--apple-dark);
   margin-top: 10px;
-  margin-bottom: 8px;
+  margin-bottom: 12px;
 }
 
 .highlightText {
-  color: var(--muted);
+  color: var(--apple-gray);
 }
 
 .sectionDesc {
-  font-size: 0.92rem;
-  color: var(--muted);
-  max-width: 580px;
+  font-size: 1.05rem;
+  color: var(--apple-gray);
+  max-width: 620px;
   margin: 0 auto;
   line-height: 1.5;
+  letter-spacing: -0.015em;
 }
 
 /* ============================================================
@@ -33,7 +34,7 @@
 .horizontalTrackContainer {
   position: relative;
   max-width: 1140px;
-  margin: 40px auto 0 auto;
+  margin: 44px auto 0 auto;
   padding: 0 20px;
 }
 
@@ -43,7 +44,7 @@
   top: 22px;
   left: calc(20px + (100% - 40px) / 12);
   right: calc(20px + (100% - 40px) / 12);
-  height: 4px;
+  height: 3px;
   z-index: 1;
 }
 
@@ -53,7 +54,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(124, 58, 237, 0.14);
+  background: rgba(0, 0, 0, 0.06);
   border-radius: 999px;
 }
 
@@ -62,23 +63,23 @@
   top: 0;
   left: 0;
   height: 100%;
-  background: linear-gradient(90deg, #7C3AED 0%, #9333EA 50%, #D4AF37 100%);
+  background: linear-gradient(90deg, #0071e3 0%, #7C3AED 50%, #d946ef 100%);
   border-radius: 999px;
-  box-shadow: 0 0 12px rgba(124, 58, 237, 0.5), 0 0 6px rgba(212, 175, 55, 0.4);
+  box-shadow: 0 0 10px rgba(0, 113, 227, 0.4);
   transition: width 200ms ease-out;
 }
 
 /* Glowing Traveling Pulse Head */
 .travelingPulseHead {
   position: absolute;
-  right: -6px;
+  right: -5px;
   top: -4px;
-  width: 12px;
-  height: 12px;
+  width: 11px;
+  height: 11px;
   border-radius: 50%;
-  background: #D4AF37;
+  background: #0071e3;
   border: 2px solid #FFFFFF;
-  box-shadow: 0 0 12px rgba(212, 175, 55, 0.8), 0 0 20px rgba(124, 58, 237, 0.6);
+  box-shadow: 0 0 12px rgba(0, 113, 227, 0.8);
   animation: pulseHead 1.4s ease-in-out infinite alternate;
   z-index: 4;
 }
@@ -95,7 +96,7 @@
 .stagesRow {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
-  gap: 12px;
+  gap: 14px;
   position: relative;
   z-index: 2;
 }
@@ -123,90 +124,92 @@
   height: 44px;
   border-radius: 50%;
   background: #FFFFFF;
-  border: 2px solid rgba(124, 58, 237, 0.2);
+  border: 2px solid rgba(0, 0, 0, 0.08);
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 12px rgba(18, 14, 44, 0.05);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
   transition: all 350ms cubic-bezier(0.16, 1, 0.3, 1);
   margin-bottom: 4px;
 }
 
 .nodeNumberPill {
   font-size: 0.64rem;
-  font-weight: 800;
-  letter-spacing: 0.06em;
+  font-weight: 700;
+  letter-spacing: 0.04em;
   padding: 1px 6px;
   border-radius: 999px;
-  border: 1px solid rgba(124, 58, 237, 0.15);
+  border: 1px solid rgba(0, 0, 0, 0.06);
   background: #FFFFFF;
-  color: #64748B;
+  color: #86868b;
   transition: all 300ms ease;
 }
 
 .stageActive .nodeCircle {
-  transform: scale(1.15);
-  border-color: #7C3AED;
+  transform: scale(1.12);
+  border-color: #0071e3;
+  box-shadow: 0 0 14px rgba(0, 113, 227, 0.3);
 }
 
 .stageActive .nodeNumberPill {
-  background: #F3E8FF;
-  color: #7C3AED;
-  border-color: #E9D5FF;
+  background: rgba(0, 113, 227, 0.08);
+  color: #0071e3;
+  border-color: rgba(0, 113, 227, 0.2);
 }
 
-/* Disc Card */
+/* Disc Card - Apple Squircle Bento Card */
 .discCard {
   width: 100%;
   max-width: 175px;
   background: #FFFFFF;
-  border: 1px solid rgba(124, 58, 237, 0.14);
+  border: 1px solid rgba(0, 0, 0, 0.06);
   border-radius: 20px;
   padding: 16px 12px 14px 12px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  box-shadow: 0 4px 14px -2px rgba(18, 14, 44, 0.04);
-  transition: all 300ms cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: var(--shadow-card);
+  transition: all 300ms var(--ease-apple);
   box-sizing: border-box;
 }
 
 .discCard:hover {
   transform: translateY(-4px);
-  border-color: rgba(124, 58, 237, 0.38);
-  box-shadow: 0 12px 28px -4px rgba(124, 58, 237, 0.12);
+  border-color: rgba(0, 0, 0, 0.12);
+  box-shadow: var(--shadow-lift);
 }
 
 .stageActive .discCard {
-  border-color: rgba(124, 58, 237, 0.45);
-  box-shadow: 0 10px 24px -4px rgba(124, 58, 237, 0.14), 0 0 10px rgba(212, 175, 55, 0.2);
+  border-color: rgba(0, 113, 227, 0.3);
+  box-shadow: 0 8px 24px -4px rgba(0, 113, 227, 0.15);
 }
 
 .discTitle {
-  font-size: 0.96rem;
-  font-weight: 800;
-  color: var(--primary);
-  margin-bottom: 2px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--apple-dark);
+  margin-bottom: 3px;
   line-height: 1.2;
 }
 
 .discTag {
-  font-size: 0.58rem;
-  font-weight: 700;
+  font-size: 0.6rem;
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.04em;
   padding: 1px 6px;
   border-radius: 999px;
-  background: #F3E8FF;
-  color: #7C3AED;
-  border: 1px solid #E9D5FF;
+  background: rgba(0, 113, 227, 0.08);
+  color: #0071e3;
+  border: 1px solid rgba(0, 113, 227, 0.15);
   margin-bottom: 6px;
 }
 
 .discDesc {
-  font-size: 0.68rem;
-  color: #475569;
-  line-height: 1.35;
+  font-size: 0.7rem;
+  color: var(--apple-gray);
+  line-height: 1.4;
   margin-bottom: 8px;
 }
 
@@ -217,17 +220,17 @@
   gap: 3px;
   width: 100%;
   padding-top: 6px;
-  border-top: 1px solid rgba(124, 58, 237, 0.08);
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
 }
 
 .chip {
-  font-size: 0.56rem;
-  font-weight: 600;
-  padding: 1px 5px;
+  font-size: 0.58rem;
+  font-weight: 500;
+  padding: 2px 6px;
   border-radius: 999px;
-  border: 1px solid rgba(124, 58, 237, 0.12);
-  background: #F8FAFC;
-  color: #475569;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  background: rgba(0, 0, 0, 0.03);
+  color: #1d1d1f;
 }
 
 /* ============================================================
@@ -235,7 +238,6 @@
    ============================================================ */
 
 @media (max-width: 980px) and (min-width: 541px) {
-  /* Hide the horizontal progress line on tablet */
   .straightTrackWrapper {
     display: none;
   }
@@ -263,15 +265,13 @@
 
 @media (max-width: 540px) {
   .processSection {
-    padding: 32px 0 44px 0;
+    padding: 36px 0 48px 0;
   }
 
-  /* Hide the horizontal scrolling track line */
   .straightTrackWrapper {
     display: none;
   }
 
-  /* Remove grid, switch to vertical flex */
   .stagesRow {
     display: flex;
     flex-direction: column;
@@ -280,7 +280,6 @@
     position: relative;
   }
 
-  /* Vertical connecting line down the left side */
   .stagesRow::before {
     content: '';
     position: absolute;
@@ -288,12 +287,11 @@
     top: 22px;
     bottom: 22px;
     width: 2px;
-    background: linear-gradient(180deg, #7C3AED 0%, #9333EA 60%, rgba(124,58,237,0.12) 100%);
+    background: linear-gradient(180deg, #0071e3 0%, #7C3AED 60%, rgba(0, 113, 227, 0.12) 100%);
     border-radius: 999px;
     z-index: 1;
   }
 
-  /* Each step: row layout — node on left, card on right */
   .stageColumn {
     flex-direction: row;
     align-items: flex-start;
@@ -304,7 +302,6 @@
     z-index: 2;
   }
 
-  /* Milestone node stays inline on the left */
   .milestoneNode {
     flex-shrink: 0;
     margin-bottom: 0;
@@ -325,7 +322,6 @@
     font-size: 0.6rem;
   }
 
-  /* Card fills the remaining space */
   .discCard {
     flex: 1;
     max-width: 100%;
@@ -340,16 +336,15 @@
   }
 
   .discDesc {
-    font-size: 0.7rem;
+    font-size: 0.72rem;
   }
 
   .chipsRow {
     justify-content: flex-start;
   }
 
-  /* Active state on mobile */
   .stageActive .nodeCircle {
-    transform: scale(1.1);
-    box-shadow: 0 0 16px rgba(124, 58, 237, 0.35);
+    transform: scale(1.08);
+    box-shadow: 0 0 16px rgba(0, 113, 227, 0.35);
   }
 }

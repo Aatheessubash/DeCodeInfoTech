@@ -1,5 +1,4 @@
 import React from 'react';
-import { useIntersectionObserver } from '../../hooks/useIntersectionObserver';
 import { useData } from '../../context/useData';
 import styles from './Services.module.css';
 import {

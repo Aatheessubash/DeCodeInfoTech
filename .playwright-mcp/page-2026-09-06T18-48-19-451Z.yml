@@ -1,0 +1,713 @@
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - generic [ref=e5]:
+      - button "DeCode home" [ref=e6] [cursor=pointer]:
+        - img "DeCode InfoTech" [ref=e7]
+      - navigation "Primary navigation" [ref=e8]:
+        - button "Home" [ref=e9] [cursor=pointer]
+        - button "About" [ref=e10] [cursor=pointer]
+        - button "Services" [ref=e11] [cursor=pointer]
+        - button "Projects" [ref=e12] [cursor=pointer]
+        - button "Careers" [ref=e13] [cursor=pointer]
+        - button "Contact" [ref=e14] [cursor=pointer]
+      - button "Get Started" [ref=e16] [cursor=pointer]
+  - main [ref=e17]:
+    - generic [ref=e20]:
+      - heading "Decoding the Future of Digital Innovation." [level=1] [ref=e21]
+      - paragraph [ref=e22]: Empowering businesses to grow through innovation and technology. We deliver scalable, future-ready solutions that enhance operations, drive sustainable growth, and create long-term business value.
+      - generic [ref=e23]:
+        - button "Start a Conversation" [ref=e24] [cursor=pointer]
+        - button "Explore Our Services" [ref=e28] [cursor=pointer]
+    - generic [ref=e32]:
+      - generic [ref=e33]:
+        - generic [ref=e34]: WHO WE ARE
+        - heading "Sophisticated solutions for complex challenges." [level=2] [ref=e35]
+        - paragraph [ref=e36]: DeCode InfoTech is a collective of visionary engineers, strategic thinkers, and meticulous designers. We don't just write code; we architect systems that empower businesses to lead in a digital-first world.
+        - generic [ref=e37]:
+          - generic [ref=e38]:
+            - generic [ref=e39]: 200+
+            - generic [ref=e40]: PROJECTS DELIVERED
+          - generic [ref=e41]:
+            - generic [ref=e42]: 98%
+            - generic [ref=e43]: CLIENT RETENTION
+      - generic [ref=e45]:
+        - img "DeCode Infotech team collaborating in modern office" [ref=e46]
+        - generic [ref=e52]:
+          - generic [ref=e53]: Award Winning
+          - generic [ref=e54]: Design & Engineering
+    - generic [ref=e55]:
+      - generic [ref=e56]:
+        - generic [ref=e57]: Our Quality Standards
+        - heading "Our Core Foundation & Engineering Standards" [level=2] [ref=e59]
+        - paragraph [ref=e60]:
+          - strong [ref=e61]: DeCode InfoTech
+          - text: is a modern software studio that designs, builds, and launches fast, scalable websites and custom web applications.
+      - generic [ref=e62]:
+        - generic [ref=e63]:
+          - generic [ref=e64]:
+            - generic [ref=e65]: "01"
+            - generic [ref=e66]: ✦
+          - heading "Clear & Direct Communication" [level=3] [ref=e67]
+          - paragraph [ref=e68]: No confusing technical jargon. We provide straightforward progress updates, transparent timelines, and honest project roadmaps.
+        - generic [ref=e69]:
+          - generic [ref=e70]:
+            - generic [ref=e71]: "02"
+            - generic [ref=e72]: ⚡
+          - heading "Clean, Maintainable Code" [level=3] [ref=e73]
+          - paragraph [ref=e74]: We write well-structured, thoroughly documented code that your engineering team can easily scale and build upon for years to come.
+        - generic [ref=e75]:
+          - generic [ref=e76]:
+            - generic [ref=e77]: "03"
+            - generic [ref=e78]: ⚙
+          - heading "Fast Delivery Without Quality Trade-Offs" [level=3] [ref=e79]
+          - paragraph [ref=e80]: We use modern frameworks, automated build pipelines, and efficient workflows to launch high-quality digital products on schedule.
+        - generic [ref=e81]:
+          - generic [ref=e82]:
+            - generic [ref=e83]: "04"
+            - generic [ref=e84]: ◈
+          - heading "Practical Solutions Focused on Business Goals" [level=3] [ref=e85]
+          - paragraph [ref=e86]: Every design choice and feature we build directly aligns with your core business targets — driving user conversion and revenue.
+        - generic [ref=e87]:
+          - generic [ref=e88]:
+            - generic [ref=e89]: "05"
+            - generic [ref=e90]: ⬡
+          - heading "Long-Term Support After Launch" [level=3] [ref=e91]
+          - paragraph [ref=e92]: Our relationship does not end at deployment. We stand by our work, providing post-launch support, monitoring, and updates.
+        - generic [ref=e93]:
+          - generic [ref=e94]:
+            - generic [ref=e95]: "06"
+            - generic [ref=e96]: ❖
+          - heading "Quality is in the Details" [level=3] [ref=e97]
+          - paragraph [ref=e98]: From microscopic micro-interactions to zero-layout-shift performance, we craft digital experiences that leave a lasting impression.
+    - generic [ref=e99]:
+      - generic [ref=e100]:
+        - generic [ref=e101]: Core Capabilities
+        - heading "Technology Solutions Built Around Your Business" [level=2] [ref=e103]
+        - paragraph [ref=e104]:
+          - text: At
+          - strong [ref=e105]: DeCode InfoTech
+          - text: ", we combine strategic engineering, AI innovation, and intuitive design to deliver scalable technology."
+      - generic [ref=e107]:
+        - generic [ref=e108]:
+          - generic [ref=e109]: "01"
+          - heading "Software & Technology Solutions" [level=3] [ref=e116]
+          - paragraph [ref=e117]: Empowering enterprises with bespoke software, cloud architectures, and robust API integrations designed for seamless scalability.
+          - generic [ref=e119]:
+            - generic [ref=e120]: Custom Enterprise Software
+            - generic [ref=e122]: Cloud Architecture & Microservices
+            - generic [ref=e124]: API Design & Third-Party Integration
+        - generic [ref=e126]:
+          - generic [ref=e127]: "02"
+          - heading "Industrial Automation – AI & IoT" [level=3] [ref=e133]
+          - paragraph [ref=e134]: Transforming manufacturing and industrial workflows with smart IoT telemetry, machine learning, and computer vision systems.
+          - generic [ref=e136]:
+            - generic [ref=e137]: IoT Sensor Telemetry & Remote Control
+            - generic [ref=e139]: AI Vision & Automated Quality Inspection
+            - generic [ref=e141]: Smart Factory & SCADA Integration
+        - generic [ref=e143]:
+          - generic [ref=e144]: "03"
+          - heading "UI/UX Design & Prototyping" [level=3] [ref=e153]
+          - paragraph [ref=e154]: Crafting intuitive, conversion-focused user interfaces and design systems that delight users and drive business metrics.
+          - generic [ref=e156]:
+            - generic [ref=e157]: User Research & Interactive Wireframes
+            - generic [ref=e159]: Figma Prototypes & Design Systems
+            - generic [ref=e161]: Conversion Rate Optimization (CRO)
+        - generic [ref=e163]:
+          - generic [ref=e164]: "04"
+          - heading "SaaS & Custom Web App Development" [level=3] [ref=e169]
+          - paragraph [ref=e170]: Engineering high-performance, secure, and multi-tenant web applications built to scale effortlessly under heavy loads.
+          - generic [ref=e172]:
+            - generic [ref=e173]: Multi-Tenant SaaS Architecture
+            - generic [ref=e175]: Interactive Analytics Dashboards
+            - generic [ref=e177]: Role-Based Access & Security
+        - generic [ref=e179]:
+          - generic [ref=e180]: "05"
+          - heading "Digital Content Creation & Media" [level=3] [ref=e186]
+          - paragraph [ref=e187]: Strategic brand storytelling, technical copywriting, motion graphics, and digital media production that captures attention.
+          - generic [ref=e189]:
+            - generic [ref=e190]: Brand & Product Storytelling
+            - generic [ref=e192]: High-Impact Visual Assets & Graphics
+            - generic [ref=e194]: Technical Copy & Video Media
+        - generic [ref=e196]:
+          - generic [ref=e197]: "06"
+          - heading "Mobile App Development" [level=3] [ref=e202]
+          - paragraph [ref=e203]: Building responsive, feature-rich iOS and Android mobile applications delivering native performance and fluid user journeys.
+          - generic [ref=e205]:
+            - generic [ref=e206]: Cross-Platform iOS & Android Apps
+            - generic [ref=e208]: Offline-First Sync & Push Notifications
+            - generic [ref=e210]: App Store & Play Store Deployment
+        - generic [ref=e212]:
+          - generic [ref=e213]: "07"
+          - heading "Maintenance, Cloud & Ongoing Support" [level=3] [ref=e218]
+          - paragraph [ref=e219]: Reliable CI/CD automation, proactive server monitoring, regular security updates, and SLA-backed engineering support.
+          - generic [ref=e221]:
+            - generic [ref=e222]: Automated CI/CD & Cloud Infrastructure
+            - generic [ref=e224]: 24/7 Uptime & Performance Monitoring
+            - generic [ref=e226]: Security Audits & SLA Maintenance
+        - generic [aria-hidden] [ref=e228]:
+          - generic [ref=e229]: "01"
+          - heading [level=3] [ref=e236]: Software & Technology Solutions
+          - paragraph [ref=e237]: Empowering enterprises with bespoke software, cloud architectures, and robust API integrations designed for seamless scalability.
+          - generic [ref=e239]:
+            - generic [ref=e240]: Custom Enterprise Software
+            - generic [ref=e242]: Cloud Architecture & Microservices
+            - generic [ref=e244]: API Design & Third-Party Integration
+        - generic [aria-hidden] [ref=e246]:
+          - generic [ref=e247]: "02"
+          - heading [level=3] [ref=e253]: Industrial Automation – AI & IoT
+          - paragraph [ref=e254]: Transforming manufacturing and industrial workflows with smart IoT telemetry, machine learning, and computer vision systems.
+          - generic [ref=e256]:
+            - generic [ref=e257]: IoT Sensor Telemetry & Remote Control
+            - generic [ref=e259]: AI Vision & Automated Quality Inspection
+            - generic [ref=e261]: Smart Factory & SCADA Integration
+        - generic [aria-hidden] [ref=e263]:
+          - generic [ref=e264]: "03"
+          - heading [level=3] [ref=e273]: UI/UX Design & Prototyping
+          - paragraph [ref=e274]: Crafting intuitive, conversion-focused user interfaces and design systems that delight users and drive business metrics.
+          - generic [ref=e276]:
+            - generic [ref=e277]: User Research & Interactive Wireframes
+            - generic [ref=e279]: Figma Prototypes & Design Systems
+            - generic [ref=e281]: Conversion Rate Optimization (CRO)
+        - generic [aria-hidden] [ref=e283]:
+          - generic [ref=e284]: "04"
+          - heading [level=3] [ref=e289]: SaaS & Custom Web App Development
+          - paragraph [ref=e290]: Engineering high-performance, secure, and multi-tenant web applications built to scale effortlessly under heavy loads.
+          - generic [ref=e292]:
+            - generic [ref=e293]: Multi-Tenant SaaS Architecture
+            - generic [ref=e295]: Interactive Analytics Dashboards
+            - generic [ref=e297]: Role-Based Access & Security
+        - generic [aria-hidden] [ref=e299]:
+          - generic [ref=e300]: "05"
+          - heading [level=3] [ref=e306]: Digital Content Creation & Media
+          - paragraph [ref=e307]: Strategic brand storytelling, technical copywriting, motion graphics, and digital media production that captures attention.
+          - generic [ref=e309]:
+            - generic [ref=e310]: Brand & Product Storytelling
+            - generic [ref=e312]: High-Impact Visual Assets & Graphics
+            - generic [ref=e314]: Technical Copy & Video Media
+        - generic [aria-hidden] [ref=e316]:
+          - generic [ref=e317]: "06"
+          - heading [level=3] [ref=e322]: Mobile App Development
+          - paragraph [ref=e323]: Building responsive, feature-rich iOS and Android mobile applications delivering native performance and fluid user journeys.
+          - generic [ref=e325]:
+            - generic [ref=e326]: Cross-Platform iOS & Android Apps
+            - generic [ref=e328]: Offline-First Sync & Push Notifications
+            - generic [ref=e330]: App Store & Play Store Deployment
+        - generic [aria-hidden] [ref=e332]:
+          - generic [ref=e333]: "07"
+          - heading [level=3] [ref=e338]: Maintenance, Cloud & Ongoing Support
+          - paragraph [ref=e339]: Reliable CI/CD automation, proactive server monitoring, regular security updates, and SLA-backed engineering support.
+          - generic [ref=e341]:
+            - generic [ref=e342]: Automated CI/CD & Cloud Infrastructure
+            - generic [ref=e344]: 24/7 Uptime & Performance Monitoring
+            - generic [ref=e346]: Security Audits & SLA Maintenance
+    - generic [ref=e348]:
+      - generic [ref=e349]:
+        - generic [ref=e350]: Technology
+        - heading "Modern technology. Practical execution." [level=2] [ref=e353]
+        - paragraph [ref=e354]: "We choose tools based on what your product needs: speed, reliability, maintainability, and room to grow."
+      - generic [ref=e355]:
+        - generic [ref=e356]:
+          - heading "✦ Frontend Development" [level=3] [ref=e357]:
+            - generic [ref=e358]: ✦
+            - generic [ref=e359]: Frontend Development
+          - generic [ref=e360]:
+            - generic [ref=e361]: React.js
+            - generic [ref=e362]: Next.js
+            - generic [ref=e363]: JavaScript
+            - generic [ref=e364]: TypeScript
+            - generic [ref=e365]: HTML5
+            - generic [ref=e366]: CSS3
+            - generic [ref=e367]: Tailwind CSS
+            - generic [ref=e368]: Framer Motion
+        - generic [ref=e369]:
+          - heading "⚙ Backend & Databases" [level=3] [ref=e370]:
+            - generic [ref=e371]: ⚙
+            - generic [ref=e372]: Backend & Databases
+          - generic [ref=e373]:
+            - generic [ref=e374]: Node.js
+            - generic [ref=e375]: Express.js
+            - generic [ref=e376]: REST APIs
+            - generic [ref=e377]: MongoDB
+            - generic [ref=e378]: Mongoose
+            - generic [ref=e379]: Firebase
+            - generic [ref=e380]: Supabase
+        - generic [ref=e381]:
+          - heading "⚡ DevOps & Cloud" [level=3] [ref=e382]:
+            - generic [ref=e383]: ⚡
+            - generic [ref=e384]: DevOps & Cloud
+          - generic [ref=e385]:
+            - generic [ref=e386]: Docker
+            - generic [ref=e387]: Kubernetes
+            - generic [ref=e388]: GitHub Actions
+            - generic [ref=e389]: CI/CD Pipelines
+            - generic [ref=e390]: Vercel
+            - generic [ref=e391]: Render
+            - generic [ref=e392]: Netlify
+            - generic [ref=e393]: Linux
+            - generic [ref=e394]: Nginx
+            - generic [ref=e395]: Cloud Deployment
+        - generic [ref=e396]:
+          - heading "❖ Design & Collaboration" [level=3] [ref=e397]:
+            - generic [ref=e398]: ❖
+            - generic [ref=e399]: Design & Collaboration
+          - generic [ref=e400]:
+            - generic [ref=e401]: Figma
+            - generic [ref=e402]: Adobe XD
+            - generic [ref=e403]: GitHub
+            - generic [ref=e404]: Postman
+            - generic [ref=e405]: Notion
+            - generic [ref=e406]: ClickUp
+            - generic [ref=e407]: Trello
+    - generic [ref=e408]:
+      - generic [ref=e409]:
+        - generic [ref=e410]: Process
+        - heading "A simple process. A better outcome." [level=2] [ref=e413]
+        - paragraph [ref=e414]: Follow our straight left-to-right roadmap — milestone by milestone from first idea to launch.
+      - generic [ref=e419]:
+        - generic [ref=e420]:
+          - generic [ref=e421]: "01"
+          - generic [ref=e427]:
+            - heading "Discover" [level=3] [ref=e428]
+            - generic [ref=e429]: Exploration
+            - paragraph [ref=e430]: Goal mapping, user needs & project scope.
+            - generic [ref=e431]:
+              - generic [ref=e432]: Scope
+              - generic [ref=e433]: Goals
+        - generic [ref=e434]:
+          - generic [ref=e435]: "02"
+          - generic [ref=e442]:
+            - heading "Plan" [level=3] [ref=e443]
+            - generic [ref=e444]: Strategy
+            - paragraph [ref=e445]: Architecture blueprint & sprint roadmap.
+            - generic [ref=e446]:
+              - generic [ref=e447]: Tech Stack
+              - generic [ref=e448]: Roadmap
+        - generic [ref=e449]:
+          - generic [ref=e450]: "03"
+          - generic [ref=e459]:
+            - heading "Design" [level=3] [ref=e460]
+            - generic [ref=e461]: Creation
+            - paragraph [ref=e462]: Intuitive UX layouts & Figma prototypes.
+            - generic [ref=e463]:
+              - generic [ref=e464]: Wireframe
+              - generic [ref=e465]: Prototype
+        - generic [ref=e466]:
+          - generic [ref=e467]: "04"
+          - generic [ref=e474]:
+            - heading "Build" [level=3] [ref=e475]
+            - generic [ref=e476]: Engineering
+            - paragraph [ref=e477]: Modular frontend, robust APIs & cloud.
+            - generic [ref=e478]:
+              - generic [ref=e479]: Frontend
+              - generic [ref=e480]: Backend
+        - generic [ref=e481]:
+          - generic [ref=e482]: "05"
+          - generic [ref=e488]:
+            - heading "Test" [level=3] [ref=e489]
+            - generic [ref=e490]: QA & Security
+            - paragraph [ref=e491]: Speed audits, device testing & zero bugs.
+            - generic [ref=e492]:
+              - generic [ref=e493]: Device QA
+              - generic [ref=e494]: Security
+        - generic [ref=e495]:
+          - generic [ref=e496]: "06"
+          - generic [ref=e504]:
+            - heading "Launch" [level=3] [ref=e505]
+            - generic [ref=e506]: Go-Live
+            - paragraph [ref=e507]: Production deploy, cloud setup & support.
+            - generic [ref=e508]:
+              - generic [ref=e509]: Deploy
+              - generic [ref=e510]: Scaling
+    - generic [ref=e511]:
+      - generic [ref=e512]:
+        - generic [ref=e513]: Our Work
+        - heading "Live Products Built for Real Businesses" [level=2] [ref=e515]
+        - paragraph [ref=e516]:
+          - text: Explore client platforms designed and developed by
+          - strong [ref=e517]: DeCode
+          - text: across education, construction, healthcare, and hospitality.
+      - generic [ref=e518]:
+        - button "Show previous project" [ref=e519] [cursor=pointer]
+        - region "Client projects" [ref=e522]:
+          - article [ref=e523]:
+            - img "Azhagappar Academy website preview" [ref=e524]
+            - generic [ref=e525]:
+              - generic [ref=e526]:
+                - generic [ref=e527]: EdTech / Video Learning Platform
+                - heading "Azhagappar Academy" [level=3] [ref=e528]
+                - paragraph [ref=e529]: A video-based online learning platform built for structured course delivery, interactive quizzes, and seamless student progress tracking.
+              - generic "Project technologies" [ref=e531]:
+                - generic [ref=e532]: React.js
+                - generic [ref=e533]: Node.js
+                - generic [ref=e534]: Video Streaming
+                - generic [ref=e535]: AWS S3
+        - button "Show next project" [ref=e536] [cursor=pointer]
+      - generic [ref=e539]:
+        - generic [ref=e540]: 01 / 04
+        - generic "Choose a project" [ref=e541]:
+          - button "Show Azhagappar Academy" [ref=e542] [cursor=pointer]
+          - button "Show Thozha Associates" [ref=e543] [cursor=pointer]
+          - button "Show Neuerung HealthTech" [ref=e544] [cursor=pointer]
+          - button "Show Hotel Vetri Vel" [ref=e545] [cursor=pointer]
+    - generic [ref=e546]:
+      - generic [ref=e547]:
+        - generic [ref=e548]: Our Target Audience
+        - heading "Built for different kinds of businesses." [level=2] [ref=e550]
+        - paragraph [ref=e551]: We adapt our technology stack and strategic approach to solve the unique challenges of your specific industry.
+      - generic [ref=e552]:
+        - generic [ref=e553]:
+          - heading "Startups & Scale-ups" [level=3] [ref=e560]
+          - paragraph [ref=e561]: Launch your MVP faster or scale your existing product with modern architectures built for rapid growth and agility.
+        - generic [ref=e562]:
+          - heading "E-Commerce Brands" [level=3] [ref=e568]
+          - paragraph [ref=e569]: High-converting, lightning-fast storefronts using headless commerce to provide premium shopping experiences.
+        - generic [ref=e570]:
+          - heading "Enterprise IT" [level=3] [ref=e576]
+          - paragraph [ref=e577]: Secure, scalable custom internal tools and dashboards that streamline operations and replace outdated legacy systems.
+        - generic [ref=e578]:
+          - heading "SaaS Platforms" [level=3] [ref=e583]
+          - paragraph [ref=e584]: Robust multi-tenant architectures, subscription billing integrations, and intuitive user interfaces.
+        - generic [ref=e585]:
+          - heading "Creative Agencies" [level=3] [ref=e590]
+          - paragraph [ref=e591]: White-label development partnerships to bring your stunning designs to life with pixel-perfect precision.
+        - generic [ref=e592]:
+          - heading "Communities & Non-profits" [level=3] [ref=e599]
+          - paragraph [ref=e600]: Accessible, fast, and highly interactive platforms to engage audiences and manage memberships efficiently.
+    - generic [ref=e601]:
+      - generic [ref=e602]:
+        - generic [ref=e603]: Industries
+        - heading "Built for different kinds of businesses." [level=2] [ref=e606]
+        - paragraph [ref=e607]: We work with businesses and founders who need a reliable digital presence or a custom system to simplify their work.
+      - generic [ref=e609]:
+        - generic [ref=e610]: Startups & SaaS
+        - generic [ref=e618]: Education & Training
+        - generic [ref=e624]: Construction & Real Estate
+        - generic [ref=e631]: Agriculture & Operations
+        - generic [ref=e640]: Restaurants & Hospitality
+        - generic [ref=e646]: Local Service Businesses
+        - generic [ref=e652]: Agencies & Creators
+        - generic [ref=e659]: E-commerce Brands
+        - generic [ref=e673]: Startups & SaaS
+        - generic [ref=e679]: Education & Training
+        - generic [ref=e686]: Construction & Real Estate
+        - generic [ref=e695]: Agriculture & Operations
+        - generic [ref=e701]: Restaurants & Hospitality
+        - generic [ref=e707]: Local Service Businesses
+        - generic [ref=e714]: Agencies & Creators
+        - generic [ref=e721]: E-commerce Brands
+        - generic [ref=e729]: Startups & SaaS
+        - generic [ref=e735]: Education & Training
+        - generic [ref=e742]: Construction & Real Estate
+        - generic [ref=e751]: Agriculture & Operations
+        - generic [ref=e757]: Restaurants & Hospitality
+        - generic [ref=e763]: Local Service Businesses
+        - generic [ref=e770]: Agencies & Creators
+        - generic [ref=e777]: E-commerce Brands
+    - generic [ref=e778]:
+      - generic [ref=e779]:
+        - generic [ref=e780]: Trust & Results
+        - heading "Client Testimonials & Feedback" [level=2] [ref=e783]
+        - paragraph [ref=e784]:
+          - text: Discover what founders and project leaders say about working with
+          - strong [ref=e785]: DeCode InfoTech
+          - text: .
+      - generic [ref=e786]:
+        - generic [ref=e788]:
+          - generic [ref=e790]:
+            - generic [ref=e791]: Verified Client
+            - paragraph [ref=e811]: "\"DeCode delivered ahead of schedule. The UI is exceptionally smooth and student engagement grew by 140%.\""
+            - generic [ref=e812]:
+              - generic [ref=e813]: R
+              - generic [ref=e814]:
+                - heading "Ramesh Kumar" [level=4] [ref=e815]
+                - paragraph [ref=e816]: Founder & CEO • Azhagappar Academy
+          - generic [ref=e818]:
+            - generic [ref=e819]: Verified Client
+            - paragraph [ref=e839]: "\"Working with DeCode was effortless. They built an ultra-fast web application that our farmers love.\""
+            - generic [ref=e840]:
+              - generic [ref=e841]: P
+              - generic [ref=e842]:
+                - heading "Priya Sundaram" [level=4] [ref=e843]
+                - paragraph [ref=e844]: Head of Operations • AgroMate Technologies
+          - generic [ref=e846]:
+            - generic [ref=e847]: Verified Client
+            - paragraph [ref=e867]: "\"Our online bookings doubled after DeCode redesigned our web app. Their attention to detail is top tier.\""
+            - generic [ref=e868]:
+              - generic [ref=e869]: K
+              - generic [ref=e870]:
+                - heading "Karthik Nathan" [level=4] [ref=e871]
+                - paragraph [ref=e872]: Managing Director • Vetrivel Hospitality
+        - button "Previous testimonial" [ref=e873] [cursor=pointer]
+        - button "Next testimonial" [ref=e876] [cursor=pointer]
+        - generic [ref=e879]:
+          - button "Go to testimonial 1" [ref=e880] [cursor=pointer]
+          - button "Go to testimonial 2" [ref=e881] [cursor=pointer]
+          - button "Go to testimonial 3" [ref=e882] [cursor=pointer]
+    - generic [ref=e883]:
+      - generic [ref=e884]:
+        - generic [ref=e885]: Team
+        - heading "The Minds Behind The Craft." [level=2] [ref=e888]
+        - paragraph [ref=e889]: Passionate designers, engineers, and strategists committed to pushing boundaries. Visionaries in action.
+      - generic [ref=e890]:
+        - generic [ref=e891]:
+          - img "Alexandre Mercer" [ref=e893]
+          - heading "Alexandre Mercer" [level=3] [ref=e894]
+          - paragraph [ref=e895]: Creative Director & Founder
+        - generic [ref=e896]:
+          - img "Elena Rostova" [ref=e898]
+          - heading "Elena Rostova" [level=3] [ref=e899]
+          - paragraph [ref=e900]: Lead UI/UX Architect
+        - generic [ref=e901]:
+          - img "David Chen" [ref=e903]
+          - heading "David Chen" [level=3] [ref=e904]
+          - paragraph [ref=e905]: Head of Web Engineering
+    - generic [ref=e906]:
+      - generic [ref=e907]:
+        - generic [ref=e908]: Careers at DeCode
+        - heading "Build Great Digital Products With Us" [level=2] [ref=e910]
+        - paragraph [ref=e911]:
+          - text: At
+          - strong [ref=e912]: DeCode Studio
+          - text: ", we design and engineer modern web applications for ambitious companies. Join our team and do the best work of your career."
+      - generic [ref=e913]:
+        - generic [ref=e914]:
+          - heading "Why Engineers & Designers Love DeCode" [level=3] [ref=e915]
+          - paragraph [ref=e916]: We build an environment where people thrive, learn, and take pride in their craft.
+        - generic [ref=e917]:
+          - generic [ref=e918]:
+            - generic [ref=e919]: ✦
+            - heading "Competitive Salary" [level=4] [ref=e920]
+            - paragraph [ref=e921]: Above-market compensation with performance bonuses and annual growth reviews.
+          - generic [ref=e922]:
+            - generic [ref=e923]: ⚡
+            - heading "Remote & Hybrid Flexibility" [level=4] [ref=e924]
+            - paragraph [ref=e925]: Work from home or from our hub with flexible hours focused on real output.
+          - generic [ref=e926]:
+            - generic [ref=e927]: ⚙
+            - heading "Modern Tech Stack" [level=4] [ref=e928]
+            - paragraph [ref=e929]: No legacy debt. We use React, Next.js, Node.js, Vite, and leading cloud tooling.
+          - generic [ref=e930]:
+            - generic [ref=e931]: ◈
+            - heading "Continuous Growth" [level=4] [ref=e932]
+            - paragraph [ref=e933]: Stipends for courses, technical books, and conferences to sharpen your skills.
+          - generic [ref=e934]:
+            - generic [ref=e935]: ⬡
+            - heading "High Impact Work" [level=4] [ref=e936]
+            - paragraph [ref=e937]: Build scalable products directly for real businesses, startups, and enterprises.
+          - generic [ref=e938]:
+            - generic [ref=e939]: ❖
+            - heading "Great Work Culture" [level=4] [ref=e940]
+            - paragraph [ref=e941]: Collaborative, zero-micromanagement environment with friendly engineering leaders.
+      - generic [ref=e942]:
+        - generic [ref=e943]:
+          - generic [ref=e944]: Current Openings
+          - heading "Explore Open Roles" [level=3] [ref=e946]
+        - generic [ref=e947]:
+          - generic [ref=e948]:
+            - generic [ref=e949]:
+              - generic [ref=e950]:
+                - generic [ref=e951]:
+                  - generic [ref=e952]: Engineering
+                  - generic [ref=e953]: Hybrid / Remote • Full Time
+                - heading "Senior Full Stack Developer" [level=4] [ref=e954]
+              - button "Apply For Role" [ref=e955] [cursor=pointer]
+            - paragraph [ref=e956]: Build high-performance web applications using React.js, Node.js, Express, and modern cloud deployment pipelines.
+            - generic [ref=e957]:
+              - heading "Key Requirements:" [level=5] [ref=e958]
+              - list [ref=e959]:
+                - listitem [ref=e960]:
+                  - generic [ref=e961]: ✓
+                  - generic [ref=e962]: Strong expertise in React, JavaScript (ES6+), and Node.js REST APIs
+                - listitem [ref=e963]:
+                  - generic [ref=e964]: ✓
+                  - generic [ref=e965]: Experience with database schema design (MongoDB, PostgreSQL, or Supabase)
+                - listitem [ref=e966]:
+                  - generic [ref=e967]: ✓
+                  - generic [ref=e968]: Familiarity with DevOps workflows, Docker, and CI/CD pipelines
+                - listitem [ref=e969]:
+                  - generic [ref=e970]: ✓
+                  - generic [ref=e971]: Passion for writing clean, modular, and maintainable code
+          - generic [ref=e972]:
+            - generic [ref=e973]:
+              - generic [ref=e974]:
+                - generic [ref=e975]:
+                  - generic [ref=e976]: Design
+                  - generic [ref=e977]: Remote • Full Time
+                - heading "UI/UX Product Designer" [level=4] [ref=e978]
+              - button "Apply For Role" [ref=e979] [cursor=pointer]
+            - paragraph [ref=e980]: Craft high-converting, aesthetically stunning user interfaces and micro-animations for enterprise and startup clients.
+            - generic [ref=e981]:
+              - heading "Key Requirements:" [level=5] [ref=e982]
+              - list [ref=e983]:
+                - listitem [ref=e984]:
+                  - generic [ref=e985]: ✓
+                  - generic [ref=e986]: Proficiency in Figma, design systems, wireframing, and interactive prototyping
+                - listitem [ref=e987]:
+                  - generic [ref=e988]: ✓
+                  - generic [ref=e989]: Strong understanding of modern visual aesthetics, typography, and contrast
+                - listitem [ref=e990]:
+                  - generic [ref=e991]: ✓
+                  - generic [ref=e992]: Ability to collaborate directly with frontend engineers for pixel-perfect delivery
+                - listitem [ref=e993]:
+                  - generic [ref=e994]: ✓
+                  - generic [ref=e995]: Solid portfolio demonstrating real-world Web & Mobile UX designs
+          - generic [ref=e996]:
+            - generic [ref=e997]:
+              - generic [ref=e998]:
+                - generic [ref=e999]:
+                  - generic [ref=e1000]: Engineering
+                  - generic [ref=e1001]: Remote • Full Time
+                - heading "Frontend Web Specialist" [level=4] [ref=e1002]
+              - button "Apply For Role" [ref=e1003] [cursor=pointer]
+            - paragraph [ref=e1004]: Specialize in building ultra-fast responsive user interfaces, animations, and Core Web Vitals optimization.
+            - generic [ref=e1005]:
+              - heading "Key Requirements:" [level=5] [ref=e1006]
+              - list [ref=e1007]:
+                - listitem [ref=e1008]:
+                  - generic [ref=e1009]: ✓
+                  - generic [ref=e1010]: Mastery of HTML5, CSS3, Tailwind, Framer Motion, and CSS Modules
+                - listitem [ref=e1011]:
+                  - generic [ref=e1012]: ✓
+                  - generic [ref=e1013]: Deep knowledge of React state management and component architecture
+                - listitem [ref=e1014]:
+                  - generic [ref=e1015]: ✓
+                  - generic [ref=e1016]: Experience with cross-browser performance tuning and SEO best practices
+          - generic [ref=e1017]:
+            - generic [ref=e1018]:
+              - generic [ref=e1019]:
+                - generic [ref=e1020]:
+                  - generic [ref=e1021]: Infrastructure
+                  - generic [ref=e1022]: Remote • Full Time / Contract
+                - heading "DevOps & Cloud Engineer" [level=4] [ref=e1023]
+              - button "Apply For Role" [ref=e1024] [cursor=pointer]
+            - paragraph [ref=e1025]: Manage automated GitHub Actions CI/CD pipelines, Docker containerization, and AWS/Vercel cloud infrastructure.
+            - generic [ref=e1026]:
+              - heading "Key Requirements:" [level=5] [ref=e1027]
+              - list [ref=e1028]:
+                - listitem [ref=e1029]:
+                  - generic [ref=e1030]: ✓
+                  - generic [ref=e1031]: Hands-on experience with Docker, Kubernetes, Nginx, and Linux server admin
+                - listitem [ref=e1032]:
+                  - generic [ref=e1033]: ✓
+                  - generic [ref=e1034]: Experience setting up automated build & deployment workflows
+                - listitem [ref=e1035]:
+                  - generic [ref=e1036]: ✓
+                  - generic [ref=e1037]: Knowledge of cloud security, SSL setup, and infrastructure monitoring
+    - generic [ref=e1038]:
+      - generic [ref=e1039]:
+        - generic [ref=e1040]: Common Questions
+        - heading "Frequently Asked Questions" [level=2] [ref=e1042]
+        - paragraph [ref=e1043]:
+          - text: Everything you need to know about working with
+          - strong [ref=e1044]: DeCode Studio
+          - text: .
+      - generic [ref=e1045]:
+        - button "Why should I hire a web development agency for my SaaS startup?" [ref=e1047] [cursor=pointer]:
+          - generic [aria-hidden] [ref=e1049]: +
+        - button "Can you build custom LMS platform development services or enterprise tools?" [ref=e1051] [cursor=pointer]:
+          - generic [aria-hidden] [ref=e1053]: +
+        - button "What modern tech stack and frameworks do you use?" [ref=e1055] [cursor=pointer]:
+          - generic [aria-hidden] [ref=e1057]: +
+        - button "How do you improve website speed and Core Web Vitals?" [ref=e1059] [cursor=pointer]:
+          - generic [aria-hidden] [ref=e1061]: +
+        - button "Can you help redesign an outdated business website without losing SEO?" [ref=e1063] [cursor=pointer]:
+          - generic [aria-hidden] [ref=e1065]: +
+        - button "Do you offer full stack developer services and DevOps consulting in India?" [ref=e1067] [cursor=pointer]:
+          - generic [aria-hidden] [ref=e1069]: +
+    - generic [ref=e1070]:
+      - generic [ref=e1071]:
+        - generic [ref=e1072]: Start Your Project
+        - heading "Let's Build Something Exceptional" [level=2] [ref=e1074]
+        - paragraph [ref=e1075]:
+          - text: Ready to turn your vision into a high-performing digital product? Fill out the proposal form below and the
+          - strong [ref=e1076]: DeCode
+          - text: team will get back to you within 24 hours.
+      - generic [ref=e1077]:
+        - generic [ref=e1079]:
+          - generic [ref=e1080]:
+            - img "Business partners sealing a project deal with a handshake" [ref=e1081]
+            - generic [ref=e1082]:
+              - generic [ref=e1083]: 🤝 PARTNERSHIP & DELIVERY
+              - heading "Your Vision, Built Right." [level=3] [ref=e1084]
+          - generic [ref=e1085]:
+            - generic [ref=e1086]:
+              - generic [ref=e1087]: 24-Hour Response Guaranteed
+              - generic [ref=e1092]: Strict NDA & IP Protection
+              - generic [ref=e1097]: Transparent Fixed or Milestone Pricing
+            - generic [ref=e1101]:
+              - generic [ref=e1102]: contact@decodeinfotech.com
+              - generic [ref=e1107]: Coimbatore, Tamil Nadu, India
+        - generic [ref=e1113]:
+          - generic [ref=e1114]:
+            - generic [ref=e1115]:
+              - generic [ref=e1116]: Your Name *
+              - textbox "Your Name *" [ref=e1117]:
+                - /placeholder: John Doe
+            - generic [ref=e1118]:
+              - generic [ref=e1119]: Email Address *
+              - textbox "Email Address *" [ref=e1120]:
+                - /placeholder: john@example.com
+            - generic [ref=e1121]:
+              - generic [ref=e1122]: Company / Organization
+              - textbox "Company / Organization" [ref=e1123]:
+                - /placeholder: Acme Corp
+            - generic [ref=e1124]:
+              - generic [ref=e1125]: Project Category *
+              - combobox "Project Category *" [ref=e1126] [cursor=pointer]:
+                - option "Web Application" [selected]
+                - option "Custom Business Website"
+                - option "SaaS Platform"
+                - option "Website Redesign"
+                - option "Mobile App Development"
+            - generic [ref=e1127]:
+              - generic [ref=e1128]: Project Overview & Goals *
+              - textbox "Project Overview & Goals *" [ref=e1129]:
+                - /placeholder: Tell us about your project, key requirements, target audience, and business goals...
+          - button "Submit Proposal Request" [ref=e1130] [cursor=pointer]
+  - contentinfo [ref=e1134]:
+    - generic [ref=e1135]:
+      - generic [ref=e1136]:
+        - button [ref=e1137] [cursor=pointer]:
+          - img "DeCode Logo" [ref=e1138]
+        - paragraph [ref=e1139]: INNOVATION & TECHNOLOGY SOLUTIONS
+        - paragraph [ref=e1140]: DeCode InfoTech is a modern software studio that designs, builds, and launches fast, scalable websites and custom web applications.
+      - generic [ref=e1141]:
+        - heading "Navigation" [level=4] [ref=e1142]
+        - list [ref=e1143]:
+          - listitem [ref=e1144]:
+            - button "Home" [ref=e1145] [cursor=pointer]
+          - listitem [ref=e1146]:
+            - button "About Us" [ref=e1147] [cursor=pointer]
+          - listitem [ref=e1148]:
+            - button "Quality Standards" [ref=e1149] [cursor=pointer]
+          - listitem [ref=e1150]:
+            - button "Services" [ref=e1151] [cursor=pointer]
+          - listitem [ref=e1152]:
+            - button "Portfolio & Work" [ref=e1153] [cursor=pointer]
+          - listitem [ref=e1154]:
+            - button "Careers & Jobs" [ref=e1155] [cursor=pointer]
+          - listitem [ref=e1156]:
+            - button "FAQ" [ref=e1157] [cursor=pointer]
+          - listitem [ref=e1158]:
+            - button "Contact" [ref=e1159] [cursor=pointer]
+      - generic [ref=e1160]:
+        - heading "Capabilities" [level=4] [ref=e1161]
+        - list [ref=e1162]:
+          - listitem [ref=e1163]:
+            - button "Web App Development" [ref=e1164] [cursor=pointer]
+          - listitem [ref=e1165]:
+            - button "Full-Stack React & Node" [ref=e1166] [cursor=pointer]
+          - listitem [ref=e1167]:
+            - button "SaaS Platform Design" [ref=e1168] [cursor=pointer]
+          - listitem [ref=e1169]:
+            - button "Development Roadmap" [ref=e1170] [cursor=pointer]
+          - listitem [ref=e1171]:
+            - button "Speed & SEO Optimization" [ref=e1172] [cursor=pointer]
+      - generic [ref=e1173]:
+        - heading "Get in Touch" [level=4] [ref=e1174]
+        - paragraph [ref=e1175]: Coimbatore, Tamil Nadu, India
+        - paragraph [ref=e1176]: contact@decodeinfotech.com
+        - button "Start a Project" [ref=e1177] [cursor=pointer]
+    - generic [ref=e1179]:
+      - paragraph [ref=e1180]: © 2026 DeCode InfoTech. All rights reserved.
+      - paragraph [ref=e1181]: INNOVATION & TECHNOLOGY SOLUTIONS

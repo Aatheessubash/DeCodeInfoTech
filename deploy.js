@@ -10,7 +10,7 @@ function runCmd(cmd, returnOutput = true) {
       stdio: returnOutput ? ['pipe', 'pipe', 'pipe'] : 'inherit',
     });
     return returnOutput && res ? res.trim() : true;
-  } catch (error) {
+  } catch {
     return null;
   }
 }
@@ -104,7 +104,7 @@ async function main() {
       console.log(`\x1b[36m2️⃣  Committing: "${commitMessage}"...\x1b[0m`);
       try {
         execSync(`git commit -m "${commitMessage.replace(/"/g, '\\"')}"`, { stdio: 'inherit' });
-      } catch (err) {
+      } catch {
         console.log('ℹ️ No new changes needed to commit.');
       }
     } else {

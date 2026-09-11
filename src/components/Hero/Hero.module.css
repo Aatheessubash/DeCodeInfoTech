@@ -1,3 +1,7 @@
+/* ==========================================================================
+   HERO HEADER SECTION - APPLE IPAD PRO TYPOGRAPHY & DESIGN
+   ========================================================================== */
+
 .heroSection {
   position: relative;
   width: 100%;
@@ -5,84 +9,97 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 160px 24px 100px 24px;
-  background: linear-gradient(180deg, #FFFFFF 0%, #FFFFFF 55%, #FDFBFF 80%, #FAF7FE 100%);
+  padding: 140px 24px 70px 24px;
+  background: #fbfbfd;
   overflow: hidden;
 }
 
-@media (max-width: 768px) {
-  .heroSection {
-    min-height: 75vh;
-    padding: 130px 20px 70px 20px;
-    background: linear-gradient(180deg, #FFFFFF 0%, #FFFFFF 55%, #FDFBFF 80%, #FAF7FE 100%);
-  }
-}
-
-@media (max-width: 414px) {
-  .heroSection {
-    padding: 110px 16px 56px 16px;
-  }
-}
-
-/* Ambient ultra-light white-lavender glow */
-.heroSection::before {
-  content: '';
+/* Background Video with subtle blur */
+.videoWrapper {
   position: absolute;
-  top: 35%;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.videoBackground {
+  position: absolute;
+  top: 50%;
   left: 50%;
-  transform: translateX(-50%);
-  width: 950px;
-  height: 550px;
-  background: radial-gradient(circle, rgba(147, 51, 234, 0.02) 0%, rgba(245, 240, 255, 0.01) 50%, transparent 75%);
-  filter: blur(75px);
+  width: 100%;
+  height: 100%;
+  min-width: 100%;
+  min-height: 100%;
+  object-fit: cover;
+  transform: translate(-50%, -50%) scale(1.05);
+  filter: blur(1px);
+  opacity: 0.55;
   pointer-events: none;
-  z-index: 0;
 }
 
-/* Floating orb accent elements */
-.orbAccent1 {
+.videoOverlay {
   position: absolute;
-  top: 12%;
-  right: 8%;
-  width: 280px;
-  height: 280px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(124, 58, 237, 0.05) 0%, transparent 70%);
-  animation: floatY 7s ease-in-out infinite;
+  inset: 0;
+  background: radial-gradient(circle at 50% 40%, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.78) 95%);
   pointer-events: none;
-  z-index: 0;
-  will-change: transform;
 }
 
-.orbAccent2 {
+/* Subtle modern grid pattern */
+.gridBackground {
   position: absolute;
-  bottom: 10%;
-  left: 5%;
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(99, 102, 241, 0.06) 0%, transparent 70%);
-  animation: floatYReverse 9s ease-in-out infinite;
+  inset: 0;
+  background-image: 
+    radial-gradient(rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+  background-size: 36px 36px;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, #000 30%, transparent 80%);
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, #000 30%, transparent 80%);
   pointer-events: none;
   z-index: 0;
-  will-change: transform;
 }
 
-@media (max-width: 768px) {
-  .orbAccent1,
-  .orbAccent2 {
-    display: none;
-  }
+/* Glowing Ambient Orbs - Soft Chromatic Tint */
+.glowOrb1 {
+  position: absolute;
+  top: 15%;
+  left: 12%;
+  width: 380px;
+  height: 380px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 113, 227, 0.07) 0%, transparent 70%);
+  filter: blur(60px);
+  pointer-events: none;
+  z-index: 0;
+  animation: floatOrb 9s ease-in-out infinite alternate;
+}
+
+.glowOrb2 {
+  position: absolute;
+  top: 22%;
+  right: 14%;
+  width: 340px;
+  height: 340px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(124, 58, 237, 0.06) 0%, transparent 70%);
+  filter: blur(60px);
+  pointer-events: none;
+  z-index: 0;
+  animation: floatOrb 11s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes floatOrb {
+  0% { transform: translateY(0) scale(1); }
+  100% { transform: translateY(-20px) scale(1.06); }
 }
 
 .container {
   width: 100%;
-  max-width: 1040px;
+  max-width: 1100px;
   margin: 0 auto;
-  display: flex;
-  justify-content: center;
   position: relative;
-  z-index: 1;
+  z-index: 2;
 }
 
 .content {
@@ -90,21 +107,39 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  max-width: 880px;
+  max-width: 920px;
+  margin: 0 auto;
 }
 
+/* Status Pill */
 .badgeWrapper {
   display: flex;
   justify-content: center;
-  margin-bottom: 12px;
+  margin-bottom: 24px;
 }
 
+.pulseDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: #34c759;
+  box-shadow: 0 0 10px rgba(52, 199, 89, 0.6);
+  display: inline-block;
+  animation: pulseGreen 2s infinite;
+}
+
+@keyframes pulseGreen {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.25); opacity: 0.7; }
+}
+
+/* Headline - Apple SF Pro Tracking & Compact Leading */
 .headline {
-  font-size: clamp(2.5rem, 5.8vw, 4.4rem);
-  font-weight: 800;
-  line-height: 1.12;
-  letter-spacing: -0.035em;
-  color: var(--primary);
+  font-size: clamp(2.6rem, 5.8vw, 4.6rem);
+  font-weight: 700;
+  line-height: 1.06;
+  letter-spacing: -0.04em;
+  color: #1d1d1f;
   margin-bottom: 24px;
 }
 
@@ -119,130 +154,154 @@
 }
 
 .subtext {
-  font-size: clamp(1rem, 1.6vw, 1.15rem);
-  line-height: 1.75;
-  color: var(--muted);
+  font-size: clamp(1.05rem, 1.8vw, 1.25rem);
+  line-height: 1.5;
+  letter-spacing: -0.015em;
+  color: #4b4b4e;
   max-width: 700px;
   margin: 0 auto 36px auto;
   font-weight: 400;
 }
 
+/* CTA Buttons */
 .ctaGroup {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 16px;
+  gap: 14px;
+  margin-bottom: 44px;
+}
+
+.primaryCta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 28px;
+  border-radius: 5px;
+  background-color: #0071e3;
+  color: #FFFFFF;
+  font-weight: 500;
+  font-size: 0.98rem;
+  letter-spacing: -0.01em;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  box-shadow: 0 2px 10px rgba(0, 113, 227, 0.28);
+  transition: all 200ms cubic-bezier(0.28, 0.11, 0.32, 1);
+}
+
+.primaryCta:hover {
+  background-color: #0077ed;
+  transform: scale(1.02);
+  box-shadow: 0 4px 16px rgba(0, 113, 227, 0.4);
+}
+
+.primaryCta:active {
+  transform: scale(0.99);
+}
+
+.secondaryCta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 26px;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: #0071e3;
+  font-weight: 500;
+  font-size: 0.98rem;
+  letter-spacing: -0.01em;
+  border: 1px solid rgba(0, 113, 227, 0.25);
+  cursor: pointer;
+  text-decoration: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  transition: all 200ms cubic-bezier(0.28, 0.11, 0.32, 1);
+}
+
+.secondaryCta:hover {
+  background-color: rgba(255, 255, 255, 0.95);
+  border-color: #0071e3;
+  transform: scale(1.02);
+}
+
+.secondaryCta:active {
+  transform: scale(0.99);
 }
 
 @media (max-width: 480px) {
   .ctaGroup {
     flex-direction: column;
     width: 100%;
+    gap: 12px;
   }
-
-  .ctaGroup > a {
+  .primaryCta,
+  .secondaryCta {
     width: 100%;
   }
 }
 
+/* ============================================================
+   TRUST & PROOF STRIP - APPLE SQUIRCLE PILL
+   ============================================================ */
+.trustStrip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 28px;
+  padding: 12px 26px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 9999px;
+  box-shadow: 0 2px 14px rgba(0, 0, 0, 0.03);
+}
 
 @media (max-width: 768px) {
-  .heroSection {
-    min-height: 75vh;
-    padding: 130px 20px 70px 20px;
-    background: linear-gradient(180deg, #FFFFFF 0%, #FFFFFF 55%, #FDFBFF 80%, #FAF7FE 100%);
+  .trustStrip {
+    border-radius: 20px;
+    gap: 16px;
+    padding: 14px 20px;
   }
 }
 
-@media (max-width: 414px) {
-  .heroSection {
-    padding: 110px 16px 56px 16px;
-  }
-}
-
-/* Ambient ultra-light white-lavender glow */
-.heroSection::before {
-  content: '';
-  position: absolute;
-  top: 35%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 950px;
-  height: 550px;
-  background: radial-gradient(circle, rgba(147, 51, 234, 0.02) 0%, rgba(245, 240, 255, 0.01) 50%, transparent 75%);
-  filter: blur(75px);
-  pointer-events: none;
-  z-index: 0;
-}
-
-.container {
-  width: 100%;
-  max-width: 1040px;
-  margin: 0 auto;
+.trustItem {
   display: flex;
-  justify-content: center;
-  position: relative;
-  z-index: 1;
-}
-
-.content {
-  display: flex;
-  flex-direction: column;
   align-items: center;
-  text-align: center;
-  max-width: 880px;
-}
-
-.badgeWrapper {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 12px;
-}
-
-.headline {
-  font-size: clamp(2.5rem, 5.8vw, 4.4rem);
-  font-weight: 800;
-  line-height: 1.12;
-  letter-spacing: -0.035em;
-  color: var(--primary);
-  margin-bottom: 24px;
-}
-
-.breakOnDesktop {
-  display: inline;
-}
-
-@media (max-width: 640px) {
-  .breakOnDesktop {
-    display: none;
-  }
-}
-
-.subtext {
-  font-size: clamp(1rem, 1.6vw, 1.15rem);
-  line-height: 1.75;
-  color: var(--muted);
-  max-width: 700px;
-  margin: 0 auto 36px auto;
+  gap: 8px;
+  font-size: 0.86rem;
   font-weight: 400;
+  letter-spacing: -0.01em;
+  color: #86868b;
 }
 
-.ctaGroup {
+.trustNumber {
+  font-weight: 600;
+  color: #1d1d1f;
+}
+
+.starGroup {
+  color: #F59E0B;
   display: flex;
   align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 16px;
+  gap: 2px;
+  font-size: 0.8rem;
 }
 
-@media (max-width: 480px) {
-  .ctaGroup {
-    flex-direction: column;
-    width: 100%;
-  }
+.divider {
+  width: 1px;
+  height: 16px;
+  background-color: rgba(0, 0, 0, 0.08);
+}
 
-  .ctaGroup > a {
-    width: 100%;
+@media (max-width: 768px) {
+  .divider {
+    display: none;
   }
 }

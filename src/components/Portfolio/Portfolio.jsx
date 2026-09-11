@@ -34,7 +34,8 @@ export function Portfolio() {
   };
 
   return (
-    <section id="work" className={`section-padding ${styles.section}`}>
+    <section id="projects" className={`section-padding ${styles.section}`}>
+      <span id="work" aria-hidden="true" style={{ position: 'absolute', top: 0 }} />
       <div className="section-header reveal">
         <div className="pill-badge">
           <span className="badge-dot" />

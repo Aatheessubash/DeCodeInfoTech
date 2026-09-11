@@ -170,7 +170,7 @@ const SLIDER_STYLES = `
     align-items: center;
     gap: 8px;
     padding: 11px 26px;
-    border-radius: 10px;
+    border-radius: 5px;
     font-weight: 600;
     font-size: 0.92rem;
     letter-spacing: 0.01em;
@@ -193,7 +193,7 @@ const SLIDER_STYLES = `
     align-items: center;
     gap: 8px;
     padding: 11px 26px;
-    border-radius: 10px;
+    border-radius: 5px;
     font-weight: 600;
     font-size: 0.92rem;
     letter-spacing: 0.01em;
@@ -222,7 +222,7 @@ const SLIDER_STYLES = `
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 9999px;
+    border-radius: 5px;
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     background: rgba(18, 3, 49, 0.65);

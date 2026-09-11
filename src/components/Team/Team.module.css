@@ -19,14 +19,15 @@
 }
 
 .photoWrapper {
-  width: 220px;
-  height: 220px;
+  width: 200px;
+  height: 200px;
   border-radius: 50%;
   overflow: hidden;
   position: relative;
-  margin-bottom: 24px;
-  border: 2px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+  margin-bottom: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: var(--shadow-card);
+  transition: transform 300ms var(--ease-apple), box-shadow 300ms var(--ease-apple);
 }
 
 .portraitImg {
@@ -38,18 +39,24 @@
 }
 
 .teamCard:hover .portraitImg {
-  transform: scale(1.08);
+  transform: scale(1.06);
+}
+
+.teamCard:hover .photoWrapper {
+  box-shadow: var(--shadow-lift);
 }
 
 .memberName {
-  font-size: 1.35rem;
-  font-weight: 800;
-  color: #FFFFFF;
-  margin-bottom: 6px;
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: -0.024em;
+  color: var(--apple-dark);
+  margin-bottom: 4px;
 }
 
 .memberRole {
-  font-size: 0.95rem;
-  color: var(--accent-cyan);
-  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--apple-gray);
+  font-weight: 400;
+  letter-spacing: -0.01em;
 }

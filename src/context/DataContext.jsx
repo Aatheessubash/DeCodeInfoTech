@@ -176,7 +176,7 @@ const INITIAL_TESTIMONIALS = [
 const INITIAL_CONTENT = {
   heroEyebrow: 'INNOVATION & TECHNOLOGY SOLUTIONS',
   heroHeadline: 'Transforming Ideas Into Technology That Moves Businesses Forward',
-  heroSubtext: 'From custom software and industrial IoT to scalable SaaS and mobile apps — DeCode designs, engineers, and scales high-performance digital solutions tailored to your business goals.',
+  heroSubtext: 'Empowering businesses to grow through innovation and technology. We deliver scalable, future-ready solutions that enhance operations, drive sustainable growth, and create long-term business value.',
   heroPrimaryCta: 'Start a Conversation',
   heroSecondaryCta: 'Explore Our Services',
   agencyName: 'DeCode InfoTech',
@@ -279,7 +279,23 @@ export function DataProvider({ children }) {
   });
 
   const [siteContent, setSiteContent] = useState(() => {
-    return readStoredData('decode_site_content_v2', INITIAL_CONTENT);
+    const targetSubtext =
+      'Empowering businesses to grow through innovation and technology. We deliver scalable, future-ready solutions that enhance operations, drive sustainable growth, and create long-term business value.';
+
+    const saved = readStoredData('decode_site_content_v4', null);
+    if (saved) return saved;
+
+    const legacyV3 = readStoredData('decode_site_content_v3', null);
+    if (legacyV3) {
+      return { ...legacyV3, heroSubtext: targetSubtext };
+    }
+
+    const legacyV2 = readStoredData('decode_site_content_v2', null);
+    if (legacyV2) {
+      return { ...legacyV2, heroSubtext: targetSubtext };
+    }
+
+    return INITIAL_CONTENT;
   });
 
   const [jobApplications, setJobApplications] = useState(() => {
@@ -307,7 +323,7 @@ export function DataProvider({ children }) {
   }, [testimonials]);
 
   useEffect(() => {
-    writeStoredData('decode_site_content_v2', siteContent);
+    writeStoredData('decode_site_content_v4', siteContent);
   }, [siteContent]);
 
   useEffect(() => {

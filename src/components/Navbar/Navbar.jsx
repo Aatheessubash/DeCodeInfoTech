@@ -1,29 +1,46 @@
-import { useEffect, useState } from 'react';
-import { Link, NavLink, useLocation } from 'react-router-dom';
-import { ArrowRight, ChevronDown } from 'lucide-react';
+import React, { useEffect, useState, useCallback } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { ArrowRight } from 'lucide-react';
 import styles from './Navbar.module.css';
 
-const navClassName = ({ isActive }) => `${styles.navBtn} ${isActive ? styles.activeNav : ''}`;
+const SECTION_IDS = [
+  'home',
+  'about',
+  'standards',
+  'services',
+  'technology',
+  'process',
+  'projects',
+  'industries',
+  'testimonials',
+  'team',
+  'careers',
+  'faq',
+  'contact',
+];
 
 export function Navbar() {
-  const { pathname } = useLocation();
+  const navigate = useNavigate();
+  const location = useLocation();
   const [isScrolled, setIsScrolled] = useState(() => window.scrollY > 20);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [companyDropdownOpen, setCompanyDropdownOpen] = useState(false);
-  const [capabilitiesDropdownOpen, setCapabilitiesDropdownOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('home');
 
+  // Scroll listener for sticky header background
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 20);
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Close mobile menu on route change
   useEffect(() => {
     setMobileMenuOpen(false);
-    setCompanyDropdownOpen(false);
-    setCapabilitiesDropdownOpen(false);
-  }, [pathname]);
+  }, [location.pathname]);
 
+  // Lock body scroll when mobile drawer is active
   useEffect(() => {
     if (!mobileMenuOpen) return undefined;
 
@@ -41,83 +58,148 @@ export function Navbar() {
     };
   }, [mobileMenuOpen]);
 
-  const closeOnFocusLeave = (setter) => (event) => {
-    if (!event.currentTarget.contains(event.relatedTarget)) setter(false);
-  };
+  // Scroll Spy: dynamically track active section
+  useEffect(() => {
+    if (location.pathname !== '/') return undefined;
+
+    const determineActiveSection = () => {
+      const scrollPos = window.scrollY + 140;
+
+      let current = 'home';
+      for (const id of SECTION_IDS) {
+        const el = document.getElementById(id);
+        if (el) {
+          const top = el.offsetTop;
+          if (scrollPos >= top) {
+            current = id;
+          }
+        }
+      }
+      setActiveSection(current);
+    };
+
+    determineActiveSection();
+    window.addEventListener('scroll', determineActiveSection, { passive: true });
+    return () => window.removeEventListener('scroll', determineActiveSection);
+  }, [location.pathname]);
+
+  const scrollToSection = useCallback((id) => {
+    setMobileMenuOpen(false);
+
+    if (location.pathname !== '/') {
+      navigate(`/#${id}`);
+      return;
+    }
+
+    if (id === 'home') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.history.pushState(null, '', '/');
+      setActiveSection('home');
+      return;
+    }
+
+    const el = document.getElementById(id);
+    if (el) {
+      const headerOffset = 56;
+      const elementPosition = el.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth',
+      });
+      window.history.pushState(null, '', `#${id}`);
+      setActiveSection(id);
+    }
+  }, [location.pathname, navigate]);
+
+  const isHomeActive = activeSection === 'home';
+  const isAboutActive = ['about', 'standards', 'team'].includes(activeSection);
+  const isServicesActive = ['services', 'technology', 'process'].includes(activeSection);
+  const isProjectsActive = ['projects', 'work', 'industries'].includes(activeSection);
+  const isCareersActive = activeSection === 'careers';
+  const isContactActive = ['contact', 'faq'].includes(activeSection);
 
   return (
     <header className={`${styles.header} ${isScrolled ? styles.scrolled : ''}`}>
       <div className={styles.container}>
-        <Link to="/" className={styles.logoLink} aria-label="DeCode home">
+        <button
+          type="button"
+          onClick={() => scrollToSection('home')}
+          className={styles.logoLink}
+          aria-label="DeCode home"
+          style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
+        >
           <img
             src="/DeCode_Logo.png"
-            alt="DeCode Infotech"
+            alt="DeCode InfoTech"
             className={styles.logoImg}
             width="707"
             height="353"
             decoding="async"
           />
-        </Link>
+        </button>
 
+        {/* Clean Primary Desktop Navigation - Only 6 Main Links, No Sub Headers */}
         <nav className={styles.desktopNav} aria-label="Primary navigation">
-          <NavLink to="/" className={navClassName}>
+          <button
+            type="button"
+            className={`${styles.navBtn} ${isHomeActive ? styles.activeNav : ''}`}
+            onClick={() => scrollToSection('home')}
+          >
             Home
-          </NavLink>
+          </button>
 
-          <div
-            className={styles.dropdownGroup}
-            onMouseEnter={() => setCompanyDropdownOpen(true)}
-            onMouseLeave={() => setCompanyDropdownOpen(false)}
-            onBlur={closeOnFocusLeave(setCompanyDropdownOpen)}
+          <button
+            type="button"
+            className={`${styles.navBtn} ${isAboutActive ? styles.activeNav : ''}`}
+            onClick={() => scrollToSection('about')}
           >
-            <button
-              type="button"
-              className={`${styles.navBtn} ${pathname === '/about' || pathname === '/careers' ? styles.activeNav : ''}`}
-              onClick={() => setCompanyDropdownOpen((open) => !open)}
-              aria-expanded={companyDropdownOpen}
-              aria-controls="company-menu"
-            >
-              About
-              <ChevronDown className={`${styles.chevron} ${companyDropdownOpen ? styles.chevronOpen : ''}`} aria-hidden="true" />
-            </button>
-            <div id="company-menu" className={`${styles.dropdownMenu} ${companyDropdownOpen ? styles.open : ''}`}>
-              <Link to="/about" className={styles.dropdownItem}>About Us</Link>
-              <Link to="/careers" className={styles.dropdownItem}>Careers</Link>
-              <Link to="/about" className={styles.dropdownItem}>Our Quality Promise</Link>
-            </div>
-          </div>
+            About
+          </button>
 
-          <div
-            className={styles.dropdownGroup}
-            onMouseEnter={() => setCapabilitiesDropdownOpen(true)}
-            onMouseLeave={() => setCapabilitiesDropdownOpen(false)}
-            onBlur={closeOnFocusLeave(setCapabilitiesDropdownOpen)}
+          <button
+            type="button"
+            className={`${styles.navBtn} ${isServicesActive ? styles.activeNav : ''}`}
+            onClick={() => scrollToSection('services')}
           >
-            <button
-              type="button"
-              className={`${styles.navBtn} ${pathname === '/services' ? styles.activeNav : ''}`}
-              onClick={() => setCapabilitiesDropdownOpen((open) => !open)}
-              aria-expanded={capabilitiesDropdownOpen}
-              aria-controls="capabilities-menu"
-            >
-              Services
-              <ChevronDown className={`${styles.chevron} ${capabilitiesDropdownOpen ? styles.chevronOpen : ''}`} aria-hidden="true" />
-            </button>
-            <div id="capabilities-menu" className={`${styles.dropdownMenu} ${capabilitiesDropdownOpen ? styles.open : ''}`}>
-              <Link to="/services" className={styles.dropdownItem}>All Services</Link>
-              <Link to="/services" className={styles.dropdownItem}>Development Process</Link>
-            </div>
-          </div>
+            Services
+          </button>
 
-          <NavLink to="/work" className={navClassName}>Portfolio</NavLink>
-          <NavLink to="/careers" className={navClassName}>Careers</NavLink>
-          <NavLink to="/contact" className={navClassName}>Contact</NavLink>
+          <button
+            type="button"
+            className={`${styles.navBtn} ${isProjectsActive ? styles.activeNav : ''}`}
+            onClick={() => scrollToSection('projects')}
+          >
+            Projects
+          </button>
+
+          <button
+            type="button"
+            className={`${styles.navBtn} ${isCareersActive ? styles.activeNav : ''}`}
+            onClick={() => scrollToSection('careers')}
+          >
+            Careers
+          </button>
+
+          <button
+            type="button"
+            className={`${styles.navBtn} ${isContactActive ? styles.activeNav : ''}`}
+            onClick={() => scrollToSection('contact')}
+          >
+            Contact
+          </button>
         </nav>
 
+        {/* Action Button & Mobile Hamburger */}
         <div className={styles.actions}>
-          <Link to="/contact" className={styles.actionBtn}>
+          <button
+            type="button"
+            onClick={() => scrollToSection('contact')}
+            className={styles.actionBtn}
+          >
             Get Started
-          </Link>
+          </button>
 
           <button
             type="button"
@@ -134,18 +216,60 @@ export function Navbar() {
         </div>
       </div>
 
+      {/* Clean Mobile Drawer - Only 6 Main Links, No Sub Headers */}
       {mobileMenuOpen && (
         <div className={styles.mobileDrawer}>
           <nav id="mobile-navigation" className={styles.mobileNav} aria-label="Mobile navigation">
-            <NavLink to="/" className={styles.mobileLink}>Home</NavLink>
-            <NavLink to="/about" className={styles.mobileLink}>About</NavLink>
-            <NavLink to="/services" className={styles.mobileLink}>Services</NavLink>
-            <NavLink to="/work" className={styles.mobileLink}>Portfolio</NavLink>
-            <NavLink to="/careers" className={styles.mobileLink}>Careers</NavLink>
-            <NavLink to="/contact" className={styles.mobileLink}>Contact</NavLink>
-            <Link to="/contact" className={styles.actionBtn}>
+            <button
+              type="button"
+              className={`${styles.mobileLink} ${isHomeActive ? styles.activeNav : ''}`}
+              onClick={() => scrollToSection('home')}
+            >
+              Home
+            </button>
+            <button
+              type="button"
+              className={`${styles.mobileLink} ${isAboutActive ? styles.activeNav : ''}`}
+              onClick={() => scrollToSection('about')}
+            >
+              About
+            </button>
+            <button
+              type="button"
+              className={`${styles.mobileLink} ${isServicesActive ? styles.activeNav : ''}`}
+              onClick={() => scrollToSection('services')}
+            >
+              Services
+            </button>
+            <button
+              type="button"
+              className={`${styles.mobileLink} ${isProjectsActive ? styles.activeNav : ''}`}
+              onClick={() => scrollToSection('projects')}
+            >
+              Projects
+            </button>
+            <button
+              type="button"
+              className={`${styles.mobileLink} ${isCareersActive ? styles.activeNav : ''}`}
+              onClick={() => scrollToSection('careers')}
+            >
+              Careers
+            </button>
+            <button
+              type="button"
+              className={`${styles.mobileLink} ${isContactActive ? styles.activeNav : ''}`}
+              onClick={() => scrollToSection('contact')}
+            >
+              Contact
+            </button>
+            <button
+              type="button"
+              onClick={() => scrollToSection('contact')}
+              className={styles.actionBtn}
+              style={{ marginTop: '12px', justifyContent: 'center' }}
+            >
               Get Started <ArrowRight className="w-4 h-4 inline ml-1" aria-hidden="true" />
-            </Link>
+            </button>
           </nav>
         </div>
       )}

@@ -46,7 +46,7 @@ export function BusinessTypes() {
   const [sectionRef, isVisible] = useIntersectionObserver({ threshold: 0.1 });
 
   return (
-    <section className="section-padding" ref={sectionRef}>
+    <section id="industries" className="section-padding" ref={sectionRef}>
       <div className={`section-header reveal ${isVisible ? 'visible' : ''}`}>
         <div className="pill-badge">
           <span className="badge-dot"></span>

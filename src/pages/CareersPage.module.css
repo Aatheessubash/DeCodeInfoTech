@@ -275,7 +275,7 @@
   right: 16px;
   background: var(--bg);
   border: 1px solid var(--lav);
-  border-radius: 50%;
+  border-radius: 5px;
   width: 36px;
   height: 36px;
   font-size: 1.1rem;
