@@ -8,12 +8,10 @@ const SECTION_IDS = [
   'about',
   'standards',
   'services',
-  'technology',
   'process',
   'projects',
   'industries',
   'testimonials',
-  'team',
   'careers',
   'faq',
   'contact',
@@ -114,8 +112,8 @@ export function Navbar() {
   }, [location.pathname, navigate]);
 
   const isHomeActive = activeSection === 'home';
-  const isAboutActive = ['about', 'standards', 'team'].includes(activeSection);
-  const isServicesActive = ['services', 'technology', 'process'].includes(activeSection);
+  const isAboutActive = ['about', 'standards'].includes(activeSection);
+  const isServicesActive = ['services', 'process'].includes(activeSection);
   const isProjectsActive = ['projects', 'work', 'industries'].includes(activeSection);
   const isCareersActive = activeSection === 'careers';
   const isContactActive = ['contact', 'faq'].includes(activeSection);

@@ -22,7 +22,6 @@ export function Hero() {
 
   return (
     <section id="home" className={styles.heroSection}>
-      {/* Background Video with subtle blur */}
       <div className={styles.videoWrapper} aria-hidden="true">
         <video
           className={styles.videoBackground}
@@ -31,15 +30,10 @@ export function Hero() {
           loop
           muted
           playsInline
-          preload="auto"
+          preload="metadata"
         />
         <div className={styles.videoOverlay} />
       </div>
-
-      {/* Ambient background visual accents */}
-      <div className={styles.gridBackground} aria-hidden="true" />
-      <div className={styles.glowOrb1} aria-hidden="true" />
-      <div className={styles.glowOrb2} aria-hidden="true" />
 
       <div className={styles.container}>
         <div className={styles.content}>
@@ -73,13 +67,12 @@ export function Hero() {
               <span>{siteContent?.heroPrimaryCta || 'Start A Project'}</span>
               <ArrowRight size={18} aria-hidden="true" />
             </button>
-            <button
-              type="button"
-              onClick={() => scrollTo('services')}
+            <a
+              href="#services"
               className={styles.secondaryCta}
             >
-              <span>{siteContent?.heroSecondaryCta || 'Explore Services'}</span>
-            </button>
+              Explore our services <span aria-hidden="true">↗</span>
+            </a>
           </div>
 
           {/* Social Proof & Trust Strip */}

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import styles from './Testimonial.module.css';
 import { useData } from '../../context/useData';
-import { Star, Quote, BadgeCheck, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Star, Quote, ChevronLeft, ChevronRight } from 'lucide-react';
 
 export function Testimonial() {
   const { testimonials, siteContent } = useData();
@@ -12,19 +12,23 @@ export function Testimonial() {
   const total = testimonials.length;
 
   const nextSlide = useCallback(() => {
-    setCurrentIndex((prev) => (prev + 1) % total);
+    if (total) setCurrentIndex((prev) => (prev + 1) % total);
   }, [total]);
 
   const prevSlide = useCallback(() => {
-    setCurrentIndex((prev) => (prev - 1 + total) % total);
+    if (total) setCurrentIndex((prev) => (prev - 1 + total) % total);
   }, [total]);
 
-  // Auto-advance every 2.5 seconds (2500ms)
+  // Allow time to read each quote.
   useEffect(() => {
-    if (isPaused || total <= 1) return;
-    const interval = setInterval(nextSlide, 2500);
+    if (isPaused || total <= 1 || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const interval = setInterval(nextSlide, 7000);
     return () => clearInterval(interval);
   }, [isPaused, nextSlide, total]);
+
+  useEffect(() => {
+    setCurrentIndex((index) => Math.min(index, Math.max(total - 1, 0)));
+  }, [total]);
 
   // Touch swipe support
   const handleTouchStart = (e) => {
@@ -42,14 +46,12 @@ export function Testimonial() {
     touchStartX.current = null;
   };
 
+  if (!total) return null;
+
   return (
-    <section id="testimonials" className={`section-padding ${styles.testimonialSection}`}>
-      <div className="section-header reveal" style={{ marginBottom: '24px' }}>
-        <div className="pill-badge">
-          <span className="badge-dot" />
-          <span>Trust &amp; Results</span>
-        </div>
-        <h2 className={styles.heading}>
+    <section id="testimonials" className={styles.testimonialSection} aria-labelledby="testimonials-heading">
+      <div className={styles.sectionHeader}>
+        <h2 id="testimonials-heading" className={styles.heading}>
           Client Testimonials &amp; <span className={styles.highlight}>Feedback</span>
         </h2>
         <p className={styles.subheading}>
@@ -60,7 +62,10 @@ export function Testimonial() {
 
       {/* 1-by-1 Smooth Auto-Change Carousel */}
       <div
-        className={`${styles.carouselContainer} reveal delay-2`}
+        className={styles.carouselContainer}
+        onFocusCapture={() => setIsPaused(true)}
+        role="region"
+        aria-label="Client testimonials"
         onMouseEnter={() => setIsPaused(true)}
         onMouseLeave={() => setIsPaused(false)}
         onTouchStart={handleTouchStart}
@@ -74,23 +79,21 @@ export function Testimonial() {
             }}
           >
             {testimonials.map((t, idx) => (
-              <div key={t.id || idx} className={styles.carouselSlide}>
+              <div key={t.id || idx} className={styles.carouselSlide} aria-hidden={idx !== currentIndex}>
                 <div className={styles.compactCard}>
                   <div className={styles.cardHeader}>
                     <div className={styles.ratingRow}>
                       <div className={styles.stars}>
-                        {[...Array(t.rating || 5)].map((_, i) => (
-                          <Star key={i} size={15} style={{ fill: '#7C3AED', color: '#7C3AED' }} aria-hidden="true" />
+                        {Array.from({ length: Math.max(0, Math.min(5, Math.round(Number(t.rating) || 5))) }).map((_, i) => (
+                          <Star key={i} size={15} fill="currentColor" aria-hidden="true" />
                         ))}
                       </div>
-                      <span className={styles.verifiedBadge}>
-                        <BadgeCheck size={13} style={{ color: '#7C3AED' }} aria-hidden="true" /> Verified Client
-                      </span>
+
                     </div>
                     <Quote size={24} className={styles.quoteIcon} aria-hidden="true" />
                   </div>
 
-                  <p className={styles.quoteText}>"{t.text}"</p>
+                  <blockquote className={styles.quoteText}>“{t.text}”</blockquote>
 
                   <div className={styles.authorRow}>
                     <div className={styles.authorAvatar}>
@@ -98,7 +101,7 @@ export function Testimonial() {
                     </div>
                     <div className={styles.authorMeta}>
                       <h4 className={styles.authorName}>{t.name}</h4>
-                      <p className={styles.authorRole}>{t.role} • <span className={styles.companyName}>{t.company}</span></p>
+                      <p className={styles.authorRole}>{t.role}{t.role && t.company ? ' · ' : ''}<span className={styles.companyName}>{t.company}</span></p>
                     </div>
                   </div>
                 </div>
@@ -135,6 +138,7 @@ export function Testimonial() {
               className={`${styles.dot} ${idx === currentIndex ? styles.activeDot : ''}`}
               onClick={() => setCurrentIndex(idx)}
               aria-label={`Go to testimonial ${idx + 1}`}
+              aria-current={idx === currentIndex ? 'true' : undefined}
             />
           ))}
         </div>

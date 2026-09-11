@@ -5,6 +5,7 @@ import { Footer } from './components/Footer/Footer';
 import { Home } from './pages/Home';
 import { ErrorBoundary } from './components/shared/ErrorBoundary';
 import { ScrollToTop } from './components/shared/ScrollToTop';
+import { RouteSeo } from './components/shared/RouteSeo';
 
 const NotFound = lazy(() => import('./pages/NotFound').then((module) => ({ default: module.NotFound })));
 const AdminDashboard = lazy(() => import('./components/Admin/AdminDashboard').then((module) => ({ default: module.AdminDashboard })));
@@ -187,6 +188,7 @@ export default function App() {
   return (
     <ErrorBoundary>
       <BrowserRouter>
+        <RouteSeo />
         <RouteEffects />
         <ScrollRevealObserver />
         <CursorGlow />
@@ -204,14 +206,14 @@ export default function App() {
                 <Route path="/about" element={<Navigate to="/#about" replace />} />
                 <Route path="/standards" element={<Navigate to="/#standards" replace />} />
                 <Route path="/services" element={<Navigate to="/#services" replace />} />
-                <Route path="/technology" element={<Navigate to="/#technology" replace />} />
+                <Route path="/technology" element={<Navigate to="/#services" replace />} />
                 <Route path="/process" element={<Navigate to="/#process" replace />} />
                 <Route path="/work" element={<Navigate to="/#projects" replace />} />
                 <Route path="/portfolio" element={<Navigate to="/#projects" replace />} />
                 <Route path="/projects" element={<Navigate to="/#projects" replace />} />
                 <Route path="/industries" element={<Navigate to="/#industries" replace />} />
                 <Route path="/testimonials" element={<Navigate to="/#testimonials" replace />} />
-                <Route path="/team" element={<Navigate to="/#team" replace />} />
+                <Route path="/team" element={<Navigate to="/#about" replace />} />
                 <Route path="/careers" element={<Navigate to="/#careers" replace />} />
                 <Route path="/faq" element={<Navigate to="/#faq" replace />} />
                 <Route path="/contact" element={<Navigate to="/#contact" replace />} />

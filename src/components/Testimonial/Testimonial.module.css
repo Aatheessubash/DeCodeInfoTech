@@ -1,266 +1,149 @@
 .testimonialSection {
-  padding: 56px 0 68px 0;
-  position: relative;
-  overflow: hidden;
-  background-color: #FFFFFF;
+  padding: clamp(32px, 5svh, 64px) clamp(16px, 3vw, 32px);
+  background: #fff;
+  color: #171717;
+  scroll-margin-top: 84px;
 }
-
+.sectionHeader {
+  max-width: 760px;
+  margin: 0 auto clamp(24px, 4svh, 40px);
+  text-align: center;
+}
 .heading {
-  font-size: clamp(1.9rem, 3.8vw, 2.8rem);
-  font-weight: 700;
-  letter-spacing: -0.035em;
-  color: var(--apple-dark);
-  margin-top: 10px;
-  margin-bottom: 12px;
+  margin: 0 0 16px;
+  font-size: clamp(30px, 3.7vw, 48px);
+  font-weight: 600;
+  line-height: 1.12;
+  letter-spacing: -0.045em;
+  text-wrap: balance;
 }
-
-.highlight {
-  color: var(--apple-blue);
-}
-
+.highlight { color: #777770; }
 .subheading {
-  font-size: 1.05rem;
-  color: var(--apple-gray);
-  max-width: 620px;
+  max-width: 640px;
   margin: 0 auto;
-  line-height: 1.5;
-  letter-spacing: -0.015em;
+  color: #62625c;
+  font-size: clamp(15px, 1.4vw, 17px);
+  line-height: 1.6;
 }
-
-/* ============================================================
-   1-BY-1 SMOOTH MOVE CAROUSEL CONTAINER
-   ============================================================ */
-
 .carouselContainer {
   position: relative;
-  max-width: 720px;
-  margin: 36px auto 0 auto;
-  padding: 0 48px;
-  box-sizing: border-box;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 64px;
 }
-
 .carouselViewport {
   overflow: hidden;
-  border-radius: var(--radius-card);
   width: 100%;
+  border-radius: 24px;
+  background: #fff;
+  border: 1px solid #e4e4df;
+  box-shadow: 0 16px 40px -24px rgba(0, 0, 0, 0.18);
 }
-
 .carouselTrack {
   display: flex;
-  width: 100%;
-  transition: transform 650ms cubic-bezier(0.28, 0.11, 0.32, 1);
-  will-change: transform;
+  transition: transform 500ms ease;
 }
-
 .carouselSlide {
-  min-width: 100%;
-  width: 100%;
-  flex-shrink: 0;
-  box-sizing: border-box;
-  padding: 4px;
+  flex: 0 0 100%;
+  min-width: 0;
 }
-
-/* Apple Squircle Testimonial Bento Card */
 .compactCard {
-  background: #FFFFFF;
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  border-radius: var(--radius-card);
-  padding: 32px 32px 28px 32px;
-  box-shadow: var(--shadow-card);
+  --card-padding: clamp(24px, 4vw, 48px);
+  position: relative;
   display: flex;
   flex-direction: column;
-  box-sizing: border-box;
-  position: relative;
-  transition: transform 300ms var(--ease-apple), box-shadow 300ms var(--ease-apple), border-color 250ms ease;
+  height: 100%;
+  padding: var(--card-padding) var(--card-padding) 0;
+  border-top: 3px solid #171717;
 }
-
-.compactCard:hover {
-  border-color: rgba(0, 0, 0, 0.12);
-  box-shadow: var(--shadow-lift);
-}
-
 .cardHeader {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 18px;
+  margin-bottom: 28px;
 }
-
+.ratingRow, .stars {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
 .ratingRow {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+  padding: 10px 14px;
+  border: 1px solid #e9e9e4;
+  border-radius: 999px;
+  background: #fafaf8;
 }
-
-.stars {
-  display: flex;
-  align-items: center;
-  gap: 3px;
-}
-
-.verifiedBadge {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  font-size: 0.72rem;
-  font-weight: 600;
-  color: #0071e3;
-  background: rgba(0, 113, 227, 0.08);
-  border: 1px solid rgba(0, 113, 227, 0.18);
-  padding: 2px 8px;
-  border-radius: 9999px;
-}
-
-.quoteIcon {
-  color: rgba(0, 0, 0, 0.12);
-}
-
+.stars { color: #171717; }
+.quoteIcon { width: 48px; height: 48px; color: #d5d5cd; stroke-width: 1; }
 .quoteText {
-  font-size: 1.08rem;
+  margin: 0 0 32px;
+  font-size: clamp(21px, 2.5vw, 30px);
+  font-weight: 500;
   line-height: 1.55;
-  color: #1d1d1f;
-  font-weight: 400;
-  letter-spacing: -0.015em;
-  margin-bottom: 24px;
+  letter-spacing: -0.025em;
+  overflow-wrap: anywhere;
 }
-
 .authorRow {
   display: flex;
   align-items: center;
   gap: 14px;
-  padding-top: 18px;
-  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  margin-top: auto;
+  margin-left: calc(-1 * var(--card-padding));
+  margin-right: calc(-1 * var(--card-padding));
+  padding: 24px var(--card-padding);
+  border-top: 1px solid #e9e9e4;
+  background: #fafaf8;
 }
-
 .authorAvatar {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #0071e3 0%, #7C3AED 100%);
-  color: #FFFFFF;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
-  font-size: 1rem;
-  flex-shrink: 0;
-  box-shadow: 0 2px 8px rgba(0, 113, 227, 0.25);
-}
-
-.authorMeta {
-  display: flex;
-  flex-direction: column;
-}
-
-.authorName {
-  font-size: 1rem;
+  display: grid;
+  place-items: center;
+  flex: 0 0 50px;
+  height: 50px;
+  border-radius: 14px;
+  background: #171717;
+  color: #fff;
   font-weight: 600;
-  letter-spacing: -0.01em;
-  color: var(--apple-dark);
-  margin-bottom: 2px;
 }
-
-.authorRole {
-  font-size: 0.82rem;
-  color: var(--apple-gray);
-  margin: 0;
-  letter-spacing: -0.01em;
-}
-
-.companyName {
-  color: #0071e3;
-  font-weight: 500;
-}
-
-/* ============================================================
-   NAVIGATION ARROWS
-   ============================================================ */
-
+.authorMeta { min-width: 0; overflow-wrap: anywhere; }
+.authorName { margin: 0 0 4px; font-size: 16px; font-weight: 600; }
+.authorRole { margin: 0; font-size: 13px; color: #62625c; line-height: 1.5; }
+.companyName { color: #171717; }
 .navArrow {
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 38px;
-  height: 38px;
-  border-radius: 5px;
-  background: #FFFFFF;
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  color: #1d1d1f;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  top: calc(50% - 24px);
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid #deded8;
+  border-radius: 50%;
+  background: #fff;
+  color: #171717;
   cursor: pointer;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-  transition: all 200ms var(--ease-apple);
-  z-index: 5;
 }
-
-.navArrow:hover {
-  background: #1d1d1f;
-  color: #FFFFFF;
-  border-color: #1d1d1f;
-  transform: translateY(-50%) scale(1.05);
-}
-
-.prevArrow {
-  left: 0;
-}
-
-.nextArrow {
-  right: 0;
-}
-
-/* ============================================================
-   DOTS INDICATORS
-   ============================================================ */
-
-.dotsRow {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  margin-top: 22px;
-}
-
+.navArrow:hover { background: #171717; color: #fff; }
+.prevArrow { left: 0; }
+.nextArrow { right: 0; }
+.dotsRow { display: flex; flex-wrap: wrap; justify-content: center; margin-top: 16px; }
 .dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 999px;
-  background: #d2d2d7;
-  border: none;
-  cursor: pointer;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 44px;
   padding: 0;
-  transition: all 250ms ease;
+  border: none;
+  background: transparent;
+  cursor: pointer;
 }
-
-.activeDot {
-  width: 24px;
-  background: #0071e3;
+.dot::after { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #c5c5bf; }
+.activeDot::after { width: 18px; border-radius: 4px; background: #171717; }
+.navArrow:focus-visible, .dot:focus-visible { outline: 2px solid #171717; outline-offset: 3px; }
+@media (max-width: 600px) {
+  .carouselContainer { padding: 0 0 52px; }
+  .navArrow { top: auto; bottom: 0; }
+  .prevArrow { left: calc(50% - 52px); }
+  .nextArrow { right: calc(50% - 52px); }
 }
-
-/* ============================================================
-   RESPONSIVE
-   ============================================================ */
-
-@media (max-width: 640px) {
-  .carouselContainer {
-    padding: 0 32px;
-    margin-top: 24px;
-  }
-
-  .compactCard {
-    padding: 24px 20px 20px 20px;
-    border-radius: 20px;
-  }
-
-  .quoteText {
-    font-size: 0.96rem;
-    line-height: 1.5;
-    margin-bottom: 18px;
-  }
-
-  .navArrow {
-    width: 32px;
-    height: 32px;
-  }
+@media (prefers-reduced-motion: reduce) {
+  .carouselTrack { transition: none; }
 }

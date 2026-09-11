@@ -49,7 +49,7 @@
   --font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "SF Pro", "Inter", -apple-system-headline, "Helvetica Neue", Helvetica, Arial, sans-serif;
   --radius-card: 26px;
   --radius-pill: 9999px;
-  --radius-btn: 5px;
+  --radius-btn: 8px;
   
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04);
   --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
@@ -112,6 +112,16 @@ body {
 }
 
 .app-root > main {
+  background:
+    linear-gradient(rgba(62, 91, 128, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(62, 91, 128, 0.035) 1px, transparent 1px),
+    radial-gradient(ellipse at 85% 18%, rgba(0, 113, 227, 0.09), transparent 48%),
+    radial-gradient(ellipse at 8% 80%, rgba(96, 165, 250, 0.08), transparent 45%),
+    linear-gradient(155deg, #ffffff 0%, #f7f9fc 55%, #eef3f9 100%);
+  background-size:
+    clamp(40px, 5vw, 72px) clamp(40px, 5vw, 72px),
+    clamp(40px, 5vw, 72px) clamp(40px, 5vw, 72px),
+    100% 100vh, 100% 100vh, 100% 100vh;
   flex: 1;
   width: 100%;
   max-width: 100%;
@@ -277,64 +287,85 @@ a {
   border-color: rgba(0, 0, 0, 0.12);
 }
 
-/* Buttons - Standard 5px Radius */
-.btn-primary {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 11px 24px;
-  border-radius: var(--radius-btn, 5px);
-  background-color: var(--apple-blue);
-  color: #FFFFFF;
-  font-weight: 500;
-  font-size: 0.92rem;
-  letter-spacing: -0.01em;
-  border: none;
-  cursor: pointer;
-  text-decoration: none;
-  transition: all 250ms var(--ease-apple);
-  box-shadow: 0 2px 8px rgba(0, 113, 227, 0.25);
-}
-
-.btn-primary:hover {
-  background-color: var(--apple-blue-hover);
-  color: #FFFFFF;
-  transform: scale(1.02);
-  box-shadow: 0 4px 14px rgba(0, 113, 227, 0.4);
-}
-
-.btn-primary:active {
-  transform: scale(0.99);
-}
-
+/* Shared monochrome action buttons. */
+.btn-primary,
 .btn-secondary {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  padding: 11px 24px;
-  border-radius: var(--radius-btn, 5px);
-  background-color: rgba(0, 0, 0, 0.04);
-  color: var(--apple-blue);
-  font-weight: 500;
-  font-size: 0.92rem;
+  gap: 10px;
+  min-height: 48px;
+  padding: 13px 24px;
+  border: 1px solid;
+  border-radius: 8px;
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 0.9375rem;
+  line-height: 1.4;
   letter-spacing: -0.01em;
-  border: 1px solid rgba(0, 113, 227, 0.2);
   cursor: pointer;
   text-decoration: none;
-  transition: all 250ms var(--ease-apple);
+  transition: background-color 180ms ease, color 180ms ease,
+    border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+}
+
+.btn-primary {
+  background-color: #000000;
+  color: #FFFFFF;
+  border-color: #000000;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12);
+}
+
+.btn-secondary {
+  background-color: #FFFFFF;
+  color: #000000;
+  border-color: #d1d5db;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.btn-primary:hover:not(:disabled) {
+  background-color: #FFFFFF;
+  color: #000000;
+  border-color: #000000;
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background-color: #000000;
+  color: #FFFFFF;
+  border-color: #000000;
+}
+
+.btn-primary:hover:not(:disabled),
+.btn-secondary:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+}
+
+.btn-primary:focus-visible,
+.btn-secondary:focus-visible {
+  outline: 2px solid #000000;
+  outline-offset: 4px;
+}
+
+.btn-primary:active:not(:disabled),
+.btn-secondary:active:not(:disabled) {
+  transform: translateY(0);
   box-shadow: none;
 }
 
-.btn-secondary:hover {
-  background-color: rgba(0, 113, 227, 0.08);
-  border-color: var(--apple-blue);
-  transform: scale(1.02);
+.btn-primary svg {
+  flex-shrink: 0;
 }
 
-.btn-secondary:active {
-  transform: scale(0.99);
+button:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 4px;
+}
+
+.btn-primary:disabled,
+.btn-secondary:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
 }
 
 /* ============================================================
@@ -476,39 +507,6 @@ a {
 .delay-6  { transition-delay: 440ms; }
 .delay-7  { transition-delay: 520ms; }
 .delay-8  { transition-delay: 600ms; }
-
-/* ============================================================
-   MICRO-INTERACTION: MAGNETIC BUTTON PRESS
-   ============================================================ */
-
-.btn-primary,
-.btn-secondary {
-  position: relative;
-  overflow: hidden;
-}
-
-.btn-primary::before,
-.btn-secondary::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: rgba(255, 255, 255, 0.15);
-  border-radius: inherit;
-  opacity: 0;
-  transition: opacity 200ms ease;
-  pointer-events: none;
-}
-
-.btn-primary:active::before,
-.btn-secondary:active::before {
-  opacity: 1;
-}
-
-.btn-primary:active,
-.btn-secondary:active {
-  transform: translateY(1px) scale(0.983);
-  transition-duration: 80ms;
-}
 
 /* ============================================================
    FLOATING SHIMMER ANIMATION FOR HERO & KEY SECTIONS
@@ -802,3 +800,8 @@ html {
   }
 }
 
+
+/* Let the shared page background show through the public content sections. */
+.app-root > main > section:not(#home) {
+  background: transparent;
+}

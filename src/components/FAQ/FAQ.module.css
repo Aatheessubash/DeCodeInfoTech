@@ -16,7 +16,7 @@
 }
 
 .itemOpen {
-  border-color: rgba(0, 113, 227, 0.3);
+  border-color: rgba(0, 0, 0, 0.3);
   background-color: #FFFFFF;
   box-shadow: var(--shadow-lift);
 }
@@ -41,7 +41,8 @@
 }
 
 .questionBtn:hover {
-  color: var(--apple-blue);
+  background: #000000;
+  color: #FFFFFF;
 }
 
 .questionText {
@@ -66,9 +67,9 @@
 }
 
 .itemOpen .icon {
-  background: var(--apple-blue);
+  background: #000000;
   color: #FFFFFF;
-  border-color: var(--apple-blue);
+  border-color: #000000;
 }
 
 .iconOpen {
@@ -113,4 +114,8 @@
     height: 28px;
     font-size: 0.95rem;
   }
+}
+
+.questionBtn:focus-visible {
+  outline-offset: -4px;
 }

@@ -36,13 +36,9 @@ export function Portfolio() {
   return (
     <section id="projects" className={`section-padding ${styles.section}`}>
       <span id="work" aria-hidden="true" style={{ position: 'absolute', top: 0 }} />
-      <div className="section-header reveal">
-        <div className="pill-badge">
-          <span className="badge-dot" />
-          Our Work
-        </div>
-        <h2>Live Products Built for Real Businesses</h2>
-        <p>
+      <div className={styles.sectionHeader}>
+        <h2 className={styles.sectionHeading}>Live Products Built for <span>Real Businesses</span></h2>
+        <p className={styles.sectionSub}>
           Explore client platforms designed and developed by <strong>DeCode</strong> across education,
           construction, healthcare, and hospitality.
         </p>

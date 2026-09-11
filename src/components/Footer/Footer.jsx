@@ -109,7 +109,7 @@ export function Footer() {
               </button>
             </li>
             <li>
-              <button type="button" onClick={() => scrollToSection('technology')} className={styles.linkBtn}>
+              <button type="button" onClick={() => scrollToSection('services')} className={styles.linkBtn}>
                 Full-Stack React &amp; Node
               </button>
             </li>

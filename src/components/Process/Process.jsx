@@ -1,7 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React from 'react';
 import styles from './Process.module.css';
-import { SectionBadge } from '../shared/SectionBadge';
-import { BlurFadeText } from '../shared/BlurFadeText';
 import {
   Compass,
   Layers,
@@ -49,7 +47,7 @@ const PROCESS_STEPS = [
     title: 'Test',
     tag: 'QA & Security',
     icon: ShieldCheck,
-    desc: 'Speed audits, device testing & zero bugs.',
+    desc: 'Performance audits, device testing & security checks.',
     tags: ['Device QA', 'Security'],
   },
   {
@@ -63,120 +61,45 @@ const PROCESS_STEPS = [
 ];
 
 export function Process() {
-  const containerRef = useRef(null);
-  const [scrollProgress, setScrollProgress] = useState(0);
-  const [activeStepIndex, setActiveStepIndex] = useState(0);
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth <= 540);
-    checkMobile();
-    window.addEventListener('resize', checkMobile, { passive: true });
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (!containerRef.current) return;
-      const rect = containerRef.current.getBoundingClientRect();
-      const windowHeight = window.innerHeight;
-
-      const totalDist = rect.height - windowHeight * 0.3;
-      const currentPassed = windowHeight * 0.7 - rect.top;
-      const progress = Math.min(Math.max(currentPassed / totalDist, 0), 1);
-
-      setScrollProgress(progress);
-
-      const stepFraction = 1 / PROCESS_STEPS.length;
-      const currentIdx = Math.min(
-        Math.floor(progress / stepFraction),
-        PROCESS_STEPS.length - 1
-      );
-      setActiveStepIndex(progress > 0.02 ? currentIdx : 0);
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
   return (
-    <section id="process" className={`section-padding ${styles.processSection}`} ref={containerRef}>
-      <div className="section-header reveal" style={{ marginBottom: '24px' }}>
-        <SectionBadge>Process</SectionBadge>
-        <h2 className={styles.sectionTitle}>
-          A simple process. <br />
-          <span className={styles.highlightText}>A better outcome.</span>
-        </h2>
-        <p className={styles.sectionDesc}>
-          Follow our straight left-to-right roadmap — milestone by milestone from first idea{' '}
-          <BlurFadeText>to launch.</BlurFadeText>
-        </p>
-      </div>
+    <section id="process" className={styles.processSection} aria-labelledby="process-heading">
+      <div className={styles.container}>
+        <header className={styles.sectionHeader}>
+          <h2 id="process-heading" className={styles.sectionTitle}>
+            A simple process.<br />
+            <span>A better outcome.</span>
+          </h2>
+          <p className={styles.sectionDesc}>
+            From the first conversation to launch, we bring clarity to every
+            stage — with a shared plan and a clear next step.
+          </p>
+        </header>
 
-      <div className={styles.horizontalTrackContainer}>
-        {/* Horizontal progress line — only renders on desktop (CSS hides on mobile/tablet) */}
-        {!isMobile && (
-          <div className={styles.straightTrackWrapper}>
-            <div className={styles.trackBaseLine} />
-            <div
-              className={styles.trackGlowLine}
-              style={{ width: `${Math.min(scrollProgress * 100, 100)}%` }}
-            >
-              <div className={styles.travelingPulseHead} />
-            </div>
-          </div>
-        )}
-
-        {/* Steps grid — auto adapts via CSS: 6-col desktop / 3-col tablet / vertical mobile */}
-        <div className={`${styles.stagesRow} reveal delay-1`}>
-          {PROCESS_STEPS.map((step, idx) => {
-            const IconComponent = step.icon;
-            const isPassed = idx <= activeStepIndex && scrollProgress > 0.02;
-            const isCurrent = idx === activeStepIndex && scrollProgress > 0.02;
-
+        <ol className={styles.steps}>
+          {PROCESS_STEPS.map((step) => {
+            const Icon = step.icon;
             return (
-              <div
-                key={step.number}
-                className={`${styles.stageColumn} ${isPassed ? styles.stagePassed : ''} ${
-                  isCurrent ? styles.stageActive : ''
-                }`}
-              >
-                {/* Milestone Node */}
-                <div className={styles.milestoneNode}>
-                  <div
-                    className={styles.nodeCircle}
-                    style={{
-                      borderColor: isPassed ? '#7C3AED' : 'rgba(124, 58, 237, 0.2)',
-                      boxShadow: isCurrent ? '0 0 24px rgba(124, 58, 237, 0.45)' : 'none',
-                    }}
-                  >
-                    <IconComponent
-                      size={16}
-                      style={{ color: isPassed ? '#7C3AED' : 'var(--muted)' }}
-                      aria-hidden="true"
-                    />
-                  </div>
-                  <span className={styles.nodeNumberPill}>{step.number}</span>
+              <li key={step.number} className={styles.step}>
+                <div className={styles.stepHeader}>
+                  <span className={styles.icon}><Icon size={22} strokeWidth={1.5} aria-hidden="true" /></span>
                 </div>
-
-                {/* Info Card */}
-                <div className={styles.discCard}>
-                  <h3 className={styles.discTitle}>{step.title}</h3>
-                  <span className={styles.discTag}>{step.tag}</span>
-                  <p className={styles.discDesc}>{step.desc}</p>
-
-                  <div className={styles.chipsRow}>
-                    {step.tags.map((t, i) => (
-                      <span key={i} className={styles.chip}>
-                        {t}
-                      </span>
-                    ))}
-                  </div>
+                <div className={styles.stepBody}>
+                  <p className={styles.stage}>{step.tag}</p>
+                  <h3 className={styles.stepTitle}>{step.title}</h3>
+                  <p className={styles.stepDesc}>{step.desc}</p>
                 </div>
-              </div>
+                <ul className={styles.deliverables} aria-label={`${step.title} deliverables`}>
+                  {step.tags.map((tag) => <li key={tag}>{tag}</li>)}
+                </ul>
+              </li>
             );
           })}
+        </ol>
+        <div className={styles.closing}>
+          <p>Your idea. A clear path forward.</p>
+          <a href="#contact" className={styles.contactLink}>
+            Let’s talk about your project <span aria-hidden="true">↗</span>
+          </a>
         </div>
       </div>
     </section>

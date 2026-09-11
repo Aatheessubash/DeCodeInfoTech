@@ -23,36 +23,31 @@ const SERVICE_ICONS = {
 };
 
 export function Services() {
-  const { services, siteContent } = useData();
-
-  const infiniteServices = [...services, ...services];
+  const { services } = useData();
 
   return (
-    <section id="services" className={`section-padding ${styles.servicesSection}`}>
-      <div className="section-header reveal" style={{ marginBottom: '20px' }}>
-        <div className="pill-badge">
-          <span className="badge-dot"></span>
-          Core Capabilities
-        </div>
-        <h2 className={styles.sectionHeading}>Technology Solutions Built Around Your Business</h2>
+    <section id="services" className={styles.servicesSection} aria-labelledby="services-heading">
+      <div className={styles.container}>
+      <div className={styles.sectionHeader}>
+        <h2 id="services-heading" className={styles.sectionHeading}>Technology That Moves Business <span>Forward</span></h2>
         <p className={styles.sectionSub}>
-          At <strong>{siteContent.agencyName || 'DeCode InfoTech'}</strong>, we combine strategic engineering, AI innovation, and intuitive design to deliver scalable technology.
+         At DeCode, we unite engineering, AI, and thoughtful design to create intelligent technology that scales with your business.
         </p>
       </div>
 
-      <div className={`${styles.carouselContainer} reveal-scale delay-2`}>
-        <div className={styles.scrollTrack}>
-          {infiniteServices.map((service, index) => (
-            <div
-              key={`${service.id}-${index}`}
+      <div className={styles.carouselViewport} role="region" aria-label="Service cards">
+        <div className={styles.scrollTrack} style={{ '--duration': `${Math.max(services.length, 4) * 6}s` }}>
+          {[0, 1].map((copy) => (
+            <div key={copy} className={styles.servicesGroup} aria-hidden={copy === 1 ? true : undefined}>
+          {services.map((service) => (
+            <article
+              key={service.id}
               className={styles.card}
-              aria-hidden={index >= services.length}
             >
               <div className={styles.cardHeader}>
                 <span className={styles.icon}>
                   {SERVICE_ICONS[service.id] || <Sparkles size={20} aria-hidden="true" />}
                 </span>
-                <span className={styles.number}>{service.id}</span>
               </div>
               <h3 className={styles.title}>{service.title}</h3>
               <p className={styles.desc}>{service.desc}</p>
@@ -69,9 +64,12 @@ export function Services() {
                   </div>
                 </div>
               )}
-            </div>
+            </article>
           ))}
         </div>
+          ))}
+        </div>
+      </div>
       </div>
     </section>
   );

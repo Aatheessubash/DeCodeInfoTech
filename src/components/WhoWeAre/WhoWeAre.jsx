@@ -1,62 +1,48 @@
-import React from 'react';
-import { useData } from '../../context/useData';
-import styles from './WhoWeAre.module.css';
-import { Award } from 'lucide-react';
+import React from "react";
+import styles from "./WhoWeAre.module.css";
 
 export function WhoWeAre() {
-  const { siteContent } = useData();
-
   return (
-    <section id="about" className={styles.section}>
+    <section id="about" className={styles.section} aria-labelledby="about-heading">
       <div className={styles.container}>
         <div className={styles.grid}>
-          {/* LEFT COLUMN: TEXT & STATS */}
-          <div className={`${styles.leftCol} reveal reveal-left`}>
-            <span className={styles.eyebrow}>WHO WE ARE</span>
-
-            <h2 className={styles.headline}>
-              Sophisticated solutions for complex challenges.
+          <div className={styles.copy}>
+            <h2 id="about-heading" className={styles.headline}>
+              Building<br />what’s <span>next.</span>
             </h2>
-
-            <p className={styles.description}>
-              {siteContent?.agencyName || 'DeCode Infotech'} is a collective of visionary engineers, strategic thinkers, and meticulous designers. We don't just write code; we architect systems that empower businesses to lead in a digital-first world.
+            <p className={styles.lead}>
+              We turn complex challenges into intelligent digital solutions.
             </p>
-
-            <div className={styles.statsRow}>
-              <div className={`${styles.statCard} reveal delay-3`}>
-                <div className={styles.statNumber}>200+</div>
-                <div className={styles.statLabel}>PROJECTS DELIVERED</div>
-              </div>
-
-              <div className={`${styles.statCard} reveal delay-4`}>
-                <div className={styles.statNumber}>98%</div>
-                <div className={styles.statLabel}>CLIENT RETENTION</div>
-              </div>
+            <div className={styles.description}>
+              <p>
+                At DeCode InfoTech, we combine technology, strategy, and design
+                to create scalable foundations for growth.
+              </p>
+              <p>
+                Our solutions simplify operations, unlock new possibilities, and
+                adapt to change — delivering lasting value that keeps your
+                business moving forward.
+              </p>
             </div>
+            <a href="#services" className={styles.link}>
+              Explore our services <span aria-hidden="true">↗</span>
+            </a>
           </div>
 
-          {/* RIGHT COLUMN: TEAM IMAGE & FLOATING AWARD BADGE */}
-          <div className={`${styles.rightCol} reveal reveal-right delay-2`}>
-            <div className={styles.imageWrapper}>
+          <figure className={styles.visual}>
+            <div className={styles.imageFrame}>
               <img
                 src="/assets/who-we-are.jpg"
-                alt="DeCode Infotech team collaborating in modern office"
-                className={styles.teamImage}
+                alt="DeCode InfoTech team collaborating in a modern office"
+                className={styles.image}
                 loading="lazy"
               />
-
-              {/* Floating Award Badge Overlay */}
-              <div className={styles.floatingBadge}>
-                <div className={styles.badgeIconBox}>
-                  <Award className={styles.badgeIcon} aria-hidden="true" />
-                </div>
-                <div className={styles.badgeContent}>
-                  <span className={styles.badgeTitle}>Award Winning</span>
-                  <span className={styles.badgeSubtitle}>Design &amp; Engineering</span>
-                </div>
-              </div>
             </div>
-          </div>
+            <figcaption className={styles.caption}>
+              <span className={styles.captionMark} aria-hidden="true">↗</span>
+              <p>Built to evolve.<br /><span>Designed for what’s next.</span></p>
+            </figcaption>
+          </figure>
         </div>
       </div>
     </section>
