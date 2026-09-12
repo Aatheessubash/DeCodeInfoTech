@@ -251,3 +251,32 @@
     display: none;
   }
 }
+
+/* Fine orbital lines sit behind the content and never intercept interaction. */
+.heroSection::before,
+.heroSection::after {
+  content: '';
+  position: absolute;
+  pointer-events: none;
+  z-index: 1;
+  width: min(78vw, 980px);
+  aspect-ratio: 1;
+  border: 1px solid rgba(23, 23, 23, 0.055);
+  border-radius: 50%;
+  transform: rotateX(62deg) rotate(-24deg);
+}
+
+.heroSection::after {
+  width: min(92vw, 1160px);
+  transform: rotateX(62deg) rotate(24deg);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .heroSection::before { animation: orbitDrift 24s ease-in-out infinite alternate; }
+  .heroSection::after { animation: orbitDrift 30s ease-in-out infinite alternate-reverse; }
+}
+
+@keyframes orbitDrift {
+  from { transform: translateY(-12px) rotateX(62deg) rotate(-18deg); }
+  to { transform: translateY(12px) rotateX(58deg) rotate(18deg); }
+}

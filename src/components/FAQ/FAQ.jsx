@@ -37,14 +37,10 @@ export function FAQ() {
 
   return (
     <section id="faq" className="section-padding">
-      <div className="section-header reveal">
-        <div className="pill-badge">
-          <span className="badge-dot"></span>
-          Common Questions
-        </div>
-        <h2>Frequently Asked Questions</h2>
-        <p>
-          Everything you need to know about working with <strong>DeCode Studio</strong>.
+      <div className={styles.sectionHeader} data-motion="rise">
+        <h2 className={styles.heading}>Frequently Asked <span>Questions</span></h2>
+        <p className={styles.subheading}>
+          Everything you need to know about working with <strong>DeCode</strong>.
         </p>
       </div>
 

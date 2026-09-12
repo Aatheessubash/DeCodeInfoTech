@@ -28,7 +28,7 @@ export function Services() {
   return (
     <section id="services" className={styles.servicesSection} aria-labelledby="services-heading">
       <div className={styles.container}>
-      <div className={styles.sectionHeader}>
+      <div className={styles.sectionHeader} data-motion="rise">
         <h2 id="services-heading" className={styles.sectionHeading}>Technology That Moves Business <span>Forward</span></h2>
         <p className={styles.sectionSub}>
          At DeCode, we unite engineering, AI, and thoughtful design to create intelligent technology that scales with your business.

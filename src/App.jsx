@@ -6,6 +6,7 @@ import { Home } from './pages/Home';
 import { ErrorBoundary } from './components/shared/ErrorBoundary';
 import { ScrollToTop } from './components/shared/ScrollToTop';
 import { RouteSeo } from './components/shared/RouteSeo';
+import { MotionEffects } from './components/shared/MotionEffects';
 
 const NotFound = lazy(() => import('./pages/NotFound').then((module) => ({ default: module.NotFound })));
 const AdminDashboard = lazy(() => import('./components/Admin/AdminDashboard').then((module) => ({ default: module.AdminDashboard })));
@@ -189,6 +190,7 @@ export default function App() {
     <ErrorBoundary>
       <BrowserRouter>
         <RouteSeo />
+        <MotionEffects />
         <RouteEffects />
         <ScrollRevealObserver />
         <CursorGlow />

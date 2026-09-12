@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useData } from '../../context/useData';
 import styles from './Contact.module.css';
-import { Mail, MapPin, CheckCircle2, ShieldCheck, Zap, ArrowRight } from 'lucide-react';
+import { Mail, MapPin, ArrowRight } from 'lucide-react';
 
 function saveLeadLocally(formData) {
   try {
@@ -73,70 +73,36 @@ export function Contact() {
     }
   };
 
-  return (
-    <section id="contact" className={`section-padding ${styles.contactSection}`}>
-      <div className="section-header reveal">
-        <div className="pill-badge">
-          <span className="badge-dot"></span>
-          Start Your Project
-        </div>
-        <h2>Let's Build Something Exceptional</h2>
-        <p>
-          Ready to turn your vision into a high-performing digital product? Fill out the proposal form below and the <strong>DeCode</strong> team will get back to you within 24 hours.
-        </p>
+  const contactDetails = (
+    <div className={styles.directContact}>
+      <div className={styles.contactItem}>
+        <Mail className={styles.contactIcon} aria-hidden="true" />
+        <a href={`mailto:${siteContent?.contactEmail || 'contact@decodeinfotech.com'}`}>{siteContent?.contactEmail || 'contact@decodeinfotech.com'}</a>
       </div>
+      <div className={styles.contactItem}>
+        <MapPin className={styles.contactIcon} aria-hidden="true" />
+        <span>{siteContent?.contactLocation || 'Coimbatore, Tamil Nadu, India'}</span>
+      </div>
+    </div>
+  );
 
-      <div className={`${styles.mainWrapper} reveal delay-1`}>
-        {/* LEFT COLUMN: PARTNERSHIP DEAL / HANDSHAKE IMAGE & TRUST HIGHLIGHTS */}
-        <div className={styles.sideCol}>
-          <div className={styles.dealCard}>
-            <div className={styles.imageBox}>
-              <img
-                src="/assets/deal-handshake.jpg"
-                alt="Business partners sealing a project deal with a handshake"
-                className={styles.dealImg}
-                loading="lazy"
-              />
-              <div className={styles.imageOverlay}>
-                <span className={styles.dealBadge}>🤝 PARTNERSHIP &amp; DELIVERY</span>
-                <h3 className={styles.dealTitle}>Your Vision, Built Right.</h3>
-              </div>
-            </div>
-
-            <div className={styles.dealInfo}>
-              <div className={styles.perksList}>
-                <div className={styles.perkItem}>
-                  <CheckCircle2 className={styles.perkIcon} aria-hidden="true" />
-                  <span>24-Hour Response Guaranteed</span>
-                </div>
-                <div className={styles.perkItem}>
-                  <ShieldCheck className={styles.perkIcon} aria-hidden="true" />
-                  <span>Strict NDA &amp; IP Protection</span>
-                </div>
-                <div className={styles.perkItem}>
-                  <Zap className={styles.perkIcon} aria-hidden="true" />
-                  <span>Transparent Fixed or Milestone Pricing</span>
-                </div>
-              </div>
-
-              <div className={styles.directContact}>
-                <div className={styles.contactItem}>
-                  <Mail className={styles.contactIcon} aria-hidden="true" />
-                  <span>{siteContent?.contactEmail || 'contact@decodeinfotech.com'}</span>
-                </div>
-                <div className={styles.contactItem}>
-                  <MapPin className={styles.contactIcon} aria-hidden="true" />
-                  <span>{siteContent?.contactLocation || 'Tamil Nadu, India'}</span>
-                </div>
-              </div>
-            </div>
+  return (
+    <section id="contact" className={styles.contactSection} aria-labelledby="contact-heading">
+      <div className={styles.mainWrapper}>
+        <div className={styles.sideCol} data-motion="rise">
+          <div className={styles.intro}>
+            <h2 id="contact-heading" className={styles.heading}>Let's Build Something <span>Exceptional</span></h2>
+            <p className={styles.subheading}>
+              Ready to turn your vision into a high-performing digital product? Fill out the proposal form below and the <strong>DeCode</strong> team will get back to you within 24 hours.
+            </p>
           </div>
+          {contactDetails}
         </div>
 
         {/* RIGHT COLUMN: PROPOSAL REQUEST FORM */}
-        <div className={styles.formCol}>
+        <div className={styles.formCol} data-motion="rise">
           {formSubmitted ? (
-            <div className={styles.successBox}>
+            <div className={styles.successBox} role="status">
               <div className={styles.successIcon}>✓</div>
               <h3>Proposal Request Sent!</h3>
               <p>
@@ -155,6 +121,7 @@ export function Contact() {
                     type="text"
                     id="name"
                     name="name"
+                    autoComplete="name"
                     required
                     placeholder="John Doe"
                     value={formData.name}
@@ -169,6 +136,7 @@ export function Contact() {
                     type="email"
                     id="email"
                     name="email"
+                    autoComplete="email"
                     required
                     placeholder="john@example.com"
                     value={formData.email}
@@ -183,6 +151,7 @@ export function Contact() {
                     type="text"
                     id="company"
                     name="company"
+                    autoComplete="organization"
                     placeholder="Acme Corp"
                     value={formData.company}
                     onChange={handleChange}
@@ -223,7 +192,7 @@ export function Contact() {
               </div>
 
               {submitError && (
-                <div className={styles.errorBanner}>
+                <div className={styles.errorBanner} role="alert">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                     <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
                   </svg>

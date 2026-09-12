@@ -64,7 +64,7 @@ export function Process() {
   return (
     <section id="process" className={styles.processSection} aria-labelledby="process-heading">
       <div className={styles.container}>
-        <header className={styles.sectionHeader}>
+        <header className={styles.sectionHeader} data-motion="rise">
           <h2 id="process-heading" className={styles.sectionTitle}>
             A simple process.<br />
             <span>A better outcome.</span>
@@ -79,7 +79,7 @@ export function Process() {
           {PROCESS_STEPS.map((step) => {
             const Icon = step.icon;
             return (
-              <li key={step.number} className={styles.step}>
+              <li key={step.number} className={styles.step} data-motion="rise">
                 <div className={styles.stepHeader}>
                   <span className={styles.icon}><Icon size={22} strokeWidth={1.5} aria-hidden="true" /></span>
                 </div>

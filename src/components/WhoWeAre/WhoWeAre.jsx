@@ -6,7 +6,7 @@ export function WhoWeAre() {
     <section id="about" className={styles.section} aria-labelledby="about-heading">
       <div className={styles.container}>
         <div className={styles.grid}>
-          <div className={styles.copy}>
+          <div className={styles.copy} data-motion="rise">
             <h2 id="about-heading" className={styles.headline}>
               Building<br />what’s <span>next.</span>
             </h2>
@@ -29,7 +29,7 @@ export function WhoWeAre() {
             </a>
           </div>
 
-          <figure className={styles.visual}>
+          <figure className={styles.visual} data-motion="rise">
             <div className={styles.imageFrame}>
               <img
                 src="/assets/who-we-are.jpg"

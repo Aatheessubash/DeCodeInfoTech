@@ -50,7 +50,7 @@ export function Testimonial() {
 
   return (
     <section id="testimonials" className={styles.testimonialSection} aria-labelledby="testimonials-heading">
-      <div className={styles.sectionHeader}>
+      <div className={styles.sectionHeader} data-motion="rise">
         <h2 id="testimonials-heading" className={styles.heading}>
           Client Testimonials &amp; <span className={styles.highlight}>Feedback</span>
         </h2>

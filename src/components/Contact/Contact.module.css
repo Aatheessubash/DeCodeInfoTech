@@ -1,346 +1,156 @@
 .contactSection {
-  background-color: #FFFFFF;
-  position: relative;
+  padding: clamp(40px, 6vw, 80px) clamp(16px, 3vw, 32px);
+  background: #fafaf8;
+  color: #171717;
+  scroll-margin-top: 84px;
 }
-
 .mainWrapper {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
   max-width: 1240px;
   margin: 0 auto;
-  display: grid;
-  grid-template-columns: 0.95fr 1.05fr;
-  gap: 40px;
-  align-items: stretch;
+  border-top: 1px solid #dcdcd5;
+  padding-top: clamp(28px, 4vw, 48px);
+  gap: clamp(32px, 6vw, 80px);
 }
-
-@media (max-width: 960px) {
-  .mainWrapper {
-    grid-template-columns: 1fr;
-    gap: 36px;
-  }
-}
-
-/* LEFT COLUMN: DEAL & PARTNERSHIP CARD */
 .sideCol {
   display: flex;
-}
-
-.dealCard {
-  width: 100%;
-  background: #FFFFFF;
-  border-radius: var(--radius-card);
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  box-shadow: var(--shadow-card);
-  display: flex;
   flex-direction: column;
-  overflow: hidden;
-  transition: transform 300ms var(--ease-apple), box-shadow 300ms var(--ease-apple);
+  min-width: 0;
 }
-
-.dealCard:hover {
-  box-shadow: var(--shadow-lift);
+.introMark {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  margin-bottom: 28px;
+  border: 1px solid #d5d5cd;
+  border-radius: 50%;
+  font-size: 32px;
 }
-
-.imageBox {
-  position: relative;
-  width: 100%;
-  height: 260px;
-  overflow: hidden;
-}
-
-.dealImg {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-  transition: transform 400ms var(--ease-apple);
-}
-
-.dealCard:hover .dealImg {
-  transform: scale(1.03);
-}
-
-.imageOverlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(0deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.2) 60%, transparent 100%);
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: 20px 24px;
-}
-
-.dealBadge {
-  font-size: 0.72rem;
+.heading {
+  margin: 0 0 24px;
+  font-size: clamp(36px, 4.5vw, 62px);
   font-weight: 600;
-  letter-spacing: 0.06em;
-  color: #2997ff;
-  margin-bottom: 4px;
-  text-transform: uppercase;
+  line-height: 1.06;
+  letter-spacing: -0.05em;
 }
-
-.dealTitle {
-  font-size: 1.35rem;
-  font-weight: 700;
-  letter-spacing: -0.024em;
-  color: #FFFFFF;
-  line-height: 1.2;
+.heading span { color: #777770; }
+.subheading {
+  max-width: 440px;
+  margin: 0 0 36px;
+  color: #62625c;
+  font-size: 16px;
+  line-height: 1.7;
 }
-
-.dealInfo {
-  padding: 28px 24px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  flex-grow: 1;
-  gap: 24px;
-}
-
-.perksList {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
-.perkItem {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 0.92rem;
-  font-weight: 500;
-  color: var(--apple-dark);
-}
-
-.perkIcon {
-  width: 18px;
-  height: 18px;
-  color: var(--apple-blue);
-  flex-shrink: 0;
-}
-
 .directContact {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  padding-top: 20px;
-  border-top: 1px dashed rgba(0, 0, 0, 0.08);
+  gap: 18px;
+  margin-top: auto;
+  padding-top: 24px;
+  border-top: 1px solid #dcdcd5;
 }
-
 .contactItem {
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-size: 0.88rem;
-  color: var(--apple-gray);
+  gap: 14px;
+  font-size: 14px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
 }
-
-.contactIcon {
-  width: 16px;
-  height: 16px;
-  color: var(--apple-blue);
-  flex-shrink: 0;
-}
-
-/* RIGHT COLUMN: PROPOSAL FORM */
-.formCol {
-  display: flex;
-}
-
-.formCard {
-  width: 100%;
-  background: #FFFFFF;
-  border-radius: var(--radius-card);
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  padding: 36px 32px;
-  box-shadow: var(--shadow-card);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  transition: transform 300ms var(--ease-apple), box-shadow 300ms var(--ease-apple);
-}
-
-.formCard:hover {
-  box-shadow: var(--shadow-lift);
-}
-
-@media (max-width: 768px) {
-  .formCard {
-    padding: 28px 20px;
-    border-radius: 20px;
-  }
-}
-
-@media (max-width: 480px) {
-  .formCard {
-    padding: 22px 16px;
-    border-radius: 16px;
-  }
-}
-
+.contactItem a { color: #171717; text-decoration: none; min-width: 0; }
+.contactItem a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.contactIcon { width: 18px; height: 18px; flex-shrink: 0; color: #62625c; }
+.formCol { min-width: 0; display: flex; }
+.formCard { width: 100%; margin: 0; }
 .formGrid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px 24px;
 }
-
-@media (max-width: 640px) {
-  .formGrid {
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
-}
-
-.fieldGroup {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.fullWidth {
-  grid-column: 1 / -1;
-}
-
-.label {
-  font-size: 0.84rem;
-  font-weight: 600;
-  color: var(--apple-dark);
-  letter-spacing: -0.01em;
-}
-
-.input,
-.select,
-.textarea {
+.fieldGroup { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.fullWidth { grid-column: 1 / -1; }
+.label { font-size: 13px; font-weight: 600; color: #171717; }
+.input, .select, .textarea {
   width: 100%;
-  padding: 12px 16px;
-  border-radius: 12px;
-  background: rgba(0, 0, 0, 0.02);
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  color: var(--apple-dark);
-  font-size: 0.92rem;
-  font-family: inherit;
-  outline: none;
-  transition: all 200ms ease;
+  min-width: 0;
+  min-height: 48px;
+  padding: 12px 0;
+  border: 0;
+  border-bottom: 1px solid #bdbdb5;
+  border-radius: 0;
+  background: transparent;
+  color: #171717;
+  font: inherit;
+  font-size: 16px;
+  transition: border-color 180ms ease;
 }
-
-@media (max-width: 480px) {
-  .input,
-  .select,
-  .textarea {
-    padding: 11px 13px;
-    font-size: 0.88rem;
-    border-radius: 10px;
-  }
+.input::placeholder, .textarea::placeholder { color: #777770; }
+.input:focus, .select:focus, .textarea:focus {
+  outline: 2px solid #171717;
+  outline-offset: 4px;
+  border-bottom-color: #171717;
 }
-
-.input::placeholder,
-.textarea::placeholder {
-  color: #86868b;
-}
-
-.input:focus,
-.select:focus,
-.textarea:focus {
-  border-color: var(--apple-blue);
-  background: #FFFFFF;
-  box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.15);
-}
-
-.select {
-  cursor: pointer;
-  appearance: none;
-  -webkit-appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%230071e3' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 16px center;
-  padding-right: 44px;
-}
-
-.select option {
-  background-color: #FFFFFF;
-  color: var(--apple-dark);
-  padding: 10px;
-}
-
-.textarea {
-  min-height: 105px;
-  resize: vertical;
-  line-height: 1.5;
-}
-
-.submitBtn {
-  composes: btn-primary from global;
-  margin-top: 22px;
+.select { cursor: pointer; }
+.select option { background: #fff; color: #171717; }
+.textarea { min-height: 128px; resize: vertical; line-height: 1.6; }
+.formCard .submitBtn {
   width: 100%;
-}
-
-.successBox {
-  padding: 48px 32px;
-  border-radius: var(--radius-card);
-  background: #FFFFFF;
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  box-shadow: var(--shadow-card);
-  text-align: center;
-  color: var(--apple-dark);
-}
-
-@media (max-width: 480px) {
-  .successBox {
-    padding: 32px 18px;
-  }
-}
-
-.successIcon {
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  background: var(--apple-blue);
-  color: #FFFFFF;
-  font-size: 1.6rem;
-  font-weight: 700;
+  min-height: 52px;
+  margin-top: 32px;
+  padding: 14px 20px;
+  border-radius: 8px;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 20px auto;
-  box-shadow: 0 4px 16px rgba(0, 113, 227, 0.3);
+  justify-content: space-between;
+  gap: 16px;
+  text-align: left;
 }
-
-.successBox h3 {
-  font-size: 1.5rem;
-  font-weight: 700;
-  letter-spacing: -0.03em;
-  margin-bottom: 12px;
-  color: var(--apple-dark);
-}
-
-.successBox p {
-  font-size: 1.02rem;
-  color: var(--apple-gray);
-  max-width: 520px;
-  margin: 0 auto 28px auto;
-  line-height: 1.6;
-}
-
+.submitBtn svg { flex-shrink: 0; }
+.submitBtn:disabled { opacity: 0.55; cursor: wait; }
 .errorBanner {
+  margin-top: 20px;
+  padding: 14px;
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-top: 18px;
-  padding: 12px 16px;
-  border-radius: 12px;
-  background: rgba(239, 68, 68, 0.08);
-  border: 1px solid rgba(239, 68, 68, 0.25);
-  color: #b91c1c;
-  font-size: 0.88rem;
-  font-weight: 500;
-  line-height: 1.4;
+  color: #a12626;
+  border: 1px solid #e7baba;
+  border-radius: 8px;
+  font-size: 14px;
 }
-
-.errorBanner svg {
-  flex-shrink: 0;
-  color: #ef4444;
+.errorBanner svg { flex-shrink: 0; }
+.successBox {
+  align-self: center;
+  width: 100%;
+  padding: clamp(24px, 4vw, 48px);
+  background: #fff;
+  border: 1px solid #dcdcd5;
+  border-radius: 16px;
+  overflow-wrap: anywhere;
 }
-
-.submitBtn:disabled {
-  opacity: 0.55;
-  cursor: not-allowed;
-  pointer-events: none;
+.successIcon {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #171717;
+  color: #fff;
+  font-size: 24px;
+  margin-bottom: 24px;
+}
+.successBox h3 { margin: 0 0 16px; font-size: 26px; letter-spacing: -0.03em; }
+.successBox p { margin: 0 0 24px; line-height: 1.7; color: #62625c; }
+.contactItem a:focus-visible { outline: 2px solid #171717; outline-offset: 4px; }
+@media (max-width: 800px) {
+  .mainWrapper { grid-template-columns: minmax(0, 1fr); gap: 36px; }
+  .subheading { max-width: 600px; }
+  .directContact { padding-bottom: 28px; border-bottom: 1px solid #dcdcd5; }
+}
+@media (max-width: 480px) {
+  .formGrid { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .input, .select, .textarea { transition: none; }
 }

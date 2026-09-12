@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Compass, Laptop, Code2, BookOpen, Target, Users } from 'lucide-react';
 import { useData } from '../../context/useData';
 import styles from './Careers.module.css';
 
@@ -81,12 +82,12 @@ export function Careers() {
   ];
 
   const perks = [
-    { icon: '✦', title: 'Competitive Salary', desc: 'Above-market compensation with performance bonuses and annual growth reviews.' },
-    { icon: '⚡', title: 'Remote & Hybrid Flexibility', desc: 'Work from home or from our hub with flexible hours focused on real output.' },
-    { icon: '⚙', title: 'Modern Tech Stack', desc: 'No legacy debt. We use React, Next.js, Node.js, Vite, and leading cloud tooling.' },
-    { icon: '◈', title: 'Continuous Growth', desc: 'Stipends for courses, technical books, and conferences to sharpen your skills.' },
-    { icon: '⬡', title: 'High Impact Work', desc: 'Build scalable products directly for real businesses, startups, and enterprises.' },
-    { icon: '❖', title: 'Great Work Culture', desc: 'Collaborative, zero-micromanagement environment with friendly engineering leaders.' },
+    { icon: Laptop, title: 'Remote & Hybrid Flexibility', desc: 'Work from home or from our hub with flexible hours focused on real output.' },
+    { icon: BookOpen, title: 'Continuous Growth', desc: 'Stipends for courses, technical books, and conferences to sharpen your skills.' },
+    { icon: Compass, title: 'Ownership & Autonomy', desc: 'Take ownership of your work, contribute ideas, and help shape the products you build.' },
+    { icon: Target, title: 'High Impact Work', desc: 'Build scalable products directly for real businesses, startups, and enterprises.' },
+    { icon: Users, title: 'Great Work Culture', desc: 'Collaborative, zero-micromanagement environment with friendly engineering leaders.' },
+    { icon: Code2, title: 'Modern Tech Stack', desc: 'No legacy debt. We use React, Next.js, Node.js, Vite, and leading cloud tooling.' },
   ];
 
   const { addJobApplication, jobPostings } = useData();
@@ -147,13 +148,9 @@ export function Careers() {
   return (
     <section id="careers" className={`glow-bg section-padding ${styles.careersSection}`}>
       {/* Header */}
-      <div className="section-header reveal">
-        <div className="pill-badge">
-          <span className="badge-dot"></span>
-          Careers at DeCode
-        </div>
+      <div className={styles.careerIntro} data-motion="rise">
         <h2 className={styles.heroHeadline}>
-          Build Great Digital Products With Us
+          Build Great Digital Products <span>With Us</span>
         </h2>
         <p className={styles.heroSubtext}>
           At <strong>DeCode Studio</strong>, we design and engineer modern web applications for ambitious companies. Join our team and do the best work of your career.
@@ -162,8 +159,8 @@ export function Careers() {
 
       {/* Why Work With Us */}
       <div className={styles.perksSection}>
-        <div style={{ textAlign: 'center', marginBottom: '40px' }}>
-          <h3 className={styles.sectionTitle}>
+        <div className={styles.perksIntro}>
+          <h3 className={styles.perksHeading}>
             Why Engineers &amp; Designers Love DeCode
           </h3>
           <p className={styles.sectionSubtitle}>
@@ -171,23 +168,22 @@ export function Careers() {
           </p>
         </div>
         <div className={styles.perksGrid}>
-          {perks.map((perk, i) => (
-            <div key={i} className={`card-panel ${styles.perkCard} reveal delay-${(i % 3) + 1}`}>
-              <div className={styles.perkIcon}>{perk.icon}</div>
+          {perks.map((perk) => {
+            const Icon = perk.icon;
+            return (
+            <div key={perk.title} className={styles.perkCard} data-motion="rise">
+              <div className={styles.perkIcon}><Icon size={22} strokeWidth={1.5} aria-hidden="true" /></div>
               <h4 className={styles.perkTitle}>{perk.title}</h4>
               <p className={styles.perkDesc}>{perk.desc}</p>
             </div>
-          ))}
+            );
+          })}
         </div>
       </div>
 
       {/* Open Positions */}
       <div style={{ marginTop: '56px' }}>
         <div style={{ textAlign: 'center', marginBottom: '40px' }}>
-          <div className="pill-badge" style={{ marginBottom: '12px' }}>
-            <span className="badge-dot"></span>
-            Current Openings
-          </div>
           <h3 className={styles.sectionTitle}>Explore Open Roles</h3>
         </div>
 
@@ -359,4 +355,3 @@ export function Careers() {
 }
 
 export default Careers;
-
