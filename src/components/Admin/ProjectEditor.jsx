@@ -5,9 +5,6 @@ import styles from './ProjectEditor.module.css';
 
 export function ProjectEditor({ project, onChange, onSave, onCancel }) {
   const uploadId = useId();
-  const [imageUrl, setImageUrl] = useState(
-    project.image?.startsWith('data:') ? '' : project.image || '',
-  );
   const [techInput, setTechInput] = useState(project.tech?.join(', ') || '');
   const [isProcessing, setIsProcessing] = useState(false);
   const [uploadMessage, setUploadMessage] = useState('');
@@ -25,7 +22,6 @@ export function ProjectEditor({ project, onChange, onSave, onCancel }) {
     try {
       const result = await optimizeProjectImage(file);
       onChange({ ...project, image: result.dataUrl });
-      setImageUrl('');
       setUploadMessage(
         `Ready · ${result.width} × ${result.height} · ${formatFileSize(result.size)} WebP`,
       );
@@ -175,24 +171,23 @@ export function ProjectEditor({ project, onChange, onSave, onCancel }) {
             </label>
           </div>
 
-          <div className={styles.divider}><span>or use a URL</span></div>
+          <div className={styles.divider}><span>or choose from assets</span></div>
 
           <label className={styles.field}>
-            <span>Screenshot URL</span>
+            <span>Screenshot Path / Asset</span>
             <input
-              type="url"
-              value={imageUrl}
+              type="text"
+              value={project.image || ''}
               onChange={(event) => {
-                setImageUrl(event.target.value);
                 update('image', event.target.value);
                 setUploadError('');
                 setUploadMessage('');
               }}
-              placeholder="https://…/screenshot.jpg"
+              placeholder="/assets/portfolio-1.jpg or https://…"
             />
           </label>
 
-          <p className={styles.mediaHint}>For the best carousel crop, use a 16:10 landscape screenshot.</p>
+          <p className={styles.mediaHint}>Tip: You can copy any path from the Media &amp; Assets tab and paste it here.</p>
           {uploadMessage && <p className={styles.successMessage} role="status">{uploadMessage}</p>}
           {uploadError && <p className={styles.errorMessage} role="alert">{uploadError}</p>}
         </aside>

@@ -59,6 +59,28 @@
   --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* ==========================================================================
+   HIDE SCROLLBAR GLOBALLY (Preserving Seamless Scroll Functionality)
+   ========================================================================== */
+
+/* Firefox & Standard */
+html, body, * {
+  scrollbar-width: none !important;
+}
+
+/* Chrome, Safari, Edge, Opera (WebKit) */
+::-webkit-scrollbar {
+  display: none !important;
+  width: 0px !important;
+  height: 0px !important;
+  background: transparent !important;
+}
+
+/* IE / Edge legacy */
+html, body {
+  -ms-overflow-style: none !important;
+}
+
 /* Reset & Base */
 *, *::before, *::after {
   box-sizing: border-box;

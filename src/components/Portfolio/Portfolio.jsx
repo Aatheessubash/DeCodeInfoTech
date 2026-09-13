@@ -1,122 +1,63 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { ArrowLeft, ArrowRight } from 'lucide-react';
+import React from 'react';
 import { useData } from '../../context/useData';
 import styles from './Portfolio.module.css';
 
 export function Portfolio() {
   const { projects } = useData();
-  const [activeIndex, setActiveIndex] = useState(0);
-  const pointerStart = useRef(null);
-
-  useEffect(() => {
-    if (activeIndex >= (projects?.length || 0)) setActiveIndex(0);
-  }, [activeIndex, projects?.length]);
 
   if (!projects?.length) return null;
-
-  const activeProject = projects[activeIndex];
-  const goToProject = (index) => {
-    setActiveIndex((index + projects.length) % projects.length);
-  };
-
-  const handleKeyDown = (event) => {
-    if (event.key === 'ArrowLeft') goToProject(activeIndex - 1);
-    if (event.key === 'ArrowRight') goToProject(activeIndex + 1);
-  };
-
-  const handlePointerUp = (event) => {
-    if (pointerStart.current === null) return;
-    const distance = event.clientX - pointerStart.current;
-    pointerStart.current = null;
-
-    if (Math.abs(distance) < 48) return;
-    goToProject(activeIndex + (distance < 0 ? 1 : -1));
-  };
 
   return (
     <section id="projects" className={`section-padding ${styles.section}`}>
       <span id="work" aria-hidden="true" style={{ position: 'absolute', top: 0 }} />
-      <div className={styles.sectionHeader} data-motion="rise">
-        <h2 className={styles.sectionHeading}>Live Products Built for <span>Real Businesses</span></h2>
-        <p className={styles.sectionSub}>
-          Explore client platforms designed and developed by <strong>DeCode</strong> across education,
-          construction, healthcare, and hospitality.
-        </p>
-      </div>
-
-      <div className={`${styles.showcase} reveal delay-2`}>
-        <button
-          type="button"
-          className={`${styles.navButton} ${styles.previousButton}`}
-          onClick={() => goToProject(activeIndex - 1)}
-          aria-label="Show previous project"
-        >
-          <ArrowLeft size={19} aria-hidden="true" />
-        </button>
-
-        <div
-          className={styles.viewport}
-          role="region"
-          aria-roledescription="carousel"
-          aria-label="Client projects"
-          tabIndex="0"
-          onKeyDown={handleKeyDown}
-          onPointerDown={(event) => {
-            if (event.pointerType !== 'mouse' || event.button === 0) pointerStart.current = event.clientX;
-          }}
-          onPointerUp={handlePointerUp}
-          onPointerCancel={() => { pointerStart.current = null; }}
-        >
-          <article className={styles.project} key={activeProject.id || activeIndex}>
-            <img
-              className={styles.preview}
-              src={activeProject.image}
-              alt={`${activeProject.title} website preview`}
-              loading="eager"
-              fetchPriority="high"
-              decoding="async"
-            />
-            <div className={styles.overlay}>
-              <div className={styles.copy}>
-                <span className={styles.category}>{activeProject.category}</span>
-                <h3>{activeProject.title}</h3>
-                <p>{activeProject.problem}</p>
-              </div>
-
-              <div className={styles.projectFooter}>
-                <div className={styles.tags} aria-label="Project technologies">
-                  {activeProject.tech?.map((tag) => <span key={tag}>{tag}</span>)}
-                </div>
-              </div>
-            </div>
-          </article>
+      <div className={styles.panel}>
+        <div className={styles.sectionHeader} data-motion="rise">
+          <h2 className={styles.sectionHeading}>Measurable Digital Products for <span>Real Businesses</span></h2>
+          <p className={styles.sectionSub}>
+            Client platforms designed by <strong>DeCode</strong> to improve visibility, workflows,
+            enquiries, and customer experience across industries.
+          </p>
         </div>
 
-        <button
-          type="button"
-          className={`${styles.navButton} ${styles.nextButton}`}
-          onClick={() => goToProject(activeIndex + 1)}
-          aria-label="Show next project"
-        >
-          <ArrowRight size={19} aria-hidden="true" />
-        </button>
-      </div>
+        <div className={`${styles.carouselViewport} reveal delay-2`} role="region" aria-label="Project cards">
+          <div className={styles.scrollTrack} style={{ '--duration': `${Math.max(projects.length, 4) * 7}s` }}>
+            {[0, 1].map((copy) => (
+              <div key={copy} className={styles.projectGroup} aria-hidden={copy === 1 ? true : undefined}>
+                {projects.map((project, projectIndex) => {
+                  const cardIndex = projectIndex % 3;
 
-      <div className={styles.pagination}>
-        <span className={styles.counter} aria-live="polite">
-          {String(activeIndex + 1).padStart(2, '0')} / {String(projects.length).padStart(2, '0')}
-        </span>
-        <div className={styles.dots} aria-label="Choose a project">
-          {projects.map((project, index) => (
-            <button
-              type="button"
-              key={project.id || index}
-              className={index === activeIndex ? styles.activeDot : ''}
-              onClick={() => goToProject(index)}
-              aria-label={`Show ${project.title}`}
-              aria-current={index === activeIndex ? 'true' : undefined}
-            />
-          ))}
+                  return (
+                    <article
+                      className={`${styles.projectCard} ${cardIndex === 1 ? styles.featuredCard : ''}`}
+                      key={`${copy}-${project.id}`}
+                      style={{ '--card-delay': `${cardIndex * 90}ms` }}
+                    >
+                      <div className={styles.cardTop}>
+                        <div>
+                          <h3>{project.title}</h3>
+                          <p>{project.category}</p>
+                        </div>
+                      </div>
+
+                      <div className={styles.imageStack} aria-hidden="true">
+                        <span />
+                        <span />
+                      </div>
+
+                      <img
+                        className={styles.preview}
+                        src={project.image}
+                        alt={`${project.title} website preview`}
+                        loading={projectIndex === 0 ? 'eager' : 'lazy'}
+                        fetchPriority={projectIndex === 0 ? 'high' : 'auto'}
+                        decoding="async"
+                      />
+                    </article>
+                  );
+                })}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>

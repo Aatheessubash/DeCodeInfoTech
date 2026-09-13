@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
+import { useData } from '../../context/useData';
 import styles from './Navbar.module.css';
 
 const SECTION_IDS = [
@@ -18,6 +19,7 @@ const SECTION_IDS = [
 ];
 
 export function Navbar() {
+  const { siteContent } = useData();
   const navigate = useNavigate();
   const location = useLocation();
   const [isScrolled, setIsScrolled] = useState(() => window.scrollY > 20);
@@ -85,13 +87,24 @@ export function Navbar() {
     setMobileMenuOpen(false);
 
     if (location.pathname !== '/') {
-      navigate(`/#${id}`);
+      navigate('/');
+      setTimeout(() => {
+        const el = document.getElementById(id);
+        if (el) {
+          const headerOffset = 56;
+          const elementPosition = el.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth',
+          });
+        }
+      }, 100);
       return;
     }
 
     if (id === 'home') {
       window.scrollTo({ top: 0, behavior: 'smooth' });
-      window.history.pushState(null, '', '/');
       setActiveSection('home');
       return;
     }
@@ -106,7 +119,6 @@ export function Navbar() {
         top: offsetPosition,
         behavior: 'smooth',
       });
-      window.history.pushState(null, '', `#${id}`);
       setActiveSection(id);
     }
   }, [location.pathname, navigate]);
@@ -125,12 +137,12 @@ export function Navbar() {
           type="button"
           onClick={() => scrollToSection('home')}
           className={styles.logoLink}
-          aria-label="DeCode home"
+          aria-label={`${siteContent?.agencyName || 'DeCode'} home`}
           style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
         >
           <img
-            src="/DeCode_Logo.png"
-            alt="DeCode InfoTech"
+            src={siteContent?.logoUrl || '/DeCode_Logo.png'}
+            alt={siteContent?.agencyName || 'DeCode InfoTech'}
             className={styles.logoImg}
             width="707"
             height="353"

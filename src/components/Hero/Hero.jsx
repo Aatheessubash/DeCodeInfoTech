@@ -1,7 +1,7 @@
 import React from 'react';
 import { useData } from '../../context/useData';
 import styles from './Hero.module.css';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, ArrowUpRight } from 'lucide-react';
 
 export function Hero() {
   const { siteContent } = useData();
@@ -16,7 +16,6 @@ export function Hero() {
         top: offsetPosition,
         behavior: 'smooth',
       });
-      window.history.pushState(null, '', `#${id}`);
     }
   };
 
@@ -24,8 +23,9 @@ export function Hero() {
     <section id="home" className={styles.heroSection}>
       <div className={styles.videoWrapper} aria-hidden="true">
         <video
+          key={siteContent?.heroVideoUrl || '/sample.mp4'}
           className={styles.videoBackground}
-          src="/sample.mp4"
+          src={siteContent?.heroVideoUrl || '/sample.mp4'}
           autoPlay
           loop
           muted
@@ -37,18 +37,23 @@ export function Hero() {
 
       <div className={styles.container}>
         <div className={styles.content}>
-          {/* Eyebrow Live Status Badge */}
-          {/* <div className={`${styles.badgeWrapper} reveal delay-1`}>
-            <div className="pill-badge">
-              <span className={styles.pulseDot} aria-hidden="true" />
-              <span>{siteContent?.heroEyebrow || 'FULL-STACK & AI PRODUCT STUDIO'}</span>
-            </div>
-          </div> */}
-
           {/* Main Hero Headline */}
           <h1 className={`${styles.headline} reveal delay-2`}>
-            Decoding the Future of <br className={styles.breakOnDesktop} />
-            <span className="text-purple">Digital Innovation.</span>
+            {siteContent?.heroHeadline ? (
+              siteContent.heroHeadline.includes('Digital Innovation') ? (
+                <>
+                  {siteContent.heroHeadline.replace(/Digital Innovation\.?/i, '')} <br className={styles.breakOnDesktop} />
+                  <span className="text-purple">Digital Innovation.</span>
+                </>
+              ) : (
+                siteContent.heroHeadline
+              )
+            ) : (
+              <>
+                Decoding the Future of <br className={styles.breakOnDesktop} />
+                <span className="text-purple">Digital Innovation.</span>
+              </>
+            )}
           </h1>
 
           {/* Subtext */}
@@ -67,12 +72,14 @@ export function Hero() {
               <span>{siteContent?.heroPrimaryCta || 'Start A Project'}</span>
               <ArrowRight size={18} aria-hidden="true" />
             </button>
-            <a
-              href="#services"
+            <button
+              type="button"
+              onClick={() => scrollTo('services')}
               className={styles.secondaryCta}
             >
-              Explore our services <span aria-hidden="true">↗</span>
-            </a>
+              <span>{siteContent?.heroSecondaryCta || 'Explore our services'}</span>
+              <ArrowUpRight size={18} strokeWidth={1.5} className={styles.ctaArrow} aria-hidden="true" />
+            </button>
           </div>
 
           {/* Social Proof & Trust Strip */}

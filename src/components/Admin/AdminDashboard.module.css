@@ -572,8 +572,30 @@
   font-weight: 750;
 }
 
-.fullWidth {
+.sectionDivider {
   grid-column: 1 / -1;
+  margin-top: 24px;
+  padding-top: 18px;
+  border-top: 1px solid #e2e8f0;
+}
+
+.sectionDivider:first-of-type {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: none;
+}
+
+.sectionDivider h4 {
+  margin: 0 0 4px;
+  color: #111c31;
+  font-size: 1.05rem;
+  font-weight: 800;
+}
+
+.sectionDivider p {
+  margin: 0 0 14px;
+  color: #64748b;
+  font-size: 0.78rem;
 }
 
 .input {

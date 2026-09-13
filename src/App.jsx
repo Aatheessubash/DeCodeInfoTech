@@ -9,6 +9,7 @@ import { RouteSeo } from './components/shared/RouteSeo';
 import { MotionEffects } from './components/shared/MotionEffects';
 
 const NotFound = lazy(() => import('./pages/NotFound').then((module) => ({ default: module.NotFound })));
+const CareersPage = lazy(() => import('./pages/CareersPage').then((module) => ({ default: module.CareersPage })));
 const AdminDashboard = lazy(() => import('./components/Admin/AdminDashboard').then((module) => ({ default: module.AdminDashboard })));
 
 /* ===========================================================
@@ -216,7 +217,7 @@ export default function App() {
                 <Route path="/industries" element={<Navigate to="/#industries" replace />} />
                 <Route path="/testimonials" element={<Navigate to="/#testimonials" replace />} />
                 <Route path="/team" element={<Navigate to="/#about" replace />} />
-                <Route path="/careers" element={<Navigate to="/#careers" replace />} />
+                <Route path="/careers" element={<PageTransition><CareersPage /></PageTransition>} />
                 <Route path="/faq" element={<Navigate to="/#faq" replace />} />
                 <Route path="/contact" element={<Navigate to="/#contact" replace />} />
 

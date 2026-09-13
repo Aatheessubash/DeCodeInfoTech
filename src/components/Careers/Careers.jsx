@@ -1,357 +1,39 @@
-import React, { useState, useEffect } from 'react';
-import { Compass, Laptop, Code2, BookOpen, Target, Users } from 'lucide-react';
-import { useData } from '../../context/useData';
+﻿import React from 'react';
+import { Link } from 'react-router-dom';
+import { ArrowUpRight, ArrowRight } from 'lucide-react';
 import styles from './Careers.module.css';
 
 export function Careers() {
-  const [selectedJob, setSelectedJob] = useState(null);
-  const [formSubmitted, setFormSubmitted] = useState(false);
-  const [submitting, setSubmitting] = useState(false);
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    portfolio: '',
-    experience: '2-4 years',
-    coverLetter: '',
-  });
-
-  const defaultOpenPositions = [
-    {
-      id: 'job-1',
-      title: 'Senior Full Stack Developer',
-      department: 'Engineering',
-      location: 'Hybrid / Remote',
-      type: 'Full Time',
-      experience: '3+ Years',
-      icon: '⚡',
-      summary: 'Build high-performance web applications using React.js, Node.js, Express, and modern cloud deployment pipelines.',
-      requirements: [
-        'Strong expertise in React, JavaScript (ES6+), and Node.js REST APIs',
-        'Experience with database schema design (MongoDB, PostgreSQL, or Supabase)',
-        'Familiarity with DevOps workflows, Docker, and CI/CD pipelines',
-        'Passion for writing clean, modular, and maintainable code',
-      ],
-    },
-    {
-      id: 'job-2',
-      title: 'UI/UX Product Designer',
-      department: 'Design',
-      location: 'Remote',
-      type: 'Full Time',
-      experience: '2+ Years',
-      icon: '✦',
-      summary: 'Craft high-converting, aesthetically stunning user interfaces and micro-animations for enterprise and startup clients.',
-      requirements: [
-        'Proficiency in Figma, design systems, wireframing, and interactive prototyping',
-        'Strong understanding of modern visual aesthetics, typography, and contrast',
-        'Ability to collaborate directly with frontend engineers for pixel-perfect delivery',
-        'Solid portfolio demonstrating real-world Web & Mobile UX designs',
-      ],
-    },
-    {
-      id: 'job-3',
-      title: 'Frontend Web Specialist',
-      department: 'Engineering',
-      location: 'Remote',
-      type: 'Full Time',
-      experience: '2+ Years',
-      icon: '❖',
-      summary: 'Specialize in building ultra-fast responsive user interfaces, animations, and Core Web Vitals optimization.',
-      requirements: [
-        'Mastery of HTML5, CSS3, Tailwind, Framer Motion, and CSS Modules',
-        'Deep knowledge of React state management and component architecture',
-        'Experience with cross-browser performance tuning and SEO best practices',
-      ],
-    },
-    {
-      id: 'job-4',
-      title: 'DevOps & Cloud Engineer',
-      department: 'Infrastructure',
-      location: 'Remote',
-      type: 'Full Time / Contract',
-      experience: '3+ Years',
-      icon: '⬡',
-      summary: 'Manage automated GitHub Actions CI/CD pipelines, Docker containerization, and AWS/Vercel cloud infrastructure.',
-      requirements: [
-        'Hands-on experience with Docker, Kubernetes, Nginx, and Linux server admin',
-        'Experience setting up automated build & deployment workflows',
-        'Knowledge of cloud security, SSL setup, and infrastructure monitoring',
-      ],
-    },
-  ];
-
-  const perks = [
-    { icon: Laptop, title: 'Remote & Hybrid Flexibility', desc: 'Work from home or from our hub with flexible hours focused on real output.' },
-    { icon: BookOpen, title: 'Continuous Growth', desc: 'Stipends for courses, technical books, and conferences to sharpen your skills.' },
-    { icon: Compass, title: 'Ownership & Autonomy', desc: 'Take ownership of your work, contribute ideas, and help shape the products you build.' },
-    { icon: Target, title: 'High Impact Work', desc: 'Build scalable products directly for real businesses, startups, and enterprises.' },
-    { icon: Users, title: 'Great Work Culture', desc: 'Collaborative, zero-micromanagement environment with friendly engineering leaders.' },
-    { icon: Code2, title: 'Modern Tech Stack', desc: 'No legacy debt. We use React, Next.js, Node.js, Vite, and leading cloud tooling.' },
-  ];
-
-  const { addJobApplication, jobPostings } = useData();
-
-  const openPositions = (jobPostings && jobPostings.length > 0 ? jobPostings : defaultOpenPositions).map((job) => ({
-    ...job,
-    icon: job.icon || (job.department || 'JB').slice(0, 2).toUpperCase(),
-    requirements: Array.isArray(job.requirements) ? job.requirements : [],
-  }));
-
-  useEffect(() => {
-    if (!selectedJob) return undefined;
-
-    const previousOverflow = document.body.style.overflow;
-    const handleKeyDown = (event) => {
-      if (event.key === 'Escape') setSelectedJob(null);
-    };
-
-    document.body.style.overflow = 'hidden';
-    document.addEventListener('keydown', handleKeyDown);
-
-    return () => {
-      document.body.style.overflow = previousOverflow;
-      document.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [selectedJob]);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setSubmitting(true);
-    const payload = {
-      ...formData,
-      jobTitle: selectedJob?.title || 'General Application',
-    };
-
-    if (addJobApplication) {
-      addJobApplication(payload);
-    }
-
-    try {
-      const endpoint = import.meta.env.VITE_API_URL
-        ? `${import.meta.env.VITE_API_URL.replace(/\/$/, '')}/api/careers`
-        : '/api/careers';
-
-      await fetch(endpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      });
-    } catch {
-      console.info('Saved application to CMS state.');
-    } finally {
-      setSubmitting(false);
-      setFormSubmitted(true);
-    }
-  };
-
   return (
-    <section id="careers" className={`glow-bg section-padding ${styles.careersSection}`}>
-      {/* Header */}
-      <div className={styles.careerIntro} data-motion="rise">
-        <h2 className={styles.heroHeadline}>
-          Build Great Digital Products <span>With Us</span>
-        </h2>
-        <p className={styles.heroSubtext}>
-          At <strong>DeCode Studio</strong>, we design and engineer modern web applications for ambitious companies. Join our team and do the best work of your career.
-        </p>
-      </div>
-
-      {/* Why Work With Us */}
-      <div className={styles.perksSection}>
-        <div className={styles.perksIntro}>
-          <h3 className={styles.perksHeading}>
-            Why Engineers &amp; Designers Love DeCode
-          </h3>
-          <p className={styles.sectionSubtitle}>
-            We build an environment where people thrive, learn, and take pride in their craft.
-          </p>
-        </div>
-        <div className={styles.perksGrid}>
-          {perks.map((perk) => {
-            const Icon = perk.icon;
-            return (
-            <div key={perk.title} className={styles.perkCard} data-motion="rise">
-              <div className={styles.perkIcon}><Icon size={22} strokeWidth={1.5} aria-hidden="true" /></div>
-              <h4 className={styles.perkTitle}>{perk.title}</h4>
-              <p className={styles.perkDesc}>{perk.desc}</p>
-            </div>
-            );
-          })}
-        </div>
-      </div>
-
-      {/* Open Positions */}
-      <div style={{ marginTop: '56px' }}>
-        <div style={{ textAlign: 'center', marginBottom: '40px' }}>
-          <h3 className={styles.sectionTitle}>Explore Open Roles</h3>
-        </div>
-
-        {openPositions.length === 0 ? (
-          <div className={`card-panel ${styles.emptyJobs}`}>
-            <h4>No Open Roles Right Now</h4>
-            <p>We are not actively hiring today, but you can still reach us through the contact section for future opportunities.</p>
+    <section id="careers" className={styles.careersSection} aria-labelledby="careers-title">
+      <div className={styles.container}>
+        <div className={styles.intro}>
+          <div className={styles.copy}>
+            <div className={styles.eyebrow}><span /> CAREERS AT DECODE</div>
+            <h2 id="careers-title" className={styles.headline}>Great work starts<br />with <span>great people.</span></h2>
+            <p className={styles.description}>Curious minds. Thoughtful makers. People who care.<br className={styles.desktopBreak} /> Help us build what comes next, together.</p>
+            <Link to="/careers" className={`btn-primary ${styles.primaryLink}`}>Explore open roles <ArrowUpRight size={18} aria-hidden="true" /></Link>
+            <p className={styles.caption}>Your next chapter, built at DeCode.</p>
           </div>
-        ) : (
-          <div className={styles.jobsGrid}>
-            {openPositions.map((job) => (
-              <div key={job.id} className={`card-panel ${styles.jobCard} reveal`}>
-                <div className={styles.jobHeader}>
-                  <div>
-                    <div className={styles.jobMeta}>
-                      <span className={styles.jobDepartment}>{job.department}</span>
-                      <span className={styles.jobLocation}>{job.location} • {job.type}</span>
-                    </div>
-                    <h4 className={styles.jobTitle}>{job.title}</h4>
-                  </div>
-                  <button
-                    type="button"
-                    className="btn-primary"
-                    onClick={() => {
-                      setSelectedJob(job);
-                      setFormSubmitted(false);
-                    }}
-                  >
-                    Apply For Role
-                  </button>
-                </div>
 
-                <p className={styles.jobSummary}>{job.summary}</p>
-
-                {job.requirements && job.requirements.length > 0 && (
-                  <div>
-                    <h5 className={styles.reqHeader}>Key Requirements:</h5>
-                    <ul className={styles.reqList}>
-                      {job.requirements.map((req, idx) => (
-                        <li key={idx} className={styles.reqItem}>
-                          <span className={styles.reqCheck}>✓</span>
-                          <span>{req}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
-
-      {/* Application Modal */}
-      {selectedJob && (
-        <div className={styles.modalBackdrop} onClick={() => setSelectedJob(null)} role="presentation">
-          <div
-            className={styles.modalContent}
-            onClick={(e) => e.stopPropagation()}
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="career-dialog-title"
-          >
-            <button
-              type="button"
-              className={styles.closeBtn}
-              onClick={() => setSelectedJob(null)}
-              aria-label="Close application form"
-            >
-              ✕
-            </button>
-
-            {formSubmitted ? (
-              <div style={{ textAlign: 'center', padding: '20px 0' }}>
-                <div className={styles.successIcon}>✓</div>
-                <h4 id="career-dialog-title" className={styles.modalTitle}>
-                  Application Received!
-                </h4>
-                <p className={styles.jobSummary} style={{ marginBottom: '24px' }}>
-                  Thank you <strong>{formData.name}</strong>. Your application for <strong>{selectedJob.title}</strong> has been submitted. Our engineering leads will review your details and respond via email within 48 hours.
-                </p>
-                <button type="button" className="btn-primary" onClick={() => setSelectedJob(null)}>
-                  Close Window
-                </button>
-              </div>
-            ) : (
-              <form onSubmit={handleSubmit}>
-                <div className="pill-badge" style={{ marginBottom: '8px' }}>
-                  <span className="badge-dot"></span>
-                  Applying for {selectedJob.title}
-                </div>
-                <h4 id="career-dialog-title" className={styles.modalTitle} style={{ marginBottom: '20px' }}>
-                  Submit Your Candidate Application
-                </h4>
-
-                <div className={styles.formGroup}>
-                  <div>
-                    <label htmlFor="career-name" className={styles.label}>Full Name *</label>
-                    <input
-                      id="career-name"
-                      name="name"
-                      type="text"
-                      required
-                      placeholder="Jane Doe"
-                      value={formData.name}
-                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      className={styles.input}
-                      autoFocus
-                    />
-                  </div>
-
-                  <div>
-                    <label htmlFor="career-email" className={styles.label}>Email Address *</label>
-                    <input
-                      id="career-email"
-                      name="email"
-                      type="email"
-                      required
-                      placeholder="jane@example.com"
-                      value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className={styles.input}
-                    />
-                  </div>
-
-                  <div>
-                    <label htmlFor="career-portfolio" className={styles.label}>Portfolio / GitHub URL *</label>
-                    <input
-                      id="career-portfolio"
-                      name="portfolio"
-                      type="url"
-                      required
-                      placeholder="https://github.com/username or https://portfolio.com"
-                      value={formData.portfolio}
-                      onChange={(e) => setFormData({ ...formData, portfolio: e.target.value })}
-                      className={styles.input}
-                    />
-                  </div>
-
-                  <div>
-                    <label htmlFor="career-cover-letter" className={styles.label}>Cover Letter / Brief Pitch</label>
-                    <textarea
-                      id="career-cover-letter"
-                      name="coverLetter"
-                      rows={4}
-                      placeholder="Tell us briefly about your recent projects and why you want to join DeCode Studio..."
-                      value={formData.coverLetter}
-                      onChange={(e) => setFormData({ ...formData, coverLetter: e.target.value })}
-                      className={styles.input}
-                    />
-                  </div>
-
-                  <button
-                    type="submit"
-                    disabled={submitting}
-                    className="btn-primary"
-                    style={{ width: '100%', marginTop: '8px' }}
-                  >
-                    {submitting ? 'Submitting...' : 'Submit Candidate Application'}
-                  </button>
-                </div>
-              </form>
-            )}
+          <div className={styles.careerImage}>
+            <img
+              src="/assets/careers-team.png"
+              alt="Designers and developers collaborating around a laptop in a bright studio"
+              width="1254"
+              height="1254"
+              loading="lazy"
+              decoding="async"
+            />
           </div>
         </div>
-      )}
+
+        <div className={styles.bottomLine}><span>Different skills. Shared ambition.</span><Link to="/careers">Find your place at DeCode <ArrowRight size={17} aria-hidden="true" /></Link></div>
+      </div>
     </section>
   );
 }
 
 export default Careers;
+
+

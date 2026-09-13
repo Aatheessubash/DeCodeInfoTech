@@ -51,6 +51,7 @@
   min-width: 0;
   padding: 0 10px;
   text-align: center;
+  transition: transform 220ms ease;
 }
 
 .step::before {
@@ -86,6 +87,11 @@
   border-radius: 50%;
   background: #fafaf8;
   color: #171717;
+  transition:
+    background 220ms ease,
+    color 220ms ease,
+    box-shadow 220ms ease,
+    transform 220ms ease;
 }
 
 .stage {
@@ -95,6 +101,7 @@
   line-height: 1.5;
   letter-spacing: 0.1em;
   text-transform: uppercase;
+  transition: color 220ms ease;
 }
 
 .stepTitle {
@@ -103,6 +110,7 @@
   font-weight: 600;
   line-height: 1.2;
   letter-spacing: -0.03em;
+  transition: color 220ms ease;
 }
 
 .stepDesc {
@@ -127,9 +135,15 @@
   display: flex;
   align-items: center;
   gap: 8px;
+  padding: 4px 10px;
+  border-radius: 999px;
   color: #62625c;
   font-size: 12px;
   line-height: 1.5;
+  transition:
+    background 220ms ease,
+    color 220ms ease,
+    transform 220ms ease;
 }
 
 .deliverables li::before {
@@ -141,6 +155,33 @@
   background: currentColor;
 }
 
+
+@media (hover: hover) {
+  .step:hover {
+    transform: translateY(-6px);
+  }
+
+  .step:hover .icon {
+    background: #171717;
+    color: #fafaf8;
+    box-shadow: 0 14px 28px rgb(23 23 23 / 14%);
+    transform: scale(1.08);
+  }
+
+  .step:hover .stage {
+    color: #171717;
+  }
+
+  .step:hover .stepTitle {
+    color: #3f3f39;
+  }
+
+  .step:hover .deliverables li {
+    background: #ffffff;
+    color: #171717;
+    transform: translateY(-2px);
+  }
+}
 .closing {
   display: flex;
   align-items: center;
@@ -208,5 +249,14 @@
 
   .step:last-child {
     padding-bottom: 0;
+  }
+
+  .closing {
+    justify-content: center;
+    text-align: center;
+  }
+
+  .contactLink {
+    justify-content: center;
   }
 }

@@ -10,19 +10,30 @@ export function Footer() {
 
   const scrollToSection = (id) => {
     if (location.pathname !== '/') {
-      navigate(`/#${id}`);
+      navigate('/');
+      setTimeout(() => {
+        const el = document.getElementById(id);
+        if (el) {
+          const headerOffset = 56;
+          const elementPosition = el.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth',
+          });
+        }
+      }, 100);
       return;
     }
 
     if (id === 'home') {
       window.scrollTo({ top: 0, behavior: 'smooth' });
-      window.history.pushState(null, '', '/');
       return;
     }
 
     const el = document.getElementById(id);
     if (el) {
-      const headerOffset = 84;
+      const headerOffset = 56;
       const elementPosition = el.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
 
@@ -30,7 +41,6 @@ export function Footer() {
         top: offsetPosition,
         behavior: 'smooth',
       });
-      window.history.pushState(null, '', `#${id}`);
     }
   };
 
@@ -44,7 +54,11 @@ export function Footer() {
             className={styles.logoLink}
             style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0, textAlign: 'left' }}
           >
-            <img src="/DeCode_Logo.png" alt="DeCode Logo" className={styles.logoImg} />
+            <img
+              src={siteContent?.logoUrl || '/DeCode_Logo.png'}
+              alt={`${siteContent?.agencyName || 'DeCode'} Logo`}
+              className={styles.logoImg}
+            />
           </button>
           <p className={styles.tagline}>
             {siteContent?.heroEyebrow || 'WHERE VISION BECOMES REALITY'}

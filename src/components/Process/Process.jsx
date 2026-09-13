@@ -7,14 +7,33 @@ import {
   Code2,
   ShieldCheck,
   Rocket,
+  ArrowUpRight,
+  Zap,
+  Target,
+  Search,
+  CheckCircle,
 } from 'lucide-react';
+import { useData } from '../../context/useData';
 
-const PROCESS_STEPS = [
+const ICON_MAP = {
+  Compass,
+  Layers,
+  Palette,
+  Code2,
+  ShieldCheck,
+  Rocket,
+  Zap,
+  Target,
+  Search,
+  CheckCircle,
+};
+
+const DEFAULT_STEPS = [
   {
     number: '01',
     title: 'Discover',
     tag: 'Exploration',
-    icon: Compass,
+    icon: 'Compass',
     desc: 'Goal mapping, user needs & project scope.',
     tags: ['Scope', 'Goals'],
   },
@@ -22,7 +41,7 @@ const PROCESS_STEPS = [
     number: '02',
     title: 'Plan',
     tag: 'Strategy',
-    icon: Layers,
+    icon: 'Layers',
     desc: 'Architecture blueprint & sprint roadmap.',
     tags: ['Tech Stack', 'Roadmap'],
   },
@@ -30,7 +49,7 @@ const PROCESS_STEPS = [
     number: '03',
     title: 'Design',
     tag: 'Creation',
-    icon: Palette,
+    icon: 'Palette',
     desc: 'Intuitive UX layouts & Figma prototypes.',
     tags: ['Wireframe', 'Prototype'],
   },
@@ -38,7 +57,7 @@ const PROCESS_STEPS = [
     number: '04',
     title: 'Build',
     tag: 'Engineering',
-    icon: Code2,
+    icon: 'Code2',
     desc: 'Modular frontend, robust APIs & cloud.',
     tags: ['Frontend', 'Backend'],
   },
@@ -46,7 +65,7 @@ const PROCESS_STEPS = [
     number: '05',
     title: 'Test',
     tag: 'QA & Security',
-    icon: ShieldCheck,
+    icon: 'ShieldCheck',
     desc: 'Performance audits, device testing & security checks.',
     tags: ['Device QA', 'Security'],
   },
@@ -54,34 +73,66 @@ const PROCESS_STEPS = [
     number: '06',
     title: 'Launch',
     tag: 'Go-Live',
-    icon: Rocket,
+    icon: 'Rocket',
     desc: 'Production deploy, cloud setup & support.',
     tags: ['Deploy', 'Scaling'],
   },
 ];
 
 export function Process() {
+  const { processSteps, siteContent } = useData();
+
+  const stepsList = processSteps && processSteps.length > 0 ? processSteps : DEFAULT_STEPS;
+
+  const scrollTo = (id) => {
+    const el = document.getElementById(id);
+    if (el) {
+      const headerOffset = 56;
+      const elementPosition = el.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth',
+      });
+    }
+  };
+
   return (
     <section id="process" className={styles.processSection} aria-labelledby="process-heading">
       <div className={styles.container}>
         <header className={styles.sectionHeader} data-motion="rise">
           <h2 id="process-heading" className={styles.sectionTitle}>
-            A simple process.<br />
-            <span>A better outcome.</span>
+            {siteContent?.processHeading ? (
+              siteContent.processHeading.includes('better outcome') ? (
+                <>
+                  {siteContent.processHeading.replace(/A better outcome\.?/i, '')}<br />
+                  <span>A better outcome.</span>
+                </>
+              ) : (
+                siteContent.processHeading
+              )
+            ) : (
+              <>
+                A simple process.<br />
+                <span>A better outcome.</span>
+              </>
+            )}
           </h2>
           <p className={styles.sectionDesc}>
-            From the first conversation to launch, we bring clarity to every
-            stage — with a shared plan and a clear next step.
+            {siteContent?.processSubheading ||
+              'From the first conversation to launch, we bring clarity to every stage — with a shared plan and a clear next step.'}
           </p>
         </header>
 
         <ol className={styles.steps}>
-          {PROCESS_STEPS.map((step) => {
-            const Icon = step.icon;
+          {stepsList.map((step) => {
+            const Icon = ICON_MAP[step.icon] || Compass;
             return (
               <li key={step.number} className={styles.step} data-motion="rise">
                 <div className={styles.stepHeader}>
-                  <span className={styles.icon}><Icon size={22} strokeWidth={1.5} aria-hidden="true" /></span>
+                  <span className={styles.icon}>
+                    <Icon size={22} strokeWidth={1.5} aria-hidden="true" />
+                  </span>
                 </div>
                 <div className={styles.stepBody}>
                   <p className={styles.stage}>{step.tag}</p>
@@ -89,17 +140,25 @@ export function Process() {
                   <p className={styles.stepDesc}>{step.desc}</p>
                 </div>
                 <ul className={styles.deliverables} aria-label={`${step.title} deliverables`}>
-                  {step.tags.map((tag) => <li key={tag}>{tag}</li>)}
+                  {(step.tags || []).map((tag) => (
+                    <li key={tag}>{tag}</li>
+                  ))}
                 </ul>
               </li>
             );
           })}
         </ol>
         <div className={styles.closing}>
-          <p>Your idea. A clear path forward.</p>
-          <a href="#contact" className={styles.contactLink}>
-            Let’s talk about your project <span aria-hidden="true">↗</span>
-          </a>
+          <p>{siteContent?.processClosingText || 'Your idea. A clear path forward.'}</p>
+          <button
+            type="button"
+            onClick={() => scrollTo('contact')}
+            className={styles.contactLink}
+            style={{ background: 'none', font: 'inherit', cursor: 'pointer' }}
+          >
+            <span>Let’s talk about your project</span>
+            <ArrowUpRight size={18} strokeWidth={1.5} aria-hidden="true" />
+          </button>
         </div>
       </div>
     </section>
