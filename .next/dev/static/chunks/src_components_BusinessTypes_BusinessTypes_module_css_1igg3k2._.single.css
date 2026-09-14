@@ -1,0 +1,158 @@
+/* [project]/src/components/BusinessTypes/BusinessTypes.module.css [app-client] (css) */
+.BusinessTypes-module__uGzXpq__section {
+  color: #171717;
+  background: #fafaf8;
+  padding: clamp(32px, 5svh, 64px) clamp(16px, 3vw, 32px);
+  scroll-margin-top: 84px;
+}
+
+.BusinessTypes-module__uGzXpq__container {
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+}
+
+.BusinessTypes-module__uGzXpq__sectionHeader {
+  text-align: center;
+  max-width: 760px;
+  margin: 0 auto clamp(24px, 4svh, 40px);
+}
+
+.BusinessTypes-module__uGzXpq__sectionHeading {
+  letter-spacing: -.045em;
+  text-wrap: balance;
+  margin: 0 0 16px;
+  font-size: clamp(30px, 3.7vw, 48px);
+  font-weight: 600;
+  line-height: 1.12;
+}
+
+.BusinessTypes-module__uGzXpq__sectionHeading span {
+  color: #777770;
+}
+
+.BusinessTypes-module__uGzXpq__sectionSub {
+  color: #62625c;
+  max-width: 640px;
+  margin: 0 auto;
+  font-size: clamp(15px, 1.4vw, 17px);
+  line-height: 1.6;
+}
+
+.BusinessTypes-module__uGzXpq__rows {
+  gap: 18px;
+  display: grid;
+}
+
+.BusinessTypes-module__uGzXpq__viewport {
+  width: 100%;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, #0000 0%, #000 3% 97%, #0000 100%);
+  mask-image: linear-gradient(to right, #0000 0%, #000 3% 97%, #0000 100%);
+  container-type: inline-size;
+}
+
+.BusinessTypes-module__uGzXpq__track {
+  width: max-content;
+  animation: 60s linear infinite BusinessTypes-module__uGzXpq__audienceMarquee;
+  display: flex;
+}
+
+.BusinessTypes-module__uGzXpq__reverse {
+  animation-direction: reverse;
+}
+
+.BusinessTypes-module__uGzXpq__viewport:hover .BusinessTypes-module__uGzXpq__track {
+  animation-play-state: paused;
+}
+
+.BusinessTypes-module__uGzXpq__audienceList {
+  flex-shrink: 0;
+  gap: 16px;
+  margin: 0;
+  padding: 0 16px 0 0;
+  list-style: none;
+  display: flex;
+}
+
+.BusinessTypes-module__uGzXpq__audience {
+  background: #fff;
+  border: 1px solid #e4e4df;
+  border-radius: 16px;
+  flex: 0 0 calc(25cqw - 12px);
+  width: calc(25cqw - 12px);
+  min-width: 0;
+  padding: 22px;
+}
+
+.BusinessTypes-module__uGzXpq__audience:hover {
+  cursor: pointer;
+  border-color: #aaa99f;
+}
+
+.BusinessTypes-module__uGzXpq__iconWrapper {
+  color: #171717;
+  border: 1px solid #e4e4df;
+  border-radius: 10px;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  margin-bottom: 18px;
+  display: grid;
+}
+
+.BusinessTypes-module__uGzXpq__title {
+  letter-spacing: -.025em;
+  margin: 0 0 10px;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.BusinessTypes-module__uGzXpq__desc {
+  color: #62625c;
+  overflow-wrap: anywhere;
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+@keyframes BusinessTypes-module__uGzXpq__audienceMarquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 1100px) {
+  .BusinessTypes-module__uGzXpq__audience {
+    flex-basis: calc(50cqw - 8px);
+    width: calc(50cqw - 8px);
+  }
+}
+
+@media (max-width: 560px) {
+  .BusinessTypes-module__uGzXpq__audience {
+    flex-basis: 100cqw;
+    width: 100cqw;
+    padding: 20px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .BusinessTypes-module__uGzXpq__track {
+    width: 100%;
+    animation: none;
+  }
+
+  .BusinessTypes-module__uGzXpq__audienceList {
+    flex-wrap: wrap;
+    width: 100%;
+    padding-right: 0;
+  }
+
+  .BusinessTypes-module__uGzXpq__audienceList[aria-hidden="true"] {
+    display: none;
+  }
+}
+
+/*# sourceMappingURL=src_components_BusinessTypes_BusinessTypes_module_css_1igg3k2._.single.css.map*/

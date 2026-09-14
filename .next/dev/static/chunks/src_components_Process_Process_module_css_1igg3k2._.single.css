@@ -1,0 +1,255 @@
+/* [project]/src/components/Process/Process.module.css [app-client] (css) */
+.Process-module__Y14LMW__processSection {
+  color: #171717;
+  background: #fafaf8;
+  padding: clamp(32px, 5svh, 64px) clamp(16px, 3vw, 32px);
+  scroll-margin-top: 84px;
+  position: relative;
+}
+
+.Process-module__Y14LMW__container {
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+}
+
+.Process-module__Y14LMW__sectionHeader {
+  text-align: center;
+  max-width: 760px;
+  margin: 0 auto clamp(24px, 4svh, 40px);
+}
+
+.Process-module__Y14LMW__sectionTitle {
+  letter-spacing: -.045em;
+  margin: 0 0 16px;
+  font-size: clamp(30px, 3.7vw, 48px);
+  font-weight: 600;
+  line-height: 1.12;
+}
+
+.Process-module__Y14LMW__sectionTitle span {
+  color: #777770;
+}
+
+.Process-module__Y14LMW__sectionDesc {
+  color: #62625c;
+  max-width: 640px;
+  margin: 0 auto;
+  font-size: clamp(15px, 1.4vw, 17px);
+  line-height: 1.6;
+}
+
+.Process-module__Y14LMW__steps {
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+}
+
+.Process-module__Y14LMW__step {
+  text-align: center;
+  min-width: 0;
+  padding: 0 10px;
+  transition: transform .22s;
+  position: relative;
+}
+
+.Process-module__Y14LMW__step:before {
+  content: "";
+  background: #d6d6cf;
+  height: 1px;
+  position: absolute;
+  top: 23px;
+  left: 50%;
+  right: -50%;
+}
+
+.Process-module__Y14LMW__step:last-child:before {
+  display: none;
+}
+
+.Process-module__Y14LMW__stepHeader {
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 28px;
+  display: flex;
+  position: relative;
+}
+
+.Process-module__Y14LMW__icon {
+  color: #171717;
+  background: #fafaf8;
+  border: 1px solid #171717;
+  border-radius: 50%;
+  flex-shrink: 0;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  transition: background .22s, color .22s, box-shadow .22s, transform .22s;
+  display: grid;
+}
+
+.Process-module__Y14LMW__stage {
+  color: #62625c;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  margin: 0 0 8px;
+  font-size: 11px;
+  line-height: 1.5;
+  transition: color .22s;
+}
+
+.Process-module__Y14LMW__stepTitle {
+  letter-spacing: -.03em;
+  margin: 0 0 10px;
+  font-size: 19px;
+  font-weight: 600;
+  line-height: 1.2;
+  transition: color .22s;
+}
+
+.Process-module__Y14LMW__stepDesc {
+  color: #62625c;
+  overflow-wrap: anywhere;
+  margin: 0 0 16px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.Process-module__Y14LMW__deliverables {
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 20px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+}
+
+.Process-module__Y14LMW__deliverables li {
+  color: #62625c;
+  border-radius: 999px;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 10px;
+  font-size: 12px;
+  line-height: 1.5;
+  transition: background .22s, color .22s, transform .22s;
+  display: flex;
+}
+
+.Process-module__Y14LMW__deliverables li:before {
+  content: "";
+  background: currentColor;
+  border-radius: 50%;
+  flex-shrink: 0;
+  width: 4px;
+  height: 4px;
+}
+
+@media (hover: hover) {
+  .Process-module__Y14LMW__step:hover {
+    transform: translateY(-6px);
+  }
+
+  .Process-module__Y14LMW__step:hover .Process-module__Y14LMW__icon {
+    color: #fafaf8;
+    background: #171717;
+    transform: scale(1.08);
+    box-shadow: 0 14px 28px #17171724;
+  }
+
+  .Process-module__Y14LMW__step:hover .Process-module__Y14LMW__stage {
+    color: #171717;
+  }
+
+  .Process-module__Y14LMW__step:hover .Process-module__Y14LMW__stepTitle {
+    color: #3f3f39;
+  }
+
+  .Process-module__Y14LMW__step:hover .Process-module__Y14LMW__deliverables li {
+    color: #171717;
+    background: #fff;
+    transform: translateY(-2px);
+  }
+}
+
+.Process-module__Y14LMW__closing {
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px 24px;
+  margin-top: 28px;
+  display: flex;
+}
+
+.Process-module__Y14LMW__closing p {
+  color: #62625c;
+  margin: 0;
+  font-size: 15px;
+}
+
+.Process-module__Y14LMW__contactLink {
+  color: #171717;
+  border-bottom: 1px solid #171717;
+  align-items: center;
+  gap: 24px;
+  min-height: 44px;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-flex;
+}
+
+.Process-module__Y14LMW__contactLink span {
+  font-size: 22px;
+}
+
+.Process-module__Y14LMW__contactLink:hover {
+  color: #62625c;
+}
+
+.Process-module__Y14LMW__contactLink:focus-visible {
+  outline-offset: 5px;
+  outline: 2px solid;
+}
+
+@media (max-width: 1000px) {
+  .Process-module__Y14LMW__steps {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 28px;
+    max-width: 560px;
+    margin: 0 auto;
+  }
+
+  .Process-module__Y14LMW__step {
+    padding: 0 0 48px;
+  }
+
+  .Process-module__Y14LMW__step:before {
+    width: 1px;
+    height: 28px;
+    inset: auto auto 0 50%;
+  }
+
+  .Process-module__Y14LMW__stepHeader {
+    margin-bottom: 18px;
+  }
+
+  .Process-module__Y14LMW__step:last-child {
+    padding-bottom: 0;
+  }
+
+  .Process-module__Y14LMW__closing {
+    text-align: center;
+    justify-content: center;
+  }
+
+  .Process-module__Y14LMW__contactLink {
+    justify-content: center;
+  }
+}
+
+/*# sourceMappingURL=src_components_Process_Process_module_css_1igg3k2._.single.css.map*/

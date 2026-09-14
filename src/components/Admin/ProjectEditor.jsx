@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useId, useState } from 'react';
 import { Image as ImageIcon, Link2, Save, UploadCloud, X } from 'lucide-react';
 import { formatFileSize, optimizeProjectImage } from '../../utils/optimizeImage';

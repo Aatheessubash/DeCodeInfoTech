@@ -1,0 +1,179 @@
+/* [project]/src/components/Admin/JobEditor.module.css [app-client] (css) */
+.JobEditor-module__yi5oNG__editor {
+  background: #fff;
+  border: 1px solid #dbe3ef;
+  border-radius: 16px;
+  gap: 18px;
+  padding: 22px;
+  display: grid;
+}
+
+.JobEditor-module__yi5oNG__header {
+  border-bottom: 1px solid #e2e8f0;
+  justify-content: space-between;
+  align-items: center;
+  gap: 18px;
+  padding-bottom: 16px;
+  display: flex;
+}
+
+.JobEditor-module__yi5oNG__header span {
+  color: #866400;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  font-size: .68rem;
+  font-weight: 850;
+  display: block;
+}
+
+.JobEditor-module__yi5oNG__header h4 {
+  color: #111c31;
+  margin: 4px 0 0;
+  font-size: 1.08rem;
+  line-height: 1.3;
+}
+
+.JobEditor-module__yi5oNG__header svg {
+  color: #1c0a43;
+  flex: none;
+}
+
+.JobEditor-module__yi5oNG__formGrid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 15px;
+  display: grid;
+}
+
+.JobEditor-module__yi5oNG__formGrid label {
+  flex-direction: column;
+  gap: 7px;
+  min-width: 0;
+  display: flex;
+}
+
+.JobEditor-module__yi5oNG__formGrid label > span {
+  color: #334155;
+  font-size: .76rem;
+  font-weight: 750;
+}
+
+.JobEditor-module__yi5oNG__formGrid input, .JobEditor-module__yi5oNG__formGrid select, .JobEditor-module__yi5oNG__formGrid textarea {
+  color: #0f172a;
+  width: 100%;
+  min-height: 43px;
+  font: inherit;
+  background: #fff;
+  border: 1px solid #cbd5e1;
+  border-radius: 9px;
+  outline: none;
+  padding: 11px 13px;
+  font-size: .86rem;
+  transition: border-color .18s, box-shadow .18s;
+}
+
+.JobEditor-module__yi5oNG__formGrid textarea {
+  resize: vertical;
+  line-height: 1.5;
+}
+
+.JobEditor-module__yi5oNG__formGrid input:focus, .JobEditor-module__yi5oNG__formGrid select:focus, .JobEditor-module__yi5oNG__formGrid textarea:focus {
+  border-color: #8a6a09;
+  box-shadow: 0 0 0 3px #b88a1224;
+}
+
+.JobEditor-module__yi5oNG__formGrid small {
+  color: #718096;
+  align-self: flex-end;
+  font-size: .72rem;
+}
+
+.JobEditor-module__yi5oNG__fullWidth {
+  grid-column: 1 / -1;
+}
+
+.JobEditor-module__yi5oNG__preview {
+  background: #f8fafc;
+  border: 1px solid #dbe3ef;
+  border-radius: 13px;
+  grid-template-columns: 46px minmax(0, 1fr);
+  gap: 13px;
+  padding: 14px;
+  display: grid;
+}
+
+.JobEditor-module__yi5oNG__avatar {
+  color: #fff;
+  background: #1c0a43;
+  border-radius: 11px;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  font-size: .78rem;
+  font-weight: 850;
+  display: grid;
+}
+
+.JobEditor-module__yi5oNG__preview span {
+  color: #087ea4;
+  letter-spacing: .07em;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  white-space: nowrap;
+  font-size: .66rem;
+  font-weight: 850;
+  display: block;
+  overflow: hidden;
+}
+
+.JobEditor-module__yi5oNG__preview strong {
+  color: #172238;
+  margin: 4px 0;
+  font-size: .93rem;
+  display: block;
+}
+
+.JobEditor-module__yi5oNG__preview p {
+  color: #64748b;
+  margin: 0;
+  font-size: .78rem;
+  line-height: 1.45;
+}
+
+.JobEditor-module__yi5oNG__actions {
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+  display: flex;
+}
+
+.JobEditor-module__yi5oNG__actions button {
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  display: inline-flex;
+}
+
+@media (max-width: 620px) {
+  .JobEditor-module__yi5oNG__editor {
+    padding: 16px;
+  }
+
+  .JobEditor-module__yi5oNG__formGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .JobEditor-module__yi5oNG__fullWidth {
+    grid-column: auto;
+  }
+
+  .JobEditor-module__yi5oNG__actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .JobEditor-module__yi5oNG__actions button {
+    width: 100%;
+  }
+}
+
+/*# sourceMappingURL=src_components_Admin_JobEditor_module_css_1igg3k2._.single.css.map*/

@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import {
@@ -78,6 +80,11 @@ export function AdminDashboard({ onClose }) {
   const [activeTab, setActiveTab] = useState('projects');
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [passkeyInput, setPasskeyInput] = useState('');
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // Editing state
   const [editingProject, setEditingProject] = useState(null);
@@ -1403,6 +1410,10 @@ export function AdminDashboard({ onClose }) {
       </div>
     </div>
   );
+
+  if (!mounted || typeof document === 'undefined') {
+    return null;
+  }
 
   return createPortal(modalContent, document.body);
 }

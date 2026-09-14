@@ -33,9 +33,9 @@
   object-fit: cover;
   object-position: center center;
   display: block;
-  opacity: 1;
-  filter: blur(2px);
-  transform: scale(1.03);
+  opacity: 0.62;
+  filter: blur(7px);
+  transform: scale(1.06);
 }
 
 .videoOverlay {
@@ -44,19 +44,19 @@
   background:
     linear-gradient(
       90deg,
-      rgba(238, 245, 255, 0.86) 0%,
-      rgba(240, 246, 255, 0.76) 38%,
-      rgba(245, 249, 255, 0.44) 65%,
-      rgba(255, 255, 255, 0.06) 100%
+      rgba(251, 251, 253, 0.94) 0%,
+      rgba(251, 251, 253, 0.88) 38%,
+      rgba(245, 249, 255, 0.62) 70%,
+      rgba(255, 255, 255, 0.28) 100%
     ),
     radial-gradient(
-      circle at 18% 45%,
-      rgba(0, 113, 227, 0.14) 0%,
-      rgba(124, 58, 237, 0.06) 45%,
-      transparent 75%
+      circle at 20% 45%,
+      rgba(0, 113, 227, 0.12) 0%,
+      rgba(124, 58, 237, 0.05) 50%,
+      transparent 80%
     );
-  backdrop-filter: blur(0.5px);
-  -webkit-backdrop-filter: blur(0.5px);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
 }
 
 @media (max-width: 768px) {

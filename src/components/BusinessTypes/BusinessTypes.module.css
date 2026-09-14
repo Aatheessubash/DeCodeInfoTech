@@ -47,6 +47,8 @@
   container-type: inline-size;
   width: 100%;
   overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 3%, black 97%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, black 3%, black 97%, transparent 100%);
 }
 
 .track {

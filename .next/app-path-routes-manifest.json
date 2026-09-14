@@ -1,0 +1,13 @@
+{
+  "/SA/page": "/SA",
+  "/_global-error/page": "/_global-error",
+  "/_not-found/page": "/_not-found",
+  "/api/admin/login/route": "/api/admin/login",
+  "/api/careers/route": "/api/careers",
+  "/api/contact/route": "/api/contact",
+  "/api/health/route": "/api/health",
+  "/careers/page": "/careers",
+  "/page": "/",
+  "/robots.txt/route": "/robots.txt",
+  "/sitemap.xml/route": "/sitemap.xml"
+}

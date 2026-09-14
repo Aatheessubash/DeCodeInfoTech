@@ -84,7 +84,7 @@ export function PromiseSection() {
           {siteContent?.standardsHeading ? (
             siteContent.standardsHeading.includes('Engineering Standards') ? (
               <>
-                {siteContent.standardsHeading.replace(/Engineering Standards/i, '')} &amp; <span>Engineering Standards</span>
+                {siteContent.standardsHeading.replace(/\s*&?\s*Engineering Standards/i, '').trim()} &amp; <span>Engineering Standards</span>
               </>
             ) : (
               siteContent.standardsHeading

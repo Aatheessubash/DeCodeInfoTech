@@ -1,0 +1,155 @@
+/* [project]/src/components/FAQ/FAQ.module.css [app-client] (css) */
+.FAQ-module__YTKPaG__accordionWrapper {
+  flex-direction: column;
+  gap: 16px;
+  max-width: 860px;
+  margin: 0 auto;
+  display: flex;
+}
+
+.FAQ-module__YTKPaG__item {
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  background: #fff;
+  border: 1px solid #0000000f;
+  transition: border-color .25s, box-shadow .25s, background-color .25s;
+  overflow: hidden;
+}
+
+.FAQ-module__YTKPaG__itemOpen {
+  box-shadow: var(--shadow-lift);
+  background-color: #fff;
+  border-color: #0000004d;
+}
+
+.FAQ-module__YTKPaG__questionBtn {
+  width: 100%;
+  color: var(--apple-dark);
+  letter-spacing: -.015em;
+  text-align: left;
+  cursor: pointer;
+  background: none;
+  border: none;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 22px 28px;
+  font-family: inherit;
+  font-size: 1.05rem;
+  font-weight: 600;
+  transition: color .2s;
+  display: flex;
+}
+
+.FAQ-module__YTKPaG__questionBtn:hover {
+  color: #fff;
+  background: #000;
+}
+
+.FAQ-module__YTKPaG__questionText {
+  flex: 1;
+  line-height: 1.4;
+}
+
+.FAQ-module__YTKPaG__icon {
+  width: 32px;
+  height: 32px;
+  color: var(--apple-dark);
+  transition: transform .25s var(--ease-apple), background-color .2s ease, color .2s ease, border-color .2s ease;
+  background: #0000000a;
+  border: 1px solid #0000000f;
+  border-radius: 50%;
+  flex-shrink: 0;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.1rem;
+  font-weight: 600;
+  display: flex;
+}
+
+.FAQ-module__YTKPaG__itemOpen .FAQ-module__YTKPaG__icon {
+  color: #fff;
+  background: #000;
+  border-color: #000;
+}
+
+.FAQ-module__YTKPaG__iconOpen {
+  transform: rotate(45deg);
+}
+
+.FAQ-module__YTKPaG__answerBody {
+  animation: FAQ-module__YTKPaG__slideDown .25s var(--ease-apple);
+  padding: 0 28px 24px;
+}
+
+.FAQ-module__YTKPaG__answerText {
+  color: var(--apple-gray);
+  letter-spacing: -.01em;
+  border-top: 1px solid #0000000f;
+  padding-top: 16px;
+  font-size: .95rem;
+  line-height: 1.55;
+}
+
+@keyframes FAQ-module__YTKPaG__slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 640px) {
+  .FAQ-module__YTKPaG__questionBtn {
+    padding: 18px 20px;
+    font-size: .98rem;
+  }
+
+  .FAQ-module__YTKPaG__answerBody {
+    padding: 0 20px 20px;
+  }
+
+  .FAQ-module__YTKPaG__icon {
+    width: 28px;
+    height: 28px;
+    font-size: .95rem;
+  }
+}
+
+.FAQ-module__YTKPaG__questionBtn:focus-visible {
+  outline-offset: -4px;
+}
+
+.FAQ-module__YTKPaG__sectionHeader {
+  text-align: center;
+  max-width: 760px;
+  margin: 0 auto clamp(24px, 4svh, 40px);
+}
+
+.FAQ-module__YTKPaG__heading {
+  color: #171717;
+  letter-spacing: -.045em;
+  text-wrap: balance;
+  margin: 0 0 16px;
+  font-size: clamp(30px, 3.7vw, 48px);
+  font-weight: 600;
+  line-height: 1.12;
+}
+
+.FAQ-module__YTKPaG__heading span {
+  color: #777770;
+}
+
+.FAQ-module__YTKPaG__subheading {
+  color: #62625c;
+  max-width: 640px;
+  margin: 0 auto;
+  font-size: clamp(15px, 1.4vw, 17px);
+  line-height: 1.6;
+}
+
+/*# sourceMappingURL=src_components_FAQ_FAQ_module_css_1igg3k2._.single.css.map*/

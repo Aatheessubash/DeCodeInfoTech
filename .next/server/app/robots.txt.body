@@ -1,0 +1,6 @@
+User-Agent: *
+Allow: /
+Disallow: /SA
+Disallow: /api/
+
+Sitemap: https://decodeinfotech.in/sitemap.xml
