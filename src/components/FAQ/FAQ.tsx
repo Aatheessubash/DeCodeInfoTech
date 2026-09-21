@@ -39,8 +39,7 @@ export function FAQ() {
         </h2>
         <p className={styles.subheading}>
           Everything you need to know about working with{' '}
-          <strong>{siteContent?.agencyName || 'DeCode InfoTech'}</strong> — Coimbatore's premier
-          software &amp; web development company.
+          <strong>{siteContent?.agencyName || 'DeCode InfoTech'}</strong>.
         </p>
       </div>
 

@@ -9,39 +9,55 @@ import gsap from '@/lib/gsap';
 
 export function Hero() {
   const { siteContent } = useData();
+  const headlineLead = siteContent?.heroHeadline
+    ? siteContent.heroHeadline.replace(/Digital Innovation\.?/i, '').trim()
+    : 'Decoding the Future of';
+  const leadContent =
+    headlineLead === 'Decoding the Future of' ? (
+      <>
+        Decoding the
+        <span className={styles.mobileLineBreak}>
+          <br />
+        </span>{' '}
+        Future of
+      </>
+    ) : (
+      headlineLead
+    );
   const heroRef = useRef<HTMLElement>(null);
-  const badgeRef = useRef<HTMLDivElement>(null);
   const headlineRef = useRef<HTMLHeadingElement>(null);
   const subtextRef = useRef<HTMLParagraphElement>(null);
   const ctaGroupRef = useRef<HTMLDivElement>(null);
 
   useGSAP(
     () => {
-      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+      const media = gsap.matchMedia();
+      media.add('(prefers-reduced-motion: no-preference)', () => {
+        const headline = headlineRef.current;
+        const headlineParts = headline?.querySelectorAll('[data-hero-line]');
+        const targets = headlineParts?.length ? Array.from(headlineParts) : headline;
 
-      tl.fromTo(
-        badgeRef.current,
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.6, delay: 0.1 },
-      )
-        .fromTo(
-          headlineRef.current,
-          { opacity: 0, y: 35 },
-          { opacity: 1, y: 0, duration: 0.9 },
-          '-=0.3',
-        )
-        .fromTo(
-          subtextRef.current,
-          { opacity: 0, y: 25 },
-          { opacity: 1, y: 0, duration: 0.8 },
-          '-=0.6',
-        )
-        .fromTo(
-          ctaGroupRef.current,
-          { opacity: 0, y: 20 },
-          { opacity: 1, y: 0, duration: 0.7 },
-          '-=0.5',
-        );
+        gsap
+          .timeline({ defaults: { ease: 'power3.out' } })
+          .fromTo(
+            targets,
+            { opacity: 0, y: 32, rotationX: 8 },
+            { opacity: 1, y: 0, rotationX: 0, duration: 0.85, stagger: 0.12 },
+          )
+          .fromTo(
+            subtextRef.current,
+            { opacity: 0, y: 18 },
+            { opacity: 1, y: 0, duration: 0.7 },
+            '-=0.5',
+          )
+          .fromTo(
+            ctaGroupRef.current?.children || [],
+            { opacity: 0, y: 14 },
+            { opacity: 1, y: 0, duration: 0.55, stagger: 0.1 },
+            '-=0.4',
+          );
+      });
+      return () => media.revert();
     },
     { scope: heroRef },
   );
@@ -54,7 +70,9 @@ export function Hero() {
       const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
       window.scrollTo({
         top: offsetPosition,
-        behavior: 'smooth',
+        behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches
+          ? 'instant'
+          : 'smooth',
       });
     }
   };
@@ -77,32 +95,29 @@ export function Hero() {
 
       <div className={styles.container}>
         <div className={styles.content}>
-          {/* SEO Eyebrow Badge */}
-          {/* <div ref={badgeRef} className={styles.badgeWrapper}>
-            <div className="pill-badge">
-              <span className={styles.pulseDot} aria-hidden="true" />
-              <span>
-                {siteContent?.heroEyebrow || 'Best Software & Web Development Company in Coimbatore'}
-              </span>
-            </div>
-          </div> */}
-
           {/* Main Hero Headline */}
           <h1 ref={headlineRef} className={styles.headline}>
             {siteContent?.heroHeadline ? (
               siteContent.heroHeadline.includes('Digital Innovation') ? (
                 <>
-                  {siteContent.heroHeadline.replace(/Digital Innovation\.?/i, '')}{' '}
-                  <br className={styles.breakOnDesktop} />
-                  <span className="text-purple">Digital Innovation.</span>
+                  <span data-hero-line className={styles.headlineLead}>
+                    {leadContent}
+                  </span>{' '}
+                  <span data-hero-line className={styles.headlineAccent}>
+                    Digital Innovation.
+                  </span>
                 </>
               ) : (
                 siteContent.heroHeadline
               )
             ) : (
               <>
-                Decoding the Future of <br className={styles.breakOnDesktop} />
-                <span className="text-purple">Digital Innovation.</span>
+                <span data-hero-line className={styles.headlineLead}>
+                  {leadContent}
+                </span>{' '}
+                <span data-hero-line className={styles.headlineAccent}>
+                  Digital Innovation.
+                </span>
               </>
             )}
           </h1>

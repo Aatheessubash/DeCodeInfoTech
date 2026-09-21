@@ -127,17 +127,26 @@
   color: #1d1d1f;
   margin-bottom: clamp(16px, 3vh, 24px);
   text-align: left;
-  overflow-wrap: anywhere;
+  overflow-wrap: break-word;
+  text-wrap: balance;
+  perspective: 800px;
 }
 
-.breakOnDesktop {
-  display: inline;
+.mobileLineBreak {
+  display: none;
 }
 
-@media (max-width: 640px) {
-  .breakOnDesktop {
-    display: none;
-  }
+.headlineLead,
+.headlineAccent {
+  display: block;
+}
+
+.headlineAccent {
+  color: #7c3aed;
+  background: linear-gradient(115deg, #0066cc, #7c3aed 55%, #b52dce);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  padding-bottom: 0.08em;
 }
 
 .subtext {
@@ -206,14 +215,94 @@
   }
 }
 
+@media (max-width: 768px) {
+  .heroSection {
+    min-height: 100svh;
+    padding: 104px 24px 56px;
+  }
+
+  .content {
+    align-items: center;
+    text-align: center;
+    max-width: 600px;
+    margin-inline: auto;
+  }
+
+  .headline {
+    width: 100%;
+    font-size: clamp(1.75rem, 9vw, 4rem);
+    line-height: 1.04;
+    letter-spacing: -0.045em;
+    text-align: center;
+    margin-bottom: 24px;
+  }
+
+  .mobileLineBreak {
+    display: inline;
+  }
+
+  .headlineAccent {
+    white-space: nowrap;
+  }
+
+  .subtext {
+    max-width: 42ch;
+    font-size: 1rem;
+    line-height: 1.65;
+    text-align: center;
+    text-wrap: pretty;
+    margin-bottom: 30px;
+  }
+
+  .ctaGroup {
+    justify-content: center;
+    gap: 20px;
+  }
+
+  .primaryCta {
+    min-height: 52px;
+  }
+}
+
 @media (max-width: 480px) {
+  .heroSection {
+    padding-inline: 20px;
+  }
+
   .ctaGroup {
     flex-direction: column;
     width: 100%;
-    gap: 12px;
+    max-width: 340px;
+    gap: 16px;
   }
+
   .primaryCta {
     width: 100%;
+  }
+}
+
+.primaryCta svg {
+  transition: transform 220ms ease;
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .primaryCta:hover svg {
+    transform: translateX(4px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .primaryCta,
+  .primaryCta svg {
+    transition: none;
+  }
+
+  .primaryCta:hover {
+    transform: none;
+  }
+
+  .videoBackground {
+    display: none;
   }
 }
 

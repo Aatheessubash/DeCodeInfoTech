@@ -38,10 +38,10 @@ export const createTransporter = () => {
 
 const getMailFrom = () =>
   process.env.MAIL_FROM?.trim() ||
-  `"DeCode InfoTech" <${process.env.SMTP_USER || 'contact@decodeinfotech.com'}>`;
+  `"DeCode InfoTech" <${process.env.SMTP_USER || 'contact@decodeinfotech.in'}>`;
 
 const getAdminEmail = () =>
-  process.env.ADMIN_RECEIVER_EMAIL?.trim() || process.env.SMTP_USER || 'contact@decodeinfotech.com';
+  process.env.ADMIN_RECEIVER_EMAIL?.trim() || process.env.SMTP_USER || 'contact@decodeinfotech.in';
 
 export async function sendContactEmail(lead: {
   name: string;

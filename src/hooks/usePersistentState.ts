@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { migrateCopy } from '@/data/migrate-copy';
 
 /** Hydrate after mount so the server and first browser render match. */
 export function usePersistentState<T>(key: string, initialValue: T) {
@@ -18,7 +19,7 @@ export function usePersistentState<T>(key: string, initialValue: T) {
           typeof parsed === typeof initialValue &&
           Array.isArray(parsed) === Array.isArray(initialValue)
         ) {
-          setValue(parsed as T);
+          setValue(migrateCopy(key, parsed) as T);
         }
       }
     } catch {

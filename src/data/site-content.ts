@@ -64,8 +64,8 @@ export const INITIAL_PROJECTS: Project[] = [
 export const INITIAL_SERVICES: Service[] = [
   {
     id: '01',
-    title: 'Custom Software & Enterprise Solutions in Coimbatore',
-    desc: 'Empowering enterprises with bespoke software, cloud architectures, and robust API integrations designed for seamless scalability by Coimbatore’s top engineering team.',
+    title: 'Software & Technology Solutions',
+    desc: 'Empowering enterprises with bespoke software, cloud architectures, and robust API integrations designed for seamless scalability.',
     deliverables: [
       'Custom Enterprise Software',
       'Cloud Architecture & Microservices',
@@ -76,7 +76,7 @@ export const INITIAL_SERVICES: Service[] = [
   {
     id: '02',
     title: 'Industrial Automation – AI & IoT',
-    desc: 'Transforming manufacturing and industrial workflows in Coimbatore and across Tamil Nadu with smart IoT telemetry, machine learning, and computer vision systems.',
+    desc: 'Transforming manufacturing and industrial workflows with smart IoT telemetry, machine learning, and computer vision systems.',
     deliverables: [
       'IoT Sensor Telemetry & Remote Control',
       'AI Vision & Automated Quality Inspection',
@@ -87,7 +87,7 @@ export const INITIAL_SERVICES: Service[] = [
   {
     id: '03',
     title: 'UI/UX Design & Prototyping',
-    desc: 'Crafting intuitive, conversion-focused user interfaces and design systems that delight users and drive business metrics for modern brands.',
+    desc: 'Crafting intuitive, conversion-focused user interfaces and design systems that delight users and drive business metrics.',
     deliverables: [
       'User Research & Interactive Wireframes',
       'Figma Prototypes & Design Systems',
@@ -97,8 +97,8 @@ export const INITIAL_SERVICES: Service[] = [
   },
   {
     id: '04',
-    title: 'SaaS & Web Development Company in Coimbatore',
-    desc: 'Engineering high-performance, secure, and multi-tenant web applications and modern websites built to rank #1 and scale effortlessly.',
+    title: 'SaaS & Custom Web App Development',
+    desc: 'Engineering high-performance, secure, and multi-tenant web applications built to scale effortlessly under heavy loads.',
     deliverables: [
       'Multi-Tenant SaaS Architecture',
       'Interactive Analytics Dashboards',
@@ -109,7 +109,7 @@ export const INITIAL_SERVICES: Service[] = [
   {
     id: '05',
     title: 'Digital Content Creation & Media',
-    desc: 'Strategic brand storytelling, technical copywriting, motion graphics, and digital media production that captures attention and elevates market presence.',
+    desc: 'Strategic brand storytelling, technical copywriting, motion graphics, and digital media production that captures attention.',
     deliverables: [
       'Brand & Product Storytelling',
       'High-Impact Visual Assets & Graphics',
@@ -119,7 +119,7 @@ export const INITIAL_SERVICES: Service[] = [
   },
   {
     id: '06',
-    title: 'Mobile App Development in Coimbatore',
+    title: 'Mobile App Development',
     desc: 'Building responsive, feature-rich iOS and Android mobile applications delivering native performance and fluid user journeys.',
     deliverables: [
       'Cross-Platform iOS & Android Apps',
@@ -131,7 +131,7 @@ export const INITIAL_SERVICES: Service[] = [
   {
     id: '07',
     title: 'Maintenance, Cloud & Ongoing Support',
-    desc: 'Reliable CI/CD automation, proactive server monitoring, regular security updates, and SLA-backed engineering support for growing businesses.',
+    desc: 'Reliable CI/CD automation, proactive server monitoring, regular security updates, and SLA-backed engineering support.',
     deliverables: [
       'Automated CI/CD & Cloud Infrastructure',
       '24/7 Uptime & Performance Monitoring',
@@ -148,7 +148,7 @@ export const INITIAL_TESTIMONIALS: TestimonialItem[] = [
     role: 'Founder & CEO',
     company: 'Azhagappar Academy',
     avatar: '✦',
-    text: 'DeCode is without a doubt the best software and web development company in Coimbatore. The UI is exceptionally smooth and student engagement grew by 140%.',
+    text: 'DeCode delivered ahead of schedule. The UI is exceptionally smooth and student engagement grew by 140%.',
     rating: 5,
   },
   {
@@ -157,7 +157,7 @@ export const INITIAL_TESTIMONIALS: TestimonialItem[] = [
     role: 'Head of Operations',
     company: 'AgroMate Technologies',
     avatar: '⚡',
-    text: 'Working with DeCode was effortless. They built an ultra-fast web application that our farmers and suppliers across Tamil Nadu love.',
+    text: 'Working with DeCode was effortless. They built an ultra-fast web application that our farmers love.',
     rating: 5,
   },
   {
@@ -166,7 +166,7 @@ export const INITIAL_TESTIMONIALS: TestimonialItem[] = [
     role: 'Managing Director',
     company: 'Vetrivel Hospitality',
     avatar: '★',
-    text: 'Our online bookings doubled after DeCode redesigned our web app. Their attention to detail, local Coimbatore presence, and support is top tier.',
+    text: 'Our online bookings doubled after DeCode redesigned our web app. Their attention to detail is top tier.',
     rating: 5,
   },
 ];
@@ -174,33 +174,33 @@ export const INITIAL_TESTIMONIALS: TestimonialItem[] = [
 export const INITIAL_FAQS: FaqItem[] = [
   {
     id: 'faq-1',
-    q: 'Why is DeCode InfoTech considered the best software company in Coimbatore?',
-    a: 'DeCode InfoTech is recognized as the best software company in Coimbatore because we engineer custom enterprise software, scalable SaaS platforms, AI/IoT solutions, and cloud architectures with modern tech stacks (React, Next.js, Node.js, TypeScript). We deliver robust, bug-free, high-performance software tailored directly to your business goals.',
+    q: 'Why should I hire a web development agency for my SaaS startup?',
+    a: 'Hiring a specialized web development agency for startups like DeCode ensures end to end product development in India. We offer modern web application development, scalable architecture, MERN stack expertise, and custom UI/UX design built for conversions.',
   },
   {
     id: 'faq-2',
-    q: 'What makes DeCode the best web development company in Coimbatore?',
-    a: 'As the best web development company in Coimbatore, we focus on blazing-fast load speeds, Core Web Vitals optimization, bespoke UI/UX designs, and technical SEO. Every web application we create is built from the ground up to rank prominently on search engines, engage users, and maximize conversion rates.',
+    q: 'Can you build custom LMS platform development services or enterprise tools?',
+    a: 'Yes, we specialize in custom LMS platform development services, construction management software, agriculture portals, news portals, and SaaS platforms tailored to your business needs.',
   },
   {
     id: 'faq-3',
-    q: 'What types of custom software and web applications do you build in Coimbatore?',
-    a: 'We build custom LMS platforms, civil construction management portals, hospitality POS systems, healthcare AI telemetry dashboards, eCommerce platforms, and custom SaaS web applications for startups, SMEs, and enterprises in Coimbatore and across the world.',
+    q: 'What modern tech stack and frameworks do you use?',
+    a: 'Our primary tech stack includes React JS, Next JS, Node JS, Express, TypeScript, MongoDB, PostgreSQL, Tailwind CSS, Docker, Kubernetes, and Vercel deployments.',
   },
   {
     id: 'faq-4',
-    q: 'How does DeCode help businesses in Coimbatore with SEO and website speed?',
-    a: 'We implement server-side rendering with Next.js, structured schema markup, semantic HTML5, high-speed image compression, clean code architecture, and targeted local SEO strategies to ensure your business dominates local search results in Coimbatore and Tamil Nadu.',
+    q: 'How do you improve website speed and Core Web Vitals?',
+    a: 'We perform technical SEO and web development optimization, code splitting, image compression, server-side caching, and DOM cleanup to fix low conversion rates and ensure maximum speed.',
   },
   {
     id: 'faq-5',
-    q: 'Can you redesign an existing website without losing current Google SEO rankings?',
-    a: 'Yes! We specialize in seamless website migrations and modern redesigns. We audit your existing search ranking keywords, implement 301 redirect mapping, and enhance page speed and responsiveness, protecting and accelerating your SEO authority.',
+    q: 'Can you help redesign an outdated business website without losing SEO?',
+    a: 'Absolutely! We specialize in redesigning outdated business websites, optimizing performance, setting up 301 redirects, and providing SEO friendly website development for lead generation.',
   },
   {
     id: 'faq-6',
-    q: 'How do I hire DeCode InfoTech for a web or software project in Coimbatore?',
-    a: 'You can start immediately by submitting a proposal request on our Contact form or emailing us at contact@decodeinfotech.com. Our engineering team in Coimbatore will review your requirements and provide a free consultation and project roadmap within 24 hours.',
+    q: 'Do you offer full stack developer services and DevOps consulting in India?',
+    a: 'Yes, DeCode provides full stack web development services in India alongside Docker DevOps consulting, CI/CD pipeline setup with GitHub Actions, and ongoing support for small businesses and startups.',
   },
 ];
 
@@ -297,30 +297,29 @@ export const INITIAL_PROCESS_STEPS: ProcessStep[] = [
 export const INITIAL_CONTENT: SiteContent = {
   agencyName: 'DeCode InfoTech',
   logoUrl: '/DeCode_Logo.png',
-  heroEyebrow: 'BEST SOFTWARE & WEB DEVELOPMENT COMPANY IN COIMBATORE',
+  heroEyebrow: 'INNOVATION & TECHNOLOGY SOLUTIONS',
   heroHeadline: 'Decoding the Future of Digital Innovation.',
   heroSubtext:
-    'Recognized as the best software company in Coimbatore and top web development company in Coimbatore, DeCode InfoTech designs, builds, and launches high-performance web applications, custom SaaS products, and enterprise digital solutions.',
+    'Empowering businesses to grow through innovation and technology. We deliver scalable, future-ready solutions that enhance operations, drive sustainable growth, and create long-term business value.',
   heroPrimaryCta: 'Start A Project',
   heroSecondaryCta: 'Explore our services',
   heroVideoUrl: '/sample.mp4',
-  aboutHeading: 'Building what’s next in Coimbatore.',
-  aboutLead:
-    'As the best software and web development company in Coimbatore, we turn complex challenges into intelligent digital solutions.',
+  aboutHeading: 'Building what’s next.',
+  aboutLead: 'We turn complex challenges into intelligent digital solutions.',
   aboutDesc1:
-    'At DeCode InfoTech, we combine modern Next.js and React architecture, cloud scalability, and UI/UX craftsmanship to help businesses in Coimbatore and globally lead their industries.',
+    'At DeCode InfoTech, we combine technology, strategy, and design to create scalable foundations for growth.',
   aboutDesc2:
-    'From ambitious local businesses to fast-scaling global SaaS startups, our Coimbatore engineering team delivers robust, future-ready software that drives measurable business growth.',
+    'Our solutions simplify operations, unlock new possibilities, and adapt to change — delivering lasting value that keeps your business moving forward.',
   aboutImage: '/assets/who-we-are.jpg',
-  aboutCaption: 'Built in Coimbatore. Designed for global impact.',
+  aboutCaption: 'Built to evolve. Designed for what’s next.',
   standardsHeading: 'Our Core Foundation & Engineering Standards',
   standardsSubheading:
-    'DeCode InfoTech is the best web development company in Coimbatore, designing, building, and launching fast, scalable websites and custom web applications.',
+    'DeCode is a modern software studio that designs, builds, and launches fast, scalable websites and custom web applications.',
   processHeading: 'A simple process. A better outcome.',
   processSubheading:
-    'From the first conversation in Coimbatore to global launch, we bring clarity to every stage with a transparent roadmap.',
+    'From the first conversation to launch, we bring clarity to every stage — with a shared plan and a clear next step.',
   processClosingText: 'Your idea. A clear path forward.',
-  contactEmail: 'contact@decodeinfotech.com',
+  contactEmail: 'contact@decodeinfotech.in',
   contactLocation: 'Coimbatore, Tamil Nadu, India',
   contactPhone: '+91 98765 43210',
 };

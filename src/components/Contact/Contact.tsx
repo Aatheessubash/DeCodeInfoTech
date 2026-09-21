@@ -64,8 +64,8 @@ export function Contact() {
     <div className={styles.directContact}>
       <div className={styles.contactItem}>
         <Mail className={styles.contactIcon} aria-hidden="true" />
-        <a href={`mailto:${siteContent?.contactEmail || 'contact@decodeinfotech.com'}`}>
-          {siteContent?.contactEmail || 'contact@decodeinfotech.com'}
+        <a href={`mailto:${siteContent?.contactEmail || 'contact@decodeinfotech.in'}`}>
+          {siteContent?.contactEmail || 'contact@decodeinfotech.in'}
         </a>
       </div>
       <div className={styles.contactItem}>

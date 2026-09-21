@@ -164,7 +164,7 @@ export function Footer() {
                 onClick={() => scrollToSection('services')}
                 className={styles.linkBtn}
               >
-                Best Software Company in Coimbatore
+                Software & Technology Solutions
               </button>
             </li>
             <li>
@@ -173,7 +173,7 @@ export function Footer() {
                 onClick={() => scrollToSection('services')}
                 className={styles.linkBtn}
               >
-                Web Development in Coimbatore
+                Website Development
               </button>
             </li>
             <li>
@@ -221,7 +221,7 @@ export function Footer() {
             {siteContent?.contactLocation || 'Coimbatore, Tamil Nadu, India'}
           </p>
           <p className={styles.contactText}>
-            {siteContent?.contactEmail || 'contact@decodeinfotech.com'}
+            {siteContent?.contactEmail || 'contact@decodeinfotech.in'}
           </p>
           <button
             type="button"
@@ -229,7 +229,7 @@ export function Footer() {
             className="btn-primary"
             style={{ marginTop: '14px', cursor: 'pointer' }}
           >
-            Start a Project in Coimbatore
+            Start A Project
           </button>
         </div>
       </div>
@@ -237,11 +237,11 @@ export function Footer() {
       <div className={styles.bottomBar}>
         <div className={styles.bottomContainer}>
           <p>
-            © {new Date().getFullYear()} {siteContent?.agencyName || 'DeCode InfoTech'}. Best
-            Software &amp; Web Development Company in Coimbatore.
+            © {new Date().getFullYear()} {siteContent?.agencyName || 'DeCode InfoTech'}. All rights
+            reserved.
           </p>
           <p className={styles.tag}>
-            {siteContent?.heroEyebrow || 'BEST SOFTWARE & WEB DEVELOPMENT COMPANY IN COIMBATORE'}
+            {siteContent?.heroEyebrow || 'INNOVATION & TECHNOLOGY SOLUTIONS'}
           </p>
         </div>
       </div>
