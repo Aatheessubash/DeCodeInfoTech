@@ -43,44 +43,47 @@ export function PromiseSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const gridRef = useRef<HTMLDivElement>(null);
 
-  const standardsList = standards && standards.length > 0 ? standards : [
-    {
-      id: '01',
-      title: 'Clear & Direct Communication',
-      desc: 'No confusing technical jargon. We provide straightforward progress updates, transparent timelines, and honest project roadmaps.',
-      icon: 'MessageSquare',
-    },
-    {
-      id: '02',
-      title: 'Clean, Maintainable Code',
-      desc: 'We write well-structured, thoroughly documented code that your engineering team can easily scale and build upon for years to come.',
-      icon: 'Code2',
-    },
-    {
-      id: '03',
-      title: 'Fast Delivery Without Quality Trade-Offs',
-      desc: 'We use modern frameworks, automated build pipelines, and efficient workflows to launch high-quality digital products on schedule.',
-      icon: 'Zap',
-    },
-    {
-      id: '04',
-      title: 'Practical Solutions Focused on Business Goals',
-      desc: 'Every design choice and feature we build directly aligns with your core business targets — driving user conversion and revenue.',
-      icon: 'Target',
-    },
-    {
-      id: '05',
-      title: 'Long-Term Support After Launch',
-      desc: 'Our relationship does not end at deployment. We stand by our work, providing post-launch support, monitoring, and updates.',
-      icon: 'Handshake',
-    },
-    {
-      id: '06',
-      title: 'Quality is in the Details',
-      desc: 'From microscopic micro-interactions to zero-layout-shift performance, we craft digital experiences that leave a lasting impression.',
-      icon: 'ScanEye',
-    },
-  ];
+  const standardsList =
+    standards && standards.length > 0
+      ? standards
+      : [
+          {
+            id: '01',
+            title: 'Clear & Direct Communication',
+            desc: 'No confusing technical jargon. We provide straightforward progress updates, transparent timelines, and honest project roadmaps.',
+            icon: 'MessageSquare',
+          },
+          {
+            id: '02',
+            title: 'Clean, Maintainable Code',
+            desc: 'We write well-structured, thoroughly documented code that your engineering team can easily scale and build upon for years to come.',
+            icon: 'Code2',
+          },
+          {
+            id: '03',
+            title: 'Fast Delivery Without Quality Trade-Offs',
+            desc: 'We use modern frameworks, automated build pipelines, and efficient workflows to launch high-quality digital products on schedule.',
+            icon: 'Zap',
+          },
+          {
+            id: '04',
+            title: 'Practical Solutions Focused on Business Goals',
+            desc: 'Every design choice and feature we build directly aligns with your core business targets — driving user conversion and revenue.',
+            icon: 'Target',
+          },
+          {
+            id: '05',
+            title: 'Long-Term Support After Launch',
+            desc: 'Our relationship does not end at deployment. We stand by our work, providing post-launch support, monitoring, and updates.',
+            icon: 'Handshake',
+          },
+          {
+            id: '06',
+            title: 'Quality is in the Details',
+            desc: 'From microscopic micro-interactions to zero-layout-shift performance, we craft digital experiences that leave a lasting impression.',
+            icon: 'ScanEye',
+          },
+        ];
 
   useGSAP(
     () => {
@@ -99,11 +102,11 @@ export function PromiseSection() {
               trigger: gridRef.current,
               start: 'top 82%',
             },
-          }
+          },
         );
       }
     },
-    { scope: sectionRef }
+    { scope: sectionRef },
   );
 
   return (
@@ -113,7 +116,8 @@ export function PromiseSection() {
           {siteContent?.standardsHeading ? (
             siteContent.standardsHeading.includes('Engineering Standards') ? (
               <>
-                {siteContent.standardsHeading.replace(/\s*&?\s*Engineering Standards/i, '').trim()} &amp; <span>Engineering Standards</span>
+                {siteContent.standardsHeading.replace(/\s*&?\s*Engineering Standards/i, '').trim()}{' '}
+                &amp; <span>Engineering Standards</span>
               </>
             ) : (
               siteContent.standardsHeading
@@ -127,7 +131,9 @@ export function PromiseSection() {
         <p className={styles.subheading}>
           {siteContent?.standardsSubheading || (
             <>
-              <strong>{siteContent?.agencyName || 'DeCode'}</strong> is a modern software studio that designs, builds, and launches fast, scalable websites and custom web applications.
+              <strong>{siteContent?.agencyName || 'DeCode'}</strong> is a modern software studio
+              that designs, builds, and launches fast, scalable websites and custom web
+              applications.
             </>
           )}
         </p>
@@ -137,10 +143,7 @@ export function PromiseSection() {
         {standardsList.map((val, idx) => {
           const Icon = ICON_MAP[val.icon] || Code2;
           return (
-            <div
-              key={val.id || idx}
-              className={styles.valueCard}
-            >
+            <div key={val.id || idx} className={styles.valueCard}>
               <div className={styles.cardHeader}>
                 <span className={styles.iconCircle}>
                   <Icon size={24} strokeWidth={1.5} aria-hidden="true" />

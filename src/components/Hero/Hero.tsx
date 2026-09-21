@@ -22,28 +22,28 @@ export function Hero() {
       tl.fromTo(
         badgeRef.current,
         { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.6, delay: 0.1 }
+        { opacity: 1, y: 0, duration: 0.6, delay: 0.1 },
       )
         .fromTo(
           headlineRef.current,
           { opacity: 0, y: 35 },
           { opacity: 1, y: 0, duration: 0.9 },
-          '-=0.3'
+          '-=0.3',
         )
         .fromTo(
           subtextRef.current,
           { opacity: 0, y: 25 },
           { opacity: 1, y: 0, duration: 0.8 },
-          '-=0.6'
+          '-=0.6',
         )
         .fromTo(
           ctaGroupRef.current,
           { opacity: 0, y: 20 },
           { opacity: 1, y: 0, duration: 0.7 },
-          '-=0.5'
+          '-=0.5',
         );
     },
-    { scope: heroRef }
+    { scope: heroRef },
   );
 
   const scrollTo = (id: string) => {
@@ -115,11 +115,7 @@ export function Hero() {
 
           {/* Action CTAs */}
           <div ref={ctaGroupRef} className={styles.ctaGroup}>
-            <button
-              type="button"
-              onClick={() => scrollTo('contact')}
-              className={styles.primaryCta}
-            >
+            <button type="button" onClick={() => scrollTo('contact')} className={styles.primaryCta}>
               <span>{siteContent?.heroPrimaryCta || 'Start A Project'}</span>
               <ArrowRight size={18} aria-hidden="true" />
             </button>

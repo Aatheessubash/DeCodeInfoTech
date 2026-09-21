@@ -54,7 +54,7 @@ export const metadata: Metadata = {
     'geo.region': 'IN-TN',
     'geo.placename': 'Coimbatore',
     'geo.position': '11.0168;76.9558',
-    'ICBM': '11.0168, 76.9558',
+    ICBM: '11.0168, 76.9558',
   },
   openGraph: {
     title: 'DeCode InfoTech — Best Software & Web Development Company in Coimbatore',
@@ -85,11 +85,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'ProfessionalService',
@@ -160,7 +156,8 @@ export default function RootLayout({
           itemOffered: {
             '@type': 'Service',
             name: 'SaaS Product Engineering in Coimbatore',
-            description: 'Multi-tenant cloud architecture, billing integration, and analytics dashboards.',
+            description:
+              'Multi-tenant cloud architecture, billing integration, and analytics dashboards.',
           },
         },
       ],
@@ -190,9 +187,7 @@ export default function RootLayout({
             <div className="ambient-background" aria-hidden="true" />
             <div className="app-root">
               <Navbar />
-              <main id="main-content">
-                {children}
-              </main>
+              <main id="main-content">{children}</main>
               <Footer />
             </div>
           </DataProvider>

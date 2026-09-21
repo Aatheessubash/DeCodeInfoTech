@@ -124,7 +124,10 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
-  transition: transform 300ms ease, box-shadow 300ms ease, border-color 300ms ease;
+  transition:
+    transform 300ms ease,
+    box-shadow 300ms ease,
+    border-color 300ms ease;
 }
 
 @media (max-width: 640px) {
@@ -338,7 +341,9 @@
   color: var(--text);
   font-size: 0.95rem;
   font-family: inherit;
-  transition: border-color 200ms ease, box-shadow 200ms ease;
+  transition:
+    border-color 200ms ease,
+    box-shadow 200ms ease;
 }
 
 @media (max-width: 480px) {

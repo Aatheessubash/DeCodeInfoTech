@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState, useCallback } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 import { ArrowRight } from 'lucide-react';
 import { useData } from '@/context/useData';
@@ -82,50 +81,54 @@ export function Navbar() {
     return () => window.removeEventListener('scroll', determineActiveSection);
   }, [pathname]);
 
-  const scrollToSection = useCallback((id: string) => {
-    setMobileMenuOpen(false);
+  const scrollToSection = useCallback(
+    (id: string) => {
+      setMobileMenuOpen(false);
 
-    if (pathname !== '/') {
-      router.push(`/#${id}`);
-      setTimeout(() => {
-        const el = document.getElementById(id);
-        if (el) {
-          const headerOffset = 56;
-          const elementPosition = el.getBoundingClientRect().top;
-          const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-          window.scrollTo({
-            top: offsetPosition,
-            behavior: 'smooth',
-          });
-        }
-      }, 150);
-      return;
-    }
+      if (pathname !== '/') {
+        router.push(`/#${id}`);
+        setTimeout(() => {
+          const el = document.getElementById(id);
+          if (el) {
+            const headerOffset = 56;
+            const elementPosition = el.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+            window.scrollTo({
+              top: offsetPosition,
+              behavior: 'smooth',
+            });
+          }
+        }, 150);
+        return;
+      }
 
-    if (id === 'home') {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      setActiveSection('home');
-      return;
-    }
+      if (id === 'home') {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        setActiveSection('home');
+        return;
+      }
 
-    const el = document.getElementById(id);
-    if (el) {
-      const headerOffset = 56;
-      const elementPosition = el.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+      const el = document.getElementById(id);
+      if (el) {
+        const headerOffset = 56;
+        const elementPosition = el.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
 
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth',
-      });
-      setActiveSection(id);
-    }
-  }, [pathname, router]);
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth',
+        });
+        setActiveSection(id);
+      }
+    },
+    [pathname, router],
+  );
 
   const isHomeActive = activeSection === 'home' && pathname === '/';
   const isAboutActive = ['about', 'standards'].includes(activeSection) && pathname === '/';
   const isServicesActive = ['services', 'process'].includes(activeSection) && pathname === '/';
-  const isProjectsActive = ['projects', 'work', 'industries'].includes(activeSection) && pathname === '/';
+  const isProjectsActive =
+    ['projects', 'work', 'industries'].includes(activeSection) && pathname === '/';
   const isCareersActive = pathname === '/careers' || activeSection === 'careers';
   const isContactActive = ['contact', 'faq'].includes(activeSection) && pathname === '/';
 

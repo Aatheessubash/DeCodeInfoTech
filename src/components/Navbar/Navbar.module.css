@@ -13,7 +13,10 @@
   backdrop-filter: saturate(180%) blur(20px);
   -webkit-backdrop-filter: saturate(180%) blur(20px);
   border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-  transition: background-color 250ms ease, border-color 250ms ease, box-shadow 250ms ease;
+  transition:
+    background-color 250ms ease,
+    border-color 250ms ease,
+    box-shadow 250ms ease;
 }
 
 .header.scrolled {
@@ -105,7 +108,9 @@
   cursor: pointer;
   font-family: inherit;
   letter-spacing: -0.01em;
-  transition: opacity 200ms ease, color 200ms ease;
+  transition:
+    opacity 200ms ease,
+    color 200ms ease;
 }
 
 .navBtn:hover {
@@ -168,7 +173,9 @@
   width: 17px;
   height: 1.5px;
   background-color: #1d1d1f;
-  transition: transform 250ms ease, opacity 250ms ease;
+  transition:
+    transform 250ms ease,
+    opacity 250ms ease;
   border-radius: 1px;
 }
 

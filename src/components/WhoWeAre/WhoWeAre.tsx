@@ -27,7 +27,7 @@ export function WhoWeAre() {
             trigger: sectionRef.current,
             start: 'top 80%',
           },
-        }
+        },
       );
 
       gsap.fromTo(
@@ -42,10 +42,10 @@ export function WhoWeAre() {
             trigger: sectionRef.current,
             start: 'top 80%',
           },
-        }
+        },
       );
     },
-    { scope: sectionRef }
+    { scope: sectionRef },
   );
 
   const scrollTo = (id: string) => {
@@ -68,37 +68,50 @@ export function WhoWeAre() {
           <div ref={copyRef} className={styles.copy}>
             <h2 id="about-heading" className={styles.headline}>
               {siteContent?.aboutHeading ? (
-                siteContent.aboutHeading.includes("what’s") || siteContent.aboutHeading.includes("what's") ? (
+                siteContent.aboutHeading.includes('what’s') ||
+                siteContent.aboutHeading.includes("what's") ? (
                   <>
-                    Building<br />what’s <span>next.</span>
+                    Building
+                    <br />
+                    what’s <span>next.</span>
                   </>
                 ) : (
                   siteContent.aboutHeading
                 )
               ) : (
                 <>
-                  Building<br />what’s <span>next.</span>
+                  Building
+                  <br />
+                  what’s <span>next.</span>
                 </>
               )}
             </h2>
             <p className={styles.lead}>
-              {siteContent?.aboutLead || "We turn complex challenges into intelligent digital solutions."}
+              {siteContent?.aboutLead ||
+                'We turn complex challenges into intelligent digital solutions.'}
             </p>
             <div className={styles.description}>
               <p>
                 {siteContent?.aboutDesc1 ||
-                  "At DeCode InfoTech, we combine technology, strategy, and design to create scalable foundations for growth."}
+                  'At DeCode InfoTech, we combine technology, strategy, and design to create scalable foundations for growth.'}
               </p>
               <p>
                 {siteContent?.aboutDesc2 ||
-                  "Our solutions simplify operations, unlock new possibilities, and adapt to change — delivering lasting value that keeps your business moving forward."}
+                  'Our solutions simplify operations, unlock new possibilities, and adapt to change — delivering lasting value that keeps your business moving forward.'}
               </p>
             </div>
             <button
               type="button"
               onClick={() => scrollTo('services')}
               className={styles.link}
-              style={{ background: 'none', border: 'none', padding: 0, font: 'inherit', cursor: 'pointer', textAlign: 'left' }}
+              style={{
+                background: 'none',
+                border: 'none',
+                padding: 0,
+                font: 'inherit',
+                cursor: 'pointer',
+                textAlign: 'left',
+              }}
             >
               <span>Explore our services</span>
               <ArrowUpRight size={18} strokeWidth={1.5} aria-hidden="true" />
@@ -108,14 +121,19 @@ export function WhoWeAre() {
           <figure ref={visualRef} className={styles.visual}>
             <div className={styles.imageFrame}>
               <img
-                src={siteContent?.aboutImage || "/assets/who-we-are.jpg"}
+                src={siteContent?.aboutImage || '/assets/who-we-are.jpg'}
                 alt={`${siteContent?.agencyName || 'DeCode InfoTech'} team collaborating in a modern office`}
                 className={styles.image}
                 loading="lazy"
               />
             </div>
             <figcaption className={styles.caption}>
-              <ArrowUpRight size={18} strokeWidth={1.5} className={styles.captionMark} aria-hidden="true" />
+              <ArrowUpRight
+                size={18}
+                strokeWidth={1.5}
+                className={styles.captionMark}
+                aria-hidden="true"
+              />
               <p>
                 {siteContent?.aboutCaption ? (
                   siteContent.aboutCaption.includes('.') ? (
@@ -128,7 +146,8 @@ export function WhoWeAre() {
                   )
                 ) : (
                   <>
-                    Built to evolve.<br />
+                    Built to evolve.
+                    <br />
                     <span>Designed for what’s next.</span>
                   </>
                 )}

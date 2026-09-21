@@ -56,7 +56,12 @@ export function ProjectEditor({ project, onChange, onSave, onCancel }) {
           <span className={styles.eyebrow}>{project.id ? 'Editing project' : 'New project'}</span>
           <h4>{project.id ? project.title : 'Add portfolio project'}</h4>
         </div>
-        <button type="button" className={styles.closeButton} onClick={onCancel} aria-label="Close editor">
+        <button
+          type="button"
+          className={styles.closeButton}
+          onClick={onCancel}
+          aria-label="Close editor"
+        >
           <X size={18} aria-hidden="true" />
         </button>
       </div>
@@ -123,7 +128,10 @@ export function ProjectEditor({ project, onChange, onSave, onCancel }) {
                 setTechInput(event.target.value);
                 update(
                   'tech',
-                  event.target.value.split(',').map((tag) => tag.trim()).filter(Boolean),
+                  event.target.value
+                    .split(',')
+                    .map((tag) => tag.trim())
+                    .filter(Boolean),
                 );
               }}
               placeholder="React, Node.js, PostgreSQL"
@@ -173,7 +181,9 @@ export function ProjectEditor({ project, onChange, onSave, onCancel }) {
             </label>
           </div>
 
-          <div className={styles.divider}><span>or choose from assets</span></div>
+          <div className={styles.divider}>
+            <span>or choose from assets</span>
+          </div>
 
           <label className={styles.field}>
             <span>Screenshot Path / Asset</span>
@@ -189,14 +199,26 @@ export function ProjectEditor({ project, onChange, onSave, onCancel }) {
             />
           </label>
 
-          <p className={styles.mediaHint}>Tip: You can copy any path from the Media &amp; Assets tab and paste it here.</p>
-          {uploadMessage && <p className={styles.successMessage} role="status">{uploadMessage}</p>}
-          {uploadError && <p className={styles.errorMessage} role="alert">{uploadError}</p>}
+          <p className={styles.mediaHint}>
+            Tip: You can copy any path from the Media &amp; Assets tab and paste it here.
+          </p>
+          {uploadMessage && (
+            <p className={styles.successMessage} role="status">
+              {uploadMessage}
+            </p>
+          )}
+          {uploadError && (
+            <p className={styles.errorMessage} role="alert">
+              {uploadError}
+            </p>
+          )}
         </aside>
       </div>
 
       <div className={styles.actions}>
-        <button type="button" className={styles.cancelButton} onClick={onCancel}>Cancel</button>
+        <button type="button" className={styles.cancelButton} onClick={onCancel}>
+          Cancel
+        </button>
         <button type="submit" className={styles.saveButton} disabled={isProcessing}>
           <Save size={17} aria-hidden="true" />
           {project.id ? 'Save changes' : 'Add project'}

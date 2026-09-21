@@ -45,7 +45,13 @@
   container-type: inline-size;
   overflow: hidden;
   width: 100%;
-  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 3%, black 97%, transparent 100%);
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 3%,
+    black 97%,
+    transparent 100%
+  );
   mask-image: linear-gradient(to right, transparent 0%, black 3%, black 97%, transparent 100%);
 }
 
@@ -72,7 +78,9 @@
 }
 
 @keyframes servicesMarquee {
-  to { transform: translateX(-50%); }
+  to {
+    transform: translateX(-50%);
+  }
 }
 
 .card {
@@ -87,7 +95,9 @@
 }
 
 .card {
-  transition: border-color 180ms ease, background-color 180ms ease;
+  transition:
+    border-color 180ms ease,
+    background-color 180ms ease;
 }
 
 .card:hover {
@@ -203,7 +213,10 @@
 
 @media (prefers-reduced-motion: no-preference) and (hover: hover) {
   .icon {
-    transition: background-color 200ms ease, color 200ms ease, transform 200ms ease;
+    transition:
+      background-color 200ms ease,
+      color 200ms ease,
+      transform 200ms ease;
   }
   .card:hover .icon {
     background: #171717;

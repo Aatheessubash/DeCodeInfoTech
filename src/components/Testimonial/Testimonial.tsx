@@ -49,7 +49,11 @@ export function Testimonial() {
   if (!total) return null;
 
   return (
-    <section id="testimonials" className={styles.testimonialSection} aria-labelledby="testimonials-heading">
+    <section
+      id="testimonials"
+      className={styles.testimonialSection}
+      aria-labelledby="testimonials-heading"
+    >
       <div className={styles.sectionHeader}>
         <h2 id="testimonials-heading" className={styles.heading}>
           Client Testimonials &amp; <span className={styles.highlight}>Feedback</span>
@@ -78,12 +82,18 @@ export function Testimonial() {
             }}
           >
             {testimonials.map((t, idx) => (
-              <div key={t.id || idx} className={styles.carouselSlide} aria-hidden={idx !== currentIndex}>
+              <div
+                key={t.id || idx}
+                className={styles.carouselSlide}
+                aria-hidden={idx !== currentIndex}
+              >
                 <div className={styles.compactCard}>
                   <div className={styles.cardHeader}>
                     <div className={styles.ratingRow}>
                       <div className={styles.stars}>
-                        {Array.from({ length: Math.max(0, Math.min(5, Math.round(Number(t.rating) || 5))) }).map((_, i) => (
+                        {Array.from({
+                          length: Math.max(0, Math.min(5, Math.round(Number(t.rating) || 5))),
+                        }).map((_, i) => (
                           <Star key={i} size={15} fill="currentColor" aria-hidden="true" />
                         ))}
                       </div>
@@ -94,13 +104,12 @@ export function Testimonial() {
                   <blockquote className={styles.quoteText}>“{t.text}”</blockquote>
 
                   <div className={styles.authorRow}>
-                    <div className={styles.authorAvatar}>
-                      {t.name?.charAt(0) || 'C'}
-                    </div>
+                    <div className={styles.authorAvatar}>{t.name?.charAt(0) || 'C'}</div>
                     <div className={styles.authorMeta}>
                       <h4 className={styles.authorName}>{t.name}</h4>
                       <p className={styles.authorRole}>
-                        {t.role}{t.role && t.company ? ' · ' : ''}
+                        {t.role}
+                        {t.role && t.company ? ' · ' : ''}
                         <span className={styles.companyName}>{t.company}</span>
                       </p>
                     </div>

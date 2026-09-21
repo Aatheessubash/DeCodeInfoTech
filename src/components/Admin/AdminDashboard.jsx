@@ -80,6 +80,9 @@ export function AdminDashboard({ onClose }) {
   const [activeTab, setActiveTab] = useState('projects');
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [passkeyInput, setPasskeyInput] = useState('');
+  const [username, setUsername] = useState('');
+  const [loginError, setLoginError] = useState('');
+  const [loggingIn, setLoggingIn] = useState(false);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -117,17 +120,27 @@ export function AdminDashboard({ onClose }) {
     };
   }, [onClose]);
 
-  const handleLogin = (e) => {
-    e.preventDefault();
-    if (
-      passkeyInput === '782274' ||
-      passkeyInput === 'divinecode01' ||
-      passkeyInput === 'admin' ||
-      passkeyInput === 'decode123'
-    ) {
+  const handleLogin = async (event) => {
+    event.preventDefault();
+    setLoggingIn(true);
+    setLoginError('');
+    try {
+      const response = await fetch('/api/admin/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password: passkeyInput }),
+      });
+      const result = await response.json();
+      if (!response.ok || !result.success) {
+        setLoginError(result.message || 'Unable to sign in.');
+        return;
+      }
+      setPasskeyInput('');
       setIsAuthenticated(true);
-    } else {
-      alert('Invalid admin credentials. Passkey required.');
+    } catch {
+      setLoginError('Unable to sign in. Please try again.');
+    } finally {
+      setLoggingIn(false);
     }
   };
 
@@ -138,7 +151,11 @@ export function AdminDashboard({ onClose }) {
   };
 
   const handleResetData = () => {
-    if (window.confirm('Are you sure you want to reset all site content, projects, and assets to defaults?')) {
+    if (
+      window.confirm(
+        'Are you sure you want to reset all site content, projects, and assets to defaults?',
+      )
+    ) {
       resetAllData();
       alert('All content reset to factory defaults.');
     }
@@ -215,10 +232,17 @@ export function AdminDashboard({ onClose }) {
         {/* Modal Header */}
         <div className={styles.header}>
           <div className={styles.titleGroup}>
-            <span className={styles.badge}><ShieldCheck size={14} aria-hidden="true" /> ADMIN CMS</span>
+            <span className={styles.badge}>
+              <ShieldCheck size={14} aria-hidden="true" /> ADMIN CMS
+            </span>
             <h2 id="admin-dashboard-title">DeCode Content Manager</h2>
           </div>
-          <button type="button" className={styles.closeBtn} onClick={onClose} aria-label="Close admin dashboard">
+          <button
+            type="button"
+            className={styles.closeBtn}
+            onClick={onClose}
+            aria-label="Close admin dashboard"
+          >
             <X size={19} aria-hidden="true" />
           </button>
         </div>
@@ -226,17 +250,32 @@ export function AdminDashboard({ onClose }) {
         {!isAuthenticated ? (
           <form className={styles.loginForm} onSubmit={handleLogin}>
             <h3>Admin Passkey Authentication</h3>
-            <p>Enter the passkey to manage projects, media assets, FAQs, services, careers, and live website copy.</p>
+            <p>
+              Enter the passkey to manage projects, media assets, FAQs, services, careers, and live
+              website copy.
+            </p>
+            <input
+              aria-label="Admin username"
+              autoComplete="username"
+              placeholder="Username"
+              value={username}
+              onChange={(event) => setUsername(event.target.value)}
+              className={styles.input}
+              required
+            />
             <input
               aria-label="Admin passkey"
+              autoComplete="current-password"
+              required
               type="password"
-              placeholder="Enter passkey (default: admin)"
+              placeholder="Password"
               value={passkeyInput}
               onChange={(e) => setPasskeyInput(e.target.value)}
               className={styles.input}
               autoFocus
             />
-            <button type="submit" className="btn-primary">
+            {loginError && <p role="alert">{loginError}</p>}
+            <button type="submit" disabled={loggingIn} className="btn-primary">
               Unlock Dashboard
             </button>
           </form>
@@ -279,7 +318,10 @@ export function AdminDashboard({ onClose }) {
                     <div className={styles.sectionHeading}>
                       <span>Portfolio</span>
                       <h3>Manage projects</h3>
-                      <p>Edit content, upload optimized screenshots, pick asset paths, and control carousel order.</p>
+                      <p>
+                        Edit content, upload optimized screenshots, pick asset paths, and control
+                        carousel order.
+                      </p>
                     </div>
                     <button type="button" className={styles.addButton} onClick={startNewProject}>
                       <Plus size={17} aria-hidden="true" />
@@ -296,9 +338,14 @@ export function AdminDashboard({ onClose }) {
                         >
                           <img src={project.image} alt="" loading="lazy" />
                           <div className={styles.projectSummary}>
-                            <span>{String(index + 1).padStart(2, '0')} · {project.category}</span>
+                            <span>
+                              {String(index + 1).padStart(2, '0')} · {project.category}
+                            </span>
                             <h4>{project.title}</h4>
-                            <p>{project.problem?.slice(0, 78)}{project.problem?.length > 78 ? '…' : ''}</p>
+                            <p>
+                              {project.problem?.slice(0, 78)}
+                              {project.problem?.length > 78 ? '…' : ''}
+                            </p>
                           </div>
                           <div className={styles.projectActions}>
                             <button
@@ -355,7 +402,11 @@ export function AdminDashboard({ onClose }) {
                           <FolderOpen size={34} aria-hidden="true" />
                           <h4>Select a project to edit</h4>
                           <p>Choose Edit on a project or add a new portfolio item.</p>
-                          <button type="button" className={styles.addButton} onClick={startNewProject}>
+                          <button
+                            type="button"
+                            className={styles.addButton}
+                            onClick={startNewProject}
+                          >
                             <Plus size={17} aria-hidden="true" /> Add project
                           </button>
                         </div>
@@ -372,7 +423,10 @@ export function AdminDashboard({ onClose }) {
                     <div className={styles.sectionHeading}>
                       <span>Services</span>
                       <h3>Manage Core Capabilities</h3>
-                      <p>Define the engineering services and key deliverables displayed on the homepage.</p>
+                      <p>
+                        Define the engineering services and key deliverables displayed on the
+                        homepage.
+                      </p>
                     </div>
                     <button
                       type="button"
@@ -401,10 +455,18 @@ export function AdminDashboard({ onClose }) {
                           <p>{s.desc}</p>
                         </div>
                         <div className={styles.itemBtnGroup}>
-                          <button type="button" className={styles.editBtn} onClick={() => setEditingService(s)}>
+                          <button
+                            type="button"
+                            className={styles.editBtn}
+                            onClick={() => setEditingService(s)}
+                          >
                             Edit
                           </button>
-                          <button type="button" className={styles.deleteBtn} onClick={() => deleteService(s.id)}>
+                          <button
+                            type="button"
+                            className={styles.deleteBtn}
+                            onClick={() => deleteService(s.id)}
+                          >
                             Delete
                           </button>
                         </div>
@@ -433,7 +495,9 @@ export function AdminDashboard({ onClose }) {
                             type="text"
                             placeholder="e.g. AI & Full-Stack Solutions"
                             value={editingService.title}
-                            onChange={(e) => setEditingService({ ...editingService, title: e.target.value })}
+                            onChange={(e) =>
+                              setEditingService({ ...editingService, title: e.target.value })
+                            }
                             required
                             className={styles.input}
                           />
@@ -444,7 +508,9 @@ export function AdminDashboard({ onClose }) {
                             type="text"
                             placeholder="⚡"
                             value={editingService.icon}
-                            onChange={(e) => setEditingService({ ...editingService, icon: e.target.value })}
+                            onChange={(e) =>
+                              setEditingService({ ...editingService, icon: e.target.value })
+                            }
                             required
                             className={styles.input}
                           />
@@ -454,7 +520,9 @@ export function AdminDashboard({ onClose }) {
                           <textarea
                             placeholder="Describe how this service helps clients scale..."
                             value={editingService.desc}
-                            onChange={(e) => setEditingService({ ...editingService, desc: e.target.value })}
+                            onChange={(e) =>
+                              setEditingService({ ...editingService, desc: e.target.value })
+                            }
                             rows="3"
                             required
                             className={styles.input}
@@ -462,10 +530,15 @@ export function AdminDashboard({ onClose }) {
                         </div>
                       </div>
                       <div className={styles.editorActions}>
-                        <button type="submit" className="btn-primary">
+                        {loginError && <p role="alert">{loginError}</p>}
+                        <button type="submit" disabled={loggingIn} className="btn-primary">
                           Save Service
                         </button>
-                        <button type="button" className="btn-secondary" onClick={() => setEditingService(null)}>
+                        <button
+                          type="button"
+                          className="btn-secondary"
+                          onClick={() => setEditingService(null)}
+                        >
                           Cancel
                         </button>
                       </div>
@@ -481,7 +554,9 @@ export function AdminDashboard({ onClose }) {
                     <div className={styles.sectionHeading}>
                       <span>Careers</span>
                       <h3>Manage job posts</h3>
-                      <p>Add, edit, reorder, or remove the roles shown on the public Careers page.</p>
+                      <p>
+                        Add, edit, reorder, or remove the roles shown on the public Careers page.
+                      </p>
                     </div>
                     <button type="button" className={styles.addButton} onClick={startNewJob}>
                       <Plus size={17} aria-hidden="true" />
@@ -502,10 +577,13 @@ export function AdminDashboard({ onClose }) {
                             </div>
                             <div className={styles.jobSummaryAdmin}>
                               <span>
-                                {String(index + 1).padStart(2, '0')} / {job.department || 'Department'} / {job.type || 'Type'}
+                                {String(index + 1).padStart(2, '0')} /{' '}
+                                {job.department || 'Department'} / {job.type || 'Type'}
                               </span>
                               <h4>{job.title}</h4>
-                              <p>{job.location} / {job.experience}</p>
+                              <p>
+                                {job.location} / {job.experience}
+                              </p>
                             </div>
                             <div className={styles.projectActions}>
                               <button
@@ -528,7 +606,9 @@ export function AdminDashboard({ onClose }) {
                               </button>
                               <button
                                 type="button"
-                                onClick={() => setEditingJob({ ...job, requirements: job.requirements || [] })}
+                                onClick={() =>
+                                  setEditingJob({ ...job, requirements: job.requirements || [] })
+                                }
                                 aria-label={`Edit ${job.title}`}
                                 title="Edit job post"
                               >
@@ -608,31 +688,109 @@ export function AdminDashboard({ onClose }) {
                           <div
                             key={app.id || idx}
                             className={styles.itemRow}
-                            style={{ flexDirection: 'column', alignItems: 'stretch', gap: '12px', background: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '14px', padding: '20px' }}
+                            style={{
+                              flexDirection: 'column',
+                              alignItems: 'stretch',
+                              gap: '12px',
+                              background: '#F8FAFC',
+                              border: '1px solid #E2E8F0',
+                              borderRadius: '14px',
+                              padding: '20px',
+                            }}
                           >
-                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '8px' }}>
+                            <div
+                              style={{
+                                display: 'flex',
+                                justifyContent: 'space-between',
+                                alignItems: 'center',
+                                flexWrap: 'wrap',
+                                gap: '8px',
+                              }}
+                            >
                               <div>
-                                <span style={{ background: 'rgba(255, 255, 255, 0.6)', color: 'var(--accent-gold-bright)', border: '1px solid #5996FF', padding: '4px 12px', borderRadius: '9999px', fontSize: '0.75rem', fontWeight: 800 }}>
+                                <span
+                                  style={{
+                                    background: 'rgba(255, 255, 255, 0.6)',
+                                    color: 'var(--accent-gold-bright)',
+                                    border: '1px solid #5996FF',
+                                    padding: '4px 12px',
+                                    borderRadius: '9999px',
+                                    fontSize: '0.75rem',
+                                    fontWeight: 800,
+                                  }}
+                                >
                                   {app.jobTitle || 'General Application'}
                                 </span>
-                                <strong style={{ fontSize: '1.1rem', marginLeft: '10px', color: '#0F172A' }}>{app.name}</strong>
+                                <strong
+                                  style={{
+                                    fontSize: '1.1rem',
+                                    marginLeft: '10px',
+                                    color: '#0F172A',
+                                  }}
+                                >
+                                  {app.name}
+                                </strong>
                               </div>
                               <span style={{ fontSize: '0.8rem', color: '#64748B' }}>
-                                {app.timestamp ? new Date(app.timestamp).toLocaleDateString() : 'Recent'}
+                                {app.timestamp
+                                  ? new Date(app.timestamp).toLocaleDateString()
+                                  : 'Recent'}
                               </span>
                             </div>
 
-                            <div style={{ display: 'flex', gap: '20px', fontSize: '0.9rem', color: '#475569', flexWrap: 'wrap' }}>
-                              <div>📧 <strong>Email:</strong> <a href={`mailto:${app.email}`} style={{ color: 'var(--accent-gold)' }}>{app.email}</a></div>
-                              {app.phone && <div>📞 <strong>Phone:</strong> {app.phone}</div>}
+                            <div
+                              style={{
+                                display: 'flex',
+                                gap: '20px',
+                                fontSize: '0.9rem',
+                                color: '#475569',
+                                flexWrap: 'wrap',
+                              }}
+                            >
+                              <div>
+                                📧 <strong>Email:</strong>{' '}
+                                <a
+                                  href={`mailto:${app.email}`}
+                                  style={{ color: 'var(--accent-gold)' }}
+                                >
+                                  {app.email}
+                                </a>
+                              </div>
+                              {app.phone && (
+                                <div>
+                                  📞 <strong>Phone:</strong> {app.phone}
+                                </div>
+                              )}
                               {app.portfolio && (
-                                <div>🌐 <strong>Portfolio/GitHub:</strong> <a href={app.portfolio} target="_blank" rel="noreferrer" style={{ color: 'var(--accent-gold)' }}>{app.portfolio}</a></div>
+                                <div>
+                                  🌐 <strong>Portfolio/GitHub:</strong>{' '}
+                                  <a
+                                    href={app.portfolio}
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    style={{ color: 'var(--accent-gold)' }}
+                                  >
+                                    {app.portfolio}
+                                  </a>
+                                </div>
                               )}
                             </div>
 
                             {app.coverLetter && (
-                              <div style={{ background: '#FFFFFF', border: '1px solid #CBD5E1', padding: '12px 16px', borderRadius: '10px', fontSize: '0.88rem', color: '#334155' }}>
-                                <strong style={{ color: 'var(--accent-gold-bright)' }}>Cover Letter / Pitch:</strong> {app.coverLetter}
+                              <div
+                                style={{
+                                  background: '#FFFFFF',
+                                  border: '1px solid #CBD5E1',
+                                  padding: '12px 16px',
+                                  borderRadius: '10px',
+                                  fontSize: '0.88rem',
+                                  color: '#334155',
+                                }}
+                              >
+                                <strong style={{ color: 'var(--accent-gold-bright)' }}>
+                                  Cover Letter / Pitch:
+                                </strong>{' '}
+                                {app.coverLetter}
                               </div>
                             )}
 
@@ -692,10 +850,18 @@ export function AdminDashboard({ onClose }) {
                           <p>"{t.text}"</p>
                         </div>
                         <div className={styles.itemBtnGroup}>
-                          <button type="button" className={styles.editBtn} onClick={() => setEditingTestimonial(t)}>
+                          <button
+                            type="button"
+                            className={styles.editBtn}
+                            onClick={() => setEditingTestimonial(t)}
+                          >
                             Edit
                           </button>
-                          <button type="button" className={styles.deleteBtn} onClick={() => deleteTestimonial(t.id)}>
+                          <button
+                            type="button"
+                            className={styles.deleteBtn}
+                            onClick={() => deleteTestimonial(t.id)}
+                          >
                             Delete
                           </button>
                         </div>
@@ -724,7 +890,9 @@ export function AdminDashboard({ onClose }) {
                             type="text"
                             placeholder="e.g. Ramesh Kumar"
                             value={editingTestimonial.name}
-                            onChange={(e) => setEditingTestimonial({ ...editingTestimonial, name: e.target.value })}
+                            onChange={(e) =>
+                              setEditingTestimonial({ ...editingTestimonial, name: e.target.value })
+                            }
                             required
                             className={styles.input}
                           />
@@ -735,7 +903,9 @@ export function AdminDashboard({ onClose }) {
                             type="text"
                             placeholder="e.g. Founder & CEO"
                             value={editingTestimonial.role}
-                            onChange={(e) => setEditingTestimonial({ ...editingTestimonial, role: e.target.value })}
+                            onChange={(e) =>
+                              setEditingTestimonial({ ...editingTestimonial, role: e.target.value })
+                            }
                             required
                             className={styles.input}
                           />
@@ -746,7 +916,12 @@ export function AdminDashboard({ onClose }) {
                             type="text"
                             placeholder="e.g. Azhagappar Academy"
                             value={editingTestimonial.company}
-                            onChange={(e) => setEditingTestimonial({ ...editingTestimonial, company: e.target.value })}
+                            onChange={(e) =>
+                              setEditingTestimonial({
+                                ...editingTestimonial,
+                                company: e.target.value,
+                              })
+                            }
                             required
                             className={styles.input}
                           />
@@ -758,7 +933,12 @@ export function AdminDashboard({ onClose }) {
                             min="1"
                             max="5"
                             value={editingTestimonial.rating}
-                            onChange={(e) => setEditingTestimonial({ ...editingTestimonial, rating: parseInt(e.target.value, 10) || 5 })}
+                            onChange={(e) =>
+                              setEditingTestimonial({
+                                ...editingTestimonial,
+                                rating: parseInt(e.target.value, 10) || 5,
+                              })
+                            }
                             required
                             className={styles.input}
                           />
@@ -768,7 +948,9 @@ export function AdminDashboard({ onClose }) {
                           <textarea
                             placeholder="Client quote / feedback..."
                             value={editingTestimonial.text}
-                            onChange={(e) => setEditingTestimonial({ ...editingTestimonial, text: e.target.value })}
+                            onChange={(e) =>
+                              setEditingTestimonial({ ...editingTestimonial, text: e.target.value })
+                            }
                             rows="3"
                             required
                             className={styles.input}
@@ -776,10 +958,15 @@ export function AdminDashboard({ onClose }) {
                         </div>
                       </div>
                       <div className={styles.editorActions}>
-                        <button type="submit" className="btn-primary">
+                        {loginError && <p role="alert">{loginError}</p>}
+                        <button type="submit" disabled={loggingIn} className="btn-primary">
                           Save Testimonial
                         </button>
-                        <button type="button" className="btn-secondary" onClick={() => setEditingTestimonial(null)}>
+                        <button
+                          type="button"
+                          className="btn-secondary"
+                          onClick={() => setEditingTestimonial(null)}
+                        >
                           Cancel
                         </button>
                       </div>
@@ -795,7 +982,9 @@ export function AdminDashboard({ onClose }) {
                     <div className={styles.sectionHeading}>
                       <span>FAQ</span>
                       <h3>Frequently Asked Questions</h3>
-                      <p>Manage the dynamic question and answer accordions shown on the live website.</p>
+                      <p>
+                        Manage the dynamic question and answer accordions shown on the live website.
+                      </p>
                     </div>
                     <button
                       type="button"
@@ -905,10 +1094,15 @@ export function AdminDashboard({ onClose }) {
                         </div>
                       </div>
                       <div className={styles.editorActions}>
-                        <button type="submit" className="btn-primary">
+                        {loginError && <p role="alert">{loginError}</p>}
+                        <button type="submit" disabled={loggingIn} className="btn-primary">
                           Save FAQ
                         </button>
-                        <button type="button" className="btn-secondary" onClick={() => setEditingFaq(null)}>
+                        <button
+                          type="button"
+                          className="btn-secondary"
+                          onClick={() => setEditingFaq(null)}
+                        >
                           Cancel
                         </button>
                       </div>
@@ -924,7 +1118,10 @@ export function AdminDashboard({ onClose }) {
                     <div className={styles.sectionHeading}>
                       <span>Engineering Standards</span>
                       <h3>Quality Standards &amp; Process Steps</h3>
-                      <p>Customize the six core foundation pillars and roadmap steps displayed across the site.</p>
+                      <p>
+                        Customize the six core foundation pillars and roadmap steps displayed across
+                        the site.
+                      </p>
                     </div>
                     <button
                       type="button"
@@ -942,17 +1139,32 @@ export function AdminDashboard({ onClose }) {
                     </button>
                   </div>
 
-                  <h4 style={{ margin: '20px 0 12px', color: '#111C31', fontSize: '1.05rem', fontWeight: 800 }}>Core Standards Pillars</h4>
+                  <h4
+                    style={{
+                      margin: '20px 0 12px',
+                      color: '#111C31',
+                      fontSize: '1.05rem',
+                      fontWeight: 800,
+                    }}
+                  >
+                    Core Standards Pillars
+                  </h4>
                   <div className={styles.itemList}>
                     {(standards || []).map((std) => (
                       <div key={std.id} className={styles.itemRow}>
                         <div className={styles.itemDetails}>
-                          <span className={styles.itemTag}>Standard #{std.id} · Icon: {std.icon}</span>
+                          <span className={styles.itemTag}>
+                            Standard #{std.id} · Icon: {std.icon}
+                          </span>
                           <h4>{std.title}</h4>
                           <p>{std.desc}</p>
                         </div>
                         <div className={styles.itemBtnGroup}>
-                          <button type="button" className={styles.editBtn} onClick={() => setEditingStandard(std)}>
+                          <button
+                            type="button"
+                            className={styles.editBtn}
+                            onClick={() => setEditingStandard(std)}
+                          >
                             Edit
                           </button>
                           <button
@@ -992,18 +1204,25 @@ export function AdminDashboard({ onClose }) {
                             type="text"
                             placeholder="e.g. Clean, Maintainable Code"
                             value={editingStandard.title}
-                            onChange={(e) => setEditingStandard({ ...editingStandard, title: e.target.value })}
+                            onChange={(e) =>
+                              setEditingStandard({ ...editingStandard, title: e.target.value })
+                            }
                             required
                             className={styles.input}
                           />
                         </div>
                         <div className={styles.fieldGroup}>
-                          <label>Icon Identifier (e.g. MessageSquare, Code2, Zap, Target, Handshake, ScanEye)</label>
+                          <label>
+                            Icon Identifier (e.g. MessageSquare, Code2, Zap, Target, Handshake,
+                            ScanEye)
+                          </label>
                           <input
                             type="text"
                             placeholder="Code2"
                             value={editingStandard.icon}
-                            onChange={(e) => setEditingStandard({ ...editingStandard, icon: e.target.value })}
+                            onChange={(e) =>
+                              setEditingStandard({ ...editingStandard, icon: e.target.value })
+                            }
                             required
                             className={styles.input}
                           />
@@ -1013,7 +1232,9 @@ export function AdminDashboard({ onClose }) {
                           <textarea
                             placeholder="Describe this engineering standard..."
                             value={editingStandard.desc}
-                            onChange={(e) => setEditingStandard({ ...editingStandard, desc: e.target.value })}
+                            onChange={(e) =>
+                              setEditingStandard({ ...editingStandard, desc: e.target.value })
+                            }
                             rows="3"
                             required
                             className={styles.input}
@@ -1021,22 +1242,38 @@ export function AdminDashboard({ onClose }) {
                         </div>
                       </div>
                       <div className={styles.editorActions}>
-                        <button type="submit" className="btn-primary">
+                        {loginError && <p role="alert">{loginError}</p>}
+                        <button type="submit" disabled={loggingIn} className="btn-primary">
                           Save Pillar
                         </button>
-                        <button type="button" className="btn-secondary" onClick={() => setEditingStandard(null)}>
+                        <button
+                          type="button"
+                          className="btn-secondary"
+                          onClick={() => setEditingStandard(null)}
+                        >
                           Cancel
                         </button>
                       </div>
                     </form>
                   )}
 
-                  <h4 style={{ margin: '36px 0 12px', color: '#111C31', fontSize: '1.05rem', fontWeight: 800 }}>Process Roadmap Steps</h4>
+                  <h4
+                    style={{
+                      margin: '36px 0 12px',
+                      color: '#111C31',
+                      fontSize: '1.05rem',
+                      fontWeight: 800,
+                    }}
+                  >
+                    Process Roadmap Steps
+                  </h4>
                   <div className={styles.itemList}>
                     {(processSteps || []).map((step) => (
                       <div key={step.number} className={styles.itemRow}>
                         <div className={styles.itemDetails}>
-                          <span className={styles.itemTag}>Step {step.number} · {step.tag}</span>
+                          <span className={styles.itemTag}>
+                            Step {step.number} · {step.tag}
+                          </span>
                           <h4>{step.title}</h4>
                           <p>{step.desc}</p>
                         </div>
@@ -1084,7 +1321,12 @@ export function AdminDashboard({ onClose }) {
                           <input
                             type="text"
                             value={editingProcessStep.title}
-                            onChange={(e) => setEditingProcessStep({ ...editingProcessStep, title: e.target.value })}
+                            onChange={(e) =>
+                              setEditingProcessStep({
+                                ...editingProcessStep,
+                                title: e.target.value,
+                              })
+                            }
                             required
                             className={styles.input}
                           />
@@ -1094,17 +1336,24 @@ export function AdminDashboard({ onClose }) {
                           <input
                             type="text"
                             value={editingProcessStep.tag}
-                            onChange={(e) => setEditingProcessStep({ ...editingProcessStep, tag: e.target.value })}
+                            onChange={(e) =>
+                              setEditingProcessStep({ ...editingProcessStep, tag: e.target.value })
+                            }
                             required
                             className={styles.input}
                           />
                         </div>
                         <div className={styles.fieldGroup}>
-                          <label>Icon Identifier (e.g. Compass, Layers, Palette, Code2, ShieldCheck, Rocket)</label>
+                          <label>
+                            Icon Identifier (e.g. Compass, Layers, Palette, Code2, ShieldCheck,
+                            Rocket)
+                          </label>
                           <input
                             type="text"
                             value={editingProcessStep.icon}
-                            onChange={(e) => setEditingProcessStep({ ...editingProcessStep, icon: e.target.value })}
+                            onChange={(e) =>
+                              setEditingProcessStep({ ...editingProcessStep, icon: e.target.value })
+                            }
                             required
                             className={styles.input}
                           />
@@ -1114,7 +1363,12 @@ export function AdminDashboard({ onClose }) {
                           <input
                             type="text"
                             value={editingProcessStep.tagsString}
-                            onChange={(e) => setEditingProcessStep({ ...editingProcessStep, tagsString: e.target.value })}
+                            onChange={(e) =>
+                              setEditingProcessStep({
+                                ...editingProcessStep,
+                                tagsString: e.target.value,
+                              })
+                            }
                             placeholder="Frontend, Backend"
                             className={styles.input}
                           />
@@ -1123,7 +1377,9 @@ export function AdminDashboard({ onClose }) {
                           <label>Step Description</label>
                           <textarea
                             value={editingProcessStep.desc}
-                            onChange={(e) => setEditingProcessStep({ ...editingProcessStep, desc: e.target.value })}
+                            onChange={(e) =>
+                              setEditingProcessStep({ ...editingProcessStep, desc: e.target.value })
+                            }
                             rows="2"
                             required
                             className={styles.input}
@@ -1131,10 +1387,15 @@ export function AdminDashboard({ onClose }) {
                         </div>
                       </div>
                       <div className={styles.editorActions}>
-                        <button type="submit" className="btn-primary">
+                        {loginError && <p role="alert">{loginError}</p>}
+                        <button type="submit" disabled={loggingIn} className="btn-primary">
                           Save Process Step
                         </button>
-                        <button type="button" className="btn-secondary" onClick={() => setEditingProcessStep(null)}>
+                        <button
+                          type="button"
+                          className="btn-secondary"
+                          onClick={() => setEditingProcessStep(null)}
+                        >
                           Cancel
                         </button>
                       </div>
@@ -1157,7 +1418,10 @@ export function AdminDashboard({ onClose }) {
                     <div className={styles.sectionHeading}>
                       <span>Live Site Copy</span>
                       <h3>Website Content &amp; Media Manager</h3>
-                      <p>Update live headers, text copy, video links, team photos, and brand parameters.</p>
+                      <p>
+                        Update live headers, text copy, video links, team photos, and brand
+                        parameters.
+                      </p>
                     </div>
                   </div>
 
@@ -1172,7 +1436,9 @@ export function AdminDashboard({ onClose }) {
                       <input
                         type="text"
                         value={contentForm.agencyName || ''}
-                        onChange={(e) => setContentForm({ ...contentForm, agencyName: e.target.value })}
+                        onChange={(e) =>
+                          setContentForm({ ...contentForm, agencyName: e.target.value })
+                        }
                         className={styles.input}
                       />
                     </div>
@@ -1181,7 +1447,9 @@ export function AdminDashboard({ onClose }) {
                       <input
                         type="text"
                         value={contentForm.logoUrl || ''}
-                        onChange={(e) => setContentForm({ ...contentForm, logoUrl: e.target.value })}
+                        onChange={(e) =>
+                          setContentForm({ ...contentForm, logoUrl: e.target.value })
+                        }
                         placeholder="/DeCode_Logo.png"
                         className={styles.input}
                       />
@@ -1191,7 +1459,9 @@ export function AdminDashboard({ onClose }) {
                       <input
                         type="email"
                         value={contentForm.contactEmail || ''}
-                        onChange={(e) => setContentForm({ ...contentForm, contactEmail: e.target.value })}
+                        onChange={(e) =>
+                          setContentForm({ ...contentForm, contactEmail: e.target.value })
+                        }
                         className={styles.input}
                       />
                     </div>
@@ -1200,7 +1470,9 @@ export function AdminDashboard({ onClose }) {
                       <input
                         type="text"
                         value={contentForm.contactPhone || ''}
-                        onChange={(e) => setContentForm({ ...contentForm, contactPhone: e.target.value })}
+                        onChange={(e) =>
+                          setContentForm({ ...contentForm, contactPhone: e.target.value })
+                        }
                         className={styles.input}
                       />
                     </div>
@@ -1209,7 +1481,9 @@ export function AdminDashboard({ onClose }) {
                       <input
                         type="text"
                         value={contentForm.contactLocation || ''}
-                        onChange={(e) => setContentForm({ ...contentForm, contactLocation: e.target.value })}
+                        onChange={(e) =>
+                          setContentForm({ ...contentForm, contactLocation: e.target.value })
+                        }
                         className={styles.input}
                       />
                     </div>
@@ -1217,14 +1491,18 @@ export function AdminDashboard({ onClose }) {
                     {/* Hero Section */}
                     <div className={styles.sectionDivider}>
                       <h4>🎬 Hero Section</h4>
-                      <p>Top landing banner headline, background video, and call-to-action buttons.</p>
+                      <p>
+                        Top landing banner headline, background video, and call-to-action buttons.
+                      </p>
                     </div>
                     <div className={styles.fieldGroup}>
                       <label>Hero Badge Eyebrow</label>
                       <input
                         type="text"
                         value={contentForm.heroEyebrow || ''}
-                        onChange={(e) => setContentForm({ ...contentForm, heroEyebrow: e.target.value })}
+                        onChange={(e) =>
+                          setContentForm({ ...contentForm, heroEyebrow: e.target.value })
+                        }
                         className={styles.input}
                       />
                     </div>
@@ -1233,7 +1511,9 @@ export function AdminDashboard({ onClose }) {
                       <input
                         type="text"
                         value={contentForm.heroVideoUrl || ''}
-                        onChange={(e) => setContentForm({ ...contentForm, heroVideoUrl: e.target.value })}
+                        onChange={(e) =>
+                          setContentForm({ ...contentForm, heroVideoUrl: e.target.value })
+                        }
                         placeholder="/sample.mp4"
                         className={styles.input}
                       />
@@ -1243,7 +1523,9 @@ export function AdminDashboard({ onClose }) {
                       <input
                         type="text"
                         value={contentForm.heroHeadline || ''}
-                        onChange={(e) => setContentForm({ ...contentForm, heroHeadline: e.target.value })}
+                        onChange={(e) =>
+                          setContentForm({ ...contentForm, heroHeadline: e.target.value })
+                        }
                         className={styles.input}
                       />
                     </div>
@@ -1252,7 +1534,9 @@ export function AdminDashboard({ onClose }) {
                       <textarea
                         rows="3"
                         value={contentForm.heroSubtext || ''}
-                        onChange={(e) => setContentForm({ ...contentForm, heroSubtext: e.target.value })}
+                        onChange={(e) =>
+                          setContentForm({ ...contentForm, heroSubtext: e.target.value })
+                        }
                         className={styles.input}
                       />
                     </div>
@@ -1261,7 +1545,9 @@ export function AdminDashboard({ onClose }) {
                       <input
                         type="text"
                         value={contentForm.heroPrimaryCta || ''}
-                        onChange={(e) => setContentForm({ ...contentForm, heroPrimaryCta: e.target.value })}
+                        onChange={(e) =>
+                          setContentForm({ ...contentForm, heroPrimaryCta: e.target.value })
+                        }
                         placeholder="Start A Project"
                         className={styles.input}
                       />
@@ -1271,7 +1557,9 @@ export function AdminDashboard({ onClose }) {
                       <input
                         type="text"
                         value={contentForm.heroSecondaryCta || ''}
-                        onChange={(e) => setContentForm({ ...contentForm, heroSecondaryCta: e.target.value })}
+                        onChange={(e) =>
+                          setContentForm({ ...contentForm, heroSecondaryCta: e.target.value })
+                        }
                         placeholder="Explore our services"
                         className={styles.input}
                       />
@@ -1280,14 +1568,19 @@ export function AdminDashboard({ onClose }) {
                     {/* Who We Are (About Us) Section */}
                     <div className={styles.sectionDivider}>
                       <h4>📖 Who We Are (About Section)</h4>
-                      <p>Company story, description paragraphs, workspace photo, and floating caption.</p>
+                      <p>
+                        Company story, description paragraphs, workspace photo, and floating
+                        caption.
+                      </p>
                     </div>
                     <div className={styles.fieldGroup}>
                       <label>About Heading</label>
                       <input
                         type="text"
                         value={contentForm.aboutHeading || ''}
-                        onChange={(e) => setContentForm({ ...contentForm, aboutHeading: e.target.value })}
+                        onChange={(e) =>
+                          setContentForm({ ...contentForm, aboutHeading: e.target.value })
+                        }
                         placeholder="Building what’s next."
                         className={styles.input}
                       />
@@ -1297,7 +1590,9 @@ export function AdminDashboard({ onClose }) {
                       <input
                         type="text"
                         value={contentForm.aboutLead || ''}
-                        onChange={(e) => setContentForm({ ...contentForm, aboutLead: e.target.value })}
+                        onChange={(e) =>
+                          setContentForm({ ...contentForm, aboutLead: e.target.value })
+                        }
                         placeholder="We turn complex challenges into intelligent digital solutions."
                         className={styles.input}
                       />
@@ -1307,7 +1602,9 @@ export function AdminDashboard({ onClose }) {
                       <textarea
                         rows="2"
                         value={contentForm.aboutDesc1 || ''}
-                        onChange={(e) => setContentForm({ ...contentForm, aboutDesc1: e.target.value })}
+                        onChange={(e) =>
+                          setContentForm({ ...contentForm, aboutDesc1: e.target.value })
+                        }
                         className={styles.input}
                       />
                     </div>
@@ -1316,7 +1613,9 @@ export function AdminDashboard({ onClose }) {
                       <textarea
                         rows="2"
                         value={contentForm.aboutDesc2 || ''}
-                        onChange={(e) => setContentForm({ ...contentForm, aboutDesc2: e.target.value })}
+                        onChange={(e) =>
+                          setContentForm({ ...contentForm, aboutDesc2: e.target.value })
+                        }
                         className={styles.input}
                       />
                     </div>
@@ -1325,7 +1624,9 @@ export function AdminDashboard({ onClose }) {
                       <input
                         type="text"
                         value={contentForm.aboutImage || ''}
-                        onChange={(e) => setContentForm({ ...contentForm, aboutImage: e.target.value })}
+                        onChange={(e) =>
+                          setContentForm({ ...contentForm, aboutImage: e.target.value })
+                        }
                         placeholder="/assets/who-we-are.jpg"
                         className={styles.input}
                       />
@@ -1335,7 +1636,9 @@ export function AdminDashboard({ onClose }) {
                       <input
                         type="text"
                         value={contentForm.aboutCaption || ''}
-                        onChange={(e) => setContentForm({ ...contentForm, aboutCaption: e.target.value })}
+                        onChange={(e) =>
+                          setContentForm({ ...contentForm, aboutCaption: e.target.value })
+                        }
                         placeholder="Built to evolve. Designed for what’s next."
                         className={styles.input}
                       />
@@ -1344,14 +1647,19 @@ export function AdminDashboard({ onClose }) {
                     {/* Standards & Process Headings */}
                     <div className={styles.sectionDivider}>
                       <h4>🏆 Standards &amp; Process Section Headings</h4>
-                      <p>Section title and subtitle text for Engineering Standards and Process Roadmap.</p>
+                      <p>
+                        Section title and subtitle text for Engineering Standards and Process
+                        Roadmap.
+                      </p>
                     </div>
                     <div className={styles.fieldGroup}>
                       <label>Standards Section Heading</label>
                       <input
                         type="text"
                         value={contentForm.standardsHeading || ''}
-                        onChange={(e) => setContentForm({ ...contentForm, standardsHeading: e.target.value })}
+                        onChange={(e) =>
+                          setContentForm({ ...contentForm, standardsHeading: e.target.value })
+                        }
                         className={styles.input}
                       />
                     </div>
@@ -1360,7 +1668,9 @@ export function AdminDashboard({ onClose }) {
                       <input
                         type="text"
                         value={contentForm.standardsSubheading || ''}
-                        onChange={(e) => setContentForm({ ...contentForm, standardsSubheading: e.target.value })}
+                        onChange={(e) =>
+                          setContentForm({ ...contentForm, standardsSubheading: e.target.value })
+                        }
                         className={styles.input}
                       />
                     </div>
@@ -1369,7 +1679,9 @@ export function AdminDashboard({ onClose }) {
                       <input
                         type="text"
                         value={contentForm.processHeading || ''}
-                        onChange={(e) => setContentForm({ ...contentForm, processHeading: e.target.value })}
+                        onChange={(e) =>
+                          setContentForm({ ...contentForm, processHeading: e.target.value })
+                        }
                         className={styles.input}
                       />
                     </div>
@@ -1378,7 +1690,9 @@ export function AdminDashboard({ onClose }) {
                       <input
                         type="text"
                         value={contentForm.processSubheading || ''}
-                        onChange={(e) => setContentForm({ ...contentForm, processSubheading: e.target.value })}
+                        onChange={(e) =>
+                          setContentForm({ ...contentForm, processSubheading: e.target.value })
+                        }
                         className={styles.input}
                       />
                     </div>
@@ -1387,7 +1701,9 @@ export function AdminDashboard({ onClose }) {
                       <input
                         type="text"
                         value={contentForm.processClosingText || ''}
-                        onChange={(e) => setContentForm({ ...contentForm, processClosingText: e.target.value })}
+                        onChange={(e) =>
+                          setContentForm({ ...contentForm, processClosingText: e.target.value })
+                        }
                         placeholder="Your idea. A clear path forward."
                         className={styles.input}
                       />
@@ -1395,7 +1711,8 @@ export function AdminDashboard({ onClose }) {
                   </div>
 
                   <div className={styles.editorActions} style={{ marginTop: '24px' }}>
-                    <button type="submit" className="btn-primary">
+                    {loginError && <p role="alert">{loginError}</p>}
+                    <button type="submit" disabled={loggingIn} className="btn-primary">
                       Save Live Changes
                     </button>
                     <button type="button" className={styles.resetBtn} onClick={handleResetData}>

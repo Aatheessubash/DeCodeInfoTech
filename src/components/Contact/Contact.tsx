@@ -6,18 +6,6 @@ import styles from './Contact.module.css';
 import { Mail, MapPin, ArrowRight } from 'lucide-react';
 import type { ContactProposal } from '@/lib/types';
 
-function saveLeadLocally(formData: ContactProposal) {
-  try {
-    const storedLeads = JSON.parse(localStorage.getItem('decode_contact_leads') || '[]');
-    const leads = Array.isArray(storedLeads) ? storedLeads : [];
-    leads.push({ ...formData, timestamp: new Date().toISOString() });
-    localStorage.setItem('decode_contact_leads', JSON.stringify(leads));
-    return true;
-  } catch {
-    return false;
-  }
-}
-
 export function Contact() {
   const { siteContent } = useData();
   const [formSubmitted, setFormSubmitted] = useState(false);
@@ -33,7 +21,7 @@ export function Contact() {
   const [submitError, setSubmitError] = useState('');
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>,
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -62,12 +50,10 @@ export function Contact() {
     } catch {
       submitted = false;
     } finally {
-      if (!submitted) submitted = saveLeadLocally(formData);
-
       if (submitted) {
         setFormSubmitted(true);
       } else {
-        setSubmitError('We could not send or save your request. Please try again.');
+        setSubmitError('We could not send your request. Please try again or contact us by email.');
       }
 
       setSubmitting(false);
@@ -98,7 +84,9 @@ export function Contact() {
               Let's Build Something <span>Exceptional</span>
             </h2>
             <p className={styles.subheading}>
-              Ready to turn your vision into a high-performing digital product? Fill out the proposal form below and the <strong>DeCode</strong> team will get back to you within 24 hours.
+              Ready to turn your vision into a high-performing digital product? Fill out the
+              proposal form below and the <strong>DeCode</strong> team will get back to you within
+              24 hours.
             </p>
           </div>
           {contactDetails}
@@ -111,7 +99,9 @@ export function Contact() {
               <div className={styles.successIcon}>✓</div>
               <h3>Proposal Request Sent!</h3>
               <p>
-                Thank you <strong>{formData.name}</strong>. The DeCode team has received your project proposal details and will reach out via email (<strong>{formData.email}</strong>) shortly.
+                Thank you <strong>{formData.name}</strong>. The DeCode team has received your
+                project proposal details and will reach out via email (
+                <strong>{formData.email}</strong>) shortly.
               </p>
               <button className="btn-primary" onClick={resetForm}>
                 Send Another Request
@@ -121,7 +111,9 @@ export function Contact() {
             <form className={styles.formCard} onSubmit={handleSubmit}>
               <div className={styles.formGrid}>
                 <div className={styles.fieldGroup}>
-                  <label htmlFor="name" className={styles.label}>Your Name *</label>
+                  <label htmlFor="name" className={styles.label}>
+                    Your Name *
+                  </label>
                   <input
                     type="text"
                     id="name"
@@ -136,7 +128,9 @@ export function Contact() {
                 </div>
 
                 <div className={styles.fieldGroup}>
-                  <label htmlFor="email" className={styles.label}>Email Address *</label>
+                  <label htmlFor="email" className={styles.label}>
+                    Email Address *
+                  </label>
                   <input
                     type="email"
                     id="email"
@@ -151,7 +145,9 @@ export function Contact() {
                 </div>
 
                 <div className={styles.fieldGroup}>
-                  <label htmlFor="company" className={styles.label}>Company / Organization</label>
+                  <label htmlFor="company" className={styles.label}>
+                    Company / Organization
+                  </label>
                   <input
                     type="text"
                     id="company"
@@ -165,7 +161,9 @@ export function Contact() {
                 </div>
 
                 <div className={styles.fieldGroup}>
-                  <label htmlFor="projectType" className={styles.label}>Project Category *</label>
+                  <label htmlFor="projectType" className={styles.label}>
+                    Project Category *
+                  </label>
                   <select
                     id="projectType"
                     name="projectType"
@@ -182,7 +180,9 @@ export function Contact() {
                 </div>
 
                 <div className={`${styles.fieldGroup} ${styles.fullWidth}`}>
-                  <label htmlFor="message" className={styles.label}>Project Overview &amp; Goals *</label>
+                  <label htmlFor="message" className={styles.label}>
+                    Project Overview &amp; Goals *
+                  </label>
                   <textarea
                     id="message"
                     name="message"
@@ -198,13 +198,26 @@ export function Contact() {
 
               {submitError && (
                 <div className={styles.errorBanner} role="alert">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                    <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.5"
+                  >
+                    <circle cx="12" cy="12" r="10" />
+                    <line x1="12" y1="8" x2="12" y2="12" />
+                    <line x1="12" y1="16" x2="12.01" y2="16" />
                   </svg>
                   {submitError}
                 </div>
               )}
-              <button type="submit" disabled={submitting} className={`btn-primary ${styles.submitBtn}`}>
+              <button
+                type="submit"
+                disabled={submitting}
+                className={`btn-primary ${styles.submitBtn}`}
+              >
                 <span>{submitting ? 'Sending Proposal Email...' : 'Submit Proposal Request'}</span>
                 <ArrowRight className="w-4 h-4" aria-hidden="true" />
               </button>

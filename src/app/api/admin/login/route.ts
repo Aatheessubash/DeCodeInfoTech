@@ -1,35 +1,47 @@
-import { NextResponse } from 'next/server';
+import { createHash, timingSafeEqual } from 'node:crypto';
 
-export async function POST(req: Request) {
-  try {
-    const { username, password } = await req.json();
+function matches(actual: string, expected: string) {
+  const digest = (value: string) => createHash('sha256').update(value).digest();
+  return timingSafeEqual(digest(actual), digest(expected));
+}
 
-    if (!username || !password) {
-      return NextResponse.json(
-        { success: false, message: 'Username and password are required.' },
-        { status: 400 }
-      );
-    }
-
-    const validUsername = process.env.ADMIN_USERNAME || 'divinecode01';
-    const validPassword = process.env.ADMIN_PASSWORD || '782274';
-
-    if (username === validUsername && password === validPassword) {
-      return NextResponse.json({
-        success: true,
-        token: `admin-${Date.now()}`,
-        message: 'Admin authenticated successfully.',
-      });
-    }
-
-    return NextResponse.json(
-      { success: false, message: 'Invalid admin credentials.' },
-      { status: 401 }
-    );
-  } catch (error: any) {
-    return NextResponse.json(
-      { success: false, message: error?.message || 'Server error' },
-      { status: 500 }
+// This unlocks the browser-local editor. It does not create a server session.
+export async function POST(request: Request) {
+  const username = process.env.ADMIN_USERNAME;
+  const password = process.env.ADMIN_PASSWORD;
+  if (!username || !password) {
+    return Response.json(
+      { success: false, message: 'Admin access is not configured.' },
+      { status: 503 },
     );
   }
+
+  let body: unknown;
+  try {
+    body = await request.json();
+  } catch {
+    return Response.json({ success: false, message: 'Invalid JSON body.' }, { status: 400 });
+  }
+  if (
+    !body ||
+    typeof body !== 'object' ||
+    !('username' in body) ||
+    !('password' in body) ||
+    typeof body.username !== 'string' ||
+    typeof body.password !== 'string'
+  ) {
+    return Response.json(
+      { success: false, message: 'Username and password are required.' },
+      { status: 400 },
+    );
+  }
+  const validUsername = matches(body.username, username);
+  const validPassword = matches(body.password, password);
+  if (!validUsername || !validPassword) {
+    return Response.json(
+      { success: false, message: 'Invalid admin credentials.' },
+      { status: 401 },
+    );
+  }
+  return Response.json({ success: true });
 }

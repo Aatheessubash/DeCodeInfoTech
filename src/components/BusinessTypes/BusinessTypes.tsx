@@ -164,17 +164,26 @@ export function BusinessTypes() {
             Built for Different Kinds of <span>Businesses.</span>
           </h2>
           <p className={styles.sectionSub}>
-            We adapt our technology and approach to the challenges of your
-            industry — and the next stage of your business.
+            We adapt our technology and approach to the challenges of your industry — and the next
+            stage of your business.
           </p>
         </header>
 
         <div className={styles.rows}>
           {[BUSINESS_TYPES.slice(0, 10), BUSINESS_TYPES.slice(10, 20)].map((row, index) => (
-            <div key={index} className={styles.viewport} role="region" aria-label={`Target audience row ${index + 1}`}>
+            <div
+              key={index}
+              className={styles.viewport}
+              role="region"
+              aria-label={`Target audience row ${index + 1}`}
+            >
               <div className={`${styles.track} ${index === 1 ? styles.reverse : ''}`}>
                 {[0, 1].map((copy) => (
-                  <ul key={copy} className={styles.audienceList} aria-hidden={copy === 1 ? true : undefined}>
+                  <ul
+                    key={copy}
+                    className={styles.audienceList}
+                    aria-hidden={copy === 1 ? true : undefined}
+                  >
                     {row.map((type) => (
                       <li key={`${copy}-${type.id}`} className={styles.audience}>
                         <div className={styles.iconWrapper}>{type.icon}</div>

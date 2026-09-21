@@ -34,10 +34,16 @@
   transition: transform 200ms ease;
 }
 
-.valueCard:hover { background: #fafaf8; }
-.valueCard:hover::after { transform: scaleX(1); }
+.valueCard:hover {
+  background: #fafaf8;
+}
+.valueCard:hover::after {
+  transform: scaleX(1);
+}
 
-.cardHeader { margin-bottom: 26px; }
+.cardHeader {
+  margin-bottom: 26px;
+}
 
 .iconCircle {
   display: grid;
@@ -70,19 +76,36 @@
 }
 
 @media (max-width: 1000px) {
-  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 600px) {
-  .grid { grid-template-columns: minmax(0, 1fr); border-radius: 16px; }
-  .valueCard { padding: 26px; }
-  .cardHeader { margin-bottom: 20px; }
-  .title { max-width: none; }
-  .valueCard::after { left: 26px; right: 26px; }
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+    border-radius: 16px;
+  }
+  .valueCard {
+    padding: 26px;
+  }
+  .cardHeader {
+    margin-bottom: 20px;
+  }
+  .title {
+    max-width: none;
+  }
+  .valueCard::after {
+    left: 26px;
+    right: 26px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .valueCard, .valueCard::after { transition: none; }
+  .valueCard,
+  .valueCard::after {
+    transition: none;
+  }
 }
 
 .sectionHeader {

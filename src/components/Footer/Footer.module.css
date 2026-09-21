@@ -1,6 +1,6 @@
 .footer {
   background: #161617;
-  color: #FFFFFF;
+  color: #ffffff;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
   padding-top: 72px;
   position: relative;
@@ -89,7 +89,7 @@
 .colTitle {
   font-size: 0.95rem;
   font-weight: 600;
-  color: #FFFFFF;
+  color: #ffffff;
   margin-bottom: 18px;
   letter-spacing: -0.01em;
 }
@@ -111,13 +111,15 @@
   cursor: pointer;
   font-family: inherit;
   text-align: left;
-  transition: color 180ms ease, transform 180ms ease;
+  transition:
+    color 180ms ease,
+    transform 180ms ease;
   display: inline-block;
 }
 
 .linkList a:hover,
 .linkBtn:hover {
-  color: #FFFFFF;
+  color: #ffffff;
   transform: translateX(3px);
 }
 
@@ -163,7 +165,8 @@
     grid-template-columns: 1fr 1fr;
     gap: 32px;
   }
-  .brandCol, .contactCol {
+  .brandCol,
+  .contactCol {
     grid-column: 1 / -1;
   }
   .bottomContainer {

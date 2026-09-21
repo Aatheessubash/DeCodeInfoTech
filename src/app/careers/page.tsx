@@ -8,6 +8,8 @@ import styles from './CareersPage.module.css';
 export default function CareersPage() {
   const [selectedJob, setSelectedJob] = useState<JobPosting | null>(null);
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState('');
   const [formData, setFormData] = useState<Omit<JobApplication, 'jobTitle'>>({
     name: '',
     email: '',
@@ -18,12 +20,36 @@ export default function CareersPage() {
   });
 
   const perks = [
-    { icon: '✦', title: 'Competitive Salary', desc: 'Above-market compensation with performance bonuses and annual growth reviews.' },
-    { icon: '⚡', title: 'Remote & Hybrid Flexibility', desc: 'Work from home or from our hub with flexible hours focused on real output.' },
-    { icon: '⚙', title: 'Modern Tech Stack', desc: 'No legacy debt. We use React, Next.js, Node.js, Vite, and leading cloud tooling.' },
-    { icon: '◈', title: 'Continuous Growth', desc: 'Stipends for courses, technical books, and conferences to sharpen your skills.' },
-    { icon: '⬡', title: 'High Impact Work', desc: 'Build scalable products directly for real businesses, startups, and enterprises.' },
-    { icon: '❖', title: 'Great Work Culture', desc: 'Collaborative, zero-micromanagement environment with friendly engineering leaders.' },
+    {
+      icon: '✦',
+      title: 'Competitive Salary',
+      desc: 'Above-market compensation with performance bonuses and annual growth reviews.',
+    },
+    {
+      icon: '⚡',
+      title: 'Remote & Hybrid Flexibility',
+      desc: 'Work from home or from our hub with flexible hours focused on real output.',
+    },
+    {
+      icon: '⚙',
+      title: 'Modern Tech Stack',
+      desc: 'No legacy debt. We use React, Next.js, Node.js, Vite, and leading cloud tooling.',
+    },
+    {
+      icon: '◈',
+      title: 'Continuous Growth',
+      desc: 'Stipends for courses, technical books, and conferences to sharpen your skills.',
+    },
+    {
+      icon: '⬡',
+      title: 'High Impact Work',
+      desc: 'Build scalable products directly for real businesses, startups, and enterprises.',
+    },
+    {
+      icon: '❖',
+      title: 'Great Work Culture',
+      desc: 'Collaborative, zero-micromanagement environment with friendly engineering leaders.',
+    },
   ];
 
   const { addJobApplication, jobPostings } = useData();
@@ -54,19 +80,26 @@ export default function CareersPage() {
       jobTitle: selectedJob?.title || 'General Application',
     };
 
-    addJobApplication(payload);
+    setSubmitting(true);
+    setSubmitError('');
 
     try {
-      await fetch('/api/careers', {
+      const response = await fetch('/api/careers', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
       });
+      const result = await response.json();
+      if (!response.ok || !result.success) throw new Error('Delivery failed');
+      addJobApplication(payload);
+      setFormSubmitted(true);
     } catch {
-      console.warn('Mail server offline. Application stored locally.');
+      setSubmitError(
+        'We could not send your application. Please try again or contact us by email.',
+      );
+    } finally {
+      setSubmitting(false);
     }
-
-    setFormSubmitted(true);
   };
 
   return (
@@ -82,7 +115,9 @@ export default function CareersPage() {
             Build Great Digital Products With Us in Coimbatore
           </h1>
           <p className={styles.heroSubtext}>
-            Join <strong>DeCode InfoTech</strong> — the best software and web development company in Coimbatore. We design and engineer modern web applications, scalable SaaS products, and enterprise cloud solutions.
+            Join <strong>DeCode InfoTech</strong> — the best software and web development company in
+            Coimbatore. We design and engineer modern web applications, scalable SaaS products, and
+            enterprise cloud solutions.
           </p>
         </div>
       </section>
@@ -90,9 +125,7 @@ export default function CareersPage() {
       {/* Why Work With Us Section */}
       <section className={`section-padding ${styles.perksSection}`}>
         <div style={{ textAlign: 'center', marginBottom: '48px' }}>
-          <h2 className={styles.sectionTitle}>
-            Why Engineers &amp; Designers Love DeCode
-          </h2>
+          <h2 className={styles.sectionTitle}>Why Engineers &amp; Designers Love DeCode</h2>
           <p className={styles.sectionSubtitle}>
             We build an environment where people thrive, learn, and take pride in their craft.
           </p>
@@ -121,7 +154,10 @@ export default function CareersPage() {
         {openPositions.length === 0 ? (
           <div className={`card-panel ${styles.emptyJobs}`}>
             <h3>No Open Roles Right Now</h3>
-            <p>We are not actively hiring today, but you can still reach us through the contact page for future opportunities.</p>
+            <p>
+              We are not actively hiring today, but you can still reach us through the contact page
+              for future opportunities.
+            </p>
           </div>
         ) : (
           <div className={styles.jobsGrid}>
@@ -131,7 +167,9 @@ export default function CareersPage() {
                   <div>
                     <div className={styles.jobMeta}>
                       <span className={styles.jobDepartment}>{job.department}</span>
-                      <span className={styles.jobLocation}>{job.location} • {job.type}</span>
+                      <span className={styles.jobLocation}>
+                        {job.location} • {job.type}
+                      </span>
                     </div>
                     <h3 className={styles.jobTitle}>{job.title}</h3>
                   </div>
@@ -140,6 +178,7 @@ export default function CareersPage() {
                     className="btn-primary"
                     onClick={() => {
                       setSelectedJob(job);
+                      setSubmitError('');
                       setFormSubmitted(false);
                     }}
                   >
@@ -170,7 +209,11 @@ export default function CareersPage() {
 
       {/* Application Modal */}
       {selectedJob && (
-        <div className={styles.modalBackdrop} onClick={() => setSelectedJob(null)} role="presentation">
+        <div
+          className={styles.modalBackdrop}
+          onClick={() => setSelectedJob(null)}
+          role="presentation"
+        >
           <div
             className={styles.modalContent}
             onClick={(e) => e.stopPropagation()}
@@ -194,7 +237,9 @@ export default function CareersPage() {
                   Application Received!
                 </h3>
                 <p className={styles.jobSummary} style={{ marginBottom: '24px' }}>
-                  Thank you <strong>{formData.name}</strong>. Your application for <strong>{selectedJob.title}</strong> has been submitted. Our engineering leads will review your details and respond via email within 48 hours.
+                  Thank you <strong>{formData.name}</strong>. Your application for{' '}
+                  <strong>{selectedJob.title}</strong> has been submitted. Our engineering leads
+                  will review your details and respond via email within 48 hours.
                 </p>
                 <button type="button" className="btn-primary" onClick={() => setSelectedJob(null)}>
                   Close Window
@@ -206,13 +251,19 @@ export default function CareersPage() {
                   <span className="badge-dot"></span>
                   Applying for {selectedJob.title}
                 </div>
-                <h3 id="career-dialog-title" className={styles.modalTitle} style={{ marginBottom: '20px' }}>
+                <h3
+                  id="career-dialog-title"
+                  className={styles.modalTitle}
+                  style={{ marginBottom: '20px' }}
+                >
                   Submit Your Candidate Application
                 </h3>
 
                 <div className={styles.formGroup}>
                   <div>
-                    <label htmlFor="career-name" className={styles.label}>Full Name *</label>
+                    <label htmlFor="career-name" className={styles.label}>
+                      Full Name *
+                    </label>
                     <input
                       id="career-name"
                       name="name"
@@ -227,7 +278,9 @@ export default function CareersPage() {
                   </div>
 
                   <div>
-                    <label htmlFor="career-email" className={styles.label}>Email Address *</label>
+                    <label htmlFor="career-email" className={styles.label}>
+                      Email Address *
+                    </label>
                     <input
                       id="career-email"
                       name="email"
@@ -241,7 +294,9 @@ export default function CareersPage() {
                   </div>
 
                   <div>
-                    <label htmlFor="career-portfolio" className={styles.label}>Portfolio / GitHub URL *</label>
+                    <label htmlFor="career-portfolio" className={styles.label}>
+                      Portfolio / GitHub URL *
+                    </label>
                     <input
                       id="career-portfolio"
                       name="portfolio"
@@ -255,7 +310,9 @@ export default function CareersPage() {
                   </div>
 
                   <div>
-                    <label htmlFor="career-cover-letter" className={styles.label}>Cover Letter / Brief Pitch</label>
+                    <label htmlFor="career-cover-letter" className={styles.label}>
+                      Cover Letter / Brief Pitch
+                    </label>
                     <textarea
                       id="career-cover-letter"
                       name="coverLetter"
@@ -267,7 +324,13 @@ export default function CareersPage() {
                     />
                   </div>
 
-                  <button type="submit" className="btn-primary" style={{ width: '100%', marginTop: '8px' }}>
+                  {submitError && <p role="alert">{submitError}</p>}
+                  <button
+                    type="submit"
+                    disabled={submitting}
+                    className="btn-primary"
+                    style={{ width: '100%', marginTop: '8px' }}
+                  >
                     Submit Candidate Application
                   </button>
                 </div>

@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
-import gsap, { ScrollTrigger } from '@/lib/gsap';
+import gsap from '@/lib/gsap';
 
 export function SmoothScroll() {
   useEffect(() => {
@@ -23,7 +23,7 @@ export function SmoothScroll() {
               start: 'top 88%',
               toggleActions: 'play none none none',
             },
-          }
+          },
         );
       });
     });

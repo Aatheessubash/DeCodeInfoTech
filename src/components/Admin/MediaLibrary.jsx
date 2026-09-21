@@ -16,7 +16,14 @@ import { useData } from '../../context/useData';
 import { formatFileSize, optimizeProjectImage } from '../../utils/optimizeImage';
 import styles from './MediaLibrary.module.css';
 
-const CATEGORIES = ['All', 'Portfolio', 'Backgrounds & Video', 'About & Team', 'Branding', 'Custom Uploads'];
+const CATEGORIES = [
+  'All',
+  'Portfolio',
+  'Backgrounds & Video',
+  'About & Team',
+  'Branding',
+  'Custom Uploads',
+];
 
 export function MediaLibrary({ onSelectAsset }) {
   const { mediaAssets, addMediaAsset, deleteMediaAsset } = useData();
@@ -32,7 +39,9 @@ export function MediaLibrary({ onSelectAsset }) {
   const filteredAssets = (mediaAssets || []).filter((asset) => {
     const matchesCategory =
       selectedCategory === 'All' ||
-      (selectedCategory === 'Custom Uploads' ? asset.isCustom : asset.category === selectedCategory);
+      (selectedCategory === 'Custom Uploads'
+        ? asset.isCustom
+        : asset.category === selectedCategory);
     const matchesQuery =
       searchQuery.trim() === '' ||
       asset.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -96,7 +105,10 @@ export function MediaLibrary({ onSelectAsset }) {
         <div className={styles.sectionHeading}>
           <span>Asset Manager</span>
           <h3>Project Media &amp; Assets Library</h3>
-          <p>Browse all site screenshots, brand logos, and video backgrounds. Copy paths or upload new assets.</p>
+          <p>
+            Browse all site screenshots, brand logos, and video backgrounds. Copy paths or upload
+            new assets.
+          </p>
         </div>
         <button
           type="button"
@@ -228,7 +240,9 @@ export function MediaLibrary({ onSelectAsset }) {
                     <code className={styles.pathCode} title={asset.path}>
                       {asset.path.length > 34 ? `${asset.path.slice(0, 32)}…` : asset.path}
                     </code>
-                    {asset.dimensions && <span className={styles.dimensions}>{asset.dimensions}</span>}
+                    {asset.dimensions && (
+                      <span className={styles.dimensions}>{asset.dimensions}</span>
+                    )}
                   </div>
 
                   <div className={styles.cardActions}>

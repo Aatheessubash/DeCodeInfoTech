@@ -38,7 +38,9 @@ export function FAQ() {
           Frequently Asked <span>Questions</span>
         </h2>
         <p className={styles.subheading}>
-          Everything you need to know about working with <strong>{siteContent?.agencyName || 'DeCode InfoTech'}</strong> — Coimbatore's premier software &amp; web development company.
+          Everything you need to know about working with{' '}
+          <strong>{siteContent?.agencyName || 'DeCode InfoTech'}</strong> — Coimbatore's premier
+          software &amp; web development company.
         </p>
       </div>
 
@@ -58,7 +60,10 @@ export function FAQ() {
                 aria-controls={`faq-answer-${idx}`}
               >
                 <span className={styles.questionText}>{faq.q}</span>
-                <span className={`${styles.icon} ${isOpen ? styles.iconOpen : ''}`} aria-hidden="true">
+                <span
+                  className={`${styles.icon} ${isOpen ? styles.iconOpen : ''}`}
+                  aria-hidden="true"
+                >
                   {isOpen ? '−' : '+'}
                 </span>
               </button>

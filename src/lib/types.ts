@@ -105,7 +105,7 @@ export interface SiteContent {
   processClosingText: string;
   contactEmail: string;
   contactLocation: string;
-  [key: string]: any;
+  contactPhone: string;
 }
 
 export interface MediaAsset {

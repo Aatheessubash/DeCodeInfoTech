@@ -155,7 +155,6 @@
   background: currentColor;
 }
 
-
 @media (hover: hover) {
   .step:hover {
     transform: translateY(-6px);

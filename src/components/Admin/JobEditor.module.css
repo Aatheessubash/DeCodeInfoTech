@@ -69,7 +69,9 @@
   font: inherit;
   font-size: 0.86rem;
   outline: none;
-  transition: border-color 180ms ease, box-shadow 180ms ease;
+  transition:
+    border-color 180ms ease,
+    box-shadow 180ms ease;
 }
 
 .formGrid textarea {

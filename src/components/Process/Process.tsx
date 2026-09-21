@@ -109,7 +109,8 @@ export function Process() {
             {siteContent?.processHeading ? (
               siteContent.processHeading.includes('better outcome') ? (
                 <>
-                  {siteContent.processHeading.replace(/A better outcome\.?/i, '').trim()}<br />
+                  {siteContent.processHeading.replace(/A better outcome\.?/i, '').trim()}
+                  <br />
                   <span>A better outcome.</span>
                 </>
               ) : (
@@ -117,7 +118,8 @@ export function Process() {
               )
             ) : (
               <>
-                A simple process.<br />
+                A simple process.
+                <br />
                 <span>A better outcome.</span>
               </>
             )}

@@ -90,7 +90,9 @@
   font: inherit;
   font-size: 0.88rem;
   outline: none;
-  transition: border-color 180ms ease, box-shadow 180ms ease;
+  transition:
+    border-color 180ms ease,
+    box-shadow 180ms ease;
 }
 
 .field input,
@@ -186,7 +188,9 @@
   color: #344258;
   text-align: center;
   cursor: pointer;
-  transition: border-color 180ms ease, background-color 180ms ease;
+  transition:
+    border-color 180ms ease,
+    background-color 180ms ease;
 }
 
 .dropZone label:hover {

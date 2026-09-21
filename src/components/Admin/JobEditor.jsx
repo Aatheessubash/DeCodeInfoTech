@@ -16,9 +16,14 @@ function splitRequirements(value) {
 }
 
 export function JobEditor({ job, onChange, onSave, onCancel }) {
-  const [requirementsInput, setRequirementsInput] = useState(() => joinRequirements(job.requirements));
+  const [requirementsInput, setRequirementsInput] = useState(() =>
+    joinRequirements(job.requirements),
+  );
 
-  const previewRequirements = useMemo(() => splitRequirements(requirementsInput), [requirementsInput]);
+  const previewRequirements = useMemo(
+    () => splitRequirements(requirementsInput),
+    [requirementsInput],
+  );
 
   const updateField = (field, value) => {
     onChange({ ...job, [field]: value });
@@ -84,7 +89,10 @@ export function JobEditor({ job, onChange, onSave, onCancel }) {
 
         <label>
           <span>Job Type</span>
-          <select value={job.type || 'Full Time'} onChange={(event) => updateField('type', event.target.value)}>
+          <select
+            value={job.type || 'Full Time'}
+            onChange={(event) => updateField('type', event.target.value)}
+          >
             <option>Full Time</option>
             <option>Part Time</option>
             <option>Internship</option>
@@ -141,9 +149,13 @@ export function JobEditor({ job, onChange, onSave, onCancel }) {
       </div>
 
       <div className={styles.preview}>
-        <div className={styles.avatar}>{(job.icon || job.department || 'JB').slice(0, 2).toUpperCase()}</div>
+        <div className={styles.avatar}>
+          {(job.icon || job.department || 'JB').slice(0, 2).toUpperCase()}
+        </div>
         <div>
-          <span>{job.department || 'Department'} / {job.type || 'Type'}</span>
+          <span>
+            {job.department || 'Department'} / {job.type || 'Type'}
+          </span>
           <strong>{job.title || 'Job title preview'}</strong>
           <p>{job.summary || 'The short role summary will appear here on the careers page.'}</p>
         </div>

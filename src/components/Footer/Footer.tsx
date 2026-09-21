@@ -54,7 +54,13 @@ export function Footer() {
             type="button"
             onClick={() => scrollToSection('home')}
             className={styles.logoLink}
-            style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0, textAlign: 'left' }}
+            style={{
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer',
+              padding: 0,
+              textAlign: 'left',
+            }}
           >
             <img
               src={siteContent?.logoUrl || '/DeCode_Logo.png'}
@@ -66,7 +72,8 @@ export function Footer() {
             {siteContent?.heroEyebrow || 'WHERE VISION BECOMES REALITY'}
           </p>
           <p className={styles.desc}>
-            {siteContent?.agencyName || 'DeCode'} is a modern software studio that designs, builds, and launches fast, scalable websites and custom web applications.
+            {siteContent?.agencyName || 'DeCode'} is a modern software studio that designs, builds,
+            and launches fast, scalable websites and custom web applications.
           </p>
         </div>
 
@@ -74,42 +81,74 @@ export function Footer() {
           <h4 className={styles.colTitle}>Navigation</h4>
           <ul className={styles.linkList}>
             <li>
-              <button type="button" onClick={() => scrollToSection('home')} className={styles.linkBtn}>
+              <button
+                type="button"
+                onClick={() => scrollToSection('home')}
+                className={styles.linkBtn}
+              >
                 Home
               </button>
             </li>
             <li>
-              <button type="button" onClick={() => scrollToSection('about')} className={styles.linkBtn}>
+              <button
+                type="button"
+                onClick={() => scrollToSection('about')}
+                className={styles.linkBtn}
+              >
                 About Us
               </button>
             </li>
             <li>
-              <button type="button" onClick={() => scrollToSection('standards')} className={styles.linkBtn}>
+              <button
+                type="button"
+                onClick={() => scrollToSection('standards')}
+                className={styles.linkBtn}
+              >
                 Quality Standards
               </button>
             </li>
             <li>
-              <button type="button" onClick={() => scrollToSection('services')} className={styles.linkBtn}>
+              <button
+                type="button"
+                onClick={() => scrollToSection('services')}
+                className={styles.linkBtn}
+              >
                 Services
               </button>
             </li>
             <li>
-              <button type="button" onClick={() => scrollToSection('work')} className={styles.linkBtn}>
+              <button
+                type="button"
+                onClick={() => scrollToSection('work')}
+                className={styles.linkBtn}
+              >
                 Portfolio &amp; Work
               </button>
             </li>
             <li>
-              <button type="button" onClick={() => scrollToSection('careers')} className={styles.linkBtn}>
+              <button
+                type="button"
+                onClick={() => scrollToSection('careers')}
+                className={styles.linkBtn}
+              >
                 Careers &amp; Jobs
               </button>
             </li>
             <li>
-              <button type="button" onClick={() => scrollToSection('faq')} className={styles.linkBtn}>
+              <button
+                type="button"
+                onClick={() => scrollToSection('faq')}
+                className={styles.linkBtn}
+              >
                 FAQ
               </button>
             </li>
             <li>
-              <button type="button" onClick={() => scrollToSection('contact')} className={styles.linkBtn}>
+              <button
+                type="button"
+                onClick={() => scrollToSection('contact')}
+                className={styles.linkBtn}
+              >
                 Contact
               </button>
             </li>
@@ -120,32 +159,56 @@ export function Footer() {
           <h4 className={styles.colTitle}>Capabilities</h4>
           <ul className={styles.linkList}>
             <li>
-              <button type="button" onClick={() => scrollToSection('services')} className={styles.linkBtn}>
+              <button
+                type="button"
+                onClick={() => scrollToSection('services')}
+                className={styles.linkBtn}
+              >
                 Best Software Company in Coimbatore
               </button>
             </li>
             <li>
-              <button type="button" onClick={() => scrollToSection('services')} className={styles.linkBtn}>
+              <button
+                type="button"
+                onClick={() => scrollToSection('services')}
+                className={styles.linkBtn}
+              >
                 Web Development in Coimbatore
               </button>
             </li>
             <li>
-              <button type="button" onClick={() => scrollToSection('services')} className={styles.linkBtn}>
+              <button
+                type="button"
+                onClick={() => scrollToSection('services')}
+                className={styles.linkBtn}
+              >
                 Custom Web App &amp; SaaS Solutions
               </button>
             </li>
             <li>
-              <button type="button" onClick={() => scrollToSection('services')} className={styles.linkBtn}>
+              <button
+                type="button"
+                onClick={() => scrollToSection('services')}
+                className={styles.linkBtn}
+              >
                 Full-Stack React &amp; Next.js
               </button>
             </li>
             <li>
-              <button type="button" onClick={() => scrollToSection('process')} className={styles.linkBtn}>
+              <button
+                type="button"
+                onClick={() => scrollToSection('process')}
+                className={styles.linkBtn}
+              >
                 Development Roadmap
               </button>
             </li>
             <li>
-              <button type="button" onClick={() => scrollToSection('services')} className={styles.linkBtn}>
+              <button
+                type="button"
+                onClick={() => scrollToSection('services')}
+                className={styles.linkBtn}
+              >
                 Speed &amp; Local SEO Optimization
               </button>
             </li>
@@ -154,8 +217,12 @@ export function Footer() {
 
         <div className={styles.contactCol}>
           <h4 className={styles.colTitle}>Get in Touch</h4>
-          <p className={styles.contactText}>{siteContent?.contactLocation || 'Coimbatore, Tamil Nadu, India'}</p>
-          <p className={styles.contactText}>{siteContent?.contactEmail || 'contact@decodeinfotech.com'}</p>
+          <p className={styles.contactText}>
+            {siteContent?.contactLocation || 'Coimbatore, Tamil Nadu, India'}
+          </p>
+          <p className={styles.contactText}>
+            {siteContent?.contactEmail || 'contact@decodeinfotech.com'}
+          </p>
           <button
             type="button"
             onClick={() => scrollToSection('contact')}
@@ -169,8 +236,13 @@ export function Footer() {
 
       <div className={styles.bottomBar}>
         <div className={styles.bottomContainer}>
-          <p>© {new Date().getFullYear()} {siteContent?.agencyName || 'DeCode InfoTech'}. Best Software &amp; Web Development Company in Coimbatore.</p>
-          <p className={styles.tag}>{siteContent?.heroEyebrow || 'BEST SOFTWARE & WEB DEVELOPMENT COMPANY IN COIMBATORE'}</p>
+          <p>
+            © {new Date().getFullYear()} {siteContent?.agencyName || 'DeCode InfoTech'}. Best
+            Software &amp; Web Development Company in Coimbatore.
+          </p>
+          <p className={styles.tag}>
+            {siteContent?.heroEyebrow || 'BEST SOFTWARE & WEB DEVELOPMENT COMPANY IN COIMBATORE'}
+          </p>
         </div>
       </div>
     </footer>

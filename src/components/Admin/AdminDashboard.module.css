@@ -61,7 +61,10 @@
   background: #f8fafc;
   color: #475569;
   cursor: pointer;
-  transition: background-color 180ms ease, color 180ms ease, border-color 180ms ease;
+  transition:
+    background-color 180ms ease,
+    color 180ms ease,
+    border-color 180ms ease;
 }
 
 .closeBtn:hover {
@@ -127,7 +130,10 @@
   text-align: left;
   cursor: pointer;
   white-space: nowrap;
-  transition: background-color 180ms ease, color 180ms ease, border-color 180ms ease;
+  transition:
+    background-color 180ms ease,
+    color 180ms ease,
+    border-color 180ms ease;
 }
 
 .tabBtn strong {
@@ -241,7 +247,9 @@
   border: 1px solid #dbe3ef;
   border-radius: 13px;
   background: #fff;
-  transition: border-color 180ms ease, box-shadow 180ms ease;
+  transition:
+    border-color 180ms ease,
+    box-shadow 180ms ease;
 }
 
 .projectRow:hover,
@@ -309,7 +317,10 @@
   background: #f8fafc;
   color: #4b5a70;
   cursor: pointer;
-  transition: background-color 160ms ease, color 160ms ease, border-color 160ms ease;
+  transition:
+    background-color 160ms ease,
+    color 160ms ease,
+    border-color 160ms ease;
 }
 
 .projectActions button:hover:not(:disabled) {
@@ -352,7 +363,9 @@
   border: 1px solid #dbe3ef;
   border-radius: 13px;
   background: #fff;
-  transition: border-color 180ms ease, box-shadow 180ms ease;
+  transition:
+    border-color 180ms ease,
+    box-shadow 180ms ease;
 }
 
 .jobRow:hover {
@@ -608,7 +621,9 @@
   font: inherit;
   font-size: 0.86rem;
   outline: none;
-  transition: border-color 180ms ease, box-shadow 180ms ease;
+  transition:
+    border-color 180ms ease,
+    box-shadow 180ms ease;
 }
 
 textarea.input {

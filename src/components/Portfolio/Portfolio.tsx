@@ -26,10 +26,14 @@ export function Portfolio() {
         <div className={styles.carouselViewport} role="region" aria-label="Project cards">
           <div
             className={styles.scrollTrack}
-            style={{ ['--duration' as any]: `${Math.max(projects.length, 4) * 7}s` }}
+            style={{ '--duration': `${Math.max(projects.length, 4) * 7}s` } as React.CSSProperties}
           >
             {[0, 1].map((copy) => (
-              <div key={copy} className={styles.projectGroup} aria-hidden={copy === 1 ? true : undefined}>
+              <div
+                key={copy}
+                className={styles.projectGroup}
+                aria-hidden={copy === 1 ? true : undefined}
+              >
                 {projects.map((project, projectIndex) => {
                   const cardIndex = projectIndex % 3;
 
@@ -37,7 +41,7 @@ export function Portfolio() {
                     <article
                       className={`${styles.projectCard} ${cardIndex === 1 ? styles.featuredCard : ''}`}
                       key={`${copy}-${project.id}`}
-                      style={{ ['--card-delay' as any]: `${cardIndex * 90}ms` }}
+                      style={{ '--card-delay': `${cardIndex * 90}ms` } as React.CSSProperties}
                     >
                       <div className={styles.cardTop}>
                         <div>

@@ -48,18 +48,6 @@
     {
       "source": "/linkroaster/:path*",
       "destination": "https://link-roaster-tan.vercel.app/:path*"
-    },
-    {
-      "source": "/",
-      "destination": "https://aatheeswaran.vercel.app/"
-    },
-{
-  "source": "/SA",
-  "destination": "/index.html"
-},
-    {
-      "source": "/:path*",
-      "destination": "https://aatheeswaran.vercel.app/:path*"
     }
   ]
 }

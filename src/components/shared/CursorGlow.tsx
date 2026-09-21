@@ -28,7 +28,8 @@ export function CursorGlow() {
       ref={glowRef}
       className="cursor-glow fixed top-0 left-0 w-[400px] h-[400px] rounded-full pointer-events-none z-0 will-change-transform hidden md:block"
       style={{
-        background: 'radial-gradient(circle at center, rgba(124, 58, 237, 0.08) 0%, rgba(124, 58, 237, 0.02) 40%, transparent 70%)',
+        background:
+          'radial-gradient(circle at center, rgba(124, 58, 237, 0.08) 0%, rgba(124, 58, 237, 0.02) 40%, transparent 70%)',
       }}
       aria-hidden="true"
     />

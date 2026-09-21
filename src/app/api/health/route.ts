@@ -1,21 +1,4 @@
-import { NextResponse } from 'next/server';
-import { createTransporter } from '@/lib/mailer';
-
+// Liveness is independent of external SMTP availability.
 export async function GET() {
-  try {
-    const transporter = createTransporter();
-    await transporter.verify();
-    return NextResponse.json({
-      status: 'ok',
-      smtpConnected: true,
-      message: 'DeCode backend & SMTP connection are healthy.',
-    });
-  } catch (error: any) {
-    return NextResponse.json({
-      status: 'ok',
-      smtpConnected: false,
-      note: 'SMTP not configured or offline',
-      error: error?.message,
-    });
-  }
+  return Response.json({ status: 'ok' });
 }

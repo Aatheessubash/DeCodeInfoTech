@@ -3,16 +3,7 @@
 import React from 'react';
 import { useData } from '@/context/useData';
 import styles from './Services.module.css';
-import {
-  Code2,
-  Cpu,
-  Palette,
-  Cloud,
-  Video,
-  Smartphone,
-  Wrench,
-  Sparkles,
-} from 'lucide-react';
+import { Code2, Cpu, Palette, Cloud, Video, Smartphone, Wrench, Sparkles } from 'lucide-react';
 
 const SERVICE_ICONS: Record<string, React.ReactNode> = {
   '01': <Code2 size={20} aria-hidden="true" />,
@@ -35,22 +26,24 @@ export function Services() {
             Technology That Moves Business <span>Forward</span>
           </h2>
           <p className={styles.sectionSub}>
-            At DeCode, we unite engineering, AI, and thoughtful design to create intelligent technology that scales with your business.
+            At DeCode, we unite engineering, AI, and thoughtful design to create intelligent
+            technology that scales with your business.
           </p>
         </div>
 
         <div className={styles.carouselViewport} role="region" aria-label="Service cards">
           <div
             className={styles.scrollTrack}
-            style={{ ['--duration' as any]: `${Math.max(services.length, 4) * 6}s` }}
+            style={{ '--duration': `${Math.max(services.length, 4) * 6}s` } as React.CSSProperties}
           >
             {[0, 1].map((copy) => (
-              <div key={copy} className={styles.servicesGroup} aria-hidden={copy === 1 ? true : undefined}>
+              <div
+                key={copy}
+                className={styles.servicesGroup}
+                aria-hidden={copy === 1 ? true : undefined}
+              >
                 {services.map((service) => (
-                  <article
-                    key={`${copy}-${service.id}`}
-                    className={styles.card}
-                  >
+                  <article key={`${copy}-${service.id}`} className={styles.card}>
                     <div className={styles.cardHeader}>
                       <span className={styles.icon}>
                         {SERVICE_ICONS[service.id] || <Sparkles size={20} aria-hidden="true" />}

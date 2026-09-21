@@ -17,7 +17,9 @@
   letter-spacing: -0.045em;
   text-wrap: balance;
 }
-.highlight { color: #777770; }
+.highlight {
+  color: #777770;
+}
 .subheading {
   max-width: 640px;
   margin: 0 auto;
@@ -62,7 +64,8 @@
   justify-content: space-between;
   margin-bottom: 28px;
 }
-.ratingRow, .stars {
+.ratingRow,
+.stars {
   display: flex;
   align-items: center;
   gap: 5px;
@@ -73,8 +76,15 @@
   border-radius: 999px;
   background: #fafaf8;
 }
-.stars { color: #171717; }
-.quoteIcon { width: 48px; height: 48px; color: #d5d5cd; stroke-width: 1; }
+.stars {
+  color: #171717;
+}
+.quoteIcon {
+  width: 48px;
+  height: 48px;
+  color: #d5d5cd;
+  stroke-width: 1;
+}
 .quoteText {
   margin: 0 0 32px;
   font-size: clamp(21px, 2.5vw, 30px);
@@ -104,10 +114,24 @@
   color: #fff;
   font-weight: 600;
 }
-.authorMeta { min-width: 0; overflow-wrap: anywhere; }
-.authorName { margin: 0 0 4px; font-size: 16px; font-weight: 600; }
-.authorRole { margin: 0; font-size: 13px; color: #62625c; line-height: 1.5; }
-.companyName { color: #171717; }
+.authorMeta {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.authorName {
+  margin: 0 0 4px;
+  font-size: 16px;
+  font-weight: 600;
+}
+.authorRole {
+  margin: 0;
+  font-size: 13px;
+  color: #62625c;
+  line-height: 1.5;
+}
+.companyName {
+  color: #171717;
+}
 .navArrow {
   position: absolute;
   top: calc(50% - 24px);
@@ -121,10 +145,22 @@
   color: #171717;
   cursor: pointer;
 }
-.navArrow:hover { background: #171717; color: #fff; }
-.prevArrow { left: 0; }
-.nextArrow { right: 0; }
-.dotsRow { display: flex; flex-wrap: wrap; justify-content: center; margin-top: 16px; }
+.navArrow:hover {
+  background: #171717;
+  color: #fff;
+}
+.prevArrow {
+  left: 0;
+}
+.nextArrow {
+  right: 0;
+}
+.dotsRow {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 16px;
+}
 .dot {
   display: grid;
   place-items: center;
@@ -135,15 +171,40 @@
   background: transparent;
   cursor: pointer;
 }
-.dot::after { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #c5c5bf; }
-.activeDot::after { width: 18px; border-radius: 4px; background: #171717; }
-.navArrow:focus-visible, .dot:focus-visible { outline: 2px solid #171717; outline-offset: 3px; }
+.dot::after {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #c5c5bf;
+}
+.activeDot::after {
+  width: 18px;
+  border-radius: 4px;
+  background: #171717;
+}
+.navArrow:focus-visible,
+.dot:focus-visible {
+  outline: 2px solid #171717;
+  outline-offset: 3px;
+}
 @media (max-width: 600px) {
-  .carouselContainer { padding: 0 0 52px; }
-  .navArrow { top: auto; bottom: 0; }
-  .prevArrow { left: calc(50% - 52px); }
-  .nextArrow { right: calc(50% - 52px); }
+  .carouselContainer {
+    padding: 0 0 52px;
+  }
+  .navArrow {
+    top: auto;
+    bottom: 0;
+  }
+  .prevArrow {
+    left: calc(50% - 52px);
+  }
+  .nextArrow {
+    right: calc(50% - 52px);
+  }
 }
 @media (prefers-reduced-motion: reduce) {
-  .carouselTrack { transition: none; }
+  .carouselTrack {
+    transition: none;
+  }
 }

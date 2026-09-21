@@ -30,7 +30,9 @@ export class ErrorBoundary extends Component<Props, State> {
       return (
         <div className="min-h-[400px] flex flex-col items-center justify-center p-8 text-center bg-gray-50 rounded-2xl m-4 border border-gray-200">
           <h2 className="text-2xl font-bold text-gray-900 mb-2">Something went wrong</h2>
-          <p className="text-gray-600 mb-6 max-w-md">An unexpected error occurred while rendering this section.</p>
+          <p className="text-gray-600 mb-6 max-w-md">
+            An unexpected error occurred while rendering this section.
+          </p>
           <button
             type="button"
             onClick={() => this.setState({ hasError: false, error: null })}
