@@ -122,6 +122,23 @@ export function Hero() {
             )}
           </h1>
 
+          <p className={styles.tagline} aria-label="Imagine it. Build it. Decode the future.">
+            <span className={styles.taglineTop} aria-hidden="true">
+              <span className={styles.taglineItem}>
+                <span className={styles.taglineDot} />
+                Imagine it
+              </span>
+              <span className={styles.taglineItem}>
+                <span className={styles.taglineDot} />
+                Build it
+              </span>
+            </span>
+            <span className={styles.taglineBottom} aria-hidden="true">
+              <span className={styles.taglineDot} />
+              Decode the future
+            </span>
+          </p>
+
           {/* Subtext */}
           <p ref={subtextRef} className={styles.subtext}>
             {siteContent?.heroSubtext ||

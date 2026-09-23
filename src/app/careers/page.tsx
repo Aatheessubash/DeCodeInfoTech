@@ -107,10 +107,6 @@ export default function CareersPage() {
       {/* Header Section */}
       <section className="section-padding">
         <div className="section-header">
-          <div className="pill-badge">
-            <span className="badge-dot"></span>
-            Careers at DeCode InfoTech • Coimbatore
-          </div>
           <h1 className={styles.heroHeadline}>
             Build Great Digital Products With Us in Coimbatore
           </h1>
@@ -144,10 +140,6 @@ export default function CareersPage() {
       {/* Open Positions Section */}
       <section className="section-padding">
         <div style={{ textAlign: 'center', marginBottom: '48px' }}>
-          <div className="pill-badge" style={{ marginBottom: '12px' }}>
-            <span className="badge-dot"></span>
-            Current Openings
-          </div>
           <h2 className={styles.sectionTitle}>Explore Open Roles</h2>
         </div>
 

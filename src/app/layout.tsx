@@ -1,5 +1,4 @@
 import type { Metadata, Viewport } from 'next';
-import { Inter, Plus_Jakarta_Sans } from 'next/font/google';
 import './globals.css';
 import { DataProvider } from '@/context/DataContext';
 import { Navbar } from '@/components/Navbar/Navbar';
@@ -7,18 +6,6 @@ import { Footer } from '@/components/Footer/Footer';
 import { CursorGlow } from '@/components/shared/CursorGlow';
 import { SmoothScroll } from '@/components/shared/SmoothScroll';
 import { ErrorBoundary } from '@/components/shared/ErrorBoundary';
-
-const inter = Inter({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-inter',
-});
-
-const plusJakartaSans = Plus_Jakarta_Sans({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-jakarta',
-});
 
 export const viewport: Viewport = {
   themeColor: '#ffffff',
@@ -172,7 +159,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   };
 
   return (
-    <html lang="en" className={`${inter.variable} ${plusJakartaSans.variable}`}>
+    <html lang="en">
       <head>
         <script
           type="application/ld+json"

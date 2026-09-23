@@ -85,8 +85,49 @@
   flex-direction: column;
   align-items: flex-start;
   text-align: left;
-  max-width: 820px;
+  max-width: min(100%, 1040px);
   margin: 0;
+}
+
+.tagline {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  width: fit-content;
+  margin: -4px 0 18px;
+  color: #4b4b4e;
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.taglineTop {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.taglineBottom {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.taglineItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.taglineDot {
+  width: 5px;
+  height: 5px;
+  flex: 0 0 5px;
+  border-radius: 50%;
+  background: currentColor;
 }
 
 /* Status Pill */
@@ -120,12 +161,12 @@
 
 /* Headline - Apple SF Pro Tracking & Compact Leading */
 .headline {
-  font-size: clamp(2rem, 5.8vw, 4.6rem);
+  font-size: clamp(2.25rem, 6.5vw, 5.25rem);
   font-weight: 700;
   line-height: 1.06;
   letter-spacing: -0.04em;
   color: #1d1d1f;
-  margin-bottom: clamp(16px, 3vh, 24px);
+  margin-bottom: clamp(10px, 1.5vh, 14px);
   text-align: left;
   overflow-wrap: break-word;
   text-wrap: balance;
@@ -139,6 +180,10 @@
 .headlineLead,
 .headlineAccent {
   display: block;
+}
+
+.headlineLead {
+  white-space: nowrap;
 }
 
 .headlineAccent {
@@ -230,19 +275,46 @@
 
   .headline {
     width: 100%;
-    font-size: clamp(1.75rem, 9vw, 4rem);
+    font-size: clamp(2rem, 10vw, 4.5rem);
+    font-weight: 900;
     line-height: 1.04;
     letter-spacing: -0.045em;
     text-align: center;
-    margin-bottom: 24px;
+    margin-bottom: 12px;
+  }
+
+  .tagline {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    margin-bottom: 20px;
+    font-size: 0.5rem;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+  }
+
+  .taglineTop {
+    justify-content: center;
+    gap: 8px;
+    width: auto;
+  }
+
+  .taglineBottom {
+    gap: 8px;
   }
 
   .mobileLineBreak {
     display: inline;
   }
 
+  .headlineLead {
+    white-space: normal;
+  }
+
   .headlineAccent {
-    white-space: nowrap;
+    white-space: normal;
   }
 
   .subtext {

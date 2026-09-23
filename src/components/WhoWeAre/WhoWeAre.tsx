@@ -65,40 +65,42 @@ export function WhoWeAre() {
     <section id="about" ref={sectionRef} className={styles.section} aria-labelledby="about-heading">
       <div className={styles.container}>
         <div className={styles.grid}>
-          <div ref={copyRef} className={styles.copy}>
-            <h2 id="about-heading" className={styles.headline}>
-              {siteContent?.aboutHeading ? (
-                siteContent.aboutHeading.includes('what’s') ||
-                siteContent.aboutHeading.includes("what's") ? (
+          <div className={styles.copyColumn}>
+            <div ref={copyRef} className={styles.copy}>
+              <h2 id="about-heading" className={styles.headline}>
+                {siteContent?.aboutHeading ? (
+                  siteContent.aboutHeading.includes('what’s') ||
+                  siteContent.aboutHeading.includes("what's") ? (
+                    <>
+                      Building
+                      <br />
+                      what’s <span>next.</span>
+                    </>
+                  ) : (
+                    siteContent.aboutHeading
+                  )
+                ) : (
                   <>
                     Building
                     <br />
                     what’s <span>next.</span>
                   </>
-                ) : (
-                  siteContent.aboutHeading
-                )
-              ) : (
-                <>
-                  Building
-                  <br />
-                  what’s <span>next.</span>
-                </>
-              )}
-            </h2>
-            <p className={styles.lead}>
-              {siteContent?.aboutLead ||
-                'We turn complex challenges into intelligent digital solutions.'}
-            </p>
-            <div className={styles.description}>
-              <p>
-                {siteContent?.aboutDesc1 ||
-                  'At DeCode InfoTech, we combine technology, strategy, and design to create scalable foundations for growth.'}
+                )}
+              </h2>
+              <p className={styles.lead}>
+                {siteContent?.aboutLead ||
+                  'We turn complex challenges into intelligent digital solutions.'}
               </p>
-              <p>
-                {siteContent?.aboutDesc2 ||
-                  'Our solutions simplify operations, unlock new possibilities, and adapt to change — delivering lasting value that keeps your business moving forward.'}
-              </p>
+              <div className={styles.description}>
+                <p>
+                  {siteContent?.aboutDesc1 ||
+                    'At DeCode InfoTech, we combine technology, strategy, and design to create scalable foundations for growth.'}
+                </p>
+                <p>
+                  {siteContent?.aboutDesc2 ||
+                    'Our solutions simplify operations, unlock new possibilities, and adapt to change — delivering lasting value that keeps your business moving forward.'}
+                </p>
+              </div>
             </div>
             <button
               type="button"

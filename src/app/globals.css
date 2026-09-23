@@ -39,8 +39,8 @@
   --border-card-hover: rgba(0, 0, 0, 0.12);
 
   --font-family:
-    -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'SF Pro', 'Inter',
-    -apple-system-headline, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', Helvetica,
+    Arial, sans-serif;
   --radius-card: 26px;
   --radius-pill: 9999px;
   --radius-btn: 5px;
@@ -105,6 +105,7 @@ section[id],
 }
 
 body {
+  font-family: var(--font-family);
   background-color: var(--bg);
   color: var(--text);
   min-height: 100vh;
@@ -112,6 +113,13 @@ body {
   max-width: 100%;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
 }
 
 .app-root {
@@ -280,6 +288,31 @@ input[type='reset'],
 @media (max-width: 768px) {
   .section-padding {
     padding: 64px 20px;
+  }
+}
+
+@media (max-width: 640px) {
+  .app-root > main > section + section {
+    padding-top: 18px !important;
+  }
+
+  .app-root > main > #services,
+  .app-root > main > #process,
+  .app-root > main > #industries {
+    padding-top: 40px !important;
+  }
+
+  .app-root > main > #projects,
+  .app-root > main > #testimonials {
+    padding-top: 60px !important;
+  }
+
+  .app-root > main > section:not(:last-child) {
+    padding-bottom: 0 !important;
+  }
+
+  .app-root > main > section:last-child {
+    padding-bottom: 18px !important;
   }
 }
 

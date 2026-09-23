@@ -11,9 +11,6 @@ export function Careers() {
       <div className={styles.container}>
         <div className={styles.intro}>
           <div className={styles.copy}>
-            <div className={styles.eyebrow}>
-              <span /> CAREERS AT DECODE
-            </div>
             <h2 id="careers-title" className={styles.headline}>
               Great work starts
               <br />
@@ -23,10 +20,26 @@ export function Careers() {
               Curious minds. Thoughtful makers. People who care.
               <br className={styles.desktopBreak} /> Help us build what comes next, together.
             </p>
-            <Link href="/careers" className={`btn-primary ${styles.primaryLink}`}>
-              Explore open roles <ArrowUpRight size={18} aria-hidden="true" />
-            </Link>
-            <p className={styles.caption}>Your next chapter, built at DeCode.</p>
+            <div className={styles.highlights} aria-label="Career highlights">
+              <div>
+                <strong>Hybrid</strong>
+                <span>Work rhythm</span>
+              </div>
+              <div>
+                <strong>Mentored</strong>
+                <span>Growth paths</span>
+              </div>
+              <div>
+                <strong>Real</strong>
+                <span>Client impact</span>
+              </div>
+            </div>
+            <div className={styles.actionBlock}>
+              <Link href="/careers" className={`btn-primary ${styles.primaryLink}`}>
+                Explore open roles <ArrowUpRight size={18} aria-hidden="true" />
+              </Link>
+              <p className={styles.caption}>Your next chapter, built at DeCode.</p>
+            </div>
           </div>
 
           <div className={styles.careerImage}>
@@ -42,7 +55,6 @@ export function Careers() {
         </div>
 
         <div className={styles.bottomLine}>
-          <span>Different skills. Shared ambition.</span>
           <Link href="/careers">
             Find your place at DeCode <ArrowRight size={17} aria-hidden="true" />
           </Link>

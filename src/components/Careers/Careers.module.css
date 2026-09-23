@@ -2,23 +2,28 @@
   position: relative;
   display: flex;
   align-items: center;
-  min-height: calc(100svh - 84px);
-  padding: clamp(28px, 4svh, 56px) clamp(16px, 3vw, 32px);
+  min-height: min(760px, calc(100svh - 84px));
+  padding: clamp(48px, 8svh, 86px) clamp(16px, 3vw, 32px);
   color: #171717;
   scroll-margin-top: 84px;
+  overflow: hidden;
 }
 .container {
+  position: relative;
+  z-index: 1;
   width: 100%;
   max-width: 1240px;
   margin: 0 auto;
 }
 .intro {
   display: grid;
-  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
-  gap: clamp(24px, 5vw, 72px);
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+  gap: clamp(28px, 5vw, 70px);
   align-items: center;
 }
 .copy {
+  display: flex;
+  flex-direction: column;
   min-width: 0;
 }
 .eyebrow {
@@ -48,15 +53,53 @@
   color: #777770;
 }
 .description {
-  margin: 0 0 20px;
+  margin: 0;
   max-width: 470px;
   color: #62625c;
   font-size: 15px;
   line-height: 1.6;
 }
+.highlights {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  width: min(100%, 520px);
+  margin: clamp(24px, 4svh, 38px) 0 24px;
+  overflow: hidden;
+  border: 1px solid rgba(23, 23, 23, 0.08);
+  border-radius: 8px;
+  background: rgba(23, 23, 23, 0.08);
+  box-shadow: 0 18px 50px rgba(62, 91, 128, 0.1);
+}
+.highlights div {
+  min-width: 0;
+  padding: 16px 18px;
+  background: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+.highlights strong,
+.highlights span {
+  display: block;
+}
+.highlights strong {
+  color: #171717;
+  font-size: clamp(15px, 1.5vw, 18px);
+  font-weight: 700;
+  line-height: 1.2;
+}
+.highlights span {
+  margin-top: 5px;
+  color: #62625c;
+  font-size: 12px;
+  line-height: 1.35;
+}
 .primaryLink {
   max-width: 100%;
   gap: 20px;
+}
+.actionBlock {
+  margin-top: 0;
 }
 .caption {
   margin: 10px 0 0;
@@ -64,13 +107,32 @@
   font-size: 12px;
 }
 .careerImage {
+  position: relative;
   min-width: 0;
   width: 100%;
-  height: clamp(280px, 58svh, 540px);
+  height: clamp(360px, 56svh, 540px);
   overflow: hidden;
-  border-radius: 20px;
+  border-radius: 8px;
   background: #e7e7df;
   border: 1px solid rgba(23, 23, 23, 0.08);
+  box-shadow: 0 28px 80px rgba(62, 91, 128, 0.18);
+}
+.careerImage::after {
+  content: 'Design. Build. Ship.';
+  position: absolute;
+  left: 18px;
+  bottom: 18px;
+  padding: 10px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.42);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.76);
+  color: #171717;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+  box-shadow: 0 10px 30px rgba(23, 23, 23, 0.12);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
 }
 .careerImage img {
   display: block;
@@ -83,7 +145,7 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   gap: 4px 18px;
   margin-top: clamp(16px, 3svh, 28px);
   font-size: 13px;
@@ -119,17 +181,21 @@
 @media (max-width: 700px) {
   .careersSection {
     padding-block: clamp(24px, 3svh, 36px);
+    padding-inline: 20px;
   }
   .intro {
     grid-template-columns: minmax(0, 1fr);
     gap: 20px;
+  }
+  .actionBlock {
+    margin-top: 8px;
   }
   .headline {
     font-size: clamp(32px, 7.4vw, 48px);
   }
   .careerImage {
     height: clamp(190px, 29svh, 320px);
-    border-radius: 16px;
+    border-radius: 8px;
   }
   .description {
     max-width: 540px;
@@ -141,6 +207,12 @@
   }
 }
 @media (max-width: 480px) {
+  .highlights {
+    grid-template-columns: 1fr;
+  }
+  .highlights div {
+    padding: 13px 14px;
+  }
   .primaryLink {
     width: 100%;
     justify-content: space-between;

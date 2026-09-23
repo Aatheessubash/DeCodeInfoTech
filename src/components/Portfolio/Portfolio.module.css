@@ -241,7 +241,8 @@
 
 @media (max-width: 640px) {
   .section.section {
-    padding-block: 18px;
+    min-height: auto;
+    padding-block: 20px;
   }
 
   .panel {

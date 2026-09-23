@@ -295,7 +295,7 @@
   padding: 3px 6px;
   border-radius: 6px;
   border: 1px solid #e2e8f0;
-  font-family: monospace;
+  font-family: inherit;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
