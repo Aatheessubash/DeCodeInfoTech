@@ -7,11 +7,29 @@ import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import { useGSAP } from '@gsap/react';
 import gsap from '@/lib/gsap';
 
+const LEGACY_HERO_HEADLINES = new Set([
+  'We build digital experiences that help businesses grow. Leading web development company for startups.',
+  'We build digital experiences that help businesses grow.',
+  'Transforming Ideas Into Technology That Moves Businesses Forward',
+]);
+
+const LEGACY_HERO_SUBTEXTS = new Set([
+  'From high-converting modern website design services to complete custom web application development — DeCode designs, builds, and launches fast, scalable digital products engineered for long-term growth. We are your trusted UI UX design and development studio.',
+  'From high-converting websites to complete custom web platforms — DeCode designs, builds, and launches fast, scalable digital products engineered for long-term growth.',
+  'From custom software and industrial IoT to scalable SaaS and mobile apps — DeCode designs, engineers, and scales high-performance digital solutions tailored to your business goals.',
+]);
+
 export function Hero() {
   const { siteContent } = useData();
-  const headlineLead = siteContent?.heroHeadline
-    ? siteContent.heroHeadline.replace(/Digital Innovation\.?/i, '').trim()
-    : 'Decoding the Future of';
+  const rawHeadline = siteContent?.heroHeadline;
+  const isLegacyHeadline = rawHeadline ? LEGACY_HERO_HEADLINES.has(rawHeadline) : false;
+  const currentHeadline =
+    !rawHeadline || isLegacyHeadline ? 'Decoding the Future of Digital Innovation.' : rawHeadline;
+
+  const headlineLead = currentHeadline.includes('Digital Innovation')
+    ? currentHeadline.replace(/Digital Innovation\.?/i, '').trim()
+    : currentHeadline;
+
   const leadContent =
     headlineLead === 'Decoding the Future of' ? (
       <>
@@ -24,6 +42,13 @@ export function Hero() {
     ) : (
       headlineLead
     );
+
+  const rawSubtext = siteContent?.heroSubtext;
+  const isLegacySubtext = rawSubtext ? LEGACY_HERO_SUBTEXTS.has(rawSubtext) : false;
+  const currentSubtext =
+    !rawSubtext || isLegacySubtext
+      ? 'Empowering businesses to grow through innovation and technology. We deliver scalable, future-ready solutions that enhance operations, drive sustainable growth, and create long-term business value.'
+      : rawSubtext;
   const heroRef = useRef<HTMLElement>(null);
   const headlineRef = useRef<HTMLHeadingElement>(null);
   const subtextRef = useRef<HTMLParagraphElement>(null);
@@ -97,20 +122,7 @@ export function Hero() {
         <div className={styles.content}>
           {/* Main Hero Headline */}
           <h1 ref={headlineRef} className={styles.headline}>
-            {siteContent?.heroHeadline ? (
-              siteContent.heroHeadline.includes('Digital Innovation') ? (
-                <>
-                  <span data-hero-line className={styles.headlineLead}>
-                    {leadContent}
-                  </span>{' '}
-                  <span data-hero-line className={styles.headlineAccent}>
-                    Digital Innovation.
-                  </span>
-                </>
-              ) : (
-                siteContent.heroHeadline
-              )
-            ) : (
+            {currentHeadline.includes('Digital Innovation') ? (
               <>
                 <span data-hero-line className={styles.headlineLead}>
                   {leadContent}
@@ -119,6 +131,8 @@ export function Hero() {
                   Digital Innovation.
                 </span>
               </>
+            ) : (
+              currentHeadline
             )}
           </h1>
 
@@ -141,8 +155,7 @@ export function Hero() {
 
           {/* Subtext */}
           <p ref={subtextRef} className={styles.subtext}>
-            {siteContent?.heroSubtext ||
-              'Empowering businesses to grow through innovation and technology. We deliver scalable, future-ready solutions that enhance operations, drive sustainable growth, and create long-term business value.'}
+            {currentSubtext}
           </p>
 
           {/* Action CTAs */}
