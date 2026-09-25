@@ -19,10 +19,7 @@ export function usePersistentState<T>(key: string, initialValue: T) {
           typeof parsed === typeof initialValue &&
           Array.isArray(parsed) === Array.isArray(initialValue)
         ) {
-          const migrated = migrateCopy(key, parsed);
-          if (migrated !== null && migrated !== undefined) {
-            setValue(migrated as T);
-          }
+          setValue(migrateCopy(key, parsed) as T);
         }
       }
     } catch {
