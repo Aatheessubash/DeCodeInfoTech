@@ -1,0 +1,91 @@
+.particleText {
+  position: relative;
+  display: block;
+  width: 100%;
+  overflow: visible;
+  touch-action: none;
+  isolation: isolate;
+  user-select: none;
+}
+
+.particleTextCanvas {
+  display: block;
+  cursor: pointer;
+  background: transparent;
+  will-change: transform;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Screen reader only for SEO & Accessibility */
+.particleTextSr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Fallback static text only during initial SSR before hydration */
+.staticAccent {
+  display: block;
+  font-weight: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  letter-spacing: inherit;
+  color: #7c3aed;
+  background: linear-gradient(115deg, #006ae3 0%, #7c3aed 52%, #c026d3 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  padding-bottom: 0.06em;
+}
+
+.staticHeadline {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: clamp(2.25rem, 6.5vw, 5.25rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+  color: #1d1d1f;
+  text-align: left;
+  overflow-wrap: break-word;
+  text-wrap: balance;
+  width: 100%;
+  pointer-events: none;
+}
+
+.headlineLead,
+.headlineAccent {
+  display: block;
+}
+
+.headlineLead {
+  white-space: nowrap;
+}
+
+.headlineAccent {
+  color: #7c3aed;
+  background: linear-gradient(115deg, #006ae3 0%, #7c3aed 52%, #c026d3 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  padding-bottom: 0.06em;
+}
+
+@media (max-width: 768px) {
+  .staticHeadline {
+    text-align: center;
+    font-size: clamp(2rem, 10vw, 4.5rem);
+  }
+
+  .headlineLead {
+    white-space: normal;
+  }
+}

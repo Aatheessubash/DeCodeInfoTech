@@ -4,6 +4,8 @@ import React from 'react';
 import { useData } from '@/context/useData';
 import styles from './Portfolio.module.css';
 
+const DEFAULT_PROJECT_IMAGE = '/assets/portfolio-azhagappar.jpg';
+
 export function Portfolio() {
   const { projects } = useData();
 
@@ -55,13 +57,21 @@ export function Portfolio() {
                         <span />
                       </div>
 
-                      <img
-                        className={styles.preview}
-                        src={project.image}
-                        alt={`${project.title} website preview`}
-                        loading={projectIndex === 0 ? 'eager' : 'lazy'}
-                        decoding="async"
-                      />
+                      <div className={styles.imageContainer}>
+                        <img
+                          className={styles.preview}
+                          src={project.image || DEFAULT_PROJECT_IMAGE}
+                          alt={`${project.title} website preview`}
+                          loading="eager"
+                          decoding="async"
+                          onError={(e) => {
+                            const target = e.currentTarget;
+                            if (target.src !== DEFAULT_PROJECT_IMAGE) {
+                              target.src = DEFAULT_PROJECT_IMAGE;
+                            }
+                          }}
+                        />
+                      </div>
                     </article>
                   );
                 })}

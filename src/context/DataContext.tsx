@@ -31,7 +31,7 @@ const EMPTY_APPLICATIONS: JobApplication[] = [];
 
 export function DataProvider({ children }: { children: ReactNode }) {
   const [projects, setProjects] = usePersistentState<Project[]>(
-    'decode_projects',
+    'decode_projects_v6',
     INITIAL_PROJECTS,
   );
   const [services, setServices] = usePersistentState<Service[]>(

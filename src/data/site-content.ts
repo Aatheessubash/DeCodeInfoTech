@@ -321,7 +321,7 @@ export const INITIAL_CONTENT: SiteContent = {
   processClosingText: 'Your idea. A clear path forward.',
   contactEmail: 'contact@decodeinfotech.in',
   contactLocation: 'Coimbatore, Tamil Nadu, India',
-  contactPhone: '+91 98765 43210',
+  contactPhone: '+91 70928 02364',
 };
 
 export const INITIAL_MEDIA_ASSETS: MediaAsset[] = [

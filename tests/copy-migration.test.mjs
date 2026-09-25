@@ -24,3 +24,18 @@ test('preserves custom collection entries, deletions, and unrelated saved data',
   assert.equal(migrateCopy('decode_job_applications', application), application);
   assert.deepEqual(migrateCopy('decode_testimonials', application), application);
 });
+
+test('migrates legacy project images and resets obsolete project collections', () => {
+  const customProjects = [
+    { id: 'custom-1', title: 'Custom App', image: '/assets/project-lms.jpg' },
+    { id: 'custom-2', title: 'Second App', image: '/assets/portfolio-2.jpg' },
+  ];
+  const migrated = migrateCopy('decode_projects_v6', customProjects);
+  assert.equal(migrated[0].image, '/assets/portfolio-azhagappar.jpg');
+  assert.equal(migrated[1].image, '/assets/portfolio-thozha.jpg');
+
+  // Obsolete v1 project collections with legacy ids trigger reset (null return)
+  const legacyList = [{ id: 'agro', title: 'Agro', image: '/assets/project-agro.jpg' }];
+  assert.equal(migrateCopy('decode_projects_v6', legacyList), null);
+  assert.equal(migrateCopy('decode_projects', legacyList), null);
+});

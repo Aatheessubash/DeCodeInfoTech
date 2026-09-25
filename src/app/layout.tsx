@@ -88,7 +88,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     description:
       'DeCode InfoTech is the best software company in Coimbatore and premier web development company in Coimbatore, specializing in custom web applications, SaaS development, and modern digital engineering.',
     priceRange: '$$',
-    telephone: '+91 98765 43210',
+    telephone: '+91 70928 02356',
     email: 'contact@decodeinfotech.in',
     address: {
       '@type': 'PostalAddress',

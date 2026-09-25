@@ -6,6 +6,7 @@ import styles from './Hero.module.css';
 import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import { useGSAP } from '@gsap/react';
 import gsap from '@/lib/gsap';
+import { ParticleText } from './ParticleText';
 
 const LEGACY_HERO_HEADLINES = new Set([
   'We build digital experiences that help businesses grow. Leading web development company for startups.',
@@ -26,9 +27,11 @@ export function Hero() {
   const currentHeadline =
     !rawHeadline || isLegacyHeadline ? 'Decoding the Future of Digital Innovation.' : rawHeadline;
 
-  const headlineLead = currentHeadline.includes('Digital Innovation')
+  const hasAccent = currentHeadline.includes('Digital Innovation');
+  const headlineLead = hasAccent
     ? currentHeadline.replace(/Digital Innovation\.?/i, '').trim()
     : currentHeadline;
+  const accentText = hasAccent ? 'Digital Innovation.' : '';
 
   const leadContent =
     headlineLead === 'Decoding the Future of' ? (
@@ -64,11 +67,7 @@ export function Hero() {
 
         gsap
           .timeline({ defaults: { ease: 'power3.out' } })
-          .fromTo(
-            targets,
-            { opacity: 0, y: 32, rotationX: 8 },
-            { opacity: 1, y: 0, rotationX: 0, duration: 0.85, stagger: 0.12 },
-          )
+          .fromTo(targets, { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.8 })
           .fromTo(
             subtextRef.current,
             { opacity: 0, y: 18 },
@@ -122,13 +121,13 @@ export function Hero() {
         <div className={styles.content}>
           {/* Main Hero Headline */}
           <h1 ref={headlineRef} className={styles.headline}>
-            {currentHeadline.includes('Digital Innovation') ? (
+            {hasAccent ? (
               <>
                 <span data-hero-line className={styles.headlineLead}>
                   {leadContent}
                 </span>{' '}
-                <span data-hero-line className={styles.headlineAccent}>
-                  Digital Innovation.
+                <span data-hero-line className={styles.headlineAccentWrapper}>
+                  <ParticleText text={accentText} density={4} />
                 </span>
               </>
             ) : (
