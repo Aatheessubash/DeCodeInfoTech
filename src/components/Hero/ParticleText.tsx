@@ -8,7 +8,9 @@ export interface ParticleTextProps {
   leadText?: string;
   accentText?: string;
   particleSize?: number;
+  mobileParticleSize?: number;
   density?: number;
+  mobileDensity?: number;
   color?: string;
   pointerRepel?: number;
   repelRadius?: number;
@@ -129,7 +131,9 @@ export const ParticleText = ({
   leadText,
   accentText = 'Digital Innovation.',
   particleSize,
+  mobileParticleSize,
   density = 4,
+  mobileDensity,
   color = '#1d1d1f',
   pointerRepel = 11,
   repelRadius = 110,
@@ -243,8 +247,9 @@ export const ParticleText = ({
           let drawY = p.y;
 
           if (idleDrift > 0 && Math.abs(p.originX - p.x) < 2) {
-            drawX += Math.sin(driftTime + p.phase) * idleDrift;
-            drawY += Math.cos(driftTime * 0.85 + p.phase) * idleDrift;
+            const driftScale = isMobileDevice ? 0.6 : 1;
+            drawX += Math.sin(driftTime + p.phase) * (idleDrift * driftScale);
+            drawY += Math.cos(driftTime * 0.85 + p.phase) * (idleDrift * driftScale);
           }
 
           ctx.moveTo(drawX + p.radius, drawY);
@@ -266,8 +271,9 @@ export const ParticleText = ({
           let drawY = p.y;
 
           if (idleDrift > 0 && Math.abs(p.originX - p.x) < 2) {
-            drawX += Math.sin(driftTime + p.phase) * idleDrift;
-            drawY += Math.cos(driftTime * 0.85 + p.phase) * idleDrift;
+            const driftScale = isMobileDevice ? 0.6 : 1;
+            drawX += Math.sin(driftTime + p.phase) * (idleDrift * driftScale);
+            drawY += Math.cos(driftTime * 0.85 + p.phase) * (idleDrift * driftScale);
           }
 
           ctx.moveTo(drawX + p.radius, drawY);
@@ -447,11 +453,13 @@ export const ParticleText = ({
       const imageData = offCtx.getImageData(0, 0, width, computedHeight);
 
       // On mobile viewports, adapt sampling step and particle radius
-      // so letterforms maintain solid, crisp, and fully legible contours
-      const effectiveDensity = isMobile ? Math.min(density, 2.75) : density;
-      const step = Math.max(1.5, effectiveDensity);
-      const baseRadius =
-        particleSize || (isMobile ? Math.max(1.15, step * 0.46) : Math.max(1.2, step * 0.44));
+      // so particles are visibly smaller, finer, and sleeker while maintaining crisp contours
+      const effectiveDensity = isMobile ? mobileDensity || Math.min(density, 2.2) : density;
+      const step = Math.max(1.2, effectiveDensity);
+      const baseRadius = isMobile
+        ? mobileParticleSize || Math.max(0.65, step * 0.33)
+        : particleSize || Math.max(1.2, step * 0.44);
+      const minRadius = isMobile ? 0.48 : 1.0;
 
       type RawTarget = {
         x: number;
@@ -500,7 +508,7 @@ export const ParticleText = ({
         const target = rawTargets[i];
         const seed = ((i * 9301 + 49297) % 233280) / 233280;
         const phase = seed * Math.PI * 2;
-        const radius = Math.max(1.0, baseRadius * (0.86 + target.alpha * 0.24));
+        const radius = Math.max(minRadius, baseRadius * (0.8 + target.alpha * 0.25));
 
         let bucketIndex = 0;
         if (target.isAccent) {
@@ -667,7 +675,9 @@ export const ParticleText = ({
     leadText,
     accentText,
     particleSize,
+    mobileParticleSize,
     density,
+    mobileDensity,
     color,
     leadCssColor,
     pointerRepel,
