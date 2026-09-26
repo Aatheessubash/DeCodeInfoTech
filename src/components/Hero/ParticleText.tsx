@@ -79,6 +79,51 @@ const ACCENT_PALETTE: string[] = Array.from({ length: PALETTE_STEPS }, (_, i) =>
   return rgbToCss(getThemeAccentColor(t));
 });
 
+const getWrappedLines = (
+  rawText: string,
+  maxWidth: number,
+  ctx: CanvasRenderingContext2D,
+  forceWrap = false,
+): string[] => {
+  const paragraphs = rawText.split('\n');
+  const result: string[] = [];
+
+  for (const para of paragraphs) {
+    const trimmed = para.trim();
+    if (!trimmed) continue;
+
+    const words = trimmed.split(/\s+/);
+    if (words.length <= 1) {
+      result.push(trimmed);
+      continue;
+    }
+
+    const fullWidth = ctx.measureText(trimmed).width;
+    if (!forceWrap && fullWidth <= maxWidth) {
+      result.push(trimmed);
+      continue;
+    }
+
+    let currentLine = '';
+    for (const word of words) {
+      const candidate = currentLine ? `${currentLine} ${word}` : word;
+      const candidateWidth = ctx.measureText(candidate).width;
+
+      if (candidateWidth <= maxWidth || !currentLine) {
+        currentLine = candidate;
+      } else {
+        result.push(currentLine);
+        currentLine = word;
+      }
+    }
+    if (currentLine) {
+      result.push(currentLine);
+    }
+  }
+
+  return result.length > 0 ? result : [rawText];
+};
+
 export const ParticleText = ({
   text,
   leadText,
@@ -99,6 +144,7 @@ export const ParticleText = ({
   const containerRef = useRef<HTMLDivElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [isClient, setIsClient] = useState(false);
+  const [reducedMotion, setReducedMotion] = useState(false);
 
   // If text or accentText is provided without leadText, we operate in Single Accent Mode (Digital Innovation only)
   const isSingleMode = !leadText;
@@ -110,10 +156,13 @@ export const ParticleText = ({
 
   useEffect(() => {
     setIsClient(true);
+    if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) {
+      setReducedMotion(true);
+    }
   }, []);
 
   useEffect(() => {
-    if (!isClient) return undefined;
+    if (!isClient || reducedMotion) return undefined;
 
     const container = containerRef.current;
     const canvas = canvasRef.current;
@@ -143,7 +192,12 @@ export const ParticleText = ({
       const hasPointer = pointer.active;
       const px = pointer.x;
       const py = pointer.y;
-      const repelSq = repelRadius * repelRadius;
+      const isMobileDevice = currentWidth <= 768;
+      const effectiveRepelRadius = isMobileDevice
+        ? Math.min(repelRadius, Math.max(48, Math.floor(currentWidth * 0.18)))
+        : repelRadius;
+      const effectivePointerRepel = isMobileDevice ? Math.min(pointerRepel, 7) : pointerRepel;
+      const repelSq = effectiveRepelRadius * effectiveRepelRadius;
       const driftTime = now * 0.0016;
 
       // 1. Update Physics
@@ -158,7 +212,7 @@ export const ParticleText = ({
 
           if (distSq < repelSq && distSq > 0.001) {
             const dist = Math.sqrt(distSq);
-            const force = Math.pow(1 - dist / repelRadius, 2) * pointerRepel;
+            const force = Math.pow(1 - dist / effectiveRepelRadius, 2) * effectivePointerRepel;
             p.vx += (dx / dist) * force;
             p.vy += (dy / dist) * force;
           }
@@ -283,25 +337,10 @@ export const ParticleText = ({
       const resolvedWeight = fontWeight ? String(fontWeight) : parentFontWeight;
       const resolvedFamily = fontFamily || parentFontFamily;
 
-      let lineItems: { text: string; isAccent: boolean }[];
-      if (isSingleMode) {
-        lineItems = [{ text: singleText, isAccent: true }];
-      } else if (text) {
-        const parts = text.split('\n');
-        lineItems = parts.map((t, idx) => ({ text: t.trim(), isAccent: idx === parts.length - 1 }));
-      } else {
-        lineItems = [
-          { text: leadText || '', isAccent: false },
-          ...(accentText ? [{ text: accentText, isAccent: true }] : []),
-        ];
-      }
-
-      lineItems = lineItems.filter((item) => Boolean(item.text && item.text.trim()));
-
       // Offscreen canvas for typography measurement & rasterization
       const offscreen = document.createElement('canvas');
       offscreen.width = width;
-      offscreen.height = Math.max(300, lineItems.length * resolvedSize * 3);
+      offscreen.height = Math.max(300, resolvedSize * 4);
       const offCtx = offscreen.getContext('2d', { willReadFrequently: true });
       if (!offCtx) return;
 
@@ -310,35 +349,72 @@ export const ParticleText = ({
         (offCtx as unknown as { letterSpacing: string }).letterSpacing = '-0.035em';
       }
 
-      // Check if text exceeds container width, scale font size proportionally so it never clips
+      const maxAllowedWidth = width - (isMobile ? 12 : 24);
+      const shouldForceWrap = isMobile && width <= 600;
+
+      let lineItems: { text: string; isAccent: boolean }[];
+      if (isSingleMode) {
+        const lines = getWrappedLines(singleText, maxAllowedWidth, offCtx, shouldForceWrap);
+        lineItems = lines.map((line) => ({ text: line, isAccent: true }));
+      } else if (text) {
+        const lines = getWrappedLines(text, maxAllowedWidth, offCtx, shouldForceWrap);
+        lineItems = lines.map((line, idx) => ({
+          text: line,
+          isAccent: idx === lines.length - 1,
+        }));
+      } else {
+        const leadLines = leadText
+          ? getWrappedLines(leadText, maxAllowedWidth, offCtx, shouldForceWrap)
+          : [];
+        const accentLines = accentText
+          ? getWrappedLines(accentText, maxAllowedWidth, offCtx, shouldForceWrap)
+          : [];
+        lineItems = [
+          ...leadLines.map((line) => ({ text: line, isAccent: false })),
+          ...accentLines.map((line) => ({ text: line, isAccent: true })),
+        ];
+      }
+
+      lineItems = lineItems.filter((item) => Boolean(item.text && item.text.trim()));
+      if (lineItems.length === 0) {
+        lineItems = [{ text: singleText, isAccent: true }];
+      }
+
+      // Check if text exceeds container width; scale font size proportionally so it never clips
       let maxLineWidth = 0;
       lineItems.forEach((item) => {
         const w = offCtx.measureText(item.text).width;
         if (w > maxLineWidth) maxLineWidth = w;
       });
 
-      const maxAllowedWidth = width - (isMobile ? 8 : 16);
       if (maxLineWidth > maxAllowedWidth && maxLineWidth > 0) {
         const scale = maxAllowedWidth / maxLineWidth;
-        resolvedSize = Math.max(22, Math.floor(resolvedSize * scale));
+        resolvedSize = Math.max(18, Math.floor(resolvedSize * scale));
         offCtx.font = `${resolvedWeight} ${resolvedSize}px ${resolvedFamily}`;
       }
 
-      const lineHeight = Math.round(resolvedSize * 1.05);
-      const paddingY = Math.max(10, Math.round(resolvedSize * 0.22));
-      const computedHeight = lineItems.length * lineHeight + paddingY * 2;
+      const computedLineHeight = parseFloat(computed.lineHeight);
+      const lineHeight =
+        !isNaN(computedLineHeight) && computedLineHeight >= resolvedSize
+          ? Math.round(computedLineHeight)
+          : Math.round(resolvedSize * 1.08);
+
+      const paddingY = Math.max(12, Math.round(resolvedSize * 0.25));
+      const totalTextHeight = lineItems.length * lineHeight;
+      const computedHeight = totalTextHeight + paddingY * 2;
       currentHeight = computedHeight;
 
-      // In single line mode, container height reflects exact text line height,
+      // In single accent mode, container height reflects exact text height,
       // while canvas expands vertically with paddingY to allow particles to scatter freely without clipping.
       if (isSingleMode) {
-        container.style.height = `${lineHeight}px`;
-        container.style.minHeight = `${lineHeight}px`;
+        container.style.height = `${totalTextHeight}px`;
+        container.style.minHeight = `${totalTextHeight}px`;
         canvas.style.position = 'absolute';
         canvas.style.top = `-${paddingY}px`;
         canvas.style.left = '0';
       } else {
-        container.style.minHeight = `${computedHeight}px`;
+        container.style.height = `${totalTextHeight}px`;
+        container.style.minHeight = `${totalTextHeight}px`;
         canvas.style.position = 'relative';
         canvas.style.top = '0';
         canvas.style.left = '0';
@@ -369,8 +445,13 @@ export const ParticleText = ({
       });
 
       const imageData = offCtx.getImageData(0, 0, width, computedHeight);
-      const step = Math.max(1.5, density);
-      const baseRadius = particleSize || Math.max(1.2, step * 0.44);
+
+      // On mobile viewports, adapt sampling step and particle radius
+      // so letterforms maintain solid, crisp, and fully legible contours
+      const effectiveDensity = isMobile ? Math.min(density, 2.75) : density;
+      const step = Math.max(1.5, effectiveDensity);
+      const baseRadius =
+        particleSize || (isMobile ? Math.max(1.15, step * 0.46) : Math.max(1.2, step * 0.44));
 
       type RawTarget = {
         x: number;
@@ -423,7 +504,10 @@ export const ParticleText = ({
 
         let bucketIndex = 0;
         if (target.isAccent) {
-          const t = clamp((target.x - accentMinX) / accentSpan, 0, 1);
+          const nx = clamp((target.x - accentMinX) / accentSpan, 0, 1);
+          const ny = clamp((target.y - paddingY) / Math.max(1, totalTextHeight), 0, 1);
+          // 115deg diagonal gradient matching CSS
+          const t = clamp(nx * 0.82 + ny * 0.18, 0, 1);
           bucketIndex = Math.min(PALETTE_STEPS - 1, Math.floor(t * PALETTE_STEPS)) + 1;
         }
 
@@ -459,6 +543,7 @@ export const ParticleText = ({
 
     // Event Listeners for Hover, Move, Click & Touch
     const handlePointerMove = (e: PointerEvent): void => {
+      if (e.pointerType === 'touch') return;
       const rect = canvas.getBoundingClientRect();
       pointer.x = e.clientX - rect.left;
       pointer.y = e.clientY - rect.top;
@@ -473,7 +558,7 @@ export const ParticleText = ({
     };
 
     const handleClick = (e: MouseEvent): void => {
-      explodeFrom(e.clientX, e.clientY, 36);
+      explodeFrom(e.clientX, e.clientY, currentWidth <= 768 ? 22 : 36);
     };
 
     const handleTouchStart = (e: TouchEvent): void => {
@@ -483,7 +568,7 @@ export const ParticleText = ({
         pointer.x = t.clientX - rect.left;
         pointer.y = t.clientY - rect.top;
         pointer.active = true;
-        explodeFrom(t.clientX, t.clientY, 28);
+        ensureRenderLoop();
       }
     };
 
@@ -509,6 +594,19 @@ export const ParticleText = ({
     canvas.addEventListener('touchstart', handleTouchStart, { passive: true });
     canvas.addEventListener('touchmove', handleTouchMove, { passive: true });
     canvas.addEventListener('touchend', handleTouchEnd, { passive: true });
+    canvas.addEventListener('touchcancel', handleTouchEnd, { passive: true });
+
+    const handleVisibilityChange = (): void => {
+      if (document.hidden) {
+        if (animationFrame !== null) {
+          window.cancelAnimationFrame(animationFrame);
+          animationFrame = null;
+        }
+      } else if (isVisible) {
+        ensureRenderLoop();
+      }
+    };
+    document.addEventListener('visibilitychange', handleVisibilityChange);
 
     // ResizeObserver
     let lastObservedWidth = 0;
@@ -549,6 +647,7 @@ export const ParticleText = ({
     return () => {
       resizeObserver.disconnect();
       intersectionObserver.disconnect();
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
       canvas.removeEventListener('pointerenter', handlePointerMove);
       canvas.removeEventListener('pointermove', handlePointerMove);
       canvas.removeEventListener('pointerleave', handlePointerLeave);
@@ -556,12 +655,14 @@ export const ParticleText = ({
       canvas.removeEventListener('touchstart', handleTouchStart);
       canvas.removeEventListener('touchmove', handleTouchMove);
       canvas.removeEventListener('touchend', handleTouchEnd);
+      canvas.removeEventListener('touchcancel', handleTouchEnd);
 
       if (animationFrame !== null) window.cancelAnimationFrame(animationFrame);
       if (resizeFrame !== null) window.cancelAnimationFrame(resizeFrame);
     };
   }, [
     isClient,
+    reducedMotion,
     text,
     leadText,
     accentText,
@@ -590,8 +691,8 @@ export const ParticleText = ({
       {/* Semantic Accessible Heading for SEO & Screen Readers */}
       <span className={styles.particleTextSr}>{fullText}</span>
 
-      {/* Fallback for SSR before client hydration */}
-      {!isClient && (
+      {/* Fallback for SSR before client hydration or if reduced motion is requested */}
+      {(!isClient || reducedMotion) && (
         <>
           {isSingleMode ? (
             <span className={styles.staticAccent}>{singleText}</span>
@@ -605,7 +706,7 @@ export const ParticleText = ({
       )}
 
       {/* Interactive High-Performance Particle Canvas */}
-      {isClient && (
+      {isClient && !reducedMotion && (
         <canvas
           ref={canvasRef}
           className={styles.particleTextCanvas}

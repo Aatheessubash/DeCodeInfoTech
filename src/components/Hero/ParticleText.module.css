@@ -3,7 +3,7 @@
   display: block;
   width: 100%;
   overflow: visible;
-  touch-action: none;
+  touch-action: pan-y;
   isolation: isolate;
   user-select: none;
 }
@@ -14,6 +14,7 @@
   background: transparent;
   will-change: transform;
   outline: none;
+  touch-action: pan-y;
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -43,6 +44,8 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   padding-bottom: 0.06em;
+  word-break: normal;
+  overflow-wrap: break-word;
 }
 
 .staticHeadline {
