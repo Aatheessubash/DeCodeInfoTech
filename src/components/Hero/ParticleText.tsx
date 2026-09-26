@@ -132,7 +132,7 @@ export const ParticleText = ({
   accentText = 'Digital Innovation.',
   particleSize,
   mobileParticleSize,
-  density = 4,
+  density = 2.4,
   mobileDensity,
   color = '#1d1d1f',
   pointerRepel = 11,
@@ -452,14 +452,17 @@ export const ParticleText = ({
 
       const imageData = offCtx.getImageData(0, 0, width, computedHeight);
 
-      // On mobile viewports, adapt sampling step and particle radius
-      // so particles are visibly smaller, finer, and sleeker while maintaining crisp contours
-      const effectiveDensity = isMobile ? mobileDensity || Math.min(density, 2.2) : density;
+      // Fine-grained particle sizing across both desktop and mobile viewports:
+      // Desktop / Tablet uses refined stardust particles (~0.85px - 0.95px radius),
+      // Mobile uses micro particles (~0.65px - 0.75px radius)
+      const effectiveDensity = isMobile
+        ? mobileDensity || Math.min(density, 2.0)
+        : Math.min(density, 2.4);
       const step = Math.max(1.2, effectiveDensity);
       const baseRadius = isMobile
         ? mobileParticleSize || Math.max(0.65, step * 0.33)
-        : particleSize || Math.max(1.2, step * 0.44);
-      const minRadius = isMobile ? 0.48 : 1.0;
+        : particleSize || Math.max(0.8, step * 0.36);
+      const minRadius = isMobile ? 0.48 : 0.6;
 
       type RawTarget = {
         x: number;

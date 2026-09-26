@@ -129,9 +129,10 @@ export function Hero() {
                 <span data-hero-line className={styles.headlineAccentWrapper}>
                   <ParticleText
                     text={accentText}
-                    density={4}
-                    mobileDensity={2.2}
-                    mobileParticleSize={0.72}
+                    density={2.4}
+                    particleSize={0.88}
+                    mobileDensity={2.0}
+                    mobileParticleSize={0.7}
                   />
                 </span>
               </>
