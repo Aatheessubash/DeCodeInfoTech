@@ -1,13 +1,16 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import { useData } from '@/context/useData';
 import styles from './Footer.module.css';
-import { ArrowRight, ArrowUp, Mail, MapPin, Phone, Globe } from 'lucide-react';
+import { ArrowUp, Mail, Phone } from 'lucide-react';
 
 export function Footer() {
   const { siteContent } = useData();
+  const [showBackToTop, setShowBackToTop] = useState(false);
+  const contactEmail = 'contact@decodeinfotech.in';
+  const contactPhone = '7092802364';
   const pathname = usePathname();
   const router = useRouter();
 
@@ -47,13 +50,21 @@ export function Footer() {
     }
   };
 
+  useEffect(() => {
+    const handleScroll = () => setShowBackToTop(window.scrollY > 320);
+
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
     <footer className={styles.footer} role="contentinfo">
-      {/* 2. Main 4-Column Footer Grid */}
+      {/* 2. Main Footer Grid */}
       <div className={styles.container}>
         {/* Column 1: Brand & Studio Identity */}
         <div className={styles.brandCol}>
@@ -76,13 +87,8 @@ export function Footer() {
               className={styles.logoImg}
             />
           </button>
-          <span className={styles.tagline}>
-            {siteContent?.heroEyebrow || 'WHERE VISION BECOMES REALITY'}
-          </span>
           <p className={styles.desc}>
-            {siteContent?.agencyName || 'DeCode InfoTech'} is a modern software studio and digital
-            engineering firm. We design, engineer, and scale high-performance custom web
-            applications, SaaS platforms, and enterprise solutions.
+            Digital solutions that accelerate business growth and turn ideas into measurable impact.
           </p>
 
           {/* Social Icons Strip */}
@@ -166,7 +172,7 @@ export function Footer() {
               </svg>
             </a>
             <a
-              href={`https://wa.me/${(siteContent?.contactPhone || '917092802364').replace(/[^0-9]/g, '')}`}
+              href={`https://wa.me/91${contactPhone}`}
               target="_blank"
               rel="noopener noreferrer"
               className={styles.socialBtn}
@@ -185,282 +191,38 @@ export function Footer() {
             </a>
           </div>
         </div>
-
-        {/* Column 2: Navigation Links */}
-        <div className={styles.linksCol}>
-          <h4 className={styles.colTitle}>Navigation</h4>
-          <ul className={styles.linkList}>
-            <li>
-              <button
-                type="button"
-                onClick={() => scrollToSection('home')}
-                className={styles.linkBtn}
-              >
-                Home
-              </button>
-            </li>
-            <li>
-              <button
-                type="button"
-                onClick={() => scrollToSection('about')}
-                className={styles.linkBtn}
-              >
-                About Us
-              </button>
-            </li>
-            <li>
-              <button
-                type="button"
-                onClick={() => scrollToSection('services')}
-                className={styles.linkBtn}
-              >
-                Services &amp; Solutions
-              </button>
-            </li>
-            <li>
-              <button
-                type="button"
-                onClick={() => scrollToSection('work')}
-                className={styles.linkBtn}
-              >
-                Featured Work
-              </button>
-            </li>
-            <li>
-              <button
-                type="button"
-                onClick={() => scrollToSection('process')}
-                className={styles.linkBtn}
-              >
-                Roadmap &amp; Process
-              </button>
-            </li>
-            <li>
-              <button
-                type="button"
-                onClick={() => scrollToSection('standards')}
-                className={styles.linkBtn}
-              >
-                Quality Standards
-              </button>
-            </li>
-            <li>
-              <button
-                type="button"
-                onClick={() => scrollToSection('careers')}
-                className={styles.linkBtn}
-              >
-                Careers
-                <span className={styles.hiringBadge}>Hiring</span>
-              </button>
-            </li>
-            <li>
-              <button
-                type="button"
-                onClick={() => scrollToSection('faq')}
-                className={styles.linkBtn}
-              >
-                FAQ
-              </button>
-            </li>
-            <li>
-              <button
-                type="button"
-                onClick={() => scrollToSection('contact')}
-                className={styles.linkBtn}
-              >
-                Contact &amp; Consult
-              </button>
-            </li>
-          </ul>
-        </div>
-
-        {/* Column 3: Capabilities */}
-        <div className={styles.linksCol}>
-          <h4 className={styles.colTitle}>Capabilities</h4>
-          <ul className={styles.linkList}>
-            <li>
-              <button
-                type="button"
-                onClick={() => scrollToSection('services')}
-                className={styles.linkBtn}
-              >
-                Custom Web Applications
-              </button>
-            </li>
-            <li>
-              <button
-                type="button"
-                onClick={() => scrollToSection('services')}
-                className={styles.linkBtn}
-              >
-                SaaS Product Engineering
-              </button>
-            </li>
-            <li>
-              <button
-                type="button"
-                onClick={() => scrollToSection('services')}
-                className={styles.linkBtn}
-              >
-                Full-Stack Next.js &amp; React
-              </button>
-            </li>
-            <li>
-              <button
-                type="button"
-                onClick={() => scrollToSection('services')}
-                className={styles.linkBtn}
-              >
-                UI/UX Design Systems
-              </button>
-            </li>
-            <li>
-              <button
-                type="button"
-                onClick={() => scrollToSection('services')}
-                className={styles.linkBtn}
-              >
-                Cloud APIs &amp; Architecture
-              </button>
-            </li>
-            <li>
-              <button
-                type="button"
-                onClick={() => scrollToSection('services')}
-                className={styles.linkBtn}
-              >
-                Industrial AI &amp; IoT Solutions
-              </button>
-            </li>
-            <li>
-              <button
-                type="button"
-                onClick={() => scrollToSection('services')}
-                className={styles.linkBtn}
-              >
-                Core Web Vitals &amp; Speed
-              </button>
-            </li>
-          </ul>
-        </div>
-
-        {/* Column 4: Contact Details & Connect */}
-        <div className={styles.contactCol}>
-          <h4 className={styles.colTitle}>Get in Touch</h4>
-
-          <div className={styles.contactList}>
-            <div className={styles.contactItem}>
-              <div className={styles.contactIconBox} aria-hidden="true">
-                <MapPin size={16} />
-              </div>
-              <div className={styles.contactDetail}>
-                <span className={styles.contactLabel}>Headquarters</span>
-                <span className={styles.contactValue}>
-                  {siteContent?.contactLocation || 'Coimbatore, Tamil Nadu, India'}
-                </span>
-                <span className={styles.contactSubtext}>Gandhipuram / Peelamedu Tech Corridor</span>
-              </div>
-            </div>
-
-            <div className={styles.contactItem}>
-              <div className={styles.contactIconBox} aria-hidden="true">
-                <Mail size={16} />
-              </div>
-              <div className={styles.contactDetail}>
-                <span className={styles.contactLabel}>Email Us</span>
-                <a
-                  href={`mailto:${siteContent?.contactEmail || 'contact@decodeinfotech.in'}`}
-                  className={styles.contactValue}
-                >
-                  {siteContent?.contactEmail || 'contact@decodeinfotech.in'}
-                </a>
-              </div>
-            </div>
-
-            <div className={styles.contactItem}>
-              <div className={styles.contactIconBox} aria-hidden="true">
-                <Phone size={16} />
-              </div>
-              <div className={styles.contactDetail}>
-                <span className={styles.contactLabel}>Direct Line</span>
-                <a
-                  href={`tel:${(siteContent?.contactPhone || '+91 7092802364').replace(/[^0-9+]/g, '')}`}
-                  className={styles.contactValue}
-                >
-                  {siteContent?.contactPhone || '+91 7092802364'}
-                </a>
-                <span className={styles.contactSubtext}>Mon – Sat, 9:00 AM – 7:00 PM IST</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Quick Action Box */}
-          <div className={styles.actionBox}>
-            <p className={styles.actionBoxTitle}>Have an urgent requirement?</p>
-            <p className={styles.actionBoxText}>
-              Share your project specifications and receive an estimated timeline and tech proposal.
-            </p>
-            <button
-              type="button"
-              onClick={() => scrollToSection('contact')}
-              className={styles.actionBoxBtn}
-            >
-              <span>Request Consultation</span>
-              <ArrowRight size={14} aria-hidden="true" />
-            </button>
-          </div>
+        <div className={styles.footerContact}>
+          <a href={`mailto:${contactEmail}`} className={styles.contactLink}>
+            <Mail size={16} aria-hidden="true" />
+            <span>{contactEmail}</span>
+          </a>
+          <a href={`tel:${contactPhone}`} className={styles.contactLink}>
+            <Phone size={16} aria-hidden="true" />
+            <span>{contactPhone}</span>
+          </a>
         </div>
       </div>
 
-      {/* 3. Bottom Legal & Attribution Bar */}
+      {/* Bottom Bar */}
       <div className={styles.bottomBar}>
         <div className={styles.bottomContainer}>
           <p>
             &copy; {new Date().getFullYear()} {siteContent?.agencyName || 'DeCode InfoTech'}. All
             rights reserved.
           </p>
-
-          <div className={styles.locationPill}>
-            <Globe size={13} aria-hidden="true" />
-            <span>Coimbatore, India • IST (UTC+5:30) • Worldwide Delivery</span>
-          </div>
-
-          <div className={styles.bottomRight}>
-            <div className={styles.legalLinks}>
-              <button
-                type="button"
-                onClick={() => scrollToSection('contact')}
-                className={styles.legalLink}
-                style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer' }}
-              >
-                Privacy
-              </button>
-              <button
-                type="button"
-                onClick={() => scrollToSection('contact')}
-                className={styles.legalLink}
-                style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer' }}
-              >
-                Terms
-              </button>
-              <a href="/SA" className={styles.legalLink}>
-                Studio Admin
-              </a>
-            </div>
-
-            <button
-              type="button"
-              onClick={scrollToTop}
-              className={styles.backToTopBtn}
-              aria-label="Back to top"
-            >
-              <span>Back to top</span>
-              <ArrowUp size={13} aria-hidden="true" />
-            </button>
-          </div>
         </div>
       </div>
+
+      {showBackToTop ? (
+        <button
+          type="button"
+          onClick={scrollToTop}
+          className={styles.floatingTopBtn}
+          aria-label="Back to top"
+        >
+          <ArrowUp size={18} aria-hidden="true" />
+        </button>
+      ) : null}
     </footer>
   );
 }

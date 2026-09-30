@@ -1,159 +1,284 @@
 'use client';
 
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect, useCallback, useMemo } from 'react';
+import styles from './Promise.module.css';
 import {
-  MessageSquare,
+  Compass,
+  Layers,
+  Palette,
   Code2,
+  ShieldCheck,
+  Rocket,
+  ArrowUpRight,
   Zap,
   Target,
-  Handshake,
-  ScanEye,
-  ShieldCheck,
-  Award,
+  Search,
   CheckCircle,
-  Sparkles,
-  Star,
-  Layers,
-  Compass,
   type LucideIcon,
 } from 'lucide-react';
+import { motion, useMotionValue, animate } from 'framer-motion';
 import { useData } from '@/context/useData';
-import styles from './Promise.module.css';
-import { useGSAP } from '@gsap/react';
-import gsap from '@/lib/gsap';
+import type { ProcessStep } from '@/lib/types';
 
 const ICON_MAP: Record<string, LucideIcon> = {
-  MessageSquare,
+  Compass,
+  Layers,
+  Palette,
   Code2,
+  ShieldCheck,
+  Rocket,
   Zap,
   Target,
-  Handshake,
-  ScanEye,
-  ShieldCheck,
-  Award,
+  Search,
   CheckCircle,
-  Sparkles,
-  Star,
-  Layers,
-  Compass,
 };
 
+const DEFAULT_STEPS: ProcessStep[] = [
+  {
+    number: '01',
+    title: 'Discover',
+    tag: 'Exploration',
+    icon: 'Compass',
+    desc: 'Goal mapping, user needs & project scope.',
+    tags: ['Scope', 'Goals'],
+  },
+  {
+    number: '02',
+    title: 'Plan',
+    tag: 'Strategy',
+    icon: 'Layers',
+    desc: 'Architecture blueprint & sprint roadmap.',
+    tags: ['Tech Stack', 'Roadmap'],
+  },
+  {
+    number: '03',
+    title: 'Design',
+    tag: 'Creation',
+    icon: 'Palette',
+    desc: 'Intuitive UX layouts & Figma prototypes.',
+    tags: ['Wireframe', 'Prototype'],
+  },
+  {
+    number: '04',
+    title: 'Build',
+    tag: 'Engineering',
+    icon: 'Code2',
+    desc: 'Modular frontend, robust APIs & cloud.',
+    tags: ['Frontend', 'Backend'],
+  },
+  {
+    number: '05',
+    title: 'Test',
+    tag: 'QA & Security',
+    icon: 'ShieldCheck',
+    desc: 'Performance audits, device testing & security checks.',
+    tags: ['Device QA', 'Security'],
+  },
+  {
+    number: '06',
+    title: 'Launch',
+    tag: 'Go-Live',
+    icon: 'Rocket',
+    desc: 'Production deploy, cloud setup & support.',
+    tags: ['Deploy', 'Scaling'],
+  },
+];
+
 export function PromiseSection() {
-  const { standards, siteContent } = useData();
-  const sectionRef = useRef<HTMLElement>(null);
-  const gridRef = useRef<HTMLDivElement>(null);
+  const { processSteps, siteContent } = useData();
+  const containerRef = useRef<HTMLDivElement>(null);
+  const stepsRef = useRef<HTMLOListElement>(null);
 
-  const standardsList =
-    standards && standards.length > 0
-      ? standards
-      : [
-          {
-            id: '01',
-            title: 'Clear & Direct Communication',
-            desc: 'No confusing technical jargon. We provide straightforward progress updates, transparent timelines, and honest project roadmaps.',
-            icon: 'MessageSquare',
-          },
-          {
-            id: '02',
-            title: 'Clean, Maintainable Code',
-            desc: 'We write well-structured, thoroughly documented code that your engineering team can easily scale and build upon for years to come.',
-            icon: 'Code2',
-          },
-          {
-            id: '03',
-            title: 'Fast Delivery Without Quality Trade-Offs',
-            desc: 'We use modern frameworks, automated build pipelines, and efficient workflows to launch high-quality digital products on schedule.',
-            icon: 'Zap',
-          },
-          {
-            id: '04',
-            title: 'Practical Solutions Focused on Business Goals',
-            desc: 'Every design choice and feature we build directly aligns with your core business targets — driving user conversion and revenue.',
-            icon: 'Target',
-          },
-          {
-            id: '05',
-            title: 'Long-Term Support After Launch',
-            desc: 'Our relationship does not end at deployment. We stand by our work, providing post-launch support, monitoring, and updates.',
-            icon: 'Handshake',
-          },
-          {
-            id: '06',
-            title: 'Quality is in the Details',
-            desc: 'From microscopic micro-interactions to zero-layout-shift performance, we craft digital experiences that leave a lasting impression.',
-            icon: 'ScanEye',
-          },
-        ];
+  const [isMobile, setIsMobile] = useState(false);
+  const [maxDrag, setMaxDrag] = useState(0);
 
-  useGSAP(
-    () => {
-      const cards = gridRef.current?.querySelectorAll(`.${styles.valueCard}`);
-      if (cards && cards.length > 0) {
-        gsap.fromTo(
-          cards,
-          { opacity: 0, y: 25 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.6,
-            stagger: 0.1,
-            ease: 'power3.out',
-            scrollTrigger: {
-              trigger: gridRef.current,
-              start: 'top 82%',
-            },
-          },
-        );
-      }
-    },
-    { scope: sectionRef },
+  const x = useMotionValue(0);
+
+  const stepsList = useMemo(
+    () => (processSteps && processSteps.length > 0 ? processSteps : DEFAULT_STEPS),
+    [processSteps],
   );
 
-  return (
-    <section id="standards" ref={sectionRef} className="section-padding glow-bg">
-      <div className={styles.sectionHeader}>
-        <h2 className={styles.heading}>
-          {siteContent?.standardsHeading ? (
-            siteContent.standardsHeading.includes('Engineering Standards') ? (
-              <>
-                {siteContent.standardsHeading.replace(/\s*&?\s*Engineering Standards/i, '').trim()}{' '}
-                &amp; <span>Engineering Standards</span>
-              </>
-            ) : (
-              siteContent.standardsHeading
-            )
-          ) : (
-            <>
-              Our Core Foundation &amp; <span>Engineering Standards</span>
-            </>
-          )}
-        </h2>
-        <p className={styles.subheading}>
-          {siteContent?.standardsSubheading || (
-            <>
-              <strong>{siteContent?.agencyName || 'DeCode'}</strong> is a modern software studio
-              that designs, builds, and launches fast, scalable websites and custom web
-              applications.
-            </>
-          )}
-        </p>
-      </div>
+  // Screen size check for mobile view (<= 768px)
+  useEffect(() => {
+    const checkMobile = () => {
+      const mobile = window.innerWidth <= 768;
+      setIsMobile(mobile);
+      if (!mobile) {
+        x.set(0);
+      }
+    };
 
-      <div ref={gridRef} className={styles.grid}>
-        {standardsList.map((val, idx) => {
-          const Icon = ICON_MAP[val.icon] || Code2;
-          return (
-            <div key={val.id || idx} className={styles.valueCard}>
-              <div className={styles.cardHeader}>
-                <span className={styles.iconCircle}>
-                  <Icon size={24} strokeWidth={1.5} aria-hidden="true" />
-                </span>
-              </div>
-              <h3 className={styles.title}>{val.title}</h3>
-              <p className={styles.desc}>{val.desc}</p>
-            </div>
-          );
-        })}
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, [x]);
+
+  // Recalculate drag boundaries when track / container dimensions change
+  const updateConstraints = useCallback(() => {
+    if (!isMobile || !containerRef.current || !stepsRef.current) {
+      setMaxDrag(0);
+      return;
+    }
+    const scrollW = stepsRef.current.scrollWidth;
+    const offsetW = containerRef.current.offsetWidth;
+    const max = Math.max(0, scrollW - offsetW);
+    setMaxDrag(max);
+  }, [isMobile]);
+
+  useEffect(() => {
+    if (!isMobile) return undefined;
+    updateConstraints();
+
+    const ro = new ResizeObserver(() => {
+      updateConstraints();
+    });
+
+    if (containerRef.current) ro.observe(containerRef.current);
+    if (stepsRef.current) ro.observe(stepsRef.current);
+
+    return () => ro.disconnect();
+  }, [isMobile, updateConstraints, stepsList]);
+
+  // Handle drag release: swipe left / right with momentum and snap
+  const handleDragEnd = (
+    _: MouseEvent | TouchEvent | PointerEvent,
+    info: { offset: { x: number; y: number }; velocity: { x: number; y: number } },
+  ) => {
+    if (!isMobile || !stepsRef.current) return;
+    const cards = stepsRef.current.children;
+    const count = stepsList.length;
+    if (!cards || count === 0) return;
+
+    const currentX = x.get();
+    const gutter = parseFloat(getComputedStyle(stepsRef.current).paddingLeft) || 20;
+
+    // Find closest card to current position
+    let closest = 0;
+    let minDiff = Infinity;
+    for (let i = 0; i < count; i++) {
+      const card = cards[i] as HTMLElement;
+      if (!card) continue;
+      const cardOffset = -(card.offsetLeft - gutter);
+      const diff = Math.abs(currentX - cardOffset);
+      if (diff < minDiff) {
+        minDiff = diff;
+        closest = i;
+      }
+    }
+
+    // Velocity or swipe distance threshold to advance / regress card
+    if (info.velocity.x < -200 || info.offset.x < -40) {
+      closest = Math.min(count - 1, closest + 1);
+    } else if (info.velocity.x > 200 || info.offset.x > 40) {
+      closest = Math.max(0, closest - 1);
+    }
+
+    const targetCard = cards[closest] as HTMLElement;
+    if (targetCard) {
+      const targetX = -Math.min(Math.max(0, targetCard.offsetLeft - gutter), maxDrag);
+      animate(x, targetX, {
+        type: 'spring',
+        stiffness: 300,
+        damping: 30,
+      });
+    }
+  };
+
+  const scrollTo = (id: string) => {
+    const el = document.getElementById(id);
+    if (el) {
+      const headerOffset = 56;
+      const elementPosition = el.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth',
+      });
+    }
+  };
+
+  return (
+    <section id="process" className={styles.processSection} aria-labelledby="process-heading">
+      <div className={styles.container}>
+        <header className={styles.sectionHeader}>
+          <h2 id="process-heading" className={styles.sectionTitle}>
+            {siteContent?.processHeading ? (
+              siteContent.processHeading.includes('better outcome') ? (
+                <>
+                  {siteContent.processHeading.replace(/A better outcome\.?/i, '').trim()}
+                  <br />
+                  <span>A better outcome.</span>
+                </>
+              ) : (
+                siteContent.processHeading
+              )
+            ) : (
+              <>
+                A simple process.
+                <br />
+                <span>A better outcome.</span>
+              </>
+            )}
+          </h2>
+          <p className={styles.sectionDesc}>
+            {siteContent?.processSubheading ||
+              'From the first conversation to launch, we bring clarity to every stage — with a shared plan and a clear next step.'}
+          </p>
+        </header>
+
+        <div
+          ref={containerRef}
+          className={styles.carouselWrapper}
+          role="region"
+          aria-label="Process steps"
+        >
+          <motion.ol
+            ref={stepsRef}
+            className={styles.steps}
+            drag={isMobile ? 'x' : false}
+            dragConstraints={isMobile ? { left: -maxDrag, right: 0 } : undefined}
+            dragElastic={0.12}
+            style={{ x, touchAction: isMobile ? 'pan-y' : 'auto' }}
+            onDragEnd={isMobile ? handleDragEnd : undefined}
+          >
+            {stepsList.map((step) => {
+              const Icon = ICON_MAP[step.icon] || Compass;
+              return (
+                <li key={step.number} className={styles.step}>
+                  <div className={styles.stepHeader}>
+                    <span className={styles.icon}>
+                      <Icon size={22} strokeWidth={1.5} aria-hidden="true" />
+                    </span>
+                    <span className={styles.stepNumber}>{step.number}</span>
+                  </div>
+                  <div className={styles.stepBody}>
+                    <p className={styles.stage}>{step.tag}</p>
+                    <h3 className={styles.stepTitle}>{step.title}</h3>
+                    <p className={styles.stepDesc}>{step.desc}</p>
+                  </div>
+                  <ul className={styles.deliverables} aria-label={`${step.title} deliverables`}>
+                    {(step.tags || []).map((tag) => (
+                      <li key={tag}>{tag}</li>
+                    ))}
+                  </ul>
+                </li>
+              );
+            })}
+          </motion.ol>
+        </div>
+        <div className={styles.closing}>
+          <p>{siteContent?.processClosingText || 'Your idea. A clear path forward.'}</p>
+          <button
+            type="button"
+            onClick={() => scrollTo('contact')}
+            className={styles.contactLink}
+            style={{ background: 'none', font: 'inherit', cursor: 'pointer' }}
+          >
+            <span>Let’s talk about your project</span>
+            <ArrowUpRight size={18} strokeWidth={1.5} aria-hidden="true" />
+          </button>
+        </div>
       </div>
     </section>
   );

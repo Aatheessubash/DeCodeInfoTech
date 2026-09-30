@@ -422,7 +422,7 @@ export function AdminDashboard({ onClose }) {
                   <div className={styles.topActions}>
                     <div className={styles.sectionHeading}>
                       <span>Services</span>
-                      <h3>Manage Core Capabilities</h3>
+                      <h3>Manage Core Services</h3>
                       <p>
                         Define the engineering services and key deliverables displayed on the
                         homepage.
