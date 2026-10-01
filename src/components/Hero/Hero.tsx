@@ -1,12 +1,13 @@
 'use client';
 
-import React, { useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useData } from '@/context/useData';
 import styles from './Hero.module.css';
-import { ArrowRight, ArrowUpRight } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, X } from 'lucide-react';
 import { useGSAP } from '@gsap/react';
 import gsap from '@/lib/gsap';
 import { ParticleText } from './ParticleText';
+import { ContactForm } from '@/components/Contact/ContactForm';
 
 const LEGACY_HERO_HEADLINES = new Set([
   'We build digital experiences that help businesses grow. Leading web development company for startups.',
@@ -22,6 +23,7 @@ const LEGACY_HERO_SUBTEXTS = new Set([
 
 export function Hero() {
   const { siteContent } = useData();
+  const [isProjectModalOpen, setIsProjectModalOpen] = useState(false);
   const rawHeadline = siteContent?.heroHeadline;
   const isLegacyHeadline = rawHeadline ? LEGACY_HERO_HEADLINES.has(rawHeadline) : false;
   const currentHeadline =
@@ -56,6 +58,30 @@ export function Hero() {
   const headlineRef = useRef<HTMLHeadingElement>(null);
   const subtextRef = useRef<HTMLParagraphElement>(null);
   const ctaGroupRef = useRef<HTMLDivElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (!isProjectModalOpen) {
+      return;
+    }
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setIsProjectModalOpen(false);
+      }
+    };
+
+    const { body } = document;
+    const originalOverflow = body.style.overflow;
+    body.style.overflow = 'hidden';
+    document.addEventListener('keydown', handleKeyDown);
+    closeButtonRef.current?.focus();
+
+    return () => {
+      body.style.overflow = originalOverflow;
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isProjectModalOpen]);
 
   useGSAP(
     () => {
@@ -164,7 +190,11 @@ export function Hero() {
 
           {/* Action CTAs */}
           <div ref={ctaGroupRef} className={styles.ctaGroup}>
-            <button type="button" onClick={() => scrollTo('contact')} className={styles.primaryCta}>
+            <button
+              type="button"
+              onClick={() => setIsProjectModalOpen(true)}
+              className={styles.primaryCta}
+            >
               <span>{siteContent?.heroPrimaryCta || 'Start A Project'}</span>
               <ArrowRight size={18} aria-hidden="true" />
             </button>
@@ -184,6 +214,44 @@ export function Hero() {
           </div>
         </div>
       </div>
+
+      {isProjectModalOpen && (
+        <div
+          className={styles.modalBackdrop}
+          role="presentation"
+          onMouseDown={(event) => {
+            if (event.target === event.currentTarget) {
+              setIsProjectModalOpen(false);
+            }
+          }}
+        >
+          <div
+            className={styles.projectModal}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="project-modal-heading"
+          >
+            <div className={styles.modalHeader}>
+              <div>
+                <p className={styles.modalEyebrow}>Start a project</p>
+                <h2 id="project-modal-heading" className={styles.modalTitle}>
+                  Let's Build Something <span>Exceptional</span>
+                </h2>
+              </div>
+              <button
+                ref={closeButtonRef}
+                type="button"
+                className={styles.modalClose}
+                onClick={() => setIsProjectModalOpen(false)}
+                aria-label="Close project form"
+              >
+                <X size={20} aria-hidden="true" />
+              </button>
+            </div>
+            <ContactForm idPrefix="hero-project" />
+          </div>
+        </div>
+      )}
     </section>
   );
 }
