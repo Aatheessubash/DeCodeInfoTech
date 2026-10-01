@@ -9,7 +9,13 @@ import { ArrowUp, Mail, Phone } from 'lucide-react';
 export function Footer() {
   const { siteContent } = useData();
   const [showBackToTop, setShowBackToTop] = useState(false);
-  const contactEmail = 'contact@decodeinfotech.in';
+  const rawEmail = siteContent?.contactEmail?.trim();
+  const contactEmail =
+    rawEmail &&
+    rawEmail !== 'hello@decode.com' &&
+    rawEmail !== 'contact@decodeinfotech.com'
+      ? rawEmail
+      : 'contact@decodeinfotech.in';
   const contactPhone = '7092802364';
   const pathname = usePathname();
   const router = useRouter();

@@ -15,7 +15,16 @@ export function migrateCopy(key: string, value: unknown): unknown {
   if (!contentKeys.has(key)) return value;
 
   function visit(item: unknown): unknown {
-    if (typeof item === 'string') return replacements.get(item) ?? item;
+    if (typeof item === 'string') {
+      const direct = replacements.get(item);
+      if (direct !== undefined) return direct;
+      if (item.includes('hello@decode.com') || item.includes('contact@decodeinfotech.com')) {
+        return item
+          .replaceAll('hello@decode.com', 'contact@decodeinfotech.in')
+          .replaceAll('contact@decodeinfotech.com', 'contact@decodeinfotech.in');
+      }
+      return item;
+    }
     if (Array.isArray(item)) return item.map(visit);
     if (item !== null && typeof item === 'object') {
       return Object.fromEntries(Object.entries(item).map(([field, text]) => [field, visit(text)]));

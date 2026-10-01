@@ -8,13 +8,20 @@ import { ContactForm } from './ContactForm';
 
 export function Contact() {
   const { siteContent } = useData();
+  const rawEmail = siteContent?.contactEmail?.trim();
+  const contactEmail =
+    rawEmail &&
+    rawEmail !== 'hello@decode.com' &&
+    rawEmail !== 'contact@decodeinfotech.com'
+      ? rawEmail
+      : 'contact@decodeinfotech.in';
 
   const contactDetails = (
     <div className={styles.directContact}>
       <div className={styles.contactItem}>
         <Mail className={styles.contactIcon} aria-hidden="true" />
-        <a href={`mailto:${siteContent?.contactEmail || 'contact@decodeinfotech.in'}`}>
-          {siteContent?.contactEmail || 'contact@decodeinfotech.in'}
+        <a href={`mailto:${contactEmail}`}>
+          {contactEmail}
         </a>
       </div>
       <div className={styles.contactItem}>

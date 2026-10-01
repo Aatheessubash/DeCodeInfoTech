@@ -24,3 +24,24 @@ test('preserves custom collection entries, deletions, and unrelated saved data',
   assert.equal(migrateCopy('decode_job_applications', application), application);
   assert.deepEqual(migrateCopy('decode_testimonials', application), application);
 });
+
+test('migrates legacy emails (hello@decode.com, contact@decodeinfotech.com) to contact@decodeinfotech.in', () => {
+  const legacyContent = {
+    contactEmail: 'hello@decode.com',
+  };
+  const updatedContent = migrateCopy('decode_site_content', legacyContent);
+  assert.equal(updatedContent.contactEmail, 'contact@decodeinfotech.in');
+
+  const legacyFaq = [
+    {
+      id: 'faq-1',
+      q: 'Questions?',
+      a: 'Email us at hello@decode.com or contact@decodeinfotech.com anytime.',
+    },
+  ];
+  const updatedFaq = migrateCopy('decode_faqs', legacyFaq);
+  assert.equal(
+    updatedFaq[0].a,
+    'Email us at contact@decodeinfotech.in or contact@decodeinfotech.in anytime.',
+  );
+});

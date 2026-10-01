@@ -97,11 +97,23 @@ export function AdminDashboard({ onClose }) {
   const [editingFaq, setEditingFaq] = useState(null);
   const [editingStandard, setEditingStandard] = useState(null);
   const [editingProcessStep, setEditingProcessStep] = useState(null);
-  const [contentForm, setContentForm] = useState(siteContent || {});
+  const sanitizeContactEmail = (email) =>
+    email === 'hello@decode.com' || email === 'contact@decodeinfotech.com'
+      ? 'contact@decodeinfotech.in'
+      : email || 'contact@decodeinfotech.in';
+
+  const [contentForm, setContentForm] = useState(
+    siteContent
+      ? { ...siteContent, contactEmail: sanitizeContactEmail(siteContent.contactEmail) }
+      : {},
+  );
 
   useEffect(() => {
     if (siteContent) {
-      setContentForm(siteContent);
+      setContentForm({
+        ...siteContent,
+        contactEmail: sanitizeContactEmail(siteContent.contactEmail),
+      });
     }
   }, [siteContent]);
 
@@ -146,7 +158,11 @@ export function AdminDashboard({ onClose }) {
 
   const handleSaveContent = (e) => {
     e.preventDefault();
-    updateSiteContent(contentForm);
+    const toSave = {
+      ...contentForm,
+      contactEmail: sanitizeContactEmail(contentForm.contactEmail),
+    };
+    updateSiteContent(toSave);
     alert('Site content updated successfully!');
   };
 
@@ -1462,6 +1478,7 @@ export function AdminDashboard({ onClose }) {
                         onChange={(e) =>
                           setContentForm({ ...contentForm, contactEmail: e.target.value })
                         }
+                        placeholder="contact@decodeinfotech.in"
                         className={styles.input}
                       />
                     </div>
