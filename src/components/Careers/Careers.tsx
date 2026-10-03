@@ -11,28 +11,16 @@ export function Careers() {
       <div className={styles.container}>
         <div className={styles.intro}>
           <div className={styles.copy}>
-            <h2 id="careers-title" className={styles.headline}>
-              Great work starts
-              <br />
-              with <span>great people.</span>
-            </h2>
-            <p className={styles.description}>
-              Curious minds. Thoughtful makers. People who care.
-              <br className={styles.desktopBreak} /> Help us build what comes next, together.
-            </p>
-            <div className={styles.highlights} aria-label="Career highlights">
-              <div>
-                <strong>Hybrid</strong>
-                <span>Work rhythm</span>
-              </div>
-              <div>
-                <strong>Mentored</strong>
-                <span>Growth paths</span>
-              </div>
-              <div>
-                <strong>Real</strong>
-                <span>Client impact</span>
-              </div>
+            <div className={styles.copyText}>
+              <h2 id="careers-title" className={styles.headline}>
+                Great work starts
+                <br />
+                with <span>great people.</span>
+              </h2>
+              <p className={styles.description}>
+                Curious minds. Thoughtful makers. People who care.
+                <br className={styles.desktopBreak} /> Help us build what comes next, together.
+              </p>
             </div>
             <div className={styles.actionBlock}>
               <Link href="/careers" className={`btn-primary ${styles.primaryLink}`}>

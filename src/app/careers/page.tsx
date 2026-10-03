@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { ArrowDown } from 'lucide-react';
 import { useData } from '@/context/useData';
 import type { JobPosting, JobApplication } from '@/lib/types';
 import styles from './CareersPage.module.css';
@@ -26,24 +27,9 @@ export default function CareersPage() {
       desc: 'Above-market compensation with performance bonuses and annual growth reviews.',
     },
     {
-      icon: '⚡',
-      title: 'Remote & Hybrid Flexibility',
-      desc: 'Work from home or from our hub with flexible hours focused on real output.',
-    },
-    {
       icon: '⚙',
       title: 'Modern Tech Stack',
       desc: 'No legacy debt. We use React, Next.js, Node.js, Vite, and leading cloud tooling.',
-    },
-    {
-      icon: '◈',
-      title: 'Continuous Growth',
-      desc: 'Stipends for courses, technical books, and conferences to sharpen your skills.',
-    },
-    {
-      icon: '⬡',
-      title: 'High Impact Work',
-      desc: 'Build scalable products directly for real businesses, startups, and enterprises.',
     },
     {
       icon: '❖',
@@ -104,17 +90,40 @@ export default function CareersPage() {
 
   return (
     <div className={`glow-bg ${styles.pageWrapper}`}>
-      {/* Header Section */}
-      <section className="section-padding">
-        <div className="section-header">
-          <h1 className={styles.heroHeadline}>
-            Build Great Digital Products With Us in Coimbatore
-          </h1>
-          <p className={styles.heroSubtext}>
-            Join <strong>DeCode InfoTech</strong> — the best software and web development company in
-            Coimbatore. We design and engineer modern web applications, scalable SaaS products, and
-            enterprise cloud solutions.
-          </p>
+      {/* Hero Section */}
+      <section className={`section-padding ${styles.heroSection}`}>
+        <div className={styles.heroGrid}>
+          <div className={styles.heroCopy}>
+            <h1 className={styles.heroHeadline}>
+              Build Great Digital Products With Us in Coimbatore
+            </h1>
+            <p className={styles.heroSubtext}>
+              Join <strong>DeCode InfoTech</strong> — the best software and web development company
+              in Coimbatore. We design and engineer modern web applications, scalable SaaS products,
+              and enterprise cloud solutions.
+            </p>
+            <div className={styles.heroActions}>
+              <a href="#open-roles" className="btn-primary">
+                Explore Open Roles <ArrowDown size={18} aria-hidden="true" />
+              </a>
+              <span className={styles.heroCaption}>
+                Designers, developers &amp; problem solvers
+              </span>
+            </div>
+          </div>
+
+          <div className={styles.heroVisual}>
+            <div className={styles.careerImage}>
+              <img
+                src="/assets/careers-team.png"
+                alt="DeCode InfoTech team collaborating in a modern studio"
+                width="1254"
+                height="1254"
+                loading="eager"
+                decoding="async"
+              />
+            </div>
+          </div>
         </div>
       </section>
 
@@ -123,7 +132,8 @@ export default function CareersPage() {
         <div style={{ textAlign: 'center', marginBottom: '48px' }}>
           <h2 className={styles.sectionTitle}>Why Engineers &amp; Designers Love DeCode</h2>
           <p className={styles.sectionSubtitle}>
-            We build an environment where people thrive, learn, and take pride in their craft.
+            We design, build, and ship in an environment where people thrive, learn, and take pride
+            in their craft.
           </p>
         </div>
         <div className={styles.perksGrid}>
@@ -138,7 +148,7 @@ export default function CareersPage() {
       </section>
 
       {/* Open Positions Section */}
-      <section className="section-padding">
+      <section id="open-roles" className="section-padding">
         <div style={{ textAlign: 'center', marginBottom: '48px' }}>
           <h2 className={styles.sectionTitle}>Explore Open Roles</h2>
         </div>

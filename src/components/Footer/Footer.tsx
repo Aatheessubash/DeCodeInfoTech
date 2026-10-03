@@ -11,9 +11,7 @@ export function Footer() {
   const [showBackToTop, setShowBackToTop] = useState(false);
   const rawEmail = siteContent?.contactEmail?.trim();
   const contactEmail =
-    rawEmail &&
-    rawEmail !== 'hello@decode.com' &&
-    rawEmail !== 'contact@decodeinfotech.com'
+    rawEmail && rawEmail !== 'hello@decode.com' && rawEmail !== 'contact@decodeinfotech.com'
       ? rawEmail
       : 'contact@decodeinfotech.in';
   const contactPhone = '7092802364';
@@ -88,7 +86,7 @@ export function Footer() {
             }}
           >
             <img
-              src={siteContent?.logoUrl || '/DeCode_Logo.png'}
+              src="/DeCode_Logo_footer.png"
               alt={`${siteContent?.agencyName || 'DeCode'} Logo`}
               className={styles.logoImg}
             />

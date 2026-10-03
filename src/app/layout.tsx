@@ -68,7 +68,7 @@ export const metadata: Metadata = {
     images: ['/assets/who-we-are.jpg'],
   },
   icons: {
-    icon: '/DeCode_Logo.png',
+    icon: '/Infinity_logo.png',
   },
 };
 

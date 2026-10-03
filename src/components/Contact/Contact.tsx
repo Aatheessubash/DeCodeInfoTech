@@ -10,9 +10,7 @@ export function Contact() {
   const { siteContent } = useData();
   const rawEmail = siteContent?.contactEmail?.trim();
   const contactEmail =
-    rawEmail &&
-    rawEmail !== 'hello@decode.com' &&
-    rawEmail !== 'contact@decodeinfotech.com'
+    rawEmail && rawEmail !== 'hello@decode.com' && rawEmail !== 'contact@decodeinfotech.com'
       ? rawEmail
       : 'contact@decodeinfotech.in';
 
@@ -20,9 +18,7 @@ export function Contact() {
     <div className={styles.directContact}>
       <div className={styles.contactItem}>
         <Mail className={styles.contactIcon} aria-hidden="true" />
-        <a href={`mailto:${contactEmail}`}>
-          {contactEmail}
-        </a>
+        <a href={`mailto:${contactEmail}`}>{contactEmail}</a>
       </div>
       <div className={styles.contactItem}>
         <MapPin className={styles.contactIcon} aria-hidden="true" />
