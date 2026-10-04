@@ -5,7 +5,7 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: '*',
       allow: '/',
-      disallow: ['/SA', '/api/'],
+      disallow: ['/SA', '/api/', '/admin/'],
     },
     sitemap: 'https://decodeinfotech.in/sitemap.xml',
   };
