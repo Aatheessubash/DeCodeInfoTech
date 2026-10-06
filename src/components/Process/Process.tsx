@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Link from 'next/link';
 import styles from './Process.module.css';
 import {
   Compass,
@@ -88,19 +89,6 @@ export function Process() {
 
   const stepsList = processSteps && processSteps.length > 0 ? processSteps : DEFAULT_STEPS;
 
-  const scrollTo = (id: string) => {
-    const el = document.getElementById(id);
-    if (el) {
-      const headerOffset = 56;
-      const elementPosition = el.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth',
-      });
-    }
-  };
-
   return (
     <section id="process" className={styles.processSection} aria-labelledby="process-heading">
       <div className={styles.container}>
@@ -156,15 +144,10 @@ export function Process() {
         </ol>
         <div className={styles.closing}>
           <p>{siteContent?.processClosingText || 'Your idea. A clear path forward.'}</p>
-          <button
-            type="button"
-            onClick={() => scrollTo('contact')}
-            className={styles.contactLink}
-            style={{ background: 'none', font: 'inherit', cursor: 'pointer' }}
-          >
+          <Link href="/contact" className={styles.contactLink}>
             <span>Let’s talk about your project</span>
             <ArrowUpRight size={18} strokeWidth={1.5} aria-hidden="true" />
-          </button>
+          </Link>
         </div>
       </div>
     </section>

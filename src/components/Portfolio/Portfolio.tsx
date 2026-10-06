@@ -5,8 +5,10 @@ import { useData } from '@/context/useData';
 import styles from './Portfolio.module.css';
 
 const CLIENT_LOGOS: Record<string, string> = {
+  'azhagappar-academy': '/Azhagappar Academy_Logo.png',
   'thozha-associates': '/ThozhaAssociates.png',
   'neuerung-healthtech': '/neuerung.png',
+  'hotel-vetri-vel': '/Vetrivel Unavagam_Logo.png',
 };
 
 const getInitials = (name: string) =>
@@ -25,17 +27,21 @@ export function Portfolio() {
   return (
     <section id="projects" className={`section-padding ${styles.section}`}>
       <span id="work" aria-hidden="true" style={{ position: 'absolute', top: 0 }} />
+      <div className={styles.sectionHeader}>
+        <h2 className={styles.sectionHeading}>
+          Our Valuable <span>Clients</span>
+        </h2>
+        <p className={styles.sectionSub}>
+          Trusted business clients who choose <strong>DeCode</strong> for reliable digital
+          solutions, professional service, and long-term value.
+        </p>
+        <p className={styles.sectionDetail}>
+          We partner with ambitious businesses to create digital systems that improve operations,
+          strengthen customer trust, generate better leads, and open new growth opportunities with
+          technology built for the future.
+        </p>
+      </div>
       <div className={styles.panel}>
-        <div className={styles.sectionHeader}>
-          <h2 className={styles.sectionHeading}>
-            Our Valuable <span>Clients</span>
-          </h2>
-          <p className={styles.sectionSub}>
-            Trusted business clients who choose <strong>DeCode</strong> for reliable digital
-            solutions, professional service, and long-term value.
-          </p>
-        </div>
-
         <div className={styles.carouselViewport} role="region" aria-label="Our clients">
           <div
             className={styles.scrollTrack}
@@ -60,9 +66,7 @@ export function Portfolio() {
                       <div className={styles.logoWrap} aria-hidden="true">
                         {logo ? (
                           <img
-                            className={`${styles.clientLogo} ${
-                              project.id === 'neuerung-healthtech' ? styles.neuerungLogo : ''
-                            }`}
+                            className={styles.clientLogo}
                             src={logo}
                             alt=""
                             loading={projectIndex === 0 ? 'eager' : 'lazy'}

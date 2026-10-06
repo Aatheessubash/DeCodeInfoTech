@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
 import { useData } from '@/context/useData';
 import { trackEvent } from '@/lib/analytics';
 import styles from './Footer.module.css';
@@ -17,44 +16,6 @@ export function Footer() {
       ? rawEmail
       : 'contact@decodeinfotech.in';
   const contactPhone = '7092802364';
-  const pathname = usePathname();
-  const router = useRouter();
-
-  const scrollToSection = (id: string) => {
-    if (pathname !== '/') {
-      router.push(`/#${id}`);
-      setTimeout(() => {
-        const el = document.getElementById(id);
-        if (el) {
-          const headerOffset = 56;
-          const elementPosition = el.getBoundingClientRect().top;
-          const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-          window.scrollTo({
-            top: offsetPosition,
-            behavior: 'smooth',
-          });
-        }
-      }, 150);
-      return;
-    }
-
-    if (id === 'home') {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      return;
-    }
-
-    const el = document.getElementById(id);
-    if (el) {
-      const headerOffset = 56;
-      const elementPosition = el.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth',
-      });
-    }
-  };
 
   useEffect(() => {
     const handleScroll = () => setShowBackToTop(window.scrollY > 320);
@@ -68,26 +29,14 @@ export function Footer() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const footerLinks = [
-    ['Web Development', '/web-development'],
-    ['Mobile Apps', '/mobile-app-development'],
-    ['SaaS Development', '/saas-development'],
-    ['CRM Automation', '/crm-automation'],
-    ['UI UX Design', '/ui-ux-design'],
-    ['Portfolio', '/portfolio'],
-    ['Blog', '/blog'],
-    ['Contact', '/contact'],
-  ];
-
   return (
     <footer className={styles.footer} role="contentinfo">
       {/* 2. Main Footer Grid */}
       <div className={styles.container}>
         {/* Column 1: Brand & Studio Identity */}
         <div className={styles.brandCol}>
-          <button
-            type="button"
-            onClick={() => scrollToSection('home')}
+          <Link
+            href="/"
             className={styles.logoLink}
             aria-label="DeCode InfoTech - Back to home"
             style={{
@@ -103,7 +52,7 @@ export function Footer() {
               alt={`${siteContent?.agencyName || 'DeCode'} Logo`}
               className={styles.logoImg}
             />
-          </button>
+          </Link>
           <p className={styles.desc}>
             Digital solutions that accelerate business growth and turn ideas into measurable impact.
           </p>
@@ -212,13 +161,6 @@ export function Footer() {
           </div>
         </div>
         <div className={styles.footerContact}>
-          <nav className={styles.footerNav} aria-label="Footer service links">
-            {footerLinks.map(([label, href]) => (
-              <Link key={href} href={href}>
-                {label}
-              </Link>
-            ))}
-          </nav>
           <a
             href={`mailto:${contactEmail}`}
             className={styles.contactLink}

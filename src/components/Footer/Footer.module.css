@@ -629,26 +629,6 @@
   gap: 10px;
 }
 
-.footerNav {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-  gap: 8px 16px;
-  max-width: 440px;
-  margin-bottom: 6px;
-}
-
-.footerNav a {
-  color: #a1a1a6;
-  font-size: 0.84rem;
-  text-decoration: none;
-  transition: color 180ms ease;
-}
-
-.footerNav a:hover {
-  color: #ffffff;
-}
-
 .contactLink {
   display: inline-flex;
   align-items: center;
@@ -680,10 +660,6 @@
   }
 
   .socialRow {
-    justify-content: center;
-  }
-
-  .footerNav {
     justify-content: center;
   }
 }

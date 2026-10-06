@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState, useCallback, useRef } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import {
@@ -16,19 +16,7 @@ import {
 import { useData } from '@/context/useData';
 import styles from './Navbar.module.css';
 
-const SECTION_IDS = [
-  'home',
-  'about',
-  'standards',
-  'services',
-  'process',
-  'projects',
-  'industries',
-  'testimonials',
-  'careers',
-  'faq',
-  'contact',
-];
+const SECTION_IDS = ['home', 'about', 'services', 'projects', 'careers', 'contact'];
 
 export function Navbar() {
   const { siteContent } = useData();
@@ -51,6 +39,26 @@ export function Navbar() {
 
   useEffect(() => {
     setMobileMenuOpen(false);
+  }, [pathname]);
+
+  useEffect(() => {
+    if (pathname !== '/') return undefined;
+
+    const determineActiveSection = () => {
+      const scrollPos = window.scrollY + 140;
+      let current = 'home';
+      for (const id of SECTION_IDS) {
+        const el = document.getElementById(id);
+        if (el && scrollPos >= el.offsetTop) {
+          current = id;
+        }
+      }
+      setActiveSection(current);
+    };
+
+    determineActiveSection();
+    window.addEventListener('scroll', determineActiveSection, { passive: true });
+    return () => window.removeEventListener('scroll', determineActiveSection);
   }, [pathname]);
 
   useEffect(() => {
@@ -92,50 +100,10 @@ export function Navbar() {
     };
   }, [mobileMenuOpen]);
 
-  useEffect(() => {
-    if (pathname !== '/') return undefined;
+  const scrollToSection = (id: string) => {
+    setMobileMenuOpen(false);
 
-    const determineActiveSection = () => {
-      const scrollPos = window.scrollY + 140;
-      let current = 'home';
-      for (const id of SECTION_IDS) {
-        const el = document.getElementById(id);
-        if (el) {
-          const top = el.offsetTop;
-          if (scrollPos >= top) {
-            current = id;
-          }
-        }
-      }
-      setActiveSection(current);
-    };
-
-    determineActiveSection();
-    window.addEventListener('scroll', determineActiveSection, { passive: true });
-    return () => window.removeEventListener('scroll', determineActiveSection);
-  }, [pathname]);
-
-  const scrollToSection = useCallback(
-    (id: string) => {
-      setMobileMenuOpen(false);
-
-      if (pathname !== '/') {
-        router.push(`/#${id}`);
-        setTimeout(() => {
-          const el = document.getElementById(id);
-          if (el) {
-            const headerOffset = 56;
-            const elementPosition = el.getBoundingClientRect().top;
-            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-            window.scrollTo({
-              top: offsetPosition,
-              behavior: 'smooth',
-            });
-          }
-        }, 150);
-        return;
-      }
-
+    const performScroll = () => {
       if (id === 'home') {
         window.scrollTo({ top: 0, behavior: 'smooth' });
         setActiveSection('home');
@@ -143,35 +111,35 @@ export function Navbar() {
       }
 
       const el = document.getElementById(id);
-      if (el) {
-        const headerOffset = 56;
-        const elementPosition = el.getBoundingClientRect().top;
-        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+      if (!el) return;
 
-        window.scrollTo({
-          top: offsetPosition,
-          behavior: 'smooth',
-        });
-        setActiveSection(id);
-      }
-    },
-    [pathname, router],
-  );
+      const headerOffset = 56;
+      const offsetPosition = el.getBoundingClientRect().top + window.pageYOffset - headerOffset;
+      window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+      setActiveSection(id);
+    };
 
-  const isHomeActive = activeSection === 'home' && pathname === '/';
-  const isAboutActive = ['about', 'standards'].includes(activeSection) && pathname === '/';
-  const isServicesActive = ['services', 'process'].includes(activeSection) && pathname === '/';
-  const isProjectsActive =
-    ['projects', 'work', 'industries'].includes(activeSection) && pathname === '/';
-  const isCareersActive = pathname === '/careers' || activeSection === 'careers';
-  const isContactActive = ['contact', 'faq'].includes(activeSection) && pathname === '/';
+    if (pathname !== '/') {
+      router.push('/');
+      window.setTimeout(performScroll, 220);
+      return;
+    }
+
+    performScroll();
+  };
+
+  const isHomeActive = pathname === '/' && activeSection === 'home';
+  const isAboutActive = pathname === '/' && activeSection === 'about';
+  const isServicesActive = pathname === '/' && activeSection === 'services';
+  const isProjectsActive = pathname === '/' && activeSection === 'projects';
+  const isCareersActive = pathname === '/' && activeSection === 'careers';
+  const isContactActive = pathname === '/' && activeSection === 'contact';
 
   return (
     <header ref={headerRef} className={`${styles.header} ${isScrolled ? styles.scrolled : ''}`}>
       <div className={styles.container}>
-        <button
-          type="button"
-          onClick={() => scrollToSection('home')}
+        <Link
+          href="/"
           className={styles.logoLink}
           aria-label={`${siteContent?.agencyName || 'DeCode'} home`}
           style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
@@ -183,7 +151,7 @@ export function Navbar() {
             width={120}
             height={42}
           />
-        </button>
+        </Link>
 
         {/* Clean Primary Desktop Navigation */}
         <nav className={styles.desktopNav} aria-label="Primary navigation">
@@ -219,12 +187,13 @@ export function Navbar() {
             Projects
           </button>
 
-          <Link
-            href="/careers"
+          <button
+            type="button"
             className={`${styles.navBtn} ${isCareersActive ? styles.activeNav : ''}`}
+            onClick={() => scrollToSection('careers')}
           >
             Careers
-          </Link>
+          </button>
 
           <button
             type="button"
@@ -237,11 +206,7 @@ export function Navbar() {
 
         {/* Action Button & Mobile Hamburger */}
         <div className={styles.actions}>
-          <button
-            type="button"
-            onClick={() => scrollToSection('contact')}
-            className={styles.actionBtn}
-          >
+          <button type="button" onClick={() => scrollToSection('contact')} className={styles.actionBtn}>
             Get Started
           </button>
 
@@ -339,17 +304,7 @@ export function Navbar() {
                   </>
                 );
                 const className = `${styles.mobileLink} ${active ? styles.activeNav : ''}`;
-                return id === 'careers' ? (
-                  <Link
-                    key={id}
-                    href="/careers"
-                    className={className}
-                    aria-current={active ? 'page' : undefined}
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    {content}
-                  </Link>
-                ) : (
+                return (
                   <button
                     key={id}
                     type="button"
