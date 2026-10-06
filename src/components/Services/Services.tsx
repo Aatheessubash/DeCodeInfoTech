@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Link from 'next/link';
 import { useData } from '@/context/useData';
 import styles from './Services.module.css';
 import { Code2, Cpu, Palette, Cloud, Video, Smartphone, Wrench, Sparkles } from 'lucide-react';
@@ -13,6 +14,16 @@ const SERVICE_ICONS: Record<string, React.ReactNode> = {
   '05': <Video size={20} aria-hidden="true" />,
   '06': <Smartphone size={20} aria-hidden="true" />,
   '07': <Wrench size={20} aria-hidden="true" />,
+};
+
+const SERVICE_LINKS: Record<string, string> = {
+  '01': '/web-development',
+  '02': '/industrial-automation',
+  '03': '/ui-ux-design',
+  '04': '/saas-development',
+  '05': '/3d-motion-design',
+  '06': '/mobile-app-development',
+  '07': '/contact',
 };
 
 export function Services() {
@@ -43,7 +54,12 @@ export function Services() {
                 aria-hidden={copy === 1 ? true : undefined}
               >
                 {services.map((service) => (
-                  <article key={`${copy}-${service.id}`} className={styles.card}>
+                  <Link
+                    key={`${copy}-${service.id}`}
+                    href={SERVICE_LINKS[service.id] || '/contact'}
+                    className={styles.card}
+                    tabIndex={copy === 1 ? -1 : undefined}
+                  >
                     <div className={styles.cardHeader}>
                       <span className={styles.icon}>
                         {SERVICE_ICONS[service.id] || <Sparkles size={20} aria-hidden="true" />}
@@ -64,7 +80,7 @@ export function Services() {
                         </div>
                       </div>
                     )}
-                  </article>
+                  </Link>
                 ))}
               </div>
             ))}

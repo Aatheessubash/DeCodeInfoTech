@@ -1,28 +1,35 @@
 import type { MetadataRoute } from 'next';
+import { seoPages, siteUrl } from '@/data/seo-pages';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://decodeinfotech.in';
   const lastModified = new Date();
 
   return [
     {
-      url: baseUrl,
+      url: siteUrl,
       lastModified,
       changeFrequency: 'weekly',
       priority: 1.0,
       images: [
-        `${baseUrl}/assets/who-we-are.jpg`,
-        `${baseUrl}/assets/portfolio-1.jpg`,
-        `${baseUrl}/assets/portfolio-2.jpg`,
-        `${baseUrl}/assets/portfolio-3.jpg`,
+        `${siteUrl}/assets/who-we-are.jpg`,
+        `${siteUrl}/assets/portfolio-1.jpg`,
+        `${siteUrl}/assets/portfolio-2.jpg`,
+        `${siteUrl}/assets/portfolio-3.jpg`,
       ],
     },
+    ...seoPages.map((page) => ({
+      url: `${siteUrl}/${page.slug}`,
+      lastModified,
+      changeFrequency: page.changeFrequency,
+      priority: page.priority,
+      images: [`${siteUrl}${page.image}`],
+    })),
     {
-      url: `${baseUrl}/careers`,
+      url: `${siteUrl}/careers`,
       lastModified,
       changeFrequency: 'weekly',
       priority: 0.8,
-      images: [`${baseUrl}/assets/careers-team.png`],
+      images: [`${siteUrl}/assets/careers-team.png`],
     },
   ];
 }

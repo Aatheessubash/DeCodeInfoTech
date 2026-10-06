@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { ArrowRight } from 'lucide-react';
 import type { ContactProposal } from '@/lib/types';
+import { trackEvent } from '@/lib/analytics';
 import styles from './Contact.module.css';
 
 type ContactFormProps = {
@@ -55,6 +56,11 @@ export function ContactForm({ idPrefix = 'contact' }: ContactFormProps) {
       submitted = false;
     } finally {
       if (submitted) {
+        trackEvent({
+          action: 'generate_lead',
+          category: 'lead',
+          label: formData.projectType,
+        });
         setFormSubmitted(true);
       } else {
         setSubmitError('We could not send your request. Please try again or contact us by email.');

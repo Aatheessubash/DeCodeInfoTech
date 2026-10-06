@@ -1,8 +1,10 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useData } from '@/context/useData';
+import { trackEvent } from '@/lib/analytics';
 import styles from './Footer.module.css';
 import { ArrowUp, Mail, Phone } from 'lucide-react';
 
@@ -65,6 +67,17 @@ export function Footer() {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
+
+  const footerLinks = [
+    ['Web Development', '/web-development'],
+    ['Mobile Apps', '/mobile-app-development'],
+    ['SaaS Development', '/saas-development'],
+    ['CRM Automation', '/crm-automation'],
+    ['UI UX Design', '/ui-ux-design'],
+    ['Portfolio', '/portfolio'],
+    ['Blog', '/blog'],
+    ['Contact', '/contact'],
+  ];
 
   return (
     <footer className={styles.footer} role="contentinfo">
@@ -182,6 +195,9 @@ export function Footer() {
               className={styles.socialBtn}
               aria-label="WhatsApp"
               title="WhatsApp"
+              onClick={() =>
+                trackEvent({ action: 'whatsapp_click', category: 'lead', label: 'footer' })
+              }
             >
               <svg
                 viewBox="0 0 24 24"
@@ -196,11 +212,26 @@ export function Footer() {
           </div>
         </div>
         <div className={styles.footerContact}>
-          <a href={`mailto:${contactEmail}`} className={styles.contactLink}>
+          <nav className={styles.footerNav} aria-label="Footer service links">
+            {footerLinks.map(([label, href]) => (
+              <Link key={href} href={href}>
+                {label}
+              </Link>
+            ))}
+          </nav>
+          <a
+            href={`mailto:${contactEmail}`}
+            className={styles.contactLink}
+            onClick={() => trackEvent({ action: 'email_click', category: 'lead', label: 'footer' })}
+          >
             <Mail size={16} aria-hidden="true" />
             <span>{contactEmail}</span>
           </a>
-          <a href={`tel:${contactPhone}`} className={styles.contactLink}>
+          <a
+            href={`tel:${contactPhone}`}
+            className={styles.contactLink}
+            onClick={() => trackEvent({ action: 'phone_click', category: 'lead', label: 'footer' })}
+          >
             <Phone size={16} aria-hidden="true" />
             <span>{contactPhone}</span>
           </a>

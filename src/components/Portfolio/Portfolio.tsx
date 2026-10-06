@@ -4,6 +4,19 @@ import React from 'react';
 import { useData } from '@/context/useData';
 import styles from './Portfolio.module.css';
 
+const CLIENT_LOGOS: Record<string, string> = {
+  'thozha-associates': '/ThozhaAssociates.png',
+  'neuerung-healthtech': '/neuerung.png',
+};
+
+const getInitials = (name: string) =>
+  name
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((word) => word[0]?.toUpperCase())
+    .join('');
+
 export function Portfolio() {
   const { projects } = useData();
 
@@ -15,15 +28,15 @@ export function Portfolio() {
       <div className={styles.panel}>
         <div className={styles.sectionHeader}>
           <h2 className={styles.sectionHeading}>
-            Measurable Digital Products for <span>Real Businesses</span>
+            Our Valuable <span>Clients</span>
           </h2>
           <p className={styles.sectionSub}>
-            Client platforms designed by <strong>DeCode</strong> to improve visibility, workflows,
-            enquiries, and customer experience across industries.
+            Trusted business clients who choose <strong>DeCode</strong> for reliable digital
+            solutions, professional service, and long-term value.
           </p>
         </div>
 
-        <div className={styles.carouselViewport} role="region" aria-label="Project cards">
+        <div className={styles.carouselViewport} role="region" aria-label="Our clients">
           <div
             className={styles.scrollTrack}
             style={{ '--duration': `${Math.max(projects.length, 4) * 7}s` } as React.CSSProperties}
@@ -36,6 +49,7 @@ export function Portfolio() {
               >
                 {projects.map((project, projectIndex) => {
                   const cardIndex = projectIndex % 3;
+                  const logo = CLIENT_LOGOS[project.id];
 
                   return (
                     <article
@@ -43,25 +57,23 @@ export function Portfolio() {
                       key={`${copy}-${project.id}`}
                       style={{ '--card-delay': `${cardIndex * 90}ms` } as React.CSSProperties}
                     >
-                      <div className={styles.cardTop}>
-                        <div>
-                          <h3>{project.title}</h3>
-                          <p>{project.category}</p>
-                        </div>
+                      <div className={styles.logoWrap} aria-hidden="true">
+                        {logo ? (
+                          <img
+                            className={`${styles.clientLogo} ${
+                              project.id === 'neuerung-healthtech' ? styles.neuerungLogo : ''
+                            }`}
+                            src={logo}
+                            alt=""
+                            loading={projectIndex === 0 ? 'eager' : 'lazy'}
+                            decoding="async"
+                          />
+                        ) : (
+                          <span className={styles.clientInitials}>{getInitials(project.title)}</span>
+                        )}
                       </div>
 
-                      <div className={styles.imageStack} aria-hidden="true">
-                        <span />
-                        <span />
-                      </div>
-
-                      <img
-                        className={styles.preview}
-                        src={project.image}
-                        alt={`${project.title} website preview`}
-                        loading={projectIndex === 0 ? 'eager' : 'lazy'}
-                        decoding="async"
-                      />
+                      <h3>{project.title}</h3>
                     </article>
                   );
                 })}

@@ -56,7 +56,7 @@ export async function sendContactEmail(lead: {
     to: getAdminEmail(),
     subject: `🚀 New Project Proposal: ${escapeHtml(lead.projectType)} from ${escapeHtml(lead.name)}`,
     html: `
-      <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 600px; margin: 0 auto; padding: 24px; background: #fafafa; border: 1px solid #eaeaea; border-radius: 12px;">
+      <div style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 24px; background: #fafafa; border: 1px solid #eaeaea; border-radius: 12px;">
         <h2 style="color: #111; margin-bottom: 16px;">New Project Proposal Request</h2>
         <div style="background: #fff; padding: 20px; border-radius: 8px; border: 1px solid #e5e5e5;">
           <p style="margin: 0 0 10px;"><strong>Client Name:</strong> ${escapeHtml(lead.name)}</p>
@@ -89,7 +89,7 @@ export async function sendCareerEmail(app: {
     to: getAdminEmail(),
     subject: `💼 New Candidate Application: ${escapeHtml(app.jobTitle)} - ${escapeHtml(app.name)}`,
     html: `
-      <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 600px; margin: 0 auto; padding: 24px; background: #fafafa; border: 1px solid #eaeaea; border-radius: 12px;">
+      <div style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 24px; background: #fafafa; border: 1px solid #eaeaea; border-radius: 12px;">
         <h2 style="color: #111; margin-bottom: 16px;">New Job Application Received</h2>
         <div style="background: #fff; padding: 20px; border-radius: 8px; border: 1px solid #e5e5e5;">
           <p style="margin: 0 0 10px;"><strong>Position:</strong> ${escapeHtml(app.jobTitle)}</p>

@@ -6,6 +6,7 @@ import { Footer } from '@/components/Footer/Footer';
 import { CursorGlow } from '@/components/shared/CursorGlow';
 import { SmoothScroll } from '@/components/shared/SmoothScroll';
 import { ErrorBoundary } from '@/components/shared/ErrorBoundary';
+import { GoogleAnalytics } from '@/components/Analytics/GoogleAnalytics';
 
 export const viewport: Viewport = {
   themeColor: '#ffffff',
@@ -19,111 +20,24 @@ export const metadata: Metadata = {
   creator: 'DeCode InfoTech',
   publisher: 'DeCode InfoTech',
   category: 'Technology',
-  title: 'DeCode InfoTech — Best Software & Web Development Company in Coimbatore',
+  title: {
+    default: 'DeCode InfoTech | Software Development Company in Coimbatore',
+    template: '%s',
+  },
   description:
-    'Hire DeCode InfoTech, a Coimbatore software and web development company for business websites, custom software, SaaS platforms, ecommerce sites, and enterprise digital solutions.',
+    'DeCode InfoTech builds websites, mobile apps, SaaS platforms, CRM automation, UI UX design, and custom software for businesses in Coimbatore and beyond.',
   keywords: [
-    'best software company in coimbatore',
-    'decode',
-    'decode infotech',
-    'best web development company in coimbatore',
-    'best website development in coimbatore',
-    'best webside development in coimbatore',
-    'top software company in coimbatore',
-    'best IT company in coimbatore',
-    'best it company in coimbatore',
-    'best it comany near me',
-    'best IT company near me',
-    'top IT company in coimbatore',
-    'IT company near me',
-    'software company near me',
-    'web development company near me',
-    'website development company near me',
-    'website design company near me',
-    'best software company near me',
-    'best web development company near me',
-    'top web development company in coimbatore',
-    'top website development company in coimbatore',
-    'web development company in coimbatore',
-    'website development company in coimbatore',
-    'software development company in coimbatore',
-    'software developers in coimbatore',
-    'web developers in coimbatore',
-    'website developers in coimbatore',
-    'IT company in coimbatore',
-    'IT services company in coimbatore',
-    'IT solutions company in coimbatore',
-    'digital marketing and web development coimbatore',
-    'web design and development company in coimbatore',
-    'ecommerce website development coimbatore',
-    'mobile app development company coimbatore',
-    'app development company in coimbatore',
-    'startup software development coimbatore',
-    'enterprise software development coimbatore',
-    'business software development coimbatore',
-    'software consulting company coimbatore',
-    'custom web application development coimbatore',
-    'custom software development coimbatore',
-    'website design company in coimbatore',
-    'responsive website design coimbatore',
-    'SEO friendly website development coimbatore',
-    'saas product development coimbatore',
-    'full stack developers in coimbatore',
-    'UI UX design company coimbatore',
-    'cloud software development coimbatore',
-    'node js development company coimbatore',
-    'react development company coimbatore',
-    'next js development company coimbatore',
-    'react nextjs web development coimbatore',
-    'hire software company in coimbatore',
-    'hire web development company in coimbatore',
-    'hire website developer in coimbatore',
-    'hire software developers in coimbatore',
-    'hire react developers in coimbatore',
-    'hire next js developers in coimbatore',
-    'website development for small business coimbatore',
-    'software development for small business coimbatore',
-    'business website development coimbatore',
-    'company website development coimbatore',
-    'corporate website development coimbatore',
-    'professional website development coimbatore',
-    'affordable website development coimbatore',
-    'affordable software development coimbatore',
-    'website development packages coimbatore',
-    'software development services coimbatore',
-    'web development services coimbatore',
-    'IT services for business coimbatore',
-    'business automation software coimbatore',
-    'CRM software development coimbatore',
-    'ERP software development coimbatore',
-    'billing software development coimbatore',
-    'inventory software development coimbatore',
-    'restaurant website development coimbatore',
-    'hospital website development coimbatore',
-    'school website development coimbatore',
-    'college website development coimbatore',
-    'real estate website development coimbatore',
-    'construction website development coimbatore',
-    'textile website development coimbatore',
-    'manufacturing software development coimbatore',
-    'digital transformation company coimbatore',
-    'website redesign company coimbatore',
-    'landing page development coimbatore',
-    'lead generation website coimbatore',
-    'SEO website development coimbatore',
-    'fast website development coimbatore',
-    'trusted software company coimbatore',
-    'reliable web development company coimbatore',
-    'software project quote coimbatore',
-    'website development quote coimbatore',
-    'IT solutions company coimbatore tamil nadu',
     'DeCode InfoTech',
-    'DeCode Coimbatore',
+    'software development company in Coimbatore',
+    'web development company in Coimbatore',
+    'mobile app development company in Coimbatore',
+    'SaaS development company',
+    'CRM automation company',
   ],
   authors: [{ name: 'DeCode InfoTech' }],
   metadataBase: new URL('https://decodeinfotech.in'),
   alternates: {
-    canonical: 'https://decodeinfotech.in',
+    canonical: '/',
   },
   robots: {
     index: true,
@@ -303,17 +217,47 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     },
   };
 
+  const localBusinessJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'LocalBusiness',
+    '@id': 'https://decodeinfotech.in/#local-business',
+    name: 'DeCode InfoTech',
+    url: 'https://decodeinfotech.in',
+    image: 'https://decodeinfotech.in/assets/who-we-are.jpg',
+    logo: 'https://decodeinfotech.in/DeCode_Logo.png',
+    email: 'contact@decodeinfotech.in',
+    telephone: '+91 70928 02356',
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: 'Coimbatore',
+      addressRegion: 'Tamil Nadu',
+      addressCountry: 'IN',
+    },
+    areaServed: [
+      { '@type': 'City', name: 'Coimbatore' },
+      { '@type': 'AdministrativeArea', name: 'Tamil Nadu' },
+      { '@type': 'Country', name: 'India' },
+    ],
+    priceRange: '$$',
+  };
+
   return (
     <html lang="en">
       <head>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify([professionalServiceJsonLd, websiteJsonLd, organizationJsonLd]),
+            __html: JSON.stringify([
+              professionalServiceJsonLd,
+              websiteJsonLd,
+              organizationJsonLd,
+              localBusinessJsonLd,
+            ]),
           }}
         />
       </head>
       <body>
+        <GoogleAnalytics />
         <ErrorBoundary>
           <DataProvider>
             <SmoothScroll />
