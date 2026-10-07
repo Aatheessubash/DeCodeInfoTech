@@ -128,7 +128,7 @@
 }
 .sectionHeader {
   max-width: 760px;
-  margin: 0 auto clamp(24px, 4svh, 40px);
+  margin: 0 auto var(--section-header-gap);
   text-align: center;
 }
 
@@ -138,12 +138,16 @@
   font-size: clamp(30px, 3.7vw, 48px);
   font-weight: 600;
   line-height: 1.12;
-  letter-spacing: -0.045em;
+  letter-spacing: var(--heading-tracking);
   text-wrap: balance;
 }
 
 .heading span {
-  color: #777770;
+  color: #7c3aed;
+  background: linear-gradient(115deg, #006ae3 0%, #7c3aed 52%, #c026d3 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .subheading {
@@ -151,5 +155,5 @@
   margin: 0 auto;
   color: #62625c;
   font-size: clamp(15px, 1.4vw, 17px);
-  line-height: 1.6;
+  line-height: var(--body-leading);
 }

@@ -73,7 +73,9 @@ export function Portfolio() {
                             decoding="async"
                           />
                         ) : (
-                          <span className={styles.clientInitials}>{getInitials(project.title)}</span>
+                          <span className={styles.clientInitials}>
+                            {getInitials(project.title)}
+                          </span>
                         )}
                       </div>
 

@@ -1,5 +1,5 @@
 .contactSection {
-  padding: clamp(40px, 6vw, 80px) clamp(16px, 3vw, 32px);
+  padding: var(--section-padding-y) var(--section-padding-x);
   background: #fafaf8;
   color: #171717;
   scroll-margin-top: 84px;
@@ -7,7 +7,7 @@
 .mainWrapper {
   display: grid;
   grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
-  max-width: 1240px;
+  max-width: var(--site-max-width);
   margin: 0 auto;
   border-top: 1px solid #dcdcd5;
   padding-top: clamp(28px, 4vw, 48px);
@@ -33,17 +33,21 @@
   font-size: clamp(36px, 4.5vw, 62px);
   font-weight: 600;
   line-height: 1.06;
-  letter-spacing: -0.05em;
+  letter-spacing: var(--heading-tracking);
 }
 .heading span {
-  color: #777770;
+  color: #7c3aed;
+  background: linear-gradient(115deg, #006ae3 0%, #7c3aed 52%, #c026d3 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 .subheading {
   max-width: 440px;
   margin: 0 0 36px;
   color: #62625c;
   font-size: 16px;
-  line-height: 1.7;
+  line-height: var(--body-leading);
 }
 .directContact {
   display: flex;

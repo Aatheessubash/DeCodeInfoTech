@@ -3,7 +3,6 @@ import { Hero } from '@/components/Hero/Hero';
 import { WhoWeAre } from '@/components/WhoWeAre/WhoWeAre';
 import { PromiseSection } from '@/components/Promise/Promise';
 import { Services } from '@/components/Services/Services';
-import { Process } from '@/components/Process/Process';
 import { Portfolio } from '@/components/Portfolio/Portfolio';
 import { BusinessTypes } from '@/components/BusinessTypes/BusinessTypes';
 import { Testimonial } from '@/components/Testimonial/Testimonial';
@@ -16,11 +15,10 @@ export default function HomePage() {
     <>
       <Hero />
       <WhoWeAre />
-      <PromiseSection />
       <Services />
-      <Process />
-      <Portfolio />
       <BusinessTypes />
+      <PromiseSection />
+      <Portfolio />
       <Testimonial />
       <Careers />
       <FAQ />

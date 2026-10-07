@@ -23,6 +23,7 @@ export interface TestimonialItem {
   role: string;
   company: string;
   avatar?: string;
+  logo?: string;
   text: string;
   rating: number;
 }

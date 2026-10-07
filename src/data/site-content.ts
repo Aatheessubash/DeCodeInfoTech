@@ -148,24 +148,27 @@ export const INITIAL_TESTIMONIALS: TestimonialItem[] = [
     role: 'Founder & CEO',
     company: 'Azhagappar Academy',
     avatar: '✦',
+    logo: '/Azhagappar Academy_Logo.png',
     text: 'DeCode delivered ahead of schedule. The UI is exceptionally smooth and student engagement grew by 140%.',
     rating: 5,
   },
   {
     id: '2',
-    name: 'Priya Sundaram',
-    role: 'Head of Operations',
-    company: 'AgroMate Technologies',
+    name: 'Sathish Kumar',
+    role: 'Managing Partner',
+    company: 'Thozha Associates',
     avatar: '⚡',
-    text: 'Working with DeCode was effortless. They built an ultra-fast web application that our farmers love.',
+    logo: '/ThozhaAssociates.png',
+    text: 'DeCode gave Thozha Associates a professional digital presence that clearly presents our construction services and project credibility.',
     rating: 5,
   },
   {
     id: '3',
     name: 'Karthik Nathan',
     role: 'Managing Director',
-    company: 'Vetrivel Hospitality',
+    company: 'Vetrivel Unavagam',
     avatar: '★',
+    logo: '/Vetrivel Unavagam_Logo.png',
     text: 'Our online bookings doubled after DeCode redesigned our web app. Their attention to detail is top tier.',
     rating: 5,
   },
@@ -250,7 +253,6 @@ export const INITIAL_PROCESS_STEPS: ProcessStep[] = [
     tag: 'Exploration',
     icon: 'Compass',
     desc: 'Goal mapping, user needs & project scope.',
-    tags: ['Scope', 'Goals'],
   },
   {
     number: '02',
@@ -258,7 +260,6 @@ export const INITIAL_PROCESS_STEPS: ProcessStep[] = [
     tag: 'Strategy',
     icon: 'Layers',
     desc: 'Architecture blueprint & sprint roadmap.',
-    tags: ['Tech Stack', 'Roadmap'],
   },
   {
     number: '03',
@@ -266,7 +267,6 @@ export const INITIAL_PROCESS_STEPS: ProcessStep[] = [
     tag: 'Creation',
     icon: 'Palette',
     desc: 'Intuitive UX layouts & Figma prototypes.',
-    tags: ['Wireframe', 'Prototype'],
   },
   {
     number: '04',
@@ -274,7 +274,6 @@ export const INITIAL_PROCESS_STEPS: ProcessStep[] = [
     tag: 'Engineering',
     icon: 'Code2',
     desc: 'Modular frontend, robust APIs & cloud.',
-    tags: ['Frontend', 'Backend'],
   },
   {
     number: '05',
@@ -282,7 +281,6 @@ export const INITIAL_PROCESS_STEPS: ProcessStep[] = [
     tag: 'QA & Security',
     icon: 'ShieldCheck',
     desc: 'Performance audits, device testing & security checks.',
-    tags: ['Device QA', 'Security'],
   },
   {
     number: '06',
@@ -290,7 +288,6 @@ export const INITIAL_PROCESS_STEPS: ProcessStep[] = [
     tag: 'Go-Live',
     icon: 'Rocket',
     desc: 'Production deploy, cloud setup & support.',
-    tags: ['Deploy', 'Scaling'],
   },
 ];
 

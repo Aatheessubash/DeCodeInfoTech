@@ -41,7 +41,6 @@ const DEFAULT_STEPS: ProcessStep[] = [
     tag: 'Exploration',
     icon: 'Compass',
     desc: 'Goal mapping, user needs & project scope.',
-    tags: ['Scope', 'Goals'],
   },
   {
     number: '02',
@@ -49,7 +48,6 @@ const DEFAULT_STEPS: ProcessStep[] = [
     tag: 'Strategy',
     icon: 'Layers',
     desc: 'Architecture blueprint & sprint roadmap.',
-    tags: ['Tech Stack', 'Roadmap'],
   },
   {
     number: '03',
@@ -57,7 +55,6 @@ const DEFAULT_STEPS: ProcessStep[] = [
     tag: 'Creation',
     icon: 'Palette',
     desc: 'Intuitive UX layouts & Figma prototypes.',
-    tags: ['Wireframe', 'Prototype'],
   },
   {
     number: '04',
@@ -65,7 +62,6 @@ const DEFAULT_STEPS: ProcessStep[] = [
     tag: 'Engineering',
     icon: 'Code2',
     desc: 'Modular frontend, robust APIs & cloud.',
-    tags: ['Frontend', 'Backend'],
   },
   {
     number: '05',
@@ -73,7 +69,6 @@ const DEFAULT_STEPS: ProcessStep[] = [
     tag: 'QA & Security',
     icon: 'ShieldCheck',
     desc: 'Performance audits, device testing & security checks.',
-    tags: ['Device QA', 'Security'],
   },
   {
     number: '06',
@@ -81,7 +76,6 @@ const DEFAULT_STEPS: ProcessStep[] = [
     tag: 'Go-Live',
     icon: 'Rocket',
     desc: 'Production deploy, cloud setup & support.',
-    tags: ['Deploy', 'Scaling'],
   },
 ];
 
@@ -245,11 +239,6 @@ export function PromiseSection() {
                     <h3 className={styles.stepTitle}>{step.title}</h3>
                     <p className={styles.stepDesc}>{step.desc}</p>
                   </div>
-                  <ul className={styles.deliverables} aria-label={`${step.title} deliverables`}>
-                    {(step.tags || []).map((tag) => (
-                      <li key={tag}>{tag}</li>
-                    ))}
-                  </ul>
                 </li>
               );
             })}

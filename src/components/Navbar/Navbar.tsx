@@ -206,7 +206,11 @@ export function Navbar() {
 
         {/* Action Button & Mobile Hamburger */}
         <div className={styles.actions}>
-          <button type="button" onClick={() => scrollToSection('contact')} className={styles.actionBtn}>
+          <button
+            type="button"
+            onClick={() => scrollToSection('contact')}
+            className={styles.actionBtn}
+          >
             Get Started
           </button>
 

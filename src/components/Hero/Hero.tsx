@@ -195,7 +195,7 @@ export function Hero() {
               onClick={() => setIsProjectModalOpen(true)}
               className={styles.primaryCta}
             >
-              <span>{siteContent?.heroPrimaryCta || 'Start A Project'}</span>
+              <span>{siteContent?.heroPrimaryCta || 'Start a project'}</span>
               <ArrowRight size={18} aria-hidden="true" />
             </button>
             <button
@@ -235,7 +235,7 @@ export function Hero() {
               <div>
                 <p className={styles.modalEyebrow}>Start a project</p>
                 <h2 id="project-modal-heading" className={styles.modalTitle}>
-                  Let's Build Something <span>Exceptional</span>
+                  Let's build something <span>exceptional</span>
                 </h2>
               </div>
               <button

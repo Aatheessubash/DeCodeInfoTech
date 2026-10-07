@@ -74,13 +74,13 @@ export function ContactForm({ idPrefix = 'contact' }: ContactFormProps) {
     return (
       <div className={styles.successBox} role="status">
         <div className={styles.successIcon}>✓</div>
-        <h3>Proposal Request Sent!</h3>
+        <h3>Proposal request sent</h3>
         <p>
           Thank you <strong>{formData.name}</strong>. The DeCode team has received your project
           proposal details and will reach out via email (<strong>{formData.email}</strong>) shortly.
         </p>
         <button type="button" className="btn-primary" onClick={resetForm}>
-          Send Another Request
+          Send another request
         </button>
       </div>
     );
@@ -91,7 +91,7 @@ export function ContactForm({ idPrefix = 'contact' }: ContactFormProps) {
       <div className={styles.formGrid}>
         <div className={styles.fieldGroup}>
           <label htmlFor={fieldId('name')} className={styles.label}>
-            Your Name *
+            Your name *
           </label>
           <input
             type="text"
@@ -108,7 +108,7 @@ export function ContactForm({ idPrefix = 'contact' }: ContactFormProps) {
 
         <div className={styles.fieldGroup}>
           <label htmlFor={fieldId('email')} className={styles.label}>
-            Email Address *
+            Email address *
           </label>
           <input
             type="email"
@@ -125,7 +125,7 @@ export function ContactForm({ idPrefix = 'contact' }: ContactFormProps) {
 
         <div className={styles.fieldGroup}>
           <label htmlFor={fieldId('company')} className={styles.label}>
-            Company / Organization
+            Company / organization
           </label>
           <input
             type="text"
@@ -141,7 +141,7 @@ export function ContactForm({ idPrefix = 'contact' }: ContactFormProps) {
 
         <div className={styles.fieldGroup}>
           <label htmlFor={fieldId('projectType')} className={styles.label}>
-            Project Category *
+            Project category *
           </label>
           <select
             id={fieldId('projectType')}
@@ -160,7 +160,7 @@ export function ContactForm({ idPrefix = 'contact' }: ContactFormProps) {
 
         <div className={`${styles.fieldGroup} ${styles.fullWidth}`}>
           <label htmlFor={fieldId('message')} className={styles.label}>
-            Project Overview &amp; Goals *
+            Project overview &amp; goals *
           </label>
           <textarea
             id={fieldId('message')}
@@ -194,7 +194,7 @@ export function ContactForm({ idPrefix = 'contact' }: ContactFormProps) {
         </div>
       )}
       <button type="submit" disabled={submitting} className={`btn-primary ${styles.submitBtn}`}>
-        <span>{submitting ? 'Sending Proposal Email...' : 'Submit Proposal Request'}</span>
+        <span>{submitting ? 'Sending proposal email...' : 'Submit proposal request'}</span>
         <ArrowRight className="w-4 h-4" aria-hidden="true" />
       </button>
     </form>

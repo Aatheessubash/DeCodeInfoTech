@@ -258,13 +258,13 @@ export default function CareersPage() {
                   className={styles.modalTitle}
                   style={{ marginBottom: '20px' }}
                 >
-                  Submit Your Candidate Application
+                  Submit your candidate application
                 </h3>
 
                 <div className={styles.formGroup}>
                   <div>
                     <label htmlFor="career-name" className={styles.label}>
-                      Full Name *
+                      Full name *
                     </label>
                     <input
                       id="career-name"
@@ -281,7 +281,7 @@ export default function CareersPage() {
 
                   <div>
                     <label htmlFor="career-email" className={styles.label}>
-                      Email Address *
+                      Email address *
                     </label>
                     <input
                       id="career-email"
@@ -313,7 +313,7 @@ export default function CareersPage() {
 
                   <div>
                     <label htmlFor="career-cover-letter" className={styles.label}>
-                      Cover Letter / Brief Pitch
+                      Cover letter / brief pitch
                     </label>
                     <textarea
                       id="career-cover-letter"
@@ -333,7 +333,7 @@ export default function CareersPage() {
                     className="btn-primary"
                     style={{ width: '100%', marginTop: '8px' }}
                   >
-                    Submit Candidate Application
+                    Submit candidate application
                   </button>
                 </div>
               </form>

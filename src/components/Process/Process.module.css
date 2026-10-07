@@ -1,6 +1,6 @@
 .processSection {
   position: relative;
-  padding: clamp(32px, 5svh, 64px) clamp(16px, 3vw, 32px);
+  padding: var(--section-padding-y) var(--section-padding-x);
   background: #fafaf8;
   color: #171717;
   scroll-margin-top: 84px;
@@ -8,13 +8,13 @@
 
 .container {
   width: 100%;
-  max-width: 1240px;
+  max-width: var(--site-max-width);
   margin: 0 auto;
 }
 
 .sectionHeader {
   max-width: 760px;
-  margin: 0 auto clamp(24px, 4svh, 40px);
+  margin: 0 auto var(--section-header-gap);
   text-align: center;
 }
 
@@ -23,11 +23,15 @@
   font-size: clamp(30px, 3.7vw, 48px);
   font-weight: 600;
   line-height: 1.12;
-  letter-spacing: -0.045em;
+  letter-spacing: var(--heading-tracking);
 }
 
 .sectionTitle span {
-  color: #777770;
+  color: #7c3aed;
+  background: linear-gradient(115deg, #006ae3 0%, #7c3aed 52%, #c026d3 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .sectionDesc {
@@ -35,7 +39,7 @@
   margin: 0 auto;
   color: #62625c;
   font-size: clamp(15px, 1.4vw, 17px);
-  line-height: 1.6;
+  line-height: var(--body-leading);
 }
 
 .steps {
@@ -121,40 +125,6 @@
   overflow-wrap: anywhere;
 }
 
-.deliverables {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 8px 20px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.deliverables li {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 4px 10px;
-  border-radius: 999px;
-  color: #62625c;
-  font-size: 12px;
-  line-height: 1.5;
-  transition:
-    background 220ms ease,
-    color 220ms ease,
-    transform 220ms ease;
-}
-
-.deliverables li::before {
-  content: '';
-  width: 4px;
-  height: 4px;
-  flex-shrink: 0;
-  border-radius: 50%;
-  background: currentColor;
-}
-
 @media (hover: hover) {
   .step:hover {
     transform: translateY(-6px);
@@ -173,12 +143,6 @@
 
   .step:hover .stepTitle {
     color: #3f3f39;
-  }
-
-  .step:hover .deliverables li {
-    background: #ffffff;
-    color: #171717;
-    transform: translateY(-2px);
   }
 }
 .closing {
@@ -318,9 +282,5 @@
     height: 48px;
     border-color: #171717;
     border-radius: 50%;
-  }
-
-  .deliverables {
-    justify-content: center;
   }
 }

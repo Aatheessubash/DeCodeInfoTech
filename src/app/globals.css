@@ -51,6 +51,14 @@
   --shadow-float: 0 20px 48px rgba(0, 0, 0, 0.12);
   --ease-apple: cubic-bezier(0.28, 0.11, 0.32, 1);
   --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --site-max-width: 1240px;
+  --section-padding-y: clamp(72px, 9svh, 112px);
+  --section-padding-x: clamp(20px, 4vw, 32px);
+  --section-gap: 40px;
+  --section-header-gap: clamp(32px, 5svh, 52px);
+  --heading-tracking: -0.025em;
+  --body-leading: 1.65;
 }
 
 /* Hide Scrollbar Globally */
@@ -279,48 +287,38 @@ input[type='reset'],
 }
 
 .section-padding {
-  padding: 96px 24px;
-  max-width: 1240px;
+  padding: var(--section-padding-y) var(--section-padding-x);
+  max-width: var(--site-max-width);
   margin: 0 auto;
   position: relative;
   z-index: 1;
 }
 
 @media (max-width: 768px) {
+  :root {
+    --section-padding-y: clamp(56px, 8svh, 76px);
+    --section-padding-x: 20px;
+    --section-gap: 32px;
+    --section-header-gap: 32px;
+  }
+
   .section-padding {
-    padding: 64px 20px;
+    padding: var(--section-padding-y) var(--section-padding-x);
   }
 }
 
 @media (max-width: 640px) {
-  .app-root > main > section + section {
-    padding-top: 18px !important;
-  }
-
-  .app-root > main > #services,
-  .app-root > main > #process,
-  .app-root > main > #industries {
-    padding-top: 40px !important;
-  }
-
-  .app-root > main > #projects,
-  .app-root > main > #testimonials {
-    padding-top: 60px !important;
-  }
-
-  .app-root > main > section:not(:last-child) {
-    padding-bottom: 0 !important;
-  }
-
-  .app-root > main > section:last-child {
-    padding-bottom: 18px !important;
+  :root {
+    --section-padding-y: 56px;
+    --section-padding-x: 20px;
+    --section-gap: 32px;
   }
 }
 
 .section-header {
   text-align: center;
   max-width: 720px;
-  margin: 0 auto 52px auto;
+  margin: 0 auto var(--section-header-gap);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -373,4 +371,18 @@ input[type='reset'],
 
 .app-root > main > section:not(#home) {
   background: transparent;
+}
+
+.app-root > main > section + section {
+  margin-top: var(--section-gap);
+}
+
+.app-root > main > #testimonials + #careers {
+  margin-top: 88px;
+}
+
+@media (max-width: 768px) {
+  .app-root > main > #testimonials + #careers {
+    margin-top: 56px;
+  }
 }

@@ -2,8 +2,8 @@
   position: relative;
   display: flex;
   align-items: center;
-  min-height: min(760px, calc(100svh - 84px));
-  padding: clamp(48px, 8svh, 86px) clamp(16px, 3vw, 32px);
+  min-height: auto;
+  padding: var(--section-padding-y) var(--section-padding-x);
   color: #171717;
   scroll-margin-top: 84px;
   overflow: hidden;
@@ -12,7 +12,7 @@
   position: relative;
   z-index: 1;
   width: 100%;
-  max-width: 1240px;
+  max-width: var(--site-max-width);
   margin: 0 auto;
 }
 .intro {
@@ -40,7 +40,8 @@
   margin-bottom: clamp(12px, 2svh, 22px);
   font-size: 11px;
   font-weight: 600;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
 .eyebrow > span {
   flex-shrink: 0;
@@ -53,18 +54,22 @@
   margin: 0;
   font-size: clamp(32px, min(4.8vw, 7.5svh), 60px);
   line-height: 1.06;
-  letter-spacing: -0.055em;
+  letter-spacing: var(--heading-tracking);
   font-weight: 600;
 }
 .headline span {
-  color: #777770;
+  color: #7c3aed;
+  background: linear-gradient(115deg, #006ae3 0%, #7c3aed 52%, #c026d3 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 .description {
   margin: 0;
   max-width: 470px;
   color: #62625c;
   font-size: 15px;
-  line-height: 1.6;
+  line-height: var(--body-leading);
 }
 .primaryLink {
   max-width: 100%;
@@ -136,8 +141,8 @@
 }
 @media (max-width: 700px) {
   .careersSection {
-    padding-block: clamp(24px, 3svh, 36px);
-    padding-inline: 20px;
+    padding-block: var(--section-padding-y);
+    padding-inline: var(--section-padding-x);
   }
   .intro {
     grid-template-columns: minmax(0, 1fr);
