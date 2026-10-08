@@ -1,3 +1,5 @@
+import { isProjectCategory } from './project-categories.js';
+
 type Fields = Record<string, string>;
 
 export class ValidationError extends Error {}
@@ -29,12 +31,24 @@ function readFields(body: unknown, required: string[], optional: string[]): Fiel
 }
 
 export function parseContact(body: unknown) {
-  const fields = readFields(body, ['name', 'email', 'message'], ['company', 'projectType']);
+  const fields = readFields(
+    body,
+    ['name', 'email', 'phone', 'message', 'projectType'],
+    ['company'],
+  );
+  if (!isProjectCategory(fields.projectType)) {
+    throw new ValidationError('Select a valid project category.');
+  }
+  if (!/^[0-9+\-()\s]{7,20}$/.test(fields.phone)) {
+    throw new ValidationError('A valid phone number is required.');
+  }
+
   return {
     name: fields.name,
     email: fields.email,
+    phone: fields.phone,
     company: fields.company,
-    projectType: fields.projectType || 'General enquiry',
+    projectType: fields.projectType,
     message: fields.message,
   };
 }

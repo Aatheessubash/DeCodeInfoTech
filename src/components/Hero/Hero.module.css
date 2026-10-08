@@ -22,6 +22,7 @@
 .videoWrapper {
   position: absolute;
   inset: 0;
+  width: 100%;
   overflow: hidden;
   pointer-events: none;
   z-index: 0;
@@ -33,9 +34,9 @@
   object-fit: cover;
   object-position: center center;
   display: block;
-  opacity: 0.62;
-  filter: blur(7px);
-  transform: scale(1.06);
+  opacity: 0.9;
+  filter: saturate(1.08) contrast(1.04);
+  transform: scale(1.01);
 }
 
 .videoOverlay {
@@ -44,22 +45,33 @@
   background:
     linear-gradient(
       90deg,
-      rgba(251, 251, 253, 0.94) 0%,
-      rgba(251, 251, 253, 0.88) 38%,
-      rgba(245, 249, 255, 0.62) 70%,
-      rgba(255, 255, 255, 0.28) 100%
+      rgba(251, 251, 253, 0.92) 0%,
+      rgba(251, 251, 253, 0.9) 32%,
+      rgba(251, 251, 253, 0.58) 58%,
+      rgba(251, 251, 253, 0.1) 82%,
+      rgba(251, 251, 253, 0.04) 100%
     ),
     radial-gradient(
-      circle at 20% 45%,
-      rgba(0, 113, 227, 0.12) 0%,
-      rgba(124, 58, 237, 0.05) 50%,
-      transparent 80%
+      circle at 70% 45%,
+      rgba(0, 113, 227, 0.06) 0%,
+      rgba(124, 58, 237, 0.03) 46%,
+      transparent 76%
     );
-  backdrop-filter: blur(3px);
-  -webkit-backdrop-filter: blur(3px);
 }
 
 @media (max-width: 768px) {
+  .videoWrapper {
+    inset: 0;
+    width: 100%;
+  }
+
+  .videoBackground {
+    opacity: 0.58;
+    filter: blur(4px) saturate(1.04);
+    transform: scale(1.04);
+    object-position: center center;
+  }
+
   .videoOverlay {
     background:
       linear-gradient(

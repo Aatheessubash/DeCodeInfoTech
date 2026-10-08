@@ -40,11 +40,11 @@ export const seoPages: SeoPage[] = [
     changeFrequency: 'weekly',
     sections: [
       {
-        title: 'Business websites that work beyond launch',
+        title: 'Business Websites That Work Beyond Launch',
         body: 'We design and build websites for lead generation, service discovery, ecommerce, bookings, dashboards, and content-led growth. Each build includes clean information architecture, responsive layouts, analytics readiness, and practical technical SEO foundations.',
       },
       {
-        title: 'Modern web application engineering',
+        title: 'Modern Web Application Engineering',
         body: 'For teams that need more than a brochure site, DeCode InfoTech develops secure portals, workflow tools, and custom applications using React, Next.js, Node.js, API integrations, and cloud deployment pipelines.',
       },
     ],
@@ -82,11 +82,11 @@ export const seoPages: SeoPage[] = [
     changeFrequency: 'monthly',
     sections: [
       {
-        title: 'Apps designed around real user journeys',
+        title: 'Apps Designed Around Real User Journeys',
         body: 'We map onboarding, core actions, notifications, account flows, and admin workflows before development so your mobile app feels simple for users and manageable for your team.',
       },
       {
-        title: 'Backend, APIs, and deployment included',
+        title: 'Backend, APIs, And Deployment Included',
         body: 'Our mobile app work can include secure APIs, dashboards, payment integrations, push notifications, app store preparation, and post-launch maintenance.',
       },
     ],
@@ -124,11 +124,11 @@ export const seoPages: SeoPage[] = [
     changeFrequency: 'monthly',
     sections: [
       {
-        title: 'Product foundations for long-term scale',
+        title: 'Product Foundations For Long-Term Scale',
         body: 'We help SaaS founders and businesses plan core modules, user roles, tenant boundaries, data models, dashboards, and release priorities before writing production code.',
       },
       {
-        title: 'From MVP to mature platform',
+        title: 'From MVP To Mature Platform',
         body: 'DeCode InfoTech can build MVPs, rebuild fragile prototypes, or extend existing SaaS systems with payments, reporting, workflow automation, integrations, and performance improvements.',
       },
     ],
@@ -166,11 +166,11 @@ export const seoPages: SeoPage[] = [
     changeFrequency: 'monthly',
     sections: [
       {
-        title: 'Automation for everyday business operations',
+        title: 'Automation For Everyday Business Operations',
         body: 'We design CRM and workflow tools for lead tracking, quotations, service requests, task assignment, customer records, reports, and repeatable operating processes.',
       },
       {
-        title: 'Built around your process',
+        title: 'Built Around Your Process',
         body: 'Instead of forcing your team into generic software, we study your actual workflow and build custom screens, permissions, alerts, and reports around how your business runs.',
       },
     ],
@@ -208,11 +208,11 @@ export const seoPages: SeoPage[] = [
     changeFrequency: 'monthly',
     sections: [
       {
-        title: 'Interfaces shaped by user intent',
+        title: 'Interfaces Shaped By User Intent',
         body: 'We design websites, SaaS dashboards, mobile apps, landing pages, and internal tools with clear hierarchy, accessible interactions, and business-focused user journeys.',
       },
       {
-        title: 'Design systems that support development',
+        title: 'Design Systems That Support Development',
         body: 'Our UI work can include wireframes, Figma prototypes, component libraries, responsive states, and developer-ready handoff details for faster implementation.',
       },
     ],
@@ -250,11 +250,11 @@ export const seoPages: SeoPage[] = [
     changeFrequency: 'monthly',
     sections: [
       {
-        title: 'Practical automation for industrial teams',
+        title: 'Practical Automation For Industrial Teams',
         body: 'We help manufacturers and operations teams track equipment data, visualize alerts, automate reports, and reduce manual coordination through custom software.',
       },
       {
-        title: 'AI and IoT connected workflows',
+        title: 'AI And IoT Connected Workflows',
         body: 'DeCode InfoTech can build telemetry dashboards, sensor data pipelines, computer vision workflows, device integrations, and remote monitoring interfaces.',
       },
     ],
@@ -292,11 +292,11 @@ export const seoPages: SeoPage[] = [
     changeFrequency: 'monthly',
     sections: [
       {
-        title: 'Visual assets for products and brands',
+        title: 'Visual Assets For Products And Brands',
         body: 'We create motion-led visual content for websites, product demos, launch campaigns, service explainers, and investor or sales presentations.',
       },
       {
-        title: 'Designed to support digital growth',
+        title: 'Designed To Support Digital Growth',
         body: 'Our media work pairs with web, SaaS, and marketing builds so visuals are optimized for landing pages, social platforms, presentations, and technical storytelling.',
       },
     ],
@@ -334,11 +334,11 @@ export const seoPages: SeoPage[] = [
     changeFrequency: 'monthly',
     sections: [
       {
-        title: 'Built for practical business outcomes',
+        title: 'Built For Practical Business Outcomes',
         body: 'DeCode InfoTech combines strategy, design, and engineering to build digital products that solve operational problems, improve customer experience, and support measurable growth.',
       },
       {
-        title: 'Local presence, broader delivery',
+        title: 'Local Presence, Broader Delivery',
         body: 'From Coimbatore, we support businesses across Tamil Nadu, India, and global markets with websites, SaaS products, CRM systems, mobile apps, automation, and long-term support.',
       },
     ],
@@ -376,11 +376,11 @@ export const seoPages: SeoPage[] = [
     changeFrequency: 'monthly',
     sections: [
       {
-        title: 'Start with a clear project conversation',
+        title: 'Start With A Clear Project Conversation',
         body: 'Share your goals, current challenges, timeline, and budget range. Our team will respond with practical direction for your website, app, SaaS, CRM, automation, or design project.',
       },
       {
-        title: 'Coimbatore service area',
+        title: 'Coimbatore Service Area',
         body: 'We work with businesses in Coimbatore and across Tamil Nadu, while also supporting remote product teams and growing companies in other markets.',
       },
     ],
@@ -418,11 +418,11 @@ export const seoPages: SeoPage[] = [
     changeFrequency: 'monthly',
     sections: [
       {
-        title: 'Project work across business categories',
+        title: 'Project Work Across Business Categories',
         body: 'Our work includes learning platforms, construction websites, healthtech portals, hospitality systems, SaaS tools, and digital experiences tailored to specific business models.',
       },
       {
-        title: 'Case-study driven growth content',
+        title: 'Case-Study Driven Growth Content',
         body: 'Portfolio pages and case studies help prospects understand how we solve problems, not just what technologies we use. This also supports stronger search visibility over time.',
       },
     ],
@@ -460,11 +460,11 @@ export const seoPages: SeoPage[] = [
     changeFrequency: 'weekly',
     sections: [
       {
-        title: 'Content that builds search authority',
+        title: 'Content That Builds Search Authority',
         body: 'Instead of thin keyword posts, this blog should publish practical guides, project breakdowns, cost explainers, SaaS planning notes, CRM automation examples, and technical SEO articles.',
       },
       {
-        title: 'A hub for future case studies',
+        title: 'A Hub For Future Case Studies',
         body: 'As new projects launch, this route can grow into a library of case studies and educational articles that link back to the relevant service pages.',
       },
     ],

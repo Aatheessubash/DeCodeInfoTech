@@ -6,6 +6,12 @@ import styles from './Testimonial.module.css';
 import { useData } from '@/context/useData';
 import { Star, ChevronLeft, ChevronRight } from 'lucide-react';
 
+const clientLogos: Record<string, string> = {
+  'Azhagappar Academy': '/Azhagappar Academy_Logo.png',
+  'Thozha Associates': '/ThozhaAssociates.png',
+  'Neuerung HealthTech': '/neuerung.png',
+};
+
 export function Testimonial() {
   const { testimonials } = useData();
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -59,8 +65,12 @@ export function Testimonial() {
         <div className={styles.sectionHeader}>
           <p className={styles.eyebrow}>Testimonials</p>
           <h2 id="testimonials-heading" className={styles.heading}>
-            <span className={styles.headingLine}>Hear from our</span>
-            <span className={styles.highlight}>happy customers</span>
+            <span className={styles.headingLine}>Hear From Our</span>
+            <br />
+            <span className={styles.highlightStack}>
+              <span>Happy</span>
+              <span>Customers</span>
+            </span>
           </h2>
           <p className={styles.subheading}>
             Business owners from across the world share proven ways to work more efficiently and
@@ -85,71 +95,75 @@ export function Testimonial() {
                 transform: `translateX(-${currentIndex * 100}%)`,
               }}
             >
-              {testimonials.map((t, idx) => (
-                <div
-                  key={t.id || idx}
-                  className={styles.carouselSlide}
-                  aria-hidden={idx !== currentIndex}
-                >
-                  <div className={styles.featuredCard}>
-                    <div
-                      className={styles.ratingBadge}
-                      aria-label={`${t.rating || 5} out of 5 stars`}
-                    >
-                      {Array.from({
-                        length: Math.max(0, Math.min(5, Math.round(Number(t.rating) || 5))),
-                      }).map((_, i) => (
-                        <Star key={i} size={16} fill="currentColor" aria-hidden="true" />
-                      ))}
-                    </div>
+              {testimonials.map((t, idx) => {
+                const logo = t.logo || clientLogos[t.company];
 
-                    <blockquote className={styles.quoteText}>
-                      “
-                      {t.text.includes('DeCode') ? (
-                        <>
-                          {t.text.split('DeCode')[0]}
-                          <span className={styles.brandWord}>DeCode</span>
-                          {t.text.split('DeCode').slice(1).join('DeCode')}
-                        </>
-                      ) : (
-                        t.text
-                      )}
-                      ”
-                    </blockquote>
+                return (
+                  <div
+                    key={t.id || idx}
+                    className={styles.carouselSlide}
+                    aria-hidden={idx !== currentIndex}
+                  >
+                    <div className={styles.featuredCard}>
+                      <div
+                        className={styles.ratingBadge}
+                        aria-label={`${t.rating || 5} out of 5 stars`}
+                      >
+                        {Array.from({
+                          length: Math.max(0, Math.min(5, Math.round(Number(t.rating) || 5))),
+                        }).map((_, i) => (
+                          <Star key={i} size={16} fill="currentColor" aria-hidden="true" />
+                        ))}
+                      </div>
 
-                    <div className={styles.authorMeta}>
-                      <h4 className={styles.authorName}>{t.name}</h4>
-                      <p className={styles.authorRole}>
-                        {t.role}
-                        {t.role && t.company ? ', ' : ''}
-                        {t.company}
-                      </p>
-                    </div>
+                      <blockquote className={styles.quoteText}>
+                        “
+                        {t.text.includes('DeCode') ? (
+                          <>
+                            {t.text.split('DeCode')[0]}
+                            <span className={styles.brandWord}>DeCode</span>
+                            {t.text.split('DeCode').slice(1).join('DeCode')}
+                          </>
+                        ) : (
+                          t.text
+                        )}
+                        ”
+                      </blockquote>
 
-                    <div
-                      className={styles.companyLockup}
-                      aria-label={t.company || 'Client company'}
-                    >
-                      {t.logo ? (
-                        <Image
-                          className={styles.companyLogo}
-                          src={t.logo}
-                          alt={`${t.company} logo`}
-                          width={220}
-                          height={72}
-                        />
-                      ) : (
-                        <>
-                          <span className={styles.companyIcon}>
-                            {t.avatar || t.name?.charAt(0) || 'D'}
-                          </span>
-                          <span className={styles.companyName}>{t.company}</span>
-                        </>
-                      )}
+                      <div className={styles.authorMeta}>
+                        <h4 className={styles.authorName}>{t.name}</h4>
+                        <p className={styles.authorRole}>
+                          {t.role}
+                          {t.role && t.company ? ', ' : ''}
+                          {t.company}
+                        </p>
+                      </div>
+
+                      <div
+                        className={styles.companyLockup}
+                        aria-label={t.company || 'Client company'}
+                      >
+                        {logo ? (
+                          <Image
+                            className={styles.companyLogo}
+                            src={logo}
+                            alt={`${t.company} logo`}
+                            width={220}
+                            height={72}
+                          />
+                        ) : (
+                          <>
+                            <span className={styles.companyIcon}>
+                              {t.avatar || t.name?.charAt(0) || 'D'}
+                            </span>
+                            <span className={styles.companyName}>{t.company}</span>
+                          </>
+                        )}
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
 

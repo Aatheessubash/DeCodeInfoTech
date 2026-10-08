@@ -13,9 +13,9 @@ export function Careers() {
           <div className={styles.copy}>
             <div className={styles.copyText}>
               <h2 id="careers-title" className={styles.headline}>
-                Great work starts
+                Great Work Starts
                 <br />
-                with <span>great people.</span>
+                With <span>Great People.</span>
               </h2>
               <p className={styles.description}>
                 Curious minds. Thoughtful makers. People who care.

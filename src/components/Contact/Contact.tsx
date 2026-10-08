@@ -33,7 +33,7 @@ export function Contact() {
         <div className={styles.sideCol}>
           <div className={styles.intro}>
             <h2 id="contact-heading" className={styles.heading}>
-              Let's build something <span>exceptional</span>
+              Let's Build Something <span>Exceptional</span>
             </h2>
             <p className={styles.subheading}>
               Ready to turn your vision into a high-performing digital product? Fill out the

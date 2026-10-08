@@ -186,20 +186,20 @@ export function PromiseSection() {
         <header className={styles.sectionHeader}>
           <h2 id="process-heading" className={styles.sectionTitle}>
             {siteContent?.processHeading ? (
-              siteContent.processHeading.includes('better outcome') ? (
+              siteContent.processHeading.toLowerCase().includes('better outcome') ? (
                 <>
                   {siteContent.processHeading.replace(/A better outcome\.?/i, '').trim()}
                   <br />
-                  <span>A better outcome.</span>
+                  <span>A Better Outcome.</span>
                 </>
               ) : (
                 siteContent.processHeading
               )
             ) : (
               <>
-                A simple process.
+                A Simple Process.
                 <br />
-                <span>A better outcome.</span>
+                <span>A Better Outcome.</span>
               </>
             )}
           </h2>

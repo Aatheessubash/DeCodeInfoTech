@@ -233,9 +233,9 @@ export function Hero() {
           >
             <div className={styles.modalHeader}>
               <div>
-                <p className={styles.modalEyebrow}>Start a project</p>
+                <p className={styles.modalEyebrow}>Start A Project</p>
                 <h2 id="project-modal-heading" className={styles.modalTitle}>
-                  Let's build something <span>exceptional</span>
+                  Let's Build Something <span>Exceptional</span>
                 </h2>
               </div>
               <button

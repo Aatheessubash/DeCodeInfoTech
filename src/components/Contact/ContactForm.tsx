@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { ArrowRight } from 'lucide-react';
 import type { ContactProposal } from '@/lib/types';
+import { PROJECT_CATEGORIES } from '@/lib/project-categories';
 import { trackEvent } from '@/lib/analytics';
 import styles from './Contact.module.css';
 
@@ -15,8 +16,9 @@ export function ContactForm({ idPrefix = 'contact' }: ContactFormProps) {
   const [formData, setFormData] = useState<ContactProposal>({
     name: '',
     email: '',
+    phone: '',
     company: '',
-    projectType: 'Web Application',
+    projectType: '',
     message: '',
   });
 
@@ -35,7 +37,7 @@ export function ContactForm({ idPrefix = 'contact' }: ContactFormProps) {
   const resetForm = () => {
     setFormSubmitted(false);
     setSubmitError('');
-    setFormData({ name: '', email: '', company: '', projectType: 'Web Application', message: '' });
+    setFormData({ name: '', email: '', phone: '', company: '', projectType: '', message: '' });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -124,6 +126,24 @@ export function ContactForm({ idPrefix = 'contact' }: ContactFormProps) {
         </div>
 
         <div className={styles.fieldGroup}>
+          <label htmlFor={fieldId('phone')} className={styles.label}>
+            Phone number *
+          </label>
+          <input
+            type="tel"
+            id={fieldId('phone')}
+            name="phone"
+            autoComplete="tel"
+            required
+            inputMode="tel"
+            placeholder="+91 98765 43210"
+            value={formData.phone}
+            onChange={handleChange}
+            className={styles.input}
+          />
+        </div>
+
+        <div className={styles.fieldGroup}>
           <label htmlFor={fieldId('company')} className={styles.label}>
             Company / organization
           </label>
@@ -149,12 +169,16 @@ export function ContactForm({ idPrefix = 'contact' }: ContactFormProps) {
             value={formData.projectType}
             onChange={handleChange}
             className={styles.select}
+            required
           >
-            <option value="Web Application">Web Application</option>
-            <option value="Custom Business Website">Custom Business Website</option>
-            <option value="SaaS Platform">SaaS Platform</option>
-            <option value="Website Redesign">Website Redesign</option>
-            <option value="Mobile App Development">Mobile App Development</option>
+            <option value="" disabled>
+              Select Project Category
+            </option>
+            {PROJECT_CATEGORIES.map((category) => (
+              <option key={category} value={category}>
+                {category}
+              </option>
+            ))}
           </select>
         </div>
 

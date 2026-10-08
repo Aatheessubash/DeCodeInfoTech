@@ -39,22 +39,34 @@
   margin: 0 0 24px;
   font-size: clamp(40px, 4.5vw, 64px);
   font-weight: 700;
-  line-height: 1.12;
-  letter-spacing: var(--heading-tracking);
+  line-height: 1.08;
+  letter-spacing: 0;
   text-wrap: balance;
 }
 
 .headingLine {
-  display: block;
+  display: inline-block;
+  color: #1d1d1f;
+  white-space: nowrap;
 }
 
-.highlight {
-  display: block;
+.highlightStack {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 0;
+  margin-top: 0.08em;
   white-space: nowrap;
-  background: var(--gradient-purple);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: #5b21b6;
+  line-height: 0.98;
+}
+
+@supports (-webkit-background-clip: text) or (background-clip: text) {
+  .highlightStack {
+    background: var(--gradient-purple);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
 }
 
 .subheading {

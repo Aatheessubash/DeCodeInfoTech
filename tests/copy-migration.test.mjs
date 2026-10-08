@@ -25,6 +25,68 @@ test('preserves custom collection entries, deletions, and unrelated saved data',
   assert.deepEqual(migrateCopy('decode_testimonials', application), application);
 });
 
+test('normalizes saved testimonials with current client logos and Thozha reviews', () => {
+  const saved = [
+    {
+      id: '2',
+      name: 'Sathish Kumar',
+      role: 'Managing Partner',
+      company: 'Thozha Associates',
+      avatar: '⚡',
+      text: 'DeCode gave Thozha Associates a professional digital presence that clearly presents our construction services and project credibility.',
+      rating: 5,
+    },
+    {
+      id: 'old-agro',
+      name: 'Legacy Client',
+      role: 'Founder',
+      company: 'AgroMate Technologies',
+      text: 'Old review',
+      rating: 5,
+    },
+    {
+      id: 'old-thozha-projects',
+      name: 'Thozha Associates Projects Team',
+      role: 'Project Management Team',
+      company: 'Thozha Associates',
+      text: 'Old Thozha Projects Team review',
+      rating: 5,
+    },
+    {
+      id: 'old-vetrivel',
+      name: 'Hospitality Client',
+      role: 'Managing Director',
+      company: 'Vetrivel Hospitality',
+      text: 'Old hospitality review',
+      rating: 5,
+    },
+  ];
+
+  const updated = migrateCopy('decode_testimonials', saved);
+  assert.equal(
+    updated.some((testimonial) => testimonial.company === 'AgroMate Technologies'),
+    false,
+  );
+  assert.equal(updated[0].logo, '/ThozhaAssociates.png');
+  assert.equal(updated[0].avatar, undefined);
+  assert.equal(
+    updated.some((testimonial) => testimonial.name === 'Thozha Associates Team'),
+    true,
+  );
+  assert.equal(
+    updated.some((testimonial) => testimonial.name === 'Thozha Associates Projects Team'),
+    false,
+  );
+  assert.equal(
+    updated.some((testimonial) => testimonial.company === 'Vetrivel Hospitality'),
+    false,
+  );
+  assert.equal(
+    updated.some((testimonial) => testimonial.name === 'Neuerung HealthTech Team'),
+    true,
+  );
+});
+
 test('migrates legacy emails (hello@decode.com, contact@decodeinfotech.com) to contact@decodeinfotech.in', () => {
   const legacyContent = {
     contactEmail: 'hello@decode.com',

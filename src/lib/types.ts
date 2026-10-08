@@ -78,6 +78,7 @@ export interface ContactProposal {
   id?: string;
   name: string;
   email: string;
+  phone: string;
   company?: string;
   projectType: string;
   message: string;

@@ -69,12 +69,12 @@ export function WhoWeAre() {
             <div ref={copyRef} className={styles.copy}>
               <h2 id="about-heading" className={styles.headline}>
                 {siteContent?.aboutHeading ? (
-                  siteContent.aboutHeading.includes('what’s') ||
-                  siteContent.aboutHeading.includes("what's") ? (
+                  siteContent.aboutHeading.toLowerCase().includes('what’s') ||
+                  siteContent.aboutHeading.toLowerCase().includes("what's") ? (
                     <>
                       Building
                       <br />
-                      what’s <span>next.</span>
+                      What’s <span>Next.</span>
                     </>
                   ) : (
                     siteContent.aboutHeading
@@ -83,7 +83,7 @@ export function WhoWeAre() {
                   <>
                     Building
                     <br />
-                    what’s <span>next.</span>
+                    What’s <span>Next.</span>
                   </>
                 )}
               </h2>
@@ -115,7 +115,7 @@ export function WhoWeAre() {
                 textAlign: 'left',
               }}
             >
-              <span>Explore our services</span>
+              <span>Explore Our Services</span>
               <ArrowUpRight size={18} strokeWidth={1.5} aria-hidden="true" />
             </button>
           </div>
@@ -148,9 +148,9 @@ export function WhoWeAre() {
                   )
                 ) : (
                   <>
-                    Built to evolve.
+                    Built To Evolve.
                     <br />
-                    <span>Designed for what’s next.</span>
+                    <span>Designed For What’s Next.</span>
                   </>
                 )}
               </p>

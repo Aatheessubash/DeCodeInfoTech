@@ -1,6 +1,6 @@
-export function escapeHtml(value: string): string {
+export function escapeHtml(value) {
   return value.replace(/[&<>"']/g, (character) => {
-    const entities: Record<string, string> = {
+    const entities = {
       '&': '&amp;',
       '<': '&lt;',
       '>': '&gt;',

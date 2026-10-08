@@ -333,7 +333,7 @@ export function AdminDashboard({ onClose }) {
                   <div className={styles.topActions}>
                     <div className={styles.sectionHeading}>
                       <span>Portfolio</span>
-                      <h3>Manage projects</h3>
+                      <h3>Manage Projects</h3>
                       <p>
                         Edit content, upload optimized screenshots, pick asset paths, and control
                         carousel order.
@@ -416,7 +416,7 @@ export function AdminDashboard({ onClose }) {
                       ) : (
                         <div className={styles.emptyEditor}>
                           <FolderOpen size={34} aria-hidden="true" />
-                          <h4>Select a project to edit</h4>
+                          <h4>Select A Project To Edit</h4>
                           <p>Choose Edit on a project or add a new portfolio item.</p>
                           <button
                             type="button"
@@ -569,7 +569,7 @@ export function AdminDashboard({ onClose }) {
                   <div className={styles.topActions}>
                     <div className={styles.sectionHeading}>
                       <span>Careers</span>
-                      <h3>Manage job posts</h3>
+                      <h3>Manage Job Posts</h3>
                       <p>
                         Add, edit, reorder, or remove the roles shown on the public Careers page.
                       </p>
@@ -645,7 +645,7 @@ export function AdminDashboard({ onClose }) {
                       ) : (
                         <div className={styles.emptyEditor}>
                           <BriefcaseBusiness size={34} aria-hidden="true" />
-                          <h4>No live job posts</h4>
+                          <h4>No Live Job Posts</h4>
                           <p>Add a role when hiring opens again.</p>
                           <button type="button" className={styles.addButton} onClick={startNewJob}>
                             <Plus size={17} aria-hidden="true" /> Add job post
@@ -666,7 +666,7 @@ export function AdminDashboard({ onClose }) {
                       ) : (
                         <div className={styles.emptyEditor}>
                           <BriefcaseBusiness size={34} aria-hidden="true" />
-                          <h4>Select a job post to edit</h4>
+                          <h4>Select A Job Post To Edit</h4>
                           <p>Choose Edit on a role or create a new opening.</p>
                         </div>
                       )}

@@ -1,22 +1,29 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { escapeHtml } from '../src/lib/html.ts';
+import { escapeHtml } from '../src/lib/html.js';
 import { handleSubmission, parseCareer, parseContact } from '../src/lib/submissions.ts';
 
-const contact = { name: '  Ada  ', email: 'ada@example.com', message: 'Build a website' };
+const contact = {
+  name: '  Ada  ',
+  email: 'ada@example.com',
+  phone: ' +91 98765 43210 ',
+  projectType: 'Website Development',
+  message: 'Build a website',
+};
 const request = (body) =>
   new Request('https://example.com/api/contact', {
     method: 'POST',
     body: JSON.stringify(body),
   });
 
-test('normalizes contact fields and supplies an optional category', () => {
+test('normalizes contact fields and requires a valid category', () => {
   assert.deepEqual(parseContact(contact), {
     name: 'Ada',
     email: 'ada@example.com',
+    phone: '+91 98765 43210',
     message: 'Build a website',
     company: '',
-    projectType: 'General enquiry',
+    projectType: 'Website Development',
   });
 });
 
@@ -30,6 +37,10 @@ test('rejects malformed, missing, oversized, and non-string fields', () => {
     { ...contact, message: 'x'.repeat(10001) },
     { ...contact, email: 'invalid' },
     { ...contact, email: 'a@example.com\r\nBcc:other@example.com' },
+    { ...contact, phone: '' },
+    { ...contact, phone: 'abc' },
+    { ...contact, projectType: '' },
+    { ...contact, projectType: 'Invalid Category' },
   ]) {
     assert.throws(() => parseContact(input));
   }

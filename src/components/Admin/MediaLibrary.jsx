@@ -199,7 +199,7 @@ export function MediaLibrary({ onSelectAsset }) {
       {filteredAssets.length === 0 ? (
         <div className={styles.emptyState}>
           <FolderOpen size={40} aria-hidden="true" />
-          <h4>No assets found</h4>
+          <h4>No Assets Found</h4>
           <p>Try adjusting your search query or category filter.</p>
         </div>
       ) : (

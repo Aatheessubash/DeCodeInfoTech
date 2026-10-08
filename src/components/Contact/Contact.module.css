@@ -130,9 +130,9 @@
 .input:focus,
 .select:focus,
 .textarea:focus {
-  outline: 2px solid #171717;
-  outline-offset: 4px;
-  border-bottom-color: #171717;
+  outline: none;
+  border-bottom-color: #7c3aed;
+  box-shadow: 0 6px 16px -14px rgba(0, 113, 227, 0.55);
 }
 .select {
   cursor: pointer;
