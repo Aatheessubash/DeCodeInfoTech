@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     'CRM automation company',
   ],
   authors: [{ name: 'DeCode InfoTech' }],
-  metadataBase: new URL('https://decodeinfotech.in'),
+  metadataBase: new URL('https://www.decodeinfotech.in'),
   alternates: {
     canonical: '/',
   },
@@ -60,7 +60,7 @@ export const metadata: Metadata = {
     title: 'DeCode InfoTech — Best Software & Web Development Company in Coimbatore',
     description:
       'Hire DeCode InfoTech for business websites, custom software, SaaS platforms, ecommerce sites, and enterprise digital solutions in Coimbatore.',
-    url: 'https://decodeinfotech.in',
+    url: 'https://www.decodeinfotech.in',
     siteName: 'DeCode InfoTech',
     images: [
       {
@@ -92,7 +92,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   const professionalServiceJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'ProfessionalService',
-    '@id': 'https://decodeinfotech.in/#professional-service',
+    '@id': 'https://www.decodeinfotech.in/#professional-service',
     name: 'DeCode InfoTech',
     legalName: 'DeCode InfoTech',
     alternateName: [
@@ -108,9 +108,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       'Website Development for Small Business Coimbatore',
       'DeCode Studio',
     ],
-    url: 'https://decodeinfotech.in',
-    logo: 'https://decodeinfotech.in/DeCode_Logo.png',
-    image: 'https://decodeinfotech.in/assets/who-we-are.jpg',
+    url: 'https://www.decodeinfotech.in',
+    logo: 'https://www.decodeinfotech.in/DeCode_Logo.png',
+    image: 'https://www.decodeinfotech.in/assets/who-we-are.jpg',
     description: brandSummary,
     disambiguatingDescription:
       'DeCode InfoTech is a Coimbatore-based technology company focused on software engineering, web development, SaaS development, mobile app development, CRM automation, UI UX design, and industrial automation software.',
@@ -201,20 +201,20 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     knowsLanguage: ['English', 'Tamil'],
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': 'https://decodeinfotech.in/#webpage',
+      '@id': 'https://www.decodeinfotech.in/#webpage',
     },
-    sameAs: ['https://decodeinfotech.in'],
+    sameAs: ['https://www.decodeinfotech.in'],
   };
 
   const websiteJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
-    '@id': 'https://decodeinfotech.in/#website',
+    '@id': 'https://www.decodeinfotech.in/#website',
     name: 'DeCode InfoTech',
-    url: 'https://decodeinfotech.in',
+    url: 'https://www.decodeinfotech.in',
     description: brandSummary,
     publisher: {
-      '@id': 'https://decodeinfotech.in/#professional-service',
+      '@id': 'https://www.decodeinfotech.in/#professional-service',
     },
     inLanguage: 'en',
   };
@@ -222,11 +222,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   const organizationJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Organization',
-    '@id': 'https://decodeinfotech.in/#organization',
+    '@id': 'https://www.decodeinfotech.in/#organization',
     name: 'DeCode InfoTech',
-    url: 'https://decodeinfotech.in',
-    logo: 'https://decodeinfotech.in/DeCode_Logo.png',
-    image: 'https://decodeinfotech.in/assets/who-we-are.jpg',
+    url: 'https://www.decodeinfotech.in',
+    logo: 'https://www.decodeinfotech.in/DeCode_Logo.png',
+    image: 'https://www.decodeinfotech.in/assets/who-we-are.jpg',
     description: brandSummary,
     slogan: 'Imagine it. Build it. Decode the future.',
     email: 'contact@decodeinfotech.in',
@@ -245,17 +245,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       areaServed: 'IN',
       availableLanguage: ['English', 'Tamil'],
     },
-    sameAs: ['https://decodeinfotech.in'],
+    sameAs: ['https://www.decodeinfotech.in'],
   };
 
   const localBusinessJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'LocalBusiness',
-    '@id': 'https://decodeinfotech.in/#local-business',
+    '@id': 'https://www.decodeinfotech.in/#local-business',
     name: 'DeCode InfoTech',
-    url: 'https://decodeinfotech.in',
-    image: 'https://decodeinfotech.in/assets/who-we-are.jpg',
-    logo: 'https://decodeinfotech.in/DeCode_Logo.png',
+    url: 'https://www.decodeinfotech.in',
+    image: 'https://www.decodeinfotech.in/assets/who-we-are.jpg',
+    logo: 'https://www.decodeinfotech.in/DeCode_Logo.png',
     description: brandSummary,
     email: 'contact@decodeinfotech.in',
     telephone: '+91 70928 02356',
@@ -277,22 +277,22 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   const homePageJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
-    '@id': 'https://decodeinfotech.in/#webpage',
-    url: 'https://decodeinfotech.in',
+    '@id': 'https://www.decodeinfotech.in/#webpage',
+    url: 'https://www.decodeinfotech.in',
     name: 'DeCode InfoTech | Software Development Company in Coimbatore',
     description: brandSummary,
     isPartOf: {
-      '@id': 'https://decodeinfotech.in/#website',
+      '@id': 'https://www.decodeinfotech.in/#website',
     },
     about: {
-      '@id': 'https://decodeinfotech.in/#professional-service',
+      '@id': 'https://www.decodeinfotech.in/#professional-service',
     },
     mainEntity: {
-      '@id': 'https://decodeinfotech.in/#professional-service',
+      '@id': 'https://www.decodeinfotech.in/#professional-service',
     },
     primaryImageOfPage: {
       '@type': 'ImageObject',
-      url: 'https://decodeinfotech.in/assets/who-we-are.jpg',
+      url: 'https://www.decodeinfotech.in/assets/who-we-are.jpg',
     },
     inLanguage: 'en',
   };
@@ -300,7 +300,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   const siteNavigationJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'SiteNavigationElement',
-    '@id': 'https://decodeinfotech.in/#site-navigation',
+    '@id': 'https://www.decodeinfotech.in/#site-navigation',
     name: [
       'Home',
       'About',
@@ -316,31 +316,31 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       'Industrial Automation',
     ],
     url: [
-      'https://decodeinfotech.in',
-      'https://decodeinfotech.in/about',
-      'https://decodeinfotech.in/web-development',
-      'https://decodeinfotech.in/portfolio',
-      'https://decodeinfotech.in/careers',
-      'https://decodeinfotech.in/contact',
-      'https://decodeinfotech.in/web-development',
-      'https://decodeinfotech.in/mobile-app-development',
-      'https://decodeinfotech.in/saas-development',
-      'https://decodeinfotech.in/crm-automation',
-      'https://decodeinfotech.in/ui-ux-design',
-      'https://decodeinfotech.in/industrial-automation',
+      'https://www.decodeinfotech.in',
+      'https://www.decodeinfotech.in/about',
+      'https://www.decodeinfotech.in/web-development',
+      'https://www.decodeinfotech.in/portfolio',
+      'https://www.decodeinfotech.in/careers',
+      'https://www.decodeinfotech.in/contact',
+      'https://www.decodeinfotech.in/web-development',
+      'https://www.decodeinfotech.in/mobile-app-development',
+      'https://www.decodeinfotech.in/saas-development',
+      'https://www.decodeinfotech.in/crm-automation',
+      'https://www.decodeinfotech.in/ui-ux-design',
+      'https://www.decodeinfotech.in/industrial-automation',
     ],
   };
 
   const breadcrumbJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
-    '@id': 'https://decodeinfotech.in/#breadcrumb',
+    '@id': 'https://www.decodeinfotech.in/#breadcrumb',
     itemListElement: [
       {
         '@type': 'ListItem',
         position: 1,
         name: 'Home',
-        item: 'https://decodeinfotech.in',
+        item: 'https://www.decodeinfotech.in',
       },
     ],
   };

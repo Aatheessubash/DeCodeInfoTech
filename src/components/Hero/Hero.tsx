@@ -58,11 +58,11 @@ export function Hero() {
   const heroVideoUrl = siteContent?.heroVideoUrl || '/sample.webm';
 
   useEffect(() => {
-    const connection = (navigator as Navigator & {
-      connection?: { saveData?: boolean; effectiveType?: string };
-    }).connection as
-      | { saveData?: boolean; effectiveType?: string }
-      | undefined;
+    const connection = (
+      navigator as Navigator & {
+        connection?: { saveData?: boolean; effectiveType?: string };
+      }
+    ).connection as { saveData?: boolean; effectiveType?: string } | undefined;
     const shouldSkipVideo =
       window.matchMedia('(max-width: 768px)').matches ||
       window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
@@ -181,9 +181,7 @@ export function Hero() {
           </p>
 
           {/* Subtext */}
-          <p className={styles.subtext}>
-            {currentSubtext}
-          </p>
+          <p className={styles.subtext}>{currentSubtext}</p>
 
           {/* Action CTAs */}
           <div className={styles.ctaGroup}>

@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 
-export const siteUrl = 'https://decodeinfotech.in';
+export const siteUrl = 'https://www.decodeinfotech.in';
 
 export type SeoPage = {
   slug: string;

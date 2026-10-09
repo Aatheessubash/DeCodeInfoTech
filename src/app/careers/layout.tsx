@@ -5,13 +5,13 @@ export const metadata: Metadata = {
   description:
     'Explore software, web development, design, and digital product career opportunities at DeCode InfoTech in Coimbatore.',
   alternates: {
-    canonical: 'https://decodeinfotech.in/careers',
+    canonical: 'https://www.decodeinfotech.in/careers',
   },
   openGraph: {
     title: 'Careers at DeCode InfoTech | Coimbatore Software Jobs',
     description:
       'Explore software, web development, design, and digital product career opportunities at DeCode InfoTech in Coimbatore.',
-    url: 'https://decodeinfotech.in/careers',
+    url: 'https://www.decodeinfotech.in/careers',
     siteName: 'DeCode InfoTech',
     images: [
       {

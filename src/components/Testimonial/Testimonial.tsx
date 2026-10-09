@@ -67,9 +67,7 @@ export function Testimonial() {
           <h2 id="testimonials-heading" className={styles.heading}>
             <span className={styles.headingLine}>Hear From Our</span>
             <br />
-            <span className={styles.highlightStack}>
-              Happy Customers
-            </span>
+            <span className={styles.highlightStack}>Happy Customers</span>
           </h2>
           <p className={styles.subheading}>
             Business owners from across the world share proven ways to work more efficiently and

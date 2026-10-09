@@ -32,7 +32,7 @@ export const INITIAL_PROJECTS: Project[] = [
       'Corporate digital presence for a leading civil engineering & construction firm showcasing turnkey residential, commercial, and renovation projects.',
     solution:
       'A high-converting portfolio and lead capture web experience establishing engineering credibility.',
-    url: 'https://decodeinfotech.in/thozha',
+    url: 'https://www.decodeinfotech.in/thozha',
     tech: ['React', 'CSS Modules', 'SEO', 'Lead Funnel'],
   },
   {
@@ -44,7 +44,7 @@ export const INITIAL_PROJECTS: Project[] = [
       'Enterprise portal for an innovative healthtech brand integrating AI-driven diagnostic tools, clinical workflows, and IoT device telemetry.',
     solution:
       'A modern, secure healthcare interface communicating advanced connected clinical technology.',
-    url: 'https://decodeinfotech.in/neuerung',
+    url: 'https://www.decodeinfotech.in/neuerung',
     tech: ['AI Diagnostics', 'IoT Telemetry', 'HealthTech UX', 'Cloud API'],
   },
   {

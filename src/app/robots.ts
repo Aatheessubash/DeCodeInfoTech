@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: ['/SA', '/api/', '/admin/'],
     },
-    sitemap: 'https://decodeinfotech.in/sitemap.xml',
+    sitemap: 'https://www.decodeinfotech.in/sitemap.xml',
   };
 }
