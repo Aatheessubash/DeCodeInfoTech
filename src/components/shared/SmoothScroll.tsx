@@ -1,34 +1,31 @@
 'use client';
 
 import { useEffect } from 'react';
-import gsap from '@/lib/gsap';
 
 export function SmoothScroll() {
   useEffect(() => {
-    // Reveal all elements with .gsap-reveal or .reveal classes using ScrollTrigger
     const elements = document.querySelectorAll('.reveal, .gsap-reveal');
+    if (elements.length === 0 || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      return;
+    }
 
-    const ctx = gsap.context(() => {
-      elements.forEach((el) => {
-        gsap.fromTo(
-          el,
-          { opacity: 0, y: 30 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.8,
-            ease: 'power3.out',
-            scrollTrigger: {
-              trigger: el,
-              start: 'top 88%',
-              toggleActions: 'play none none none',
-            },
-          },
-        );
-      });
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        });
+      },
+      { rootMargin: '0px 0px -12% 0px', threshold: 0.1 },
+    );
+
+    elements.forEach((el) => {
+      el.classList.add('reveal-ready');
+      observer.observe(el);
     });
 
-    return () => ctx.revert();
+    return () => observer.disconnect();
   }, []);
 
   return null;

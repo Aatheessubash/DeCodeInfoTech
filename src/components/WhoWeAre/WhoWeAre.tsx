@@ -1,52 +1,12 @@
 'use client';
 
-import React, { useRef } from 'react';
+import React from 'react';
 import { ArrowUpRight } from 'lucide-react';
 import { useData } from '@/context/useData';
 import styles from './WhoWeAre.module.css';
-import { useGSAP } from '@gsap/react';
-import gsap from '@/lib/gsap';
 
 export function WhoWeAre() {
   const { siteContent } = useData();
-  const sectionRef = useRef<HTMLElement>(null);
-  const copyRef = useRef<HTMLDivElement>(null);
-  const visualRef = useRef<HTMLElement>(null);
-
-  useGSAP(
-    () => {
-      gsap.fromTo(
-        copyRef.current,
-        { opacity: 0, x: -30 },
-        {
-          opacity: 1,
-          x: 0,
-          duration: 0.9,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: 'top 80%',
-          },
-        },
-      );
-
-      gsap.fromTo(
-        visualRef.current,
-        { opacity: 0, x: 30 },
-        {
-          opacity: 1,
-          x: 0,
-          duration: 0.9,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: 'top 80%',
-          },
-        },
-      );
-    },
-    { scope: sectionRef },
-  );
 
   const scrollTo = (id: string) => {
     const el = document.getElementById(id);
@@ -62,11 +22,11 @@ export function WhoWeAre() {
   };
 
   return (
-    <section id="about" ref={sectionRef} className={styles.section} aria-labelledby="about-heading">
+    <section id="about" className={styles.section} aria-labelledby="about-heading">
       <div className={styles.container}>
         <div className={styles.grid}>
           <div className={styles.copyColumn}>
-            <div ref={copyRef} className={styles.copy}>
+            <div className={`${styles.copy} reveal`}>
               <h2 id="about-heading" className={styles.headline}>
                 {siteContent?.aboutHeading ? (
                   siteContent.aboutHeading.toLowerCase().includes('what’s') ||
@@ -120,7 +80,7 @@ export function WhoWeAre() {
             </button>
           </div>
 
-          <figure ref={visualRef} className={styles.visual}>
+          <figure className={`${styles.visual} reveal`}>
             <div className={styles.imageFrame}>
               <img
                 src={siteContent?.aboutImage || '/assets/who-we-are.jpg'}

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef, useState, useEffect, useCallback, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import Link from 'next/link';
 import styles from './Promise.module.css';
 import {
@@ -17,7 +17,6 @@ import {
   CheckCircle,
   type LucideIcon,
 } from 'lucide-react';
-import { motion, useMotionValue, animate } from 'framer-motion';
 import { useData } from '@/context/useData';
 import type { ProcessStep } from '@/lib/types';
 
@@ -81,104 +80,10 @@ const DEFAULT_STEPS: ProcessStep[] = [
 
 export function PromiseSection() {
   const { processSteps, siteContent } = useData();
-  const containerRef = useRef<HTMLDivElement>(null);
-  const stepsRef = useRef<HTMLOListElement>(null);
-
-  const [isMobile, setIsMobile] = useState(false);
-  const [maxDrag, setMaxDrag] = useState(0);
-
-  const x = useMotionValue(0);
-
   const stepsList = useMemo(
     () => (processSteps && processSteps.length > 0 ? processSteps : DEFAULT_STEPS),
     [processSteps],
   );
-
-  // Screen size check for mobile view (<= 768px)
-  useEffect(() => {
-    const checkMobile = () => {
-      const mobile = window.innerWidth <= 768;
-      setIsMobile(mobile);
-      if (!mobile) {
-        x.set(0);
-      }
-    };
-
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, [x]);
-
-  // Recalculate drag boundaries when track / container dimensions change
-  const updateConstraints = useCallback(() => {
-    if (!isMobile || !containerRef.current || !stepsRef.current) {
-      setMaxDrag(0);
-      return;
-    }
-    const scrollW = stepsRef.current.scrollWidth;
-    const offsetW = containerRef.current.offsetWidth;
-    const max = Math.max(0, scrollW - offsetW);
-    setMaxDrag(max);
-  }, [isMobile]);
-
-  useEffect(() => {
-    if (!isMobile) return undefined;
-    updateConstraints();
-
-    const ro = new ResizeObserver(() => {
-      updateConstraints();
-    });
-
-    if (containerRef.current) ro.observe(containerRef.current);
-    if (stepsRef.current) ro.observe(stepsRef.current);
-
-    return () => ro.disconnect();
-  }, [isMobile, updateConstraints, stepsList]);
-
-  // Handle drag release: swipe left / right with momentum and snap
-  const handleDragEnd = (
-    _: MouseEvent | TouchEvent | PointerEvent,
-    info: { offset: { x: number; y: number }; velocity: { x: number; y: number } },
-  ) => {
-    if (!isMobile || !stepsRef.current) return;
-    const cards = stepsRef.current.children;
-    const count = stepsList.length;
-    if (!cards || count === 0) return;
-
-    const currentX = x.get();
-    const gutter = parseFloat(getComputedStyle(stepsRef.current).paddingLeft) || 20;
-
-    // Find closest card to current position
-    let closest = 0;
-    let minDiff = Infinity;
-    for (let i = 0; i < count; i++) {
-      const card = cards[i] as HTMLElement;
-      if (!card) continue;
-      const cardOffset = -(card.offsetLeft - gutter);
-      const diff = Math.abs(currentX - cardOffset);
-      if (diff < minDiff) {
-        minDiff = diff;
-        closest = i;
-      }
-    }
-
-    // Velocity or swipe distance threshold to advance / regress card
-    if (info.velocity.x < -200 || info.offset.x < -40) {
-      closest = Math.min(count - 1, closest + 1);
-    } else if (info.velocity.x > 200 || info.offset.x > 40) {
-      closest = Math.max(0, closest - 1);
-    }
-
-    const targetCard = cards[closest] as HTMLElement;
-    if (targetCard) {
-      const targetX = -Math.min(Math.max(0, targetCard.offsetLeft - gutter), maxDrag);
-      animate(x, targetX, {
-        type: 'spring',
-        stiffness: 300,
-        damping: 30,
-      });
-    }
-  };
 
   return (
     <section id="process" className={styles.processSection} aria-label="Process">
@@ -190,21 +95,8 @@ export function PromiseSection() {
           </p>
         </header>
 
-        <div
-          ref={containerRef}
-          className={styles.carouselWrapper}
-          role="region"
-          aria-label="Process steps"
-        >
-          <motion.ol
-            ref={stepsRef}
-            className={styles.steps}
-            drag={isMobile ? 'x' : false}
-            dragConstraints={isMobile ? { left: -maxDrag, right: 0 } : undefined}
-            dragElastic={0.12}
-            style={{ x, touchAction: isMobile ? 'pan-y' : 'auto' }}
-            onDragEnd={isMobile ? handleDragEnd : undefined}
-          >
+        <div className={styles.carouselWrapper} role="region" aria-label="Process steps">
+          <ol className={styles.steps}>
             {stepsList.map((step) => {
               const Icon = ICON_MAP[step.icon] || Compass;
               return (
@@ -223,7 +115,7 @@ export function PromiseSection() {
                 </li>
               );
             })}
-          </motion.ol>
+          </ol>
         </div>
         <div className={styles.closing}>
           <p>{siteContent?.processClosingText || 'Your idea. A clear path forward.'}</p>

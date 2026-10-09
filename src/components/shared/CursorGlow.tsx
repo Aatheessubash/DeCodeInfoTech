@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useEffect, useRef } from 'react';
-import gsap from '@/lib/gsap';
 
 export function CursorGlow() {
   const glowRef = useRef<HTMLDivElement>(null);
@@ -11,16 +10,26 @@ export function CursorGlow() {
     const glow = glowRef.current;
     if (!glow) return;
 
-    const xTo = gsap.quickTo(glow, 'x', { duration: 0.6, ease: 'power3' });
-    const yTo = gsap.quickTo(glow, 'y', { duration: 0.6, ease: 'power3' });
+    let animationFrame = 0;
+    let x = 0;
+    let y = 0;
 
     const handleMouseMove = (e: MouseEvent) => {
-      xTo(e.clientX - 200);
-      yTo(e.clientY - 200);
+      x = e.clientX - 200;
+      y = e.clientY - 200;
+
+      if (animationFrame) return;
+      animationFrame = window.requestAnimationFrame(() => {
+        glow.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+        animationFrame = 0;
+      });
     };
 
     window.addEventListener('mousemove', handleMouseMove, { passive: true });
-    return () => window.removeEventListener('mousemove', handleMouseMove);
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      if (animationFrame) window.cancelAnimationFrame(animationFrame);
+    };
   }, []);
 
   return (

@@ -29,12 +29,27 @@ export function Navbar() {
   const [activeSection, setActiveSection] = useState('home');
 
   useEffect(() => {
+    let animationFrame = 0;
+    let lastScrolled = false;
+
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      if (animationFrame) return;
+      animationFrame = window.requestAnimationFrame(() => {
+        const nextScrolled = window.scrollY > 20;
+        if (nextScrolled !== lastScrolled) {
+          lastScrolled = nextScrolled;
+          setIsScrolled(nextScrolled);
+        }
+        animationFrame = 0;
+      });
     };
+
     handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (animationFrame) window.cancelAnimationFrame(animationFrame);
+    };
   }, []);
 
   useEffect(() => {
@@ -43,22 +58,34 @@ export function Navbar() {
 
   useEffect(() => {
     if (pathname !== '/') return undefined;
+    let animationFrame = 0;
+    let lastSection = 'home';
 
     const determineActiveSection = () => {
-      const scrollPos = window.scrollY + 140;
-      let current = 'home';
-      for (const id of SECTION_IDS) {
-        const el = document.getElementById(id);
-        if (el && scrollPos >= el.offsetTop) {
-          current = id;
+      if (animationFrame) return;
+      animationFrame = window.requestAnimationFrame(() => {
+        const scrollPos = window.scrollY + 140;
+        let current = 'home';
+        for (const id of SECTION_IDS) {
+          const el = document.getElementById(id);
+          if (el && scrollPos >= el.offsetTop) {
+            current = id;
+          }
         }
-      }
-      setActiveSection(current);
+        if (current !== lastSection) {
+          lastSection = current;
+          setActiveSection(current);
+        }
+        animationFrame = 0;
+      });
     };
 
     determineActiveSection();
     window.addEventListener('scroll', determineActiveSection, { passive: true });
-    return () => window.removeEventListener('scroll', determineActiveSection);
+    return () => {
+      window.removeEventListener('scroll', determineActiveSection);
+      if (animationFrame) window.cancelAnimationFrame(animationFrame);
+    };
   }, [pathname]);
 
   useEffect(() => {

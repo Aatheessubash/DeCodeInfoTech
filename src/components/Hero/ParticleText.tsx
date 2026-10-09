@@ -137,7 +137,7 @@ export const ParticleText = ({
   color = '#1d1d1f',
   pointerRepel = 11,
   repelRadius = 110,
-  idleDrift = 0.45,
+  idleDrift = 0,
   trigger = 'hover',
   fontSize,
   fontWeight,
@@ -191,6 +191,7 @@ export const ParticleText = ({
     };
 
     const drawParticles = (now: number): void => {
+      animationFrame = null;
       ctx.clearRect(0, 0, currentWidth, currentHeight);
 
       const hasPointer = pointer.active;
@@ -203,6 +204,8 @@ export const ParticleText = ({
       const effectivePointerRepel = isMobileDevice ? Math.min(pointerRepel, 7) : pointerRepel;
       const repelSq = effectiveRepelRadius * effectiveRepelRadius;
       const driftTime = now * 0.0016;
+
+      let hasMotion = false;
 
       // 1. Update Physics
       for (let i = 0; i < particles.length; i++) {
@@ -234,6 +237,15 @@ export const ParticleText = ({
 
         p.x += p.vx;
         p.y += p.vy;
+
+        if (
+          Math.abs(p.vx) > 0.02 ||
+          Math.abs(p.vy) > 0.02 ||
+          Math.abs(p.originX - p.x) > 0.08 ||
+          Math.abs(p.originY - p.y) > 0.08
+        ) {
+          hasMotion = true;
+        }
       }
 
       // 2. Batch Draw Lead Particles (Bucket 0) if present
@@ -282,7 +294,7 @@ export const ParticleText = ({
         ctx.fill();
       }
 
-      if (isVisible) {
+      if (isVisible && (hasPointer || hasMotion || idleDrift > 0)) {
         animationFrame = window.requestAnimationFrame(drawParticles);
       }
     };
@@ -563,6 +575,7 @@ export const ParticleText = ({
       pointer.active = false;
       pointer.x = -9999;
       pointer.y = -9999;
+      ensureRenderLoop();
     };
 
     const handleClick = (e: MouseEvent): void => {

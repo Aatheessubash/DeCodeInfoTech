@@ -18,11 +18,27 @@ export function Footer() {
   const contactPhone = '7092802364';
 
   useEffect(() => {
-    const handleScroll = () => setShowBackToTop(window.scrollY > 320);
+    let animationFrame = 0;
+    let lastVisible = false;
+
+    const handleScroll = () => {
+      if (animationFrame) return;
+      animationFrame = window.requestAnimationFrame(() => {
+        const nextVisible = window.scrollY > 320;
+        if (nextVisible !== lastVisible) {
+          lastVisible = nextVisible;
+          setShowBackToTop(nextVisible);
+        }
+        animationFrame = 0;
+      });
+    };
 
     handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (animationFrame) window.cancelAnimationFrame(animationFrame);
+    };
   }, []);
 
   const scrollToTop = () => {

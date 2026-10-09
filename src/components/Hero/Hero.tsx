@@ -4,8 +4,6 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useData } from '@/context/useData';
 import styles from './Hero.module.css';
 import { ArrowRight, ArrowUpRight, X } from 'lucide-react';
-import { useGSAP } from '@gsap/react';
-import gsap from '@/lib/gsap';
 import { ParticleText } from './ParticleText';
 import { ContactForm } from '@/components/Contact/ContactForm';
 
@@ -24,6 +22,7 @@ const LEGACY_HERO_SUBTEXTS = new Set([
 export function Hero() {
   const { siteContent } = useData();
   const [isProjectModalOpen, setIsProjectModalOpen] = useState(false);
+  const [shouldLoadVideo, setShouldLoadVideo] = useState(false);
   const rawHeadline = siteContent?.heroHeadline;
   const isLegacyHeadline = rawHeadline ? LEGACY_HERO_HEADLINES.has(rawHeadline) : false;
   const currentHeadline =
@@ -55,10 +54,35 @@ export function Hero() {
       ? 'Empowering businesses to grow through innovation and technology. We deliver scalable, future-ready solutions that enhance operations, drive sustainable growth, and create long-term business value.'
       : rawSubtext;
   const heroRef = useRef<HTMLElement>(null);
-  const headlineRef = useRef<HTMLHeadingElement>(null);
-  const subtextRef = useRef<HTMLParagraphElement>(null);
-  const ctaGroupRef = useRef<HTMLDivElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const heroVideoUrl = siteContent?.heroVideoUrl || '/sample.mp4';
+
+  useEffect(() => {
+    const connection = (navigator as Navigator & {
+      connection?: { saveData?: boolean; effectiveType?: string };
+    }).connection as
+      | { saveData?: boolean; effectiveType?: string }
+      | undefined;
+    const shouldSkipVideo =
+      window.matchMedia('(max-width: 768px)').matches ||
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
+      connection?.saveData ||
+      connection?.effectiveType === 'slow-2g' ||
+      connection?.effectiveType === '2g';
+
+    if (shouldSkipVideo) {
+      return;
+    }
+
+    const loadVideo = () => setShouldLoadVideo(true);
+    const idleCallback = window.requestIdleCallback?.(loadVideo, { timeout: 1800 });
+    const timeout = idleCallback ? undefined : window.setTimeout(loadVideo, 900);
+
+    return () => {
+      if (idleCallback) window.cancelIdleCallback?.(idleCallback);
+      if (timeout) window.clearTimeout(timeout);
+    };
+  }, []);
 
   useEffect(() => {
     if (!isProjectModalOpen) {
@@ -83,35 +107,6 @@ export function Hero() {
     };
   }, [isProjectModalOpen]);
 
-  useGSAP(
-    () => {
-      const media = gsap.matchMedia();
-      media.add('(prefers-reduced-motion: no-preference)', () => {
-        const headline = headlineRef.current;
-        const headlineParts = headline?.querySelectorAll('[data-hero-line]');
-        const targets = headlineParts?.length ? Array.from(headlineParts) : headline;
-
-        gsap
-          .timeline({ defaults: { ease: 'power3.out' } })
-          .fromTo(targets, { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.8 })
-          .fromTo(
-            subtextRef.current,
-            { opacity: 0, y: 18 },
-            { opacity: 1, y: 0, duration: 0.7 },
-            '-=0.5',
-          )
-          .fromTo(
-            ctaGroupRef.current?.children || [],
-            { opacity: 0, y: 14 },
-            { opacity: 1, y: 0, duration: 0.55, stagger: 0.1 },
-            '-=0.4',
-          );
-      });
-      return () => media.revert();
-    },
-    { scope: heroRef },
-  );
-
   const scrollTo = (id: string) => {
     const el = document.getElementById(id);
     if (el) {
@@ -130,23 +125,25 @@ export function Hero() {
   return (
     <section id="home" ref={heroRef} className={styles.heroSection}>
       <div className={styles.videoWrapper} aria-hidden="true">
-        <video
-          key={siteContent?.heroVideoUrl || '/sample.mp4'}
-          className={styles.videoBackground}
-          src={siteContent?.heroVideoUrl || '/sample.mp4'}
-          autoPlay
-          loop
-          muted
-          playsInline
-          preload="metadata"
-        />
+        {shouldLoadVideo && (
+          <video
+            key={heroVideoUrl}
+            className={styles.videoBackground}
+            src={heroVideoUrl}
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="none"
+          />
+        )}
         <div className={styles.videoOverlay} />
       </div>
 
       <div className={styles.container}>
         <div className={styles.content}>
           {/* Main Hero Headline */}
-          <h1 ref={headlineRef} className={styles.headline}>
+          <h1 className={styles.headline}>
             {hasAccent ? (
               <>
                 <span data-hero-line className={styles.headlineLead}>
@@ -184,12 +181,12 @@ export function Hero() {
           </p>
 
           {/* Subtext */}
-          <p ref={subtextRef} className={styles.subtext}>
+          <p className={styles.subtext}>
             {currentSubtext}
           </p>
 
           {/* Action CTAs */}
-          <div ref={ctaGroupRef} className={styles.ctaGroup}>
+          <div className={styles.ctaGroup}>
             <button
               type="button"
               onClick={() => setIsProjectModalOpen(true)}
