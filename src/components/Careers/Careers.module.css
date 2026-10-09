@@ -151,6 +151,10 @@
   .copy {
     padding-block: 0;
   }
+  .copyText {
+    align-items: center;
+    text-align: center;
+  }
   .actionBlock {
     margin-top: 28px;
   }
@@ -163,7 +167,9 @@
   }
   .description {
     max-width: 540px;
+    margin-right: auto;
     margin-bottom: 16px;
+    margin-left: auto;
   }
   .bottomLine {
     align-items: flex-start;

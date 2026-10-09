@@ -217,8 +217,13 @@
     grid-template-columns: minmax(0, 1fr);
     gap: 36px;
   }
+  .intro {
+    text-align: center;
+  }
   .subheading {
     max-width: 600px;
+    margin-right: auto;
+    margin-left: auto;
   }
   .directContact {
     padding-bottom: 28px;

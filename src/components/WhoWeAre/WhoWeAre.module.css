@@ -162,6 +162,7 @@
 
   .copy {
     order: 1;
+    text-align: center;
   }
 
   .visual {
@@ -175,6 +176,8 @@
   .description,
   .lead {
     max-width: 600px;
+    margin-right: auto;
+    margin-left: auto;
   }
 
   .image {

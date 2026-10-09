@@ -68,8 +68,7 @@ export function Testimonial() {
             <span className={styles.headingLine}>Hear From Our</span>
             <br />
             <span className={styles.highlightStack}>
-              <span>Happy</span>
-              <span>Customers</span>
+              Happy Customers
             </span>
           </h2>
           <p className={styles.subheading}>

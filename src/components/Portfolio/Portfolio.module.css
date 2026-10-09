@@ -220,12 +220,12 @@
   }
 
   .projectGroup > * {
-    flex-basis: 100cqw;
-    width: 100cqw;
+    flex-basis: calc((100cqw - var(--project-gap)) / 2);
+    width: calc((100cqw - var(--project-gap)) / 2);
   }
 
   .projectCard {
-    min-height: 132px;
+    min-height: 118px;
   }
 }
 

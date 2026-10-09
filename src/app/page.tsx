@@ -1,7 +1,6 @@
 import React from 'react';
 import { Hero } from '@/components/Hero/Hero';
 import { WhoWeAre } from '@/components/WhoWeAre/WhoWeAre';
-import { PromiseSection } from '@/components/Promise/Promise';
 import { Services } from '@/components/Services/Services';
 import { Portfolio } from '@/components/Portfolio/Portfolio';
 import { BusinessTypes } from '@/components/BusinessTypes/BusinessTypes';
@@ -17,7 +16,6 @@ export default function HomePage() {
       <WhoWeAre />
       <Services />
       <BusinessTypes />
-      <PromiseSection />
       <Portfolio />
       <Testimonial />
       <Careers />
