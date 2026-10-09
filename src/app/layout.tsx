@@ -86,12 +86,18 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  const brandSummary =
+    'DeCode InfoTech is a software development company in Coimbatore, Tamil Nadu that builds business websites, mobile apps, SaaS platforms, CRM automation systems, UI UX interfaces, and custom digital products for growing companies.';
+
   const professionalServiceJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'ProfessionalService',
     '@id': 'https://decodeinfotech.in/#professional-service',
     name: 'DeCode InfoTech',
+    legalName: 'DeCode InfoTech',
     alternateName: [
+      'DeCode',
+      'DeCode Infotech',
       'Best Software Company in Coimbatore',
       'Best IT Company in Coimbatore',
       'Best IT Company Near Me',
@@ -105,8 +111,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     url: 'https://decodeinfotech.in',
     logo: 'https://decodeinfotech.in/DeCode_Logo.png',
     image: 'https://decodeinfotech.in/assets/who-we-are.jpg',
-    description:
-      'DeCode InfoTech is the best software company in Coimbatore and premier web development company in Coimbatore, specializing in custom web applications, SaaS development, and modern digital engineering.',
+    description: brandSummary,
+    disambiguatingDescription:
+      'DeCode InfoTech is a Coimbatore-based technology company focused on software engineering, web development, SaaS development, mobile app development, CRM automation, UI UX design, and industrial automation software.',
+    slogan: 'Imagine it. Build it. Decode the future.',
     priceRange: '$$',
     telephone: '+91 70928 02356',
     email: 'contact@decodeinfotech.in',
@@ -181,9 +189,19 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     contactPoint: {
       '@type': 'ContactPoint',
       email: 'contact@decodeinfotech.in',
+      telephone: '+91 70928 02356',
       contactType: 'customer service',
       areaServed: 'IN',
       availableLanguage: ['English', 'Tamil'],
+    },
+    foundingLocation: {
+      '@type': 'Place',
+      name: 'Coimbatore, Tamil Nadu, India',
+    },
+    knowsLanguage: ['English', 'Tamil'],
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': 'https://decodeinfotech.in/#webpage',
     },
     sameAs: ['https://decodeinfotech.in'],
   };
@@ -194,6 +212,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     '@id': 'https://decodeinfotech.in/#website',
     name: 'DeCode InfoTech',
     url: 'https://decodeinfotech.in',
+    description: brandSummary,
     publisher: {
       '@id': 'https://decodeinfotech.in/#professional-service',
     },
@@ -207,6 +226,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     name: 'DeCode InfoTech',
     url: 'https://decodeinfotech.in',
     logo: 'https://decodeinfotech.in/DeCode_Logo.png',
+    image: 'https://decodeinfotech.in/assets/who-we-are.jpg',
+    description: brandSummary,
+    slogan: 'Imagine it. Build it. Decode the future.',
     email: 'contact@decodeinfotech.in',
     telephone: '+91 70928 02356',
     address: {
@@ -215,6 +237,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       addressRegion: 'Tamil Nadu',
       addressCountry: 'IN',
     },
+    contactPoint: {
+      '@type': 'ContactPoint',
+      email: 'contact@decodeinfotech.in',
+      telephone: '+91 70928 02356',
+      contactType: 'customer service',
+      areaServed: 'IN',
+      availableLanguage: ['English', 'Tamil'],
+    },
+    sameAs: ['https://decodeinfotech.in'],
   };
 
   const localBusinessJsonLd = {
@@ -225,6 +256,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     url: 'https://decodeinfotech.in',
     image: 'https://decodeinfotech.in/assets/who-we-are.jpg',
     logo: 'https://decodeinfotech.in/DeCode_Logo.png',
+    description: brandSummary,
     email: 'contact@decodeinfotech.in',
     telephone: '+91 70928 02356',
     address: {
@@ -239,6 +271,78 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       { '@type': 'Country', name: 'India' },
     ],
     priceRange: '$$',
+    hasMap: 'https://www.google.com/maps/search/?api=1&query=DeCode%20InfoTech%20Coimbatore',
+  };
+
+  const homePageJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    '@id': 'https://decodeinfotech.in/#webpage',
+    url: 'https://decodeinfotech.in',
+    name: 'DeCode InfoTech | Software Development Company in Coimbatore',
+    description: brandSummary,
+    isPartOf: {
+      '@id': 'https://decodeinfotech.in/#website',
+    },
+    about: {
+      '@id': 'https://decodeinfotech.in/#professional-service',
+    },
+    mainEntity: {
+      '@id': 'https://decodeinfotech.in/#professional-service',
+    },
+    primaryImageOfPage: {
+      '@type': 'ImageObject',
+      url: 'https://decodeinfotech.in/assets/who-we-are.jpg',
+    },
+    inLanguage: 'en',
+  };
+
+  const siteNavigationJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'SiteNavigationElement',
+    '@id': 'https://decodeinfotech.in/#site-navigation',
+    name: [
+      'Home',
+      'About',
+      'Services',
+      'Projects',
+      'Careers',
+      'Contact',
+      'Web Development',
+      'Mobile App Development',
+      'SaaS Development',
+      'CRM Automation',
+      'UI UX Design',
+      'Industrial Automation',
+    ],
+    url: [
+      'https://decodeinfotech.in',
+      'https://decodeinfotech.in/about',
+      'https://decodeinfotech.in/web-development',
+      'https://decodeinfotech.in/portfolio',
+      'https://decodeinfotech.in/careers',
+      'https://decodeinfotech.in/contact',
+      'https://decodeinfotech.in/web-development',
+      'https://decodeinfotech.in/mobile-app-development',
+      'https://decodeinfotech.in/saas-development',
+      'https://decodeinfotech.in/crm-automation',
+      'https://decodeinfotech.in/ui-ux-design',
+      'https://decodeinfotech.in/industrial-automation',
+    ],
+  };
+
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    '@id': 'https://decodeinfotech.in/#breadcrumb',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: 'https://decodeinfotech.in',
+      },
+    ],
   };
 
   return (
@@ -252,6 +356,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               websiteJsonLd,
               organizationJsonLd,
               localBusinessJsonLd,
+              homePageJsonLd,
+              siteNavigationJsonLd,
+              breadcrumbJsonLd,
             ]),
           }}
         />
