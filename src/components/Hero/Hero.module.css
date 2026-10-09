@@ -45,10 +45,10 @@
   background:
     linear-gradient(
       90deg,
-      rgba(251, 251, 253, 0.92) 0%,
-      rgba(251, 251, 253, 0.9) 32%,
-      rgba(251, 251, 253, 0.58) 58%,
-      rgba(251, 251, 253, 0.1) 82%,
+      rgba(251, 251, 253, 0.88) 0%,
+      rgba(251, 251, 253, 0.82) 32%,
+      rgba(251, 251, 253, 0.44) 58%,
+      rgba(251, 251, 253, 0.06) 82%,
       rgba(251, 251, 253, 0.04) 100%
     ),
     radial-gradient(
@@ -66,9 +66,9 @@
   }
 
   .videoBackground {
-    opacity: 0.58;
-    filter: blur(4px) saturate(1.04);
-    transform: scale(1.04);
+    opacity: 0.82;
+    filter: saturate(1.06) contrast(1.02);
+    transform: scale(1.02);
     object-position: center center;
   }
 
@@ -76,11 +76,11 @@
     background:
       linear-gradient(
         180deg,
-        rgba(238, 245, 255, 0.88) 0%,
-        rgba(240, 246, 255, 0.76) 55%,
-        rgba(255, 255, 255, 0.2) 100%
+        rgba(238, 245, 255, 0.72) 0%,
+        rgba(240, 246, 255, 0.54) 48%,
+        rgba(255, 255, 255, 0.08) 100%
       ),
-      radial-gradient(circle at 30% 30%, rgba(0, 113, 227, 0.12) 0%, transparent 70%);
+      radial-gradient(circle at 30% 30%, rgba(0, 113, 227, 0.08) 0%, transparent 70%);
   }
 }
 
@@ -500,10 +500,6 @@
 
   .primaryCta:hover {
     transform: none;
-  }
-
-  .videoBackground {
-    display: none;
   }
 
   .modalClose {

@@ -22,7 +22,6 @@ const LEGACY_HERO_SUBTEXTS = new Set([
 export function Hero() {
   const { siteContent } = useData();
   const [isProjectModalOpen, setIsProjectModalOpen] = useState(false);
-  const [shouldLoadVideo, setShouldLoadVideo] = useState(false);
   const rawHeadline = siteContent?.heroHeadline;
   const isLegacyHeadline = rawHeadline ? LEGACY_HERO_HEADLINES.has(rawHeadline) : false;
   const currentHeadline =
@@ -54,35 +53,35 @@ export function Hero() {
       ? 'Empowering businesses to grow through innovation and technology. We deliver scalable, future-ready solutions that enhance operations, drive sustainable growth, and create long-term business value.'
       : rawSubtext;
   const heroRef = useRef<HTMLElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
-  const heroVideoUrl = siteContent?.heroVideoUrl || '/sample.webm';
+  const configuredHeroVideoUrl = siteContent?.heroVideoUrl?.trim() || '/sample.webm';
+  const [heroVideoUrl, setHeroVideoUrl] = useState(configuredHeroVideoUrl);
 
   useEffect(() => {
-    const connection = (
-      navigator as Navigator & {
-        connection?: { saveData?: boolean; effectiveType?: string };
-      }
-    ).connection as { saveData?: boolean; effectiveType?: string } | undefined;
-    const shouldSkipVideo =
-      window.matchMedia('(max-width: 768px)').matches ||
-      window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
-      connection?.saveData ||
-      connection?.effectiveType === 'slow-2g' ||
-      connection?.effectiveType === '2g';
+    setHeroVideoUrl(configuredHeroVideoUrl);
+  }, [configuredHeroVideoUrl]);
 
-    if (shouldSkipVideo) {
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) {
       return;
     }
 
-    const loadVideo = () => setShouldLoadVideo(true);
-    const idleCallback = window.requestIdleCallback?.(loadVideo, { timeout: 1800 });
-    const timeout = idleCallback ? undefined : window.setTimeout(loadVideo, 900);
-
-    return () => {
-      if (idleCallback) window.cancelIdleCallback?.(idleCallback);
-      if (timeout) window.clearTimeout(timeout);
+    const playVideo = () => {
+      void video.play().catch(() => {
+        // Muted autoplay can still be interrupted while the browser is restoring the tab.
+      });
     };
-  }, []);
+
+    if (video.readyState >= HTMLMediaElement.HAVE_ENOUGH_DATA) {
+      playVideo();
+      return;
+    }
+
+    video.addEventListener('canplay', playVideo, { once: true });
+    return () => video.removeEventListener('canplay', playVideo);
+  }, [heroVideoUrl]);
 
   useEffect(() => {
     if (!isProjectModalOpen) {
@@ -125,18 +124,22 @@ export function Hero() {
   return (
     <section id="home" ref={heroRef} className={styles.heroSection}>
       <div className={styles.videoWrapper} aria-hidden="true">
-        {shouldLoadVideo && (
-          <video
-            key={heroVideoUrl}
-            className={styles.videoBackground}
-            src={heroVideoUrl}
-            autoPlay
-            loop
-            muted
-            playsInline
-            preload="none"
-          />
-        )}
+        <video
+          ref={videoRef}
+          key={heroVideoUrl}
+          className={styles.videoBackground}
+          src={heroVideoUrl}
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="auto"
+          onError={() => {
+            if (heroVideoUrl !== '/sample.webm') {
+              setHeroVideoUrl('/sample.webm');
+            }
+          }}
+        />
         <div className={styles.videoOverlay} />
       </div>
 
