@@ -1531,7 +1531,7 @@ export function AdminDashboard({ onClose }) {
                         onChange={(e) =>
                           setContentForm({ ...contentForm, heroVideoUrl: e.target.value })
                         }
-                        placeholder="/sample.mp4"
+                        placeholder="/sample.webm"
                         className={styles.input}
                       />
                     </div>

@@ -55,7 +55,7 @@ export function Hero() {
       : rawSubtext;
   const heroRef = useRef<HTMLElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
-  const heroVideoUrl = siteContent?.heroVideoUrl || '/sample.mp4';
+  const heroVideoUrl = siteContent?.heroVideoUrl || '/sample.webm';
 
   useEffect(() => {
     const connection = (navigator as Navigator & {

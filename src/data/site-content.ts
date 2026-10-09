@@ -307,7 +307,7 @@ export const INITIAL_CONTENT: SiteContent = {
     'Empowering businesses to grow through innovation and technology. We deliver scalable, future-ready solutions that enhance operations, drive sustainable growth, and create long-term business value.',
   heroPrimaryCta: 'Start A Project',
   heroSecondaryCta: 'Explore Our Services',
-  heroVideoUrl: '/sample.mp4',
+  heroVideoUrl: '/sample.webm',
   aboutHeading: 'Building What’s Next.',
   aboutLead: 'We turn complex challenges into intelligent digital solutions.',
   aboutDesc1:
@@ -340,7 +340,7 @@ export const INITIAL_MEDIA_ASSETS: MediaAsset[] = [
   {
     id: 'asset-video-sample',
     name: '3D Globe Background Video',
-    path: '/sample.mp4',
+    path: '/sample.webm',
     type: 'video',
     category: 'Backgrounds & Video',
     dimensions: '1920 × 1080',
