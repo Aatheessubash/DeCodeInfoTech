@@ -15,6 +15,7 @@ type SiteModalProps = {
   size?: 'sm' | 'md' | 'lg';
   closeLabel?: string;
   className?: string;
+  showCloseButton?: boolean;
 };
 
 export function SiteModal({
@@ -27,6 +28,7 @@ export function SiteModal({
   size = 'md',
   closeLabel = 'Close dialog',
   className,
+  showCloseButton = true,
 }: SiteModalProps) {
   const [isMounted, setIsMounted] = useState(false);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
@@ -87,15 +89,17 @@ export function SiteModal({
               </h2>
             )}
           </div>
-          <button
-            ref={closeButtonRef}
-            type="button"
-            className={styles.closeButton}
-            onClick={onClose}
-            aria-label={closeLabel}
-          >
-            <X size={20} aria-hidden="true" />
-          </button>
+          {showCloseButton && (
+            <button
+              ref={closeButtonRef}
+              type="button"
+              className={styles.closeButton}
+              onClick={onClose}
+              aria-label={closeLabel}
+            >
+              <X size={20} aria-hidden="true" />
+            </button>
+          )}
         </div>
         <div className={styles.body}>{children}</div>
       </div>

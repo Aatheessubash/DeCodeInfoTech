@@ -93,7 +93,7 @@ export function ContactForm({ idPrefix = 'contact' }: ContactFormProps) {
       <div className={styles.formGrid}>
         <div className={styles.fieldGroup}>
           <label htmlFor={fieldId('name')} className={styles.label}>
-            Your name *
+            Your name <span className={styles.required}>*</span>
           </label>
           <input
             type="text"
@@ -110,7 +110,7 @@ export function ContactForm({ idPrefix = 'contact' }: ContactFormProps) {
 
         <div className={styles.fieldGroup}>
           <label htmlFor={fieldId('email')} className={styles.label}>
-            Email address *
+            Email address <span className={styles.required}>*</span>
           </label>
           <input
             type="email"
@@ -127,7 +127,7 @@ export function ContactForm({ idPrefix = 'contact' }: ContactFormProps) {
 
         <div className={styles.fieldGroup}>
           <label htmlFor={fieldId('phone')} className={styles.label}>
-            Phone number *
+            Phone number <span className={styles.required}>*</span>
           </label>
           <input
             type="tel"
@@ -161,7 +161,7 @@ export function ContactForm({ idPrefix = 'contact' }: ContactFormProps) {
 
         <div className={styles.fieldGroup}>
           <label htmlFor={fieldId('projectType')} className={styles.label}>
-            Project category *
+            Project category <span className={styles.required}>*</span>
           </label>
           <select
             id={fieldId('projectType')}
@@ -184,7 +184,7 @@ export function ContactForm({ idPrefix = 'contact' }: ContactFormProps) {
 
         <div className={`${styles.fieldGroup} ${styles.fullWidth}`}>
           <label htmlFor={fieldId('message')} className={styles.label}>
-            Project overview &amp; goals *
+            Project overview &amp; goals <span className={styles.required}>*</span>
           </label>
           <textarea
             id={fieldId('message')}

@@ -220,16 +220,13 @@ export default function CareersPage() {
                 <strong>{selectedJob.title}</strong> has been submitted. Our engineering leads will
                 review your details and respond via email within 48 hours.
               </p>
-              <button type="button" className="btn-primary" onClick={() => setSelectedJob(null)}>
-                Close Window
-              </button>
             </div>
           ) : (
             <form onSubmit={handleSubmit}>
               <div className={styles.formGroup}>
                 <div>
                   <label htmlFor="career-name" className={styles.label}>
-                    Full name *
+                    Full name <span className={styles.required}>*</span>
                   </label>
                   <input
                     id="career-name"
@@ -246,7 +243,7 @@ export default function CareersPage() {
 
                 <div>
                   <label htmlFor="career-email" className={styles.label}>
-                    Email address *
+                    Email address <span className={styles.required}>*</span>
                   </label>
                   <input
                     id="career-email"
@@ -262,7 +259,7 @@ export default function CareersPage() {
 
                 <div>
                   <label htmlFor="career-portfolio" className={styles.label}>
-                    Portfolio / GitHub URL *
+                    Portfolio / GitHub URL <span className={styles.required}>*</span>
                   </label>
                   <input
                     id="career-portfolio"
