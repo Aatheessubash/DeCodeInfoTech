@@ -7,9 +7,13 @@
   padding: 18px;
   background: rgba(7, 10, 22, 0.72);
   backdrop-filter: blur(14px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
 }
 
 .modal {
+  position: relative;
+  z-index: 1;
   width: min(1180px, calc(100vw - 36px));
   height: min(92dvh, 900px);
   display: flex;
@@ -57,7 +61,7 @@
   display: grid;
   place-items: center;
   border: 1px solid #dbe3ef;
-  border-radius: 11px;
+  border-radius: 999px;
   background: #f8fafc;
   color: #475569;
   cursor: pointer;

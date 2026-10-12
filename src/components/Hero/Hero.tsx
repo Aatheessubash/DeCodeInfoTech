@@ -3,9 +3,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useData } from '@/context/useData';
 import styles from './Hero.module.css';
-import { ArrowRight, ArrowUpRight, X } from 'lucide-react';
+import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import { ParticleText } from './ParticleText';
 import { ContactForm } from '@/components/Contact/ContactForm';
+import { SiteModal } from '@/components/shared/SiteModal';
 
 const LEGACY_HERO_HEADLINES = new Set([
   'We build digital experiences that help businesses grow. Leading web development company for startups.',
@@ -54,7 +55,6 @@ export function Hero() {
       : rawSubtext;
   const heroRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const closeButtonRef = useRef<HTMLButtonElement>(null);
   const configuredHeroVideoUrl = siteContent?.heroVideoUrl?.trim() || '/sample.webm';
   const [heroVideoUrl, setHeroVideoUrl] = useState(configuredHeroVideoUrl);
 
@@ -82,29 +82,6 @@ export function Hero() {
     video.addEventListener('canplay', playVideo, { once: true });
     return () => video.removeEventListener('canplay', playVideo);
   }, [heroVideoUrl]);
-
-  useEffect(() => {
-    if (!isProjectModalOpen) {
-      return;
-    }
-
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        setIsProjectModalOpen(false);
-      }
-    };
-
-    const { body } = document;
-    const originalOverflow = body.style.overflow;
-    body.style.overflow = 'hidden';
-    document.addEventListener('keydown', handleKeyDown);
-    closeButtonRef.current?.focus();
-
-    return () => {
-      body.style.overflow = originalOverflow;
-      document.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [isProjectModalOpen]);
 
   const scrollTo = (id: string) => {
     const el = document.getElementById(id);
@@ -213,43 +190,20 @@ export function Hero() {
         </div>
       </div>
 
-      {isProjectModalOpen && (
-        <div
-          className={styles.modalBackdrop}
-          role="presentation"
-          onMouseDown={(event) => {
-            if (event.target === event.currentTarget) {
-              setIsProjectModalOpen(false);
-            }
-          }}
-        >
-          <div
-            className={styles.projectModal}
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="project-modal-heading"
-          >
-            <div className={styles.modalHeader}>
-              <div>
-                <p className={styles.modalEyebrow}>Start A Project</p>
-                <h2 id="project-modal-heading" className={styles.modalTitle}>
-                  Let's Build Something <span>Exceptional</span>
-                </h2>
-              </div>
-              <button
-                ref={closeButtonRef}
-                type="button"
-                className={styles.modalClose}
-                onClick={() => setIsProjectModalOpen(false)}
-                aria-label="Close project form"
-              >
-                <X size={20} aria-hidden="true" />
-              </button>
-            </div>
-            <ContactForm idPrefix="hero-project" />
-          </div>
-        </div>
-      )}
+      <SiteModal
+        isOpen={isProjectModalOpen}
+        onClose={() => setIsProjectModalOpen(false)}
+        eyebrow="Start A Project"
+        title={
+          <>
+            Let's Build Something <span className="modal-title-accent">Exceptional</span>
+          </>
+        }
+        titleId="project-modal-heading"
+        closeLabel="Close project form"
+      >
+        <ContactForm idPrefix="hero-project" />
+      </SiteModal>
     </section>
   );
 }

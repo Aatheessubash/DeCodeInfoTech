@@ -17,6 +17,7 @@ export function Testimonial() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const touchStartX = useRef<number | null>(null);
+  const touchStartY = useRef<number | null>(null);
 
   const total = testimonials.length;
 
@@ -30,6 +31,9 @@ export function Testimonial() {
 
   useEffect(() => {
     if (isPaused || total <= 1) return;
+    if (typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      return;
+    }
     const interval = setInterval(nextSlide, 7000);
     return () => clearInterval(interval);
   }, [isPaused, nextSlide, total]);
@@ -40,17 +44,29 @@ export function Testimonial() {
 
   const handleTouchStart = (e: React.TouchEvent) => {
     touchStartX.current = e.touches[0].clientX;
+    touchStartY.current = e.touches[0].clientY;
   };
 
   const handleTouchEnd = (e: React.TouchEvent) => {
-    if (touchStartX.current === null) return;
+    if (touchStartX.current === null || touchStartY.current === null) return;
     const touchEndX = e.changedTouches[0].clientX;
-    const diff = touchStartX.current - touchEndX;
-    if (Math.abs(diff) > 40) {
-      if (diff > 0) nextSlide();
+    const touchEndY = e.changedTouches[0].clientY;
+    const diffX = touchStartX.current - touchEndX;
+    const diffY = touchStartY.current - touchEndY;
+    if (Math.abs(diffX) > 40 && Math.abs(diffX) > Math.abs(diffY)) {
+      if (diffX > 0) nextSlide();
       else prevSlide();
     }
     touchStartX.current = null;
+    touchStartY.current = null;
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'ArrowLeft') {
+      prevSlide();
+    } else if (e.key === 'ArrowRight') {
+      nextSlide();
+    }
   };
 
   if (!total) return null;
@@ -79,7 +95,10 @@ export function Testimonial() {
           className={styles.carouselContainer}
           onFocusCapture={() => setIsPaused(true)}
           role="region"
+          aria-roledescription="carousel"
           aria-label="Client testimonials"
+          tabIndex={0}
+          onKeyDown={handleKeyDown}
           onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => setIsPaused(false)}
           onTouchStart={handleTouchStart}
@@ -164,23 +183,39 @@ export function Testimonial() {
             </div>
           </div>
 
-          <button
-            type="button"
-            className={`${styles.navArrow} ${styles.prevArrow}`}
-            onClick={prevSlide}
-            aria-label="Previous testimonial"
-          >
-            <ChevronLeft size={20} />
-          </button>
+          <div className={styles.carouselControls}>
+            <button
+              type="button"
+              className={`${styles.navArrow} ${styles.prevArrow}`}
+              onClick={prevSlide}
+              aria-label="Previous testimonial"
+            >
+              <ChevronLeft size={20} />
+            </button>
 
-          <button
-            type="button"
-            className={`${styles.navArrow} ${styles.nextArrow}`}
-            onClick={nextSlide}
-            aria-label="Next testimonial"
-          >
-            <ChevronRight size={20} />
-          </button>
+            <div className={styles.dotsRow} role="tablist" aria-label="Testimonial slides">
+              {testimonials.map((_, idx) => (
+                <button
+                  key={idx}
+                  type="button"
+                  className={`${styles.dot} ${idx === currentIndex ? styles.activeDot : ''}`}
+                  onClick={() => setCurrentIndex(idx)}
+                  aria-label={`Go to testimonial ${idx + 1}`}
+                  aria-selected={idx === currentIndex}
+                  role="tab"
+                />
+              ))}
+            </div>
+
+            <button
+              type="button"
+              className={`${styles.navArrow} ${styles.nextArrow}`}
+              onClick={nextSlide}
+              aria-label="Next testimonial"
+            >
+              <ChevronRight size={20} />
+            </button>
+          </div>
         </div>
       </div>
     </section>

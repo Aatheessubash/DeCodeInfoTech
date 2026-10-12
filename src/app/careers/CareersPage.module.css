@@ -313,66 +313,9 @@
   flex-shrink: 0;
 }
 
-/* Modal */
-.modalBackdrop {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(15, 23, 42, 0.65);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  z-index: 1000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 16px;
-}
-
-.modalContent {
-  background: var(--surface);
-  border: 1px solid var(--lav);
-  border-radius: 20px;
-  max-width: 560px;
-  width: 100%;
-  padding: 32px 28px;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
-  position: relative;
-  max-height: 90vh;
-  max-height: 90dvh;
-  overflow-y: auto;
-}
-
-@media (max-width: 480px) {
-  .modalContent {
-    padding: 24px 16px;
-    border-radius: 16px;
-  }
-}
-
-.closeBtn {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  background: var(--bg);
-  border: 1px solid var(--lav);
-  border-radius: 5px;
-  width: 36px;
-  height: 36px;
-  font-size: 1.1rem;
-  cursor: pointer;
-  color: var(--text);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 200ms ease;
-}
-
-.closeBtn:hover {
-  background: var(--accent-gold, var(--gold));
-  color: #fff;
-  border-color: var(--accent-gold, var(--gold));
+.successState {
+  text-align: center;
+  padding: 4px 0 0;
 }
 
 .successIcon {
@@ -387,14 +330,6 @@
   justify-content: center;
   margin: 0 auto 20px auto;
   border: 1px solid var(--lav);
-}
-
-.modalTitle {
-  font-size: clamp(1.2rem, 3vw, 1.5rem);
-  font-weight: 800;
-  color: var(--text);
-  margin-bottom: 20px;
-  word-break: break-word;
 }
 
 .formGroup {

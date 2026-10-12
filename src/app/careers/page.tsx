@@ -1,9 +1,10 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { ArrowDown } from 'lucide-react';
 import { useData } from '@/context/useData';
 import type { JobPosting, JobApplication } from '@/lib/types';
+import { SiteModal } from '@/components/shared/SiteModal';
 import styles from './CareersPage.module.css';
 
 export default function CareersPage() {
@@ -41,23 +42,6 @@ export default function CareersPage() {
   const { addJobApplication, jobPostings } = useData();
 
   const openPositions = jobPostings || [];
-
-  useEffect(() => {
-    if (!selectedJob) return undefined;
-
-    const previousOverflow = document.body.style.overflow;
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') setSelectedJob(null);
-    };
-
-    document.body.style.overflow = 'hidden';
-    document.addEventListener('keydown', handleKeyDown);
-
-    return () => {
-      document.body.style.overflow = previousOverflow;
-      document.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [selectedJob]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -211,135 +195,115 @@ export default function CareersPage() {
 
       {/* Application Modal */}
       {selectedJob && (
-        <div
-          className={styles.modalBackdrop}
-          onClick={() => setSelectedJob(null)}
-          role="presentation"
+        <SiteModal
+          isOpen={Boolean(selectedJob)}
+          onClose={() => setSelectedJob(null)}
+          eyebrow={formSubmitted ? 'Application Status' : `Applying for ${selectedJob.title}`}
+          title={
+            formSubmitted ? (
+              'Application Received!'
+            ) : (
+              <>
+                Submit Your <span className="modal-title-accent">Application</span>
+              </>
+            )
+          }
+          titleId="career-dialog-title"
+          size="sm"
+          closeLabel="Close application form"
         >
-          <div
-            className={styles.modalContent}
-            onClick={(e) => e.stopPropagation()}
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="career-dialog-title"
-          >
-            <button
-              type="button"
-              className={styles.closeBtn}
-              onClick={() => setSelectedJob(null)}
-              aria-label="Close application form"
-            >
-              ✕
-            </button>
+          {formSubmitted ? (
+            <div className={styles.successState}>
+              <div className={styles.successIcon}>✓</div>
+              <p className={styles.jobSummary} style={{ marginBottom: '24px' }}>
+                Thank you <strong>{formData.name}</strong>. Your application for{' '}
+                <strong>{selectedJob.title}</strong> has been submitted. Our engineering leads will
+                review your details and respond via email within 48 hours.
+              </p>
+              <button type="button" className="btn-primary" onClick={() => setSelectedJob(null)}>
+                Close Window
+              </button>
+            </div>
+          ) : (
+            <form onSubmit={handleSubmit}>
+              <div className={styles.formGroup}>
+                <div>
+                  <label htmlFor="career-name" className={styles.label}>
+                    Full name *
+                  </label>
+                  <input
+                    id="career-name"
+                    name="name"
+                    type="text"
+                    required
+                    placeholder="Jane Doe"
+                    value={formData.name}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    className={styles.input}
+                    autoFocus
+                  />
+                </div>
 
-            {formSubmitted ? (
-              <div style={{ textAlign: 'center', padding: '20px 0' }}>
-                <div className={styles.successIcon}>✓</div>
-                <h3 id="career-dialog-title" className={styles.modalTitle}>
-                  Application Received!
-                </h3>
-                <p className={styles.jobSummary} style={{ marginBottom: '24px' }}>
-                  Thank you <strong>{formData.name}</strong>. Your application for{' '}
-                  <strong>{selectedJob.title}</strong> has been submitted. Our engineering leads
-                  will review your details and respond via email within 48 hours.
-                </p>
-                <button type="button" className="btn-primary" onClick={() => setSelectedJob(null)}>
-                  Close Window
+                <div>
+                  <label htmlFor="career-email" className={styles.label}>
+                    Email address *
+                  </label>
+                  <input
+                    id="career-email"
+                    name="email"
+                    type="email"
+                    required
+                    placeholder="jane@example.com"
+                    value={formData.email}
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    className={styles.input}
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="career-portfolio" className={styles.label}>
+                    Portfolio / GitHub URL *
+                  </label>
+                  <input
+                    id="career-portfolio"
+                    name="portfolio"
+                    type="url"
+                    required
+                    placeholder="https://github.com/username or https://portfolio.com"
+                    value={formData.portfolio}
+                    onChange={(e) => setFormData({ ...formData, portfolio: e.target.value })}
+                    className={styles.input}
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="career-cover-letter" className={styles.label}>
+                    Cover letter / brief pitch
+                  </label>
+                  <textarea
+                    id="career-cover-letter"
+                    name="coverLetter"
+                    rows={4}
+                    placeholder="Tell us briefly about your recent projects and why you want to join DeCode Studio..."
+                    value={formData.coverLetter || ''}
+                    onChange={(e) => setFormData({ ...formData, coverLetter: e.target.value })}
+                    className={styles.input}
+                  />
+                </div>
+
+                {submitError && <p role="alert">{submitError}</p>}
+                <button
+                  type="submit"
+                  disabled={submitting}
+                  className="btn-primary"
+                  style={{ width: '100%', marginTop: '8px' }}
+                >
+                  Submit candidate application
                 </button>
               </div>
-            ) : (
-              <form onSubmit={handleSubmit}>
-                <div className="pill-badge" style={{ marginBottom: '8px' }}>
-                  <span className="badge-dot"></span>
-                  Applying for {selectedJob.title}
-                </div>
-                <h3
-                  id="career-dialog-title"
-                  className={styles.modalTitle}
-                  style={{ marginBottom: '20px' }}
-                >
-                  Submit your candidate application
-                </h3>
-
-                <div className={styles.formGroup}>
-                  <div>
-                    <label htmlFor="career-name" className={styles.label}>
-                      Full name *
-                    </label>
-                    <input
-                      id="career-name"
-                      name="name"
-                      type="text"
-                      required
-                      placeholder="Jane Doe"
-                      value={formData.name}
-                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      className={styles.input}
-                      autoFocus
-                    />
-                  </div>
-
-                  <div>
-                    <label htmlFor="career-email" className={styles.label}>
-                      Email address *
-                    </label>
-                    <input
-                      id="career-email"
-                      name="email"
-                      type="email"
-                      required
-                      placeholder="jane@example.com"
-                      value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className={styles.input}
-                    />
-                  </div>
-
-                  <div>
-                    <label htmlFor="career-portfolio" className={styles.label}>
-                      Portfolio / GitHub URL *
-                    </label>
-                    <input
-                      id="career-portfolio"
-                      name="portfolio"
-                      type="url"
-                      required
-                      placeholder="https://github.com/username or https://portfolio.com"
-                      value={formData.portfolio}
-                      onChange={(e) => setFormData({ ...formData, portfolio: e.target.value })}
-                      className={styles.input}
-                    />
-                  </div>
-
-                  <div>
-                    <label htmlFor="career-cover-letter" className={styles.label}>
-                      Cover letter / brief pitch
-                    </label>
-                    <textarea
-                      id="career-cover-letter"
-                      name="coverLetter"
-                      rows={4}
-                      placeholder="Tell us briefly about your recent projects and why you want to join DeCode Studio..."
-                      value={formData.coverLetter || ''}
-                      onChange={(e) => setFormData({ ...formData, coverLetter: e.target.value })}
-                      className={styles.input}
-                    />
-                  </div>
-
-                  {submitError && <p role="alert">{submitError}</p>}
-                  <button
-                    type="submit"
-                    disabled={submitting}
-                    className="btn-primary"
-                    style={{ width: '100%', marginTop: '8px' }}
-                  >
-                    Submit candidate application
-                  </button>
-                </div>
-              </form>
-            )}
-          </div>
-        </div>
+            </form>
+          )}
+        </SiteModal>
       )}
     </div>
   );
