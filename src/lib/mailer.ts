@@ -52,6 +52,12 @@ const toText = (value: string) =>
     .replace(/\n{3,}/g, '\n\n')
     .trim();
 
+type EmailAttachment = {
+  filename: string;
+  content: Buffer;
+  contentType?: string;
+};
+
 async function deliverMail(options: {
   from: string;
   to: string;
@@ -59,6 +65,7 @@ async function deliverMail(options: {
   subject: string;
   html: string;
   text: string;
+  attachments?: EmailAttachment[];
 }) {
   if (!hasSmtpCredentials() && process.env.NODE_ENV !== 'production') {
     console.info('[mail:preview]', {
@@ -66,6 +73,10 @@ async function deliverMail(options: {
       replyTo: options.replyTo,
       subject: options.subject,
       text: options.text,
+      attachments: options.attachments?.map((att) => ({
+        filename: att.filename,
+        bytes: att.content.length,
+      })),
     });
     return { accepted: [options.to], preview: true };
   }
@@ -130,6 +141,12 @@ type CareerApplication = {
   experience?: string;
   coverLetter?: string;
   jobTitle: string;
+  resume?: {
+    name: string;
+    type: string;
+    size: number;
+    base64: string;
+  };
 };
 
 export async function sendCareerEmail(app: CareerApplication) {
@@ -138,6 +155,11 @@ export async function sendCareerEmail(app: CareerApplication) {
     ? `
       <p style="margin: 16px 0 6px;"><strong>Cover Letter / Pitch:</strong></p>
       <div style="background: #f9f9f9; padding: 14px; border-radius: 6px; color: #333; line-height: 1.6; white-space: pre-wrap;">${escapeHtml(app.coverLetter)}</div>
+    `
+    : '';
+  const resumeHtml = app.resume
+    ? `
+      <p style="margin: 0 0 10px;"><strong>Attached Resume:</strong> ${escapeHtml(app.resume.name)} (${(app.resume.size / 1024).toFixed(1)} KB)</p>
     `
     : '';
   const html = `
@@ -150,11 +172,22 @@ export async function sendCareerEmail(app: CareerApplication) {
         <p style="margin: 0 0 10px;"><strong>Phone:</strong> ${escapeHtml(app.phone || 'Not specified')}</p>
         <p style="margin: 0 0 10px;"><strong>Portfolio / GitHub:</strong> <a href="${escapeHtml(app.portfolio)}" target="_blank">${escapeHtml(app.portfolio)}</a></p>
         <p style="margin: 0 0 10px;"><strong>Experience:</strong> ${escapeHtml(app.experience || 'Not specified')}</p>
+        ${resumeHtml}
         ${coverLetterHtml}
       </div>
       <p style="font-size: 12px; color: #888; margin-top: 20px; text-align: center;">Sent securely via DeCode InfoTech Careers</p>
     </div>
   `;
+
+  const attachments: EmailAttachment[] | undefined = app.resume
+    ? [
+        {
+          filename: app.resume.name,
+          content: Buffer.from(app.resume.base64, 'base64'),
+          contentType: app.resume.type || 'application/octet-stream',
+        },
+      ]
+    : undefined;
 
   return deliverMail({
     from: getMailFrom(),
@@ -171,9 +204,11 @@ export async function sendCareerEmail(app: CareerApplication) {
       Phone: ${app.phone || 'Not specified'}
       Portfolio / GitHub: ${app.portfolio}
       Experience: ${app.experience || 'Not specified'}
+      Resume: ${app.resume ? `${app.resume.name} (${(app.resume.size / 1024).toFixed(1)} KB)` : 'Not attached'}
 
       Cover Letter / Pitch:
       ${app.coverLetter || 'Not specified'}
     `),
+    attachments,
   });
 }

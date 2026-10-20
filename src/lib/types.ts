@@ -62,6 +62,13 @@ export interface JobPosting {
   requirements: string[];
 }
 
+export interface ResumeAttachment {
+  name: string;
+  type: string;
+  size: number;
+  base64: string;
+}
+
 export interface JobApplication {
   id?: string;
   name: string;
@@ -72,6 +79,7 @@ export interface JobApplication {
   coverLetter?: string;
   jobTitle: string;
   timestamp?: string;
+  resume?: ResumeAttachment;
 }
 
 export interface ContactProposal {

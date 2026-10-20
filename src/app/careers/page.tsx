@@ -1,18 +1,29 @@
 'use client';
 
-import React, { useState } from 'react';
-import { ArrowDown } from 'lucide-react';
+import React, { useRef, useState } from 'react';
+import { ArrowDown, UploadCloud, FileText, X } from 'lucide-react';
 import { useData } from '@/context/useData';
-import type { JobPosting, JobApplication } from '@/lib/types';
+import type { JobPosting, JobApplication, ResumeAttachment } from '@/lib/types';
 import { SiteModal } from '@/components/shared/SiteModal';
 import styles from './CareersPage.module.css';
+
+const formatFileSize = (bytes: number): string => {
+  if (bytes < 1024) return `${bytes} B`;
+  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
+  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+};
 
 export default function CareersPage() {
   const [selectedJob, setSelectedJob] = useState<JobPosting | null>(null);
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState('');
-  const [formData, setFormData] = useState<Omit<JobApplication, 'jobTitle'>>({
+  const [resume, setResume] = useState<ResumeAttachment | null>(null);
+  const [resumeError, setResumeError] = useState('');
+  const [isDragging, setIsDragging] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const [formData, setFormData] = useState<Omit<JobApplication, 'jobTitle' | 'resume'>>({
     name: '',
     email: '',
     phone: '',
@@ -21,33 +32,76 @@ export default function CareersPage() {
     coverLetter: '',
   });
 
-  const perks = [
-    {
-      icon: '✦',
-      title: 'Competitive Salary',
-      desc: 'Above-market compensation with performance bonuses and annual growth reviews.',
-    },
-    {
-      icon: '⚙',
-      title: 'Modern Tech Stack',
-      desc: 'No legacy debt. We use React, Next.js, Node.js, Vite, and leading cloud tooling.',
-    },
-    {
-      icon: '❖',
-      title: 'Great Work Culture',
-      desc: 'Collaborative, zero-micromanagement environment with friendly engineering leaders.',
-    },
-  ];
-
   const { addJobApplication, jobPostings } = useData();
 
   const openPositions = jobPostings || [];
 
+  const handleFile = (file: File | null) => {
+    setResumeError('');
+    if (!file) return;
+
+    const ext = file.name.split('.').pop()?.toLowerCase();
+    const validExts = ['pdf', 'doc', 'docx'];
+    if (!ext || !validExts.includes(ext)) {
+      setResumeError('Please attach a PDF, DOC, or DOCX document.');
+      return;
+    }
+
+    const MAX_SIZE = 5 * 1024 * 1024;
+    if (file.size > MAX_SIZE) {
+      setResumeError('Resume file size must not exceed 5MB.');
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      if (typeof reader.result === 'string') {
+        setResume({
+          name: file.name,
+          type: file.type || 'application/pdf',
+          size: file.size,
+          base64: reader.result,
+        });
+        setResumeError('');
+      }
+    };
+    reader.onerror = () => {
+      setResumeError('Failed to read the file. Please try selecting it again.');
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const resetForm = () => {
+    setFormData({
+      name: '',
+      email: '',
+      phone: '',
+      portfolio: '',
+      experience: '2-4 years',
+      coverLetter: '',
+    });
+    setResume(null);
+    setResumeError('');
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
+    setFormSubmitted(false);
+    setSubmitError('');
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    let portfolioUrl = formData.portfolio.trim();
+    if (portfolioUrl && !/^https?:\/\//i.test(portfolioUrl)) {
+      portfolioUrl = `https://${portfolioUrl}`;
+    }
+
     const payload: JobApplication = {
       ...formData,
+      portfolio: portfolioUrl,
       jobTitle: selectedJob?.title || 'General Application',
+      ...(resume ? { resume } : {}),
     };
 
     setSubmitting(true);
@@ -59,14 +113,24 @@ export default function CareersPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
       });
-      const result = await response.json();
-      if (!response.ok || !result.success) throw new Error('Delivery failed');
+      const result = await response.json().catch(() => ({}));
+      if (!response.ok || !result.success) {
+        if (response.status === 503) {
+          addJobApplication(payload);
+        }
+        throw new Error(
+          result.message ||
+            'We could not send your application. Please try again or reach us at contact@decodeinfotech.in.',
+        );
+      }
       addJobApplication(payload);
       setFormSubmitted(true);
-    } catch {
-      setSubmitError(
-        'We could not send your application. Please try again or contact us by email.',
-      );
+    } catch (err: unknown) {
+      const message =
+        err instanceof Error && err.message
+          ? err.message
+          : 'We could not send your application. Please try again or contact us by email.';
+      setSubmitError(message);
     } finally {
       setSubmitting(false);
     }
@@ -78,9 +142,7 @@ export default function CareersPage() {
       <section className={`section-padding ${styles.heroSection}`}>
         <div className={styles.heroGrid}>
           <div className={styles.heroCopy}>
-            <h1 className={styles.heroHeadline}>
-              Engineer World-Class Digital Products With Us
-            </h1>
+            <h1 className={styles.heroHeadline}>Engineer World-Class Digital Products With Us</h1>
             <p className={styles.heroSubtext}>
               Join <strong>DeCode InfoTech</strong> — where elite software engineers, technical
               architects, and product designers build mission-critical web platforms, enterprise
@@ -108,26 +170,6 @@ export default function CareersPage() {
               />
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* Why Work With Us Section */}
-      <section className={`section-padding ${styles.perksSection}`}>
-        <div style={{ textAlign: 'center', marginBottom: '48px' }}>
-          <h2 className={styles.sectionTitle}>Why Engineers &amp; Designers Love DeCode</h2>
-          <p className={styles.sectionSubtitle}>
-            We design, build, and ship in an environment where people thrive, learn, and take pride
-            in their craft.
-          </p>
-        </div>
-        <div className={styles.perksGrid}>
-          {perks.map((perk, i) => (
-            <div key={i} className={`card-panel ${styles.perkCard}`}>
-              <div className={styles.perkIcon}>{perk.icon}</div>
-              <h3 className={styles.perkTitle}>{perk.title}</h3>
-              <p className={styles.perkDesc}>{perk.desc}</p>
-            </div>
-          ))}
         </div>
       </section>
 
@@ -163,9 +205,8 @@ export default function CareersPage() {
                     type="button"
                     className="btn-primary"
                     onClick={() => {
+                      resetForm();
                       setSelectedJob(job);
-                      setSubmitError('');
-                      setFormSubmitted(false);
                     }}
                   >
                     Apply For Role
@@ -197,7 +238,10 @@ export default function CareersPage() {
       {selectedJob && (
         <SiteModal
           isOpen={Boolean(selectedJob)}
-          onClose={() => setSelectedJob(null)}
+          onClose={() => {
+            setSelectedJob(null);
+            resetForm();
+          }}
           eyebrow={formSubmitted ? 'Application Status' : `Applying for ${selectedJob.title}`}
           title={
             formSubmitted ? (
@@ -217,8 +261,9 @@ export default function CareersPage() {
               <div className={styles.successIcon}>✓</div>
               <p className={styles.jobSummary} style={{ marginBottom: '24px' }}>
                 Thank you <strong>{formData.name}</strong>. Your application for{' '}
-                <strong>{selectedJob.title}</strong> has been submitted. Our engineering leads will
-                review your details and respond via email within 48 hours.
+                <strong>{selectedJob.title}</strong>
+                {resume ? ` (with resume ${resume.name})` : ''} has been submitted. Our engineering
+                leads will review your details and respond via email within 48 hours.
               </p>
             </div>
           ) : (
@@ -258,19 +303,130 @@ export default function CareersPage() {
                 </div>
 
                 <div>
+                  <label htmlFor="career-phone" className={styles.label}>
+                    Phone number
+                  </label>
+                  <input
+                    id="career-phone"
+                    name="phone"
+                    type="tel"
+                    placeholder="+91 98765 43210"
+                    value={formData.phone || ''}
+                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                    className={styles.input}
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="career-experience" className={styles.label}>
+                    Total Experience
+                  </label>
+                  <select
+                    id="career-experience"
+                    name="experience"
+                    value={formData.experience || 'Around 2 years'}
+                    onChange={(e) => setFormData({ ...formData, experience: e.target.value })}
+                    className={styles.input}
+                  >
+                    <option value="Fresher / 0-1 years">Fresher / 0-1 years</option>
+                    <option value="1-2 years">1-2 years</option>
+                    <option value="Around 2 years">Around 2 years</option>
+                    <option value="2-4 years">2-4 years</option>
+                    <option value="4+ years">4+ years</option>
+                  </select>
+                </div>
+
+                <div>
                   <label htmlFor="career-portfolio" className={styles.label}>
-                    Portfolio / GitHub URL <span className={styles.required}>*</span>
+                    Portfolio / LinkedIn / GitHub URL
                   </label>
                   <input
                     id="career-portfolio"
                     name="portfolio"
-                    type="url"
-                    required
-                    placeholder="https://github.com/username or https://portfolio.com"
+                    type="text"
+                    placeholder="https://linkedin.com/in/username or https://github.com/username"
                     value={formData.portfolio}
                     onChange={(e) => setFormData({ ...formData, portfolio: e.target.value })}
                     className={styles.input}
                   />
+                </div>
+
+                <div>
+                  <label htmlFor="career-resume" className={styles.label}>
+                    Resume / CV Attachment
+                  </label>
+
+                  {resume ? (
+                    <div className={styles.fileSelectedCard}>
+                      <div className={styles.fileInfo}>
+                        <div className={styles.fileIcon}>
+                          <FileText size={20} aria-hidden="true" />
+                        </div>
+                        <div className={styles.fileDetails}>
+                          <span className={styles.fileName}>{resume.name}</span>
+                          <span className={styles.fileMeta}>
+                            {formatFileSize(resume.size)}
+                            <span className={styles.fileBadge}>Ready</span>
+                          </span>
+                        </div>
+                      </div>
+                      <button
+                        type="button"
+                        className={styles.removeFileBtn}
+                        onClick={() => {
+                          setResume(null);
+                          setResumeError('');
+                          if (fileInputRef.current) {
+                            fileInputRef.current.value = '';
+                          }
+                        }}
+                        title="Remove resume"
+                        aria-label="Remove resume"
+                      >
+                        <X size={18} aria-hidden="true" />
+                      </button>
+                    </div>
+                  ) : (
+                    <div
+                      className={`${styles.fileUploadZone} ${isDragging ? styles.fileUploadZoneActive : ''}`}
+                      onDragOver={(e) => {
+                        e.preventDefault();
+                        setIsDragging(true);
+                      }}
+                      onDragLeave={(e) => {
+                        e.preventDefault();
+                        setIsDragging(false);
+                      }}
+                      onDrop={(e) => {
+                        e.preventDefault();
+                        setIsDragging(false);
+                        const file = e.dataTransfer.files?.[0];
+                        if (file) handleFile(file);
+                      }}
+                    >
+                      <input
+                        id="career-resume"
+                        ref={fileInputRef}
+                        type="file"
+                        accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                        className={styles.hiddenFileInput}
+                        onChange={(e) => {
+                          const file = e.target.files?.[0];
+                          if (file) handleFile(file);
+                        }}
+                      />
+                      <UploadCloud size={24} className={styles.uploadIcon} aria-hidden="true" />
+                      <p className={styles.uploadPrompt}>
+                        <strong>Upload resume</strong> or drag and drop
+                      </p>
+                      <p className={styles.uploadHint}>PDF, DOC, DOCX up to 5MB</p>
+                    </div>
+                  )}
+                  {resumeError && (
+                    <p className={styles.fieldError} role="alert">
+                      {resumeError}
+                    </p>
+                  )}
                 </div>
 
                 <div>
@@ -288,14 +444,18 @@ export default function CareersPage() {
                   />
                 </div>
 
-                {submitError && <p role="alert">{submitError}</p>}
+                {submitError && (
+                  <p role="alert" className={styles.formAlert}>
+                    {submitError}
+                  </p>
+                )}
                 <button
                   type="submit"
                   disabled={submitting}
                   className="btn-primary"
                   style={{ width: '100%', marginTop: '8px' }}
                 >
-                  Submit candidate application
+                  {submitting ? 'Submitting Application...' : 'Submit candidate application'}
                 </button>
               </div>
             </form>

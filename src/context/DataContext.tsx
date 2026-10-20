@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, type ReactNode } from 'react';
+import React, { useState, useEffect, type ReactNode } from 'react';
 import { usePersistentState } from '@/hooks/usePersistentState';
 import { DataContext, type DataContextValue } from './data-context';
 import {
@@ -64,6 +64,14 @@ export function DataProvider({ children }: { children: ReactNode }) {
     'decode_job_applications',
     EMPTY_APPLICATIONS,
   );
+
+  useEffect(() => {
+    setJobPostings((prev) => {
+      const existingIds = new Set(prev.map((j) => j.id));
+      const missing = INITIAL_JOB_POSTINGS.filter((j) => !existingIds.has(j.id));
+      return missing.length > 0 ? [...prev, ...missing] : prev;
+    });
+  }, [setJobPostings]);
 
   const addProject = (item: Project) => setProjects((prev) => [...prev, item]);
   const updateProject = (id: string, updated: Partial<Project>) =>

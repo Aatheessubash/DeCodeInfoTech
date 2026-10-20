@@ -810,6 +810,64 @@ export function AdminDashboard({ onClose }) {
                               </div>
                             )}
 
+                            {app.resume && (
+                              <div
+                                style={{
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  justifyContent: 'space-between',
+                                  background: '#FFFFFF',
+                                  border: '1px solid #CBD5E1',
+                                  padding: '12px 16px',
+                                  borderRadius: '10px',
+                                  flexWrap: 'wrap',
+                                  gap: '10px',
+                                }}
+                              >
+                                <div
+                                  style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '8px',
+                                    fontSize: '0.88rem',
+                                    color: '#334155',
+                                  }}
+                                >
+                                  <span style={{ fontSize: '1.2rem' }}>📎</span>
+                                  <div>
+                                    <strong>Attached Resume:</strong> {app.resume.name}{' '}
+                                    <span style={{ color: '#64748B', fontSize: '0.78rem' }}>
+                                      ({Math.round((app.resume.size || 0) / 1024)} KB)
+                                    </span>
+                                  </div>
+                                </div>
+                                <a
+                                  href={
+                                    app.resume.base64?.startsWith('data:')
+                                      ? app.resume.base64
+                                      : `data:${app.resume.type || 'application/pdf'};base64,${app.resume.base64}`
+                                  }
+                                  download={app.resume.name}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  style={{
+                                    display: 'inline-flex',
+                                    alignItems: 'center',
+                                    gap: '6px',
+                                    padding: '6px 14px',
+                                    borderRadius: '8px',
+                                    background: '#0F172A',
+                                    color: '#FFFFFF',
+                                    fontSize: '0.82rem',
+                                    fontWeight: 600,
+                                    textDecoration: 'none',
+                                  }}
+                                >
+                                  ⬇ Download Resume
+                                </a>
+                              </div>
+                            )}
+
                             <div style={{ display: 'flex', gap: '10px', marginTop: '4px' }}>
                               <button
                                 type="button"

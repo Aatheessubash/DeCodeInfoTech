@@ -53,18 +53,86 @@ export function parseContact(body: unknown) {
   };
 }
 
+const MAX_RESUME_SIZE = 5 * 1024 * 1024; // 5 MB
+
+export interface ParsedResume {
+  name: string;
+  type: string;
+  size: number;
+  base64: string;
+}
+
 export function parseCareer(body: unknown) {
   const fields = readFields(
     body,
-    ['name', 'email', 'portfolio'],
-    ['phone', 'experience', 'coverLetter', 'jobTitle'],
+    ['name', 'email'],
+    ['portfolio', 'phone', 'experience', 'coverLetter', 'jobTitle'],
   );
-  try {
-    const url = new URL(fields.portfolio);
-    if (!['https:', 'http:'].includes(url.protocol)) throw new Error();
-  } catch {
-    throw new ValidationError('Portfolio must be an HTTP or HTTPS URL.');
+  if (fields.portfolio) {
+    try {
+      const url = new URL(fields.portfolio);
+      if (!['https:', 'http:'].includes(url.protocol)) throw new Error();
+    } catch {
+      throw new ValidationError('Portfolio must be an HTTP or HTTPS URL.');
+    }
   }
+
+  const input =
+    body && typeof body === 'object' && !Array.isArray(body)
+      ? (body as Record<string, unknown>)
+      : {};
+
+  let resume: ParsedResume | undefined;
+  if (input.resume !== undefined && input.resume !== null && input.resume !== '') {
+    if (typeof input.resume !== 'object' || Array.isArray(input.resume)) {
+      throw new ValidationError('Invalid resume attachment.');
+    }
+    const r = input.resume as Record<string, unknown>;
+    if (
+      typeof r.name !== 'string' ||
+      typeof r.type !== 'string' ||
+      typeof r.size !== 'number' ||
+      typeof r.base64 !== 'string'
+    ) {
+      throw new ValidationError('Invalid resume attachment structure.');
+    }
+
+    const name = r.name.trim();
+    if (
+      !name ||
+      name.length > 255 ||
+      /[<>:"/\\|?*]/.test(name) ||
+      [...name].some((c) => c.charCodeAt(0) < 32)
+    ) {
+      throw new ValidationError('Resume filename is invalid.');
+    }
+
+    const ext = name.split('.').pop()?.toLowerCase();
+    if (!ext || !['pdf', 'doc', 'docx'].includes(ext)) {
+      throw new ValidationError('Resume must be a PDF, DOC, or DOCX document.');
+    }
+
+    if (!Number.isFinite(r.size) || r.size <= 0 || r.size > MAX_RESUME_SIZE) {
+      throw new ValidationError('Resume file size must not exceed 5MB.');
+    }
+
+    const rawBase64 = r.base64.replace(/^data:[^;]+;base64,/, '').replace(/\s+/g, '');
+    if (!rawBase64 || !/^[A-Za-z0-9+/=]+$/.test(rawBase64)) {
+      throw new ValidationError('Resume content is corrupted or invalid base64.');
+    }
+
+    if (rawBase64.length > Math.ceil((MAX_RESUME_SIZE * 4) / 3) + 64) {
+      throw new ValidationError('Resume file size exceeds the allowed limit.');
+    }
+
+    resume = {
+      name,
+      type: r.type.trim() || 'application/octet-stream',
+      size: r.size,
+      base64: rawBase64,
+    };
+  }
+
   return {
     name: fields.name,
     email: fields.email,
@@ -73,6 +141,7 @@ export function parseCareer(body: unknown) {
     experience: fields.experience,
     coverLetter: fields.coverLetter,
     jobTitle: fields.jobTitle || 'General Application',
+    ...(resume ? { resume } : {}),
   };
 }
 
@@ -97,7 +166,8 @@ export async function handleSubmission<T>(
   try {
     await deliver(payload);
     return Response.json({ success: true, message: 'Submitted successfully.' });
-  } catch {
+  } catch (error) {
+    console.error('[submission:delivery-failure]', error);
     return Response.json(
       { success: false, message: 'Unable to send your submission. Please try again later.' },
       { status: 503 },

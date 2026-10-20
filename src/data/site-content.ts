@@ -446,4 +446,38 @@ export const INITIAL_JOB_POSTINGS: JobPosting[] = [
       'Experience with cross-browser performance tuning and SEO best practices',
     ],
   },
+  {
+    id: 'job-4',
+    title: 'Business Development Executive (BDE)',
+    department: 'Sales & Growth',
+    location: 'Hybrid / On-site',
+    type: 'Full Time',
+    experience: 'Around 2 Years',
+    icon: 'BD',
+    summary:
+      'Drive client acquisition, identify strategic business opportunities, build enterprise relationships, and expand DeCode InfoTech’s custom software, cloud, and digital transformation service footprint.',
+    requirements: [
+      'Around 2 years of proven experience in B2B IT sales, lead generation, or software solution selling',
+      'Strong consultative communication, pitch presentation, negotiation, and relationship management skills',
+      'Ability to understand client business requirements and effectively present custom technology solutions',
+      'Demonstrated experience handling end-to-end sales pipelines, client proposals, and CRM tracking',
+    ],
+  },
+  {
+    id: 'job-5',
+    title: 'Telecaller / Inside Sales Executive',
+    department: 'Sales & Outreach',
+    location: 'Hybrid / Remote',
+    type: 'Full Time',
+    experience: '1-2 Years',
+    icon: 'TC',
+    summary:
+      'Connect with prospective clients, qualify inbound and outbound business inquiries, introduce our digital engineering capabilities, and schedule technical discovery sessions.',
+    requirements: [
+      'Proven experience in telecalling, outbound business calling, inside sales, or customer engagement (IT services preferred)',
+      'Excellent verbal communication, clear phone etiquette, and active listening capabilities',
+      'Ability to identify client requirements and communicate how DeCode InfoTech can help scale their digital presence',
+      'Diligent daily call logging, CRM pipeline updates, and structured follow-up scheduling',
+    ],
+  },
 ];

@@ -101,3 +101,53 @@ test('successful submissions deliver normalized data before reporting success', 
   assert.equal(response.status, 200);
   assert.equal((await response.json()).success, true);
 });
+
+test('career applications parse and validate resume attachments', () => {
+  const application = {
+    name: 'Ada Lovelace',
+    email: 'ada@example.com',
+    portfolio: 'https://github.com/adalovelace',
+    resume: {
+      name: 'Ada_Resume.pdf',
+      type: 'application/pdf',
+      size: 1024,
+      base64: 'data:application/pdf;base64,JVBERi0xLjQKJcTl8uXr',
+    },
+  };
+
+  const parsed = parseCareer(application);
+  assert.equal(parsed.name, 'Ada Lovelace');
+  assert.ok(parsed.resume);
+  assert.equal(parsed.resume.name, 'Ada_Resume.pdf');
+  assert.equal(parsed.resume.base64, 'JVBERi0xLjQKJcTl8uXr');
+
+  // Rejects invalid extensions
+  assert.throws(
+    () =>
+      parseCareer({
+        ...application,
+        resume: { ...application.resume, name: 'resume.exe' },
+      }),
+    /Resume must be a PDF, DOC, or DOCX document/,
+  );
+
+  // Rejects oversized resume
+  assert.throws(
+    () =>
+      parseCareer({
+        ...application,
+        resume: { ...application.resume, size: 6 * 1024 * 1024 },
+      }),
+    /Resume file size must not exceed 5MB/,
+  );
+
+  // Rejects invalid base64
+  assert.throws(
+    () =>
+      parseCareer({
+        ...application,
+        resume: { ...application.resume, base64: 'not-valid-base64!' },
+      }),
+    /Resume content is corrupted or invalid base64/,
+  );
+});
