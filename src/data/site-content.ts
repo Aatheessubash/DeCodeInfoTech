@@ -76,11 +76,11 @@ export const INITIAL_SERVICES: Service[] = [
   {
     id: '02',
     title: 'Industrial Automation – AI & IoT',
-    desc: 'Transforming manufacturing and industrial workflows with smart IoT telemetry, machine learning, and computer vision systems.',
+    desc: 'Connecting shop-floor machinery, sensor telemetry, and edge AI into real-time operational software, predictive dashboards, and automated control workflows.',
     deliverables: [
-      'IoT Sensor Telemetry & Remote Control',
-      'AI Vision & Automated Quality Inspection',
-      'Smart Factory & SCADA Integration',
+      'Real-Time IoT Telemetry & Remote Control',
+      'Edge AI Vision & Automated Defect Inspection',
+      'Smart Factory, PLC & SCADA Cloud Integration',
     ],
     icon: '❖',
   },
@@ -309,11 +309,11 @@ export const INITIAL_CONTENT: SiteContent = {
   heroSecondaryCta: 'Explore Our Services',
   heroVideoUrl: '/sample.webm',
   aboutHeading: 'Building What’s Next.',
-  aboutLead: 'We turn complex challenges into intelligent digital solutions.',
+  aboutLead: 'We turn complex business challenges into intelligent digital solutions.',
   aboutDesc1:
-    'At DeCode InfoTech, we combine technology, strategy, and design to create scalable foundations for growth.',
+    'At DeCode InfoTech, we bring technology, strategy, and design together to build software that moves businesses forward. From custom applications and scalable SaaS platforms to intelligent automation, we create solutions tailored to your goals.',
   aboutDesc2:
-    'Our solutions simplify operations, unlock new possibilities, and adapt to change — delivering lasting value that keeps your business moving forward.',
+    'We believe technology should do more than solve today’s problems — it should open doors to new opportunities. That’s why we focus on building reliable, adaptable, and future-ready digital experiences that simplify operations, accelerate growth, and create lasting value.',
   aboutImage: '/assets/who-we-are.jpg',
   aboutCaption: 'Built To Evolve. Designed For What’s Next.',
   standardsHeading: 'Our Core Foundation & Engineering Standards',

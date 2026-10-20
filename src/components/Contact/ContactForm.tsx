@@ -9,16 +9,20 @@ import styles from './Contact.module.css';
 
 type ContactFormProps = {
   idPrefix?: string;
+  defaultProjectType?: string;
 };
 
-export function ContactForm({ idPrefix = 'contact' }: ContactFormProps) {
+export function ContactForm({
+  idPrefix = 'contact',
+  defaultProjectType = '',
+}: ContactFormProps) {
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [formData, setFormData] = useState<ContactProposal>({
     name: '',
     email: '',
     phone: '',
     company: '',
-    projectType: '',
+    projectType: defaultProjectType,
     message: '',
   });
 
@@ -37,7 +41,14 @@ export function ContactForm({ idPrefix = 'contact' }: ContactFormProps) {
   const resetForm = () => {
     setFormSubmitted(false);
     setSubmitError('');
-    setFormData({ name: '', email: '', phone: '', company: '', projectType: '', message: '' });
+    setFormData({
+      name: '',
+      email: '',
+      phone: '',
+      company: '',
+      projectType: defaultProjectType,
+      message: '',
+    });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {

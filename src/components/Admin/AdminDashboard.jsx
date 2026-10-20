@@ -1610,7 +1610,7 @@ export function AdminDashboard({ onClose }) {
                         onChange={(e) =>
                           setContentForm({ ...contentForm, aboutLead: e.target.value })
                         }
-                        placeholder="We turn complex challenges into intelligent digital solutions."
+                        placeholder="We turn complex business challenges into intelligent digital solutions."
                         className={styles.input}
                       />
                     </div>

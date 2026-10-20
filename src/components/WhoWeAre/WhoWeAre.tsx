@@ -1,121 +1,144 @@
 'use client';
 
 import React from 'react';
-import { ArrowUpRight } from 'lucide-react';
+import {
+  ArrowUpRight,
+  CheckCircle2,
+  TrendingUp,
+  ShieldCheck,
+} from 'lucide-react';
 import { useData } from '@/context/useData';
 import styles from './WhoWeAre.module.css';
 
 export function WhoWeAre() {
   const { siteContent } = useData();
 
-  const scrollTo = (id: string) => {
-    const el = document.getElementById(id);
-    if (el) {
-      const headerOffset = 56;
-      const elementPosition = el.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth',
-      });
-    }
-  };
+  const rawHeading = siteContent?.aboutHeading || 'Building What’s Next.';
+  const hasNext =
+    rawHeading.toLowerCase().includes('what’s next') ||
+    rawHeading.toLowerCase().includes("what's next") ||
+    rawHeading.toLowerCase().includes('next');
+
+  const caption = siteContent?.aboutCaption || 'Built To Evolve. Designed For What’s Next.';
+  const captionParts = caption.includes('.') ? caption.split('.') : [caption, ''];
+  const captionTitle = captionParts[0]?.trim() ? `${captionParts[0].trim()}.` : 'Built To Evolve.';
+  const captionSub = captionParts.slice(1).join('.').trim() || 'Designed For What’s Next.';
 
   return (
     <section id="about" className={styles.section} aria-labelledby="about-heading">
+      <div className={styles.ambientGlow} aria-hidden="true" />
       <div className={styles.container}>
         <div className={styles.grid}>
+          {/* Left Column: Narrative & Strategic Positioning */}
           <div className={styles.copyColumn}>
             <div className={`${styles.copy} reveal`}>
               <h2 id="about-heading" className={styles.headline}>
-                {siteContent?.aboutHeading ? (
-                  siteContent.aboutHeading.toLowerCase().includes('what’s') ||
-                  siteContent.aboutHeading.toLowerCase().includes("what's") ? (
-                    <>
-                      Building
-                      <br />
-                      What’s <span>Next.</span>
-                    </>
-                  ) : (
-                    siteContent.aboutHeading
-                  )
-                ) : (
+                {hasNext ? (
                   <>
-                    Building
-                    <br />
-                    What’s <span>Next.</span>
+                    Building What’s <span className={styles.gradientWord}>Next.</span>
                   </>
+                ) : (
+                  rawHeading
                 )}
               </h2>
+
               <p className={styles.lead}>
                 {siteContent?.aboutLead ||
-                  'We turn complex challenges into intelligent digital solutions.'}
+                  'We turn complex business challenges into intelligent digital solutions.'}
               </p>
+
+              {/* Detailed Narrative */}
               <div className={styles.description}>
                 <p>
                   {siteContent?.aboutDesc1 ||
-                    'At DeCode InfoTech, we combine technology, strategy, and design to create scalable foundations for growth.'}
+                    'At DeCode InfoTech, we bring technology, strategy, and design together to build software that moves businesses forward. From custom applications and scalable SaaS platforms to intelligent automation, we create solutions tailored to your goals.'}
                 </p>
                 <p>
                   {siteContent?.aboutDesc2 ||
-                    'Our solutions simplify operations, unlock new possibilities, and adapt to change — delivering lasting value that keeps your business moving forward.'}
+                    'We believe technology should do more than solve today’s problems — it should open doors to new opportunities. That’s why we focus on building reliable, adaptable, and future-ready digital experiences that simplify operations, accelerate growth, and create lasting value.'}
                 </p>
               </div>
             </div>
-            <button
-              type="button"
-              onClick={() => scrollTo('services')}
-              className={styles.link}
-              style={{
-                background: 'none',
-                border: 'none',
-                padding: 0,
-                font: 'inherit',
-                cursor: 'pointer',
-                textAlign: 'left',
-              }}
-            >
-              <span>Explore Our Services</span>
-              <ArrowUpRight size={18} strokeWidth={1.5} aria-hidden="true" />
-            </button>
           </div>
 
-          <figure className={`${styles.visual} reveal`}>
-            <div className={styles.imageFrame}>
+          {/* Right Column: Visual Showcase & Dynamic Badges */}
+          <figure className={`${styles.visualContainer} reveal`}>
+            <div className={styles.imageCard}>
               <img
                 src={siteContent?.aboutImage || '/assets/who-we-are.jpg'}
-                alt={`${siteContent?.agencyName || 'DeCode InfoTech'} team collaborating in a modern office`}
+                alt={`${siteContent?.agencyName || 'DeCode InfoTech'} team collaborating in a modern engineering studio`}
                 className={styles.image}
                 loading="lazy"
               />
+
+              {/* Floating Synergy Tag (Top-Left) */}
+              <div className={styles.floatingDisciplineBadge}>
+                <span className={styles.disciplineDot} aria-hidden="true" />
+                <span className={styles.disciplineText}>
+                  Technology &bull; Strategy &bull; Design
+                </span>
+              </div>
+
+              {/* Floating Status Pill (Top-Right) */}
+              <div className={styles.floatingStatusBadge}>
+                <span className={styles.statusPulse} aria-hidden="true" />
+                <span className={styles.statusText}>Future-Ready</span>
+              </div>
+
+              {/* Glassmorphism Caption Overlay (Bottom) */}
+              <figcaption className={styles.glassCaption}>
+                <div className={styles.captionIcon} aria-hidden="true">
+                  <ArrowUpRight size={20} strokeWidth={2} />
+                </div>
+                <div className={styles.captionText}>
+                  <p className={styles.captionTitle}>{captionTitle}</p>
+                  <p className={styles.captionSub}>{captionSub}</p>
+                </div>
+              </figcaption>
             </div>
-            <figcaption className={styles.caption}>
-              <ArrowUpRight
-                size={18}
-                strokeWidth={1.5}
-                className={styles.captionMark}
-                aria-hidden="true"
-              />
-              <p>
-                {siteContent?.aboutCaption ? (
-                  siteContent.aboutCaption.includes('.') ? (
-                    <>
-                      {siteContent.aboutCaption.split('.')[0]}.<br />
-                      <span>{siteContent.aboutCaption.split('.').slice(1).join('.').trim()}</span>
-                    </>
-                  ) : (
-                    siteContent.aboutCaption
-                  )
-                ) : (
-                  <>
-                    Built To Evolve.
-                    <br />
-                    <span>Designed For What’s Next.</span>
-                  </>
-                )}
-              </p>
-            </figcaption>
           </figure>
+        </div>
+
+        {/* Value & Impact Outcomes Grid */}
+        <div className={styles.valueGrid}>
+          <div className={styles.valueCard}>
+            <div className={styles.valueIconBox} aria-hidden="true">
+              <CheckCircle2 size={22} strokeWidth={2} />
+            </div>
+            <div className={styles.valueContent}>
+              <h3 className={styles.valueTitle}>Simplify Operations</h3>
+              <p className={styles.valueDesc}>
+                Reliable, adaptable digital systems and intelligent automation that eliminate
+                bottlenecks and streamline daily execution.
+              </p>
+            </div>
+          </div>
+
+          <div className={styles.valueCard}>
+            <div className={styles.valueIconBox} aria-hidden="true">
+              <TrendingUp size={22} strokeWidth={2} />
+            </div>
+            <div className={styles.valueContent}>
+              <h3 className={styles.valueTitle}>Accelerate Growth</h3>
+              <p className={styles.valueDesc}>
+                High-performance custom applications and scalable SaaS platforms built to turn
+                market opportunities into measurable momentum.
+              </p>
+            </div>
+          </div>
+
+          <div className={styles.valueCard}>
+            <div className={styles.valueIconBox} aria-hidden="true">
+              <ShieldCheck size={22} strokeWidth={2} />
+            </div>
+            <div className={styles.valueContent}>
+              <h3 className={styles.valueTitle}>Create Lasting Value</h3>
+              <p className={styles.valueDesc}>
+                Engineered with future-ready standards so your technology evolves effortlessly
+                without disruptive rewrites.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </section>

@@ -5,11 +5,14 @@ import Link from 'next/link';
 import { useData } from '@/context/useData';
 import { trackEvent } from '@/lib/analytics';
 import styles from './Footer.module.css';
-import { ArrowUp, Mail, Phone } from 'lucide-react';
+import { ArrowUp, Mail, Phone, PhoneCall } from 'lucide-react';
+import { SiteModal } from '@/components/shared/SiteModal';
+import { ContactForm } from '@/components/Contact/ContactForm';
 
 export function Footer() {
   const { siteContent } = useData();
   const [showBackToTop, setShowBackToTop] = useState(false);
+  const [isBookCallModalOpen, setIsBookCallModalOpen] = useState(false);
   const rawEmail = siteContent?.contactEmail?.trim();
   const contactEmail =
     rawEmail && rawEmail !== 'hello@decode.com' && rawEmail !== 'contact@decodeinfotech.com'
@@ -206,16 +209,44 @@ export function Footer() {
         </div>
       </div>
 
-      {showBackToTop ? (
+      <div className={styles.floatingActions}>
         <button
           type="button"
-          onClick={scrollToTop}
-          className={styles.floatingTopBtn}
-          aria-label="Back to top"
+          onClick={() => setIsBookCallModalOpen(true)}
+          className={styles.floatingBookCallBtn}
+          aria-label="Book a call"
+          title="Book a call"
         >
-          <ArrowUp size={18} aria-hidden="true" />
+          <PhoneCall size={20} aria-hidden="true" />
         </button>
-      ) : null}
+
+        {showBackToTop ? (
+          <button
+            type="button"
+            onClick={scrollToTop}
+            className={styles.floatingTopBtn}
+            aria-label="Back to top"
+            title="Back to top"
+          >
+            <ArrowUp size={20} aria-hidden="true" />
+          </button>
+        ) : null}
+      </div>
+
+      <SiteModal
+        isOpen={isBookCallModalOpen}
+        onClose={() => setIsBookCallModalOpen(false)}
+        eyebrow="Schedule Consultation"
+        title={
+          <>
+            Book a Strategy <span className="modal-title-accent">Call</span>
+          </>
+        }
+        titleId="book-call-modal-heading"
+        closeLabel="Close booking form"
+      >
+        <ContactForm idPrefix="footer-book-call" />
+      </SiteModal>
     </footer>
   );
 }

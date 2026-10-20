@@ -79,12 +79,12 @@ export default function CareersPage() {
         <div className={styles.heroGrid}>
           <div className={styles.heroCopy}>
             <h1 className={styles.heroHeadline}>
-              Build Great Digital Products With Us in Coimbatore
+              Engineer World-Class Digital Products With Us
             </h1>
             <p className={styles.heroSubtext}>
-              Join <strong>DeCode InfoTech</strong> — the best software and web development company
-              in Coimbatore. We design and engineer modern web applications, scalable SaaS products,
-              and enterprise cloud solutions.
+              Join <strong>DeCode InfoTech</strong> — where elite software engineers, technical
+              architects, and product designers build mission-critical web platforms, enterprise
+              SaaS architectures, and intelligent cloud systems for high-growth global ventures.
             </p>
             <div className={styles.heroActions}>
               <a href="#open-roles" className="btn-primary">
