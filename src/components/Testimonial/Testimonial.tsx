@@ -82,7 +82,6 @@ export function Testimonial() {
     >
       <div className={styles.testimonialGrid}>
         <div className={styles.sectionHeader}>
-          <p className={styles.eyebrow}>Testimonials</p>
           <h2 id="testimonials-heading" className={styles.heading}>
             <span className={styles.headingLine}>Hear From Our</span>
             <br />

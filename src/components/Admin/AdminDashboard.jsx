@@ -967,7 +967,7 @@ export function AdminDashboard({ onClose }) {
                           <label>Client Name</label>
                           <input
                             type="text"
-                            placeholder="e.g. Ramesh Kumar"
+                            placeholder="e.g. Shiva Suryan"
                             value={editingTestimonial.name}
                             onChange={(e) =>
                               setEditingTestimonial({ ...editingTestimonial, name: e.target.value })

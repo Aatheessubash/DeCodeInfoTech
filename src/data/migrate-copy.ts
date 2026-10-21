@@ -17,8 +17,8 @@ const testimonialLogos = new Map([
 const requiredTestimonials = [
   {
     id: '3',
-    name: 'Thozha Associates Team',
-    role: 'Civil Engineering & Construction Firm',
+    name: 'Pavithra Tharan',
+    role: 'CEO',
     company: 'Thozha Associates',
     logo: '/ThozhaAssociates.png',
     text: 'Our new website presents our projects, services, and enquiry flow with clarity. DeCode understood the Thozha Associates brand and delivered a polished experience.',
@@ -26,8 +26,8 @@ const requiredTestimonials = [
   },
   {
     id: '4',
-    name: 'Neuerung HealthTech Team',
-    role: 'Healthcare Technology Team',
+    name: 'Dr.Pirai',
+    role: 'Founder',
     company: 'Neuerung HealthTech',
     logo: '/neuerung.png',
     text: 'DeCode shaped our healthtech portal into a clean, credible experience that communicates our AI and IoT capabilities with clarity.',
@@ -53,13 +53,29 @@ function normalizeTestimonials(value: unknown): unknown {
     .map((item) => {
       if (item === null || typeof item !== 'object') return item;
       const company = 'company' in item ? item.company : undefined;
+      let name = 'name' in item ? item.name : undefined;
+      let role = 'role' in item ? item.role : undefined;
+
+      if (name === 'Ramesh Kumar') {
+        name = 'Shiva Suryan';
+        role = 'Founder & CEO';
+      } else if (name === 'Thozha Associates Team') {
+        name = 'Pavithra Tharan';
+        role = 'CEO';
+      } else if (name === 'Neuerung HealthTech Team') {
+        name = 'Dr.Pirai';
+        role = 'Founder';
+      }
+
       if (typeof company !== 'string') return item;
 
       const logo = testimonialLogos.get(company);
-      if (!logo) return item;
+      if (!logo) return { ...item, name, role };
 
       return {
         ...item,
+        name,
+        role,
         logo,
         avatar: undefined,
       };

@@ -144,7 +144,7 @@ export const INITIAL_SERVICES: Service[] = [
 export const INITIAL_TESTIMONIALS: TestimonialItem[] = [
   {
     id: '1',
-    name: 'Ramesh Kumar',
+    name: 'Shiva Suryan',
     role: 'Founder & CEO',
     company: 'Azhagappar Academy',
     avatar: '✦',
@@ -163,8 +163,8 @@ export const INITIAL_TESTIMONIALS: TestimonialItem[] = [
   },
   {
     id: '3',
-    name: 'Thozha Associates Team',
-    role: 'Civil Engineering & Construction Firm',
+    name: 'Pavithra Tharan',
+    role: 'CEO',
     company: 'Thozha Associates',
     logo: '/ThozhaAssociates.png',
     text: 'Our new website presents our projects, services, and enquiry flow with clarity. DeCode understood the Thozha Associates brand and delivered a polished experience.',
@@ -172,8 +172,8 @@ export const INITIAL_TESTIMONIALS: TestimonialItem[] = [
   },
   {
     id: '4',
-    name: 'Neuerung HealthTech Team',
-    role: 'Healthcare Technology Team',
+    name: 'Dr.Pirai',
+    role: 'Founder',
     company: 'Neuerung HealthTech',
     logo: '/neuerung.png',
     text: 'DeCode shaped our healthtech portal into a clean, credible experience that communicates our AI and IoT capabilities with clarity.',

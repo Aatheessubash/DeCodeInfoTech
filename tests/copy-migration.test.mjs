@@ -28,6 +28,15 @@ test('preserves custom collection entries, deletions, and unrelated saved data',
 test('normalizes saved testimonials with current client logos and Thozha reviews', () => {
   const saved = [
     {
+      id: '1',
+      name: 'Ramesh Kumar',
+      role: 'Founder & CEO',
+      company: 'Azhagappar Academy',
+      avatar: '✦',
+      text: 'DeCode delivered ahead of schedule. The UI is exceptionally smooth and student engagement grew by 140%.',
+      rating: 5,
+    },
+    {
       id: '2',
       name: 'Sathish Kumar',
       role: 'Managing Partner',
@@ -60,6 +69,22 @@ test('normalizes saved testimonials with current client logos and Thozha reviews
       text: 'Old hospitality review',
       rating: 5,
     },
+    {
+      id: 'old-thozha-team',
+      name: 'Thozha Associates Team',
+      role: 'Civil Engineering & Construction Firm',
+      company: 'Thozha Associates',
+      text: 'Our new website presents our projects, services, and enquiry flow with clarity. DeCode understood the Thozha Associates brand and delivered a polished experience.',
+      rating: 5,
+    },
+    {
+      id: 'old-neuerung-team',
+      name: 'Neuerung HealthTech Team',
+      role: 'Healthcare Technology Team',
+      company: 'Neuerung HealthTech',
+      text: 'DeCode shaped our healthtech portal into a clean, credible experience that communicates our AI and IoT capabilities with clarity.',
+      rating: 5,
+    },
   ];
 
   const updated = migrateCopy('decode_testimonials', saved);
@@ -67,11 +92,23 @@ test('normalizes saved testimonials with current client logos and Thozha reviews
     updated.some((testimonial) => testimonial.company === 'AgroMate Technologies'),
     false,
   );
-  assert.equal(updated[0].logo, '/ThozhaAssociates.png');
+  assert.equal(updated[0].name, 'Shiva Suryan');
+  assert.equal(updated[0].role, 'Founder & CEO');
+  assert.equal(updated[0].company, 'Azhagappar Academy');
+  assert.equal(updated[0].logo, '/Azhagappar Academy_Logo.png');
   assert.equal(updated[0].avatar, undefined);
+
+  assert.equal(updated[1].name, 'Sathish Kumar');
+  assert.equal(updated[1].logo, '/ThozhaAssociates.png');
+  assert.equal(updated[1].avatar, undefined);
+
+  assert.equal(
+    updated.some((testimonial) => testimonial.name === 'Pavithra Tharan' && testimonial.role === 'CEO'),
+    true,
+  );
   assert.equal(
     updated.some((testimonial) => testimonial.name === 'Thozha Associates Team'),
-    true,
+    false,
   );
   assert.equal(
     updated.some((testimonial) => testimonial.name === 'Thozha Associates Projects Team'),
@@ -82,8 +119,12 @@ test('normalizes saved testimonials with current client logos and Thozha reviews
     false,
   );
   assert.equal(
-    updated.some((testimonial) => testimonial.name === 'Neuerung HealthTech Team'),
+    updated.some((testimonial) => testimonial.name === 'Dr.Pirai' && testimonial.role === 'Founder'),
     true,
+  );
+  assert.equal(
+    updated.some((testimonial) => testimonial.name === 'Neuerung HealthTech Team'),
+    false,
   );
 });
 
