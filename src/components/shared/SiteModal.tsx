@@ -31,9 +31,13 @@ export function SiteModal({
   showCloseButton = true,
 }: SiteModalProps) {
   const [isMounted, setIsMounted] = useState(false);
+  const [dragY, setDragY] = useState<number | null>(null);
+  const [isDragging, setIsDragging] = useState(false);
   const modalRef = useRef<HTMLDivElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const onCloseRef = useRef(onClose);
+  const touchStartY = useRef<number | null>(null);
+  const resetTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const previousActiveElement = useRef<HTMLElement | null>(null);
   const generatedTitleId = useId();
   const headingId = titleId || generatedTitleId;
@@ -44,10 +48,17 @@ export function SiteModal({
 
   useEffect(() => {
     setIsMounted(true);
+    return () => {
+      if (resetTimer.current) clearTimeout(resetTimer.current);
+    };
   }, []);
 
   useEffect(() => {
-    if (!isOpen) return undefined;
+    if (!isOpen) {
+      setDragY(null);
+      setIsDragging(false);
+      return undefined;
+    }
     previousActiveElement.current = document.activeElement as HTMLElement | null;
 
     const previousOverflow = document.body.style.overflow;
@@ -91,15 +102,59 @@ export function SiteModal({
     return () => cancelAnimationFrame(frame);
   }, [isMounted, isOpen]);
 
+  const handleTouchStart = (e: React.TouchEvent) => {
+    if (e.touches.length !== 1) return;
+    if (resetTimer.current) clearTimeout(resetTimer.current);
+    touchStartY.current = e.touches[0].clientY;
+    setIsDragging(true);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (touchStartY.current === null) return;
+    const currentY = e.touches[0].clientY;
+    const deltaY = currentY - touchStartY.current;
+    if (deltaY > 0) {
+      setDragY(deltaY);
+    } else {
+      setDragY(deltaY * 0.15);
+    }
+  };
+
+  const handleTouchEnd = () => {
+    if (touchStartY.current === null) return;
+    const pulledDistance = dragY ?? 0;
+    touchStartY.current = null;
+    setIsDragging(false);
+
+    if (pulledDistance > 75) {
+      onCloseRef.current();
+      setDragY(null);
+      return;
+    }
+
+    setDragY(0);
+    resetTimer.current = setTimeout(() => {
+      setDragY(null);
+    }, 240);
+  };
+
   if (!isMounted || !isOpen) return null;
 
   const modalClassName = [styles.modal, styles[size], className].filter(Boolean).join(' ');
+
+  const dragStyle =
+    dragY !== null
+      ? {
+          transform: `translateY(${Math.max(0, dragY)}px)`,
+          transition: isDragging ? 'none' : 'transform 240ms cubic-bezier(0.16, 1, 0.3, 1)',
+        }
+      : undefined;
 
   return createPortal(
     <div
       className={styles.backdrop}
       role="presentation"
-      onMouseDown={(event) => {
+      onClick={(event) => {
         if (event.target === event.currentTarget) onClose();
       }}
     >
@@ -109,8 +164,18 @@ export function SiteModal({
         role="dialog"
         aria-modal="true"
         aria-labelledby={title ? headingId : undefined}
+        style={dragStyle}
       >
-        <div className={styles.header}>
+        <div
+          className={styles.header}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+          onTouchCancel={handleTouchEnd}
+        >
+          <div className={styles.handleBar} aria-hidden="true">
+            <span className={styles.handleIndicator} />
+          </div>
           <div className={styles.titleGroup}>
             {eyebrow && <p className={styles.eyebrow}>{eyebrow}</p>}
             {title && (
@@ -125,9 +190,10 @@ export function SiteModal({
               type="button"
               className={styles.closeButton}
               onClick={onClose}
+              onTouchStart={(e) => e.stopPropagation()}
               aria-label={closeLabel}
             >
-              <X size={20} aria-hidden="true" />
+              <X size={18} aria-hidden="true" />
             </button>
           )}
         </div>

@@ -12,6 +12,7 @@
     rgba(15, 23, 42, 0.62);
   backdrop-filter: blur(16px) saturate(145%);
   -webkit-backdrop-filter: blur(16px) saturate(145%);
+  animation: modalBackdropFadeIn 220ms ease-out;
 }
 
 .modal {
@@ -34,6 +35,7 @@
   box-shadow:
     0 28px 90px rgba(2, 6, 23, 0.32),
     0 1px 0 rgba(255, 255, 255, 0.7) inset;
+  animation: modalPopIn 240ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .sm {
@@ -48,7 +50,14 @@
   --modal-width: 960px;
 }
 
+/* Handle bar (Mobile Only) */
+.handleBar {
+  display: none;
+}
+
 .header {
+  position: relative;
+  flex-shrink: 0;
   display: block;
   padding: clamp(22px, 4vw, 36px) clamp(48px, 5vw, 60px) 0 clamp(18px, 4vw, 36px);
 }
@@ -120,37 +129,186 @@
 }
 
 .body {
+  flex: 1 1 auto;
   min-height: 0;
   overflow-y: auto;
   overscroll-behavior: contain;
   padding: clamp(22px, 4vw, 34px) clamp(18px, 4vw, 36px) clamp(24px, 4vw, 36px);
 }
 
+/* Keyframe animations */
+@keyframes modalBackdropFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modalPopIn {
+  from {
+    opacity: 0;
+    transform: scale(0.96) translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes sheetSlideUp {
+  from {
+    opacity: 0.85;
+    transform: translateY(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Mobile Bottom Sheet Design */
+@media (max-width: 640px) {
+  .backdrop {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: stretch;
+    padding: 0;
+    overflow-y: hidden;
+    background: rgba(15, 23, 42, 0.68);
+    backdrop-filter: blur(12px) saturate(135%);
+    -webkit-backdrop-filter: blur(12px) saturate(135%);
+  }
+
+  .modal {
+    --modal-radius: 26px;
+    width: 100%;
+    max-width: 100%;
+    max-height: 90vh;
+    max-height: 90dvh;
+    border-radius: var(--modal-radius) var(--modal-radius) 0 0;
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.35);
+    box-shadow: 0 -12px 48px rgba(0, 0, 0, 0.28);
+    overflow: hidden;
+    animation: sheetSlideUp 300ms cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform;
+  }
+
+  .handleBar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 10px 0 6px;
+    cursor: grab;
+    touch-action: none;
+    user-select: none;
+  }
+
+  .handleIndicator {
+    width: 38px;
+    height: 4.5px;
+    border-radius: 999px;
+    background: rgba(15, 23, 42, 0.2);
+    transition: background-color 150ms ease, transform 150ms ease;
+  }
+
+  .handleBar:active .handleIndicator {
+    background: rgba(15, 23, 42, 0.38);
+    transform: scaleX(1.1);
+  }
+
+  .header {
+    padding: 0 16px 12px 18px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    background: rgba(255, 255, 255, 0.94);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-top-left-radius: var(--modal-radius);
+    border-top-right-radius: var(--modal-radius);
+    z-index: 2;
+  }
+
+  .titleGroup {
+    padding-right: 42px;
+  }
+
+  .eyebrow {
+    font-size: 11px;
+    margin: 0 0 4px;
+    letter-spacing: 0.1em;
+  }
+
+  .title {
+    font-size: clamp(1.25rem, 5.2vw, 1.55rem);
+    line-height: 1.18;
+    letter-spacing: -0.02em;
+  }
+
+  .closeButton {
+    top: 10px;
+    right: 14px;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: rgba(15, 23, 42, 0.06);
+    border: 1px solid rgba(15, 23, 42, 0.08);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    color: #171717;
+  }
+
+  .closeButton::before {
+    content: '';
+    position: absolute;
+    inset: -6px;
+  }
+
+  .closeButton:hover,
+  .closeButton:active {
+    background: rgba(15, 23, 42, 0.14);
+    color: #000;
+    transform: scale(0.94);
+    border-color: rgba(0, 0, 0, 0.16);
+  }
+
+  .body {
+    padding: 16px 18px max(24px, calc(env(safe-area-inset-bottom, 0px) + 20px));
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0, 0, 0, 0.12) transparent;
+  }
+
+  .body::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  .body::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .body::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.12);
+    border-radius: 999px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .backdrop,
+  .modal {
+    animation: none !important;
+  }
+
   .closeButton {
     transition: none;
   }
 
-  .closeButton:hover {
+  .closeButton:hover,
+  .closeButton:active {
     transform: none;
-  }
-}
-
-@media (max-width: 640px) {
-  .backdrop {
-    padding: 24px;
-  }
-
-  .modal {
-    max-height: calc(100dvh - 48px);
-  }
-
-  .header {
-    gap: 14px;
-    padding-right: 48px;
-  }
-
-  .closeButton {
-    --close-size: 38px;
   }
 }

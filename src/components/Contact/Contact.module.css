@@ -235,10 +235,10 @@
     border-bottom: 1px solid #dcdcd5;
   }
 }
-@media (max-width: 480px) {
+@media (max-width: 640px) {
   .formGrid {
     grid-template-columns: minmax(0, 1fr);
-    gap: 24px;
+    gap: 20px;
   }
 }
 @media (prefers-reduced-motion: reduce) {
