@@ -86,7 +86,8 @@ export const seoPages: SeoPage[] = [
           '100%. Upon project completion and final handover, all intellectual property, source code repositories, design assets, and cloud credentials belong entirely to you with zero vendor lock-in.',
       },
       {
-        question: 'Can you redesign our existing website without losing current Google search rankings?',
+        question:
+          'Can you redesign our existing website without losing current Google search rankings?',
         answer:
           'Yes. We execute comprehensive SEO audits, compile 301 URL redirect maps, preserve URL slug structures, and safeguard keyword rankings so your organic traffic continues growing through and after launch.',
       },
@@ -406,7 +407,8 @@ export const seoPages: SeoPage[] = [
           'We bridge legacy machinery using non-invasive IoT edge gateways and industrial protocol converters (Modbus, RS-485, OPC-UA, or analog current/vibration sensors). You get modern cloud telemetry and AI analytics without needing to replace existing capital equipment.',
       },
       {
-        question: 'Can computer vision inspection run locally on our factory floor without cloud latency?',
+        question:
+          'Can computer vision inspection run locally on our factory floor without cloud latency?',
         answer:
           'Yes. We deploy optimized edge AI models directly onto ruggedized industrial edge computers (like NVIDIA Jetson or industrial IPCs). Inspection inferences happen in milliseconds on-premises, with only defect logs and analytics synced to the cloud.',
       },
@@ -535,7 +537,8 @@ export const seoPages: SeoPage[] = [
     ],
     faqs: [
       {
-        question: 'What distinguishes DeCode InfoTech from traditional software outsourcing agencies?',
+        question:
+          'What distinguishes DeCode InfoTech from traditional software outsourcing agencies?',
         answer:
           'We operate as an embedded product engineering partner rather than a transactional vendor. We take complete ownership of architectural integrity, user experience, code maintainability, and commercial business outcomes — delivering enterprise-grade velocity without technical debt.',
       },

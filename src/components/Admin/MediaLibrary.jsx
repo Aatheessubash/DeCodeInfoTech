@@ -65,6 +65,9 @@ export function MediaLibrary({ onSelectAsset }) {
 
     try {
       if (file.type.startsWith('video/')) {
+        if (file.size > 5 * 1024 * 1024) {
+          throw new Error('Video uploads must be smaller than 5 MB for browser storage.');
+        }
         const reader = new FileReader();
         reader.onload = () => {
           addMediaAsset({
@@ -73,10 +76,15 @@ export function MediaLibrary({ onSelectAsset }) {
             type: 'video',
             category: uploadCategory,
             dimensions: 'Video File',
+            isCustom: true,
           });
           setUploading(false);
           setShowUploader(false);
           setUploadName('');
+        };
+        reader.onerror = () => {
+          setUploadError('Failed to read the video file.');
+          setUploading(false);
         };
         reader.readAsDataURL(file);
       } else {
@@ -87,6 +95,7 @@ export function MediaLibrary({ onSelectAsset }) {
           type: 'image',
           category: uploadCategory,
           dimensions: `${result.width} × ${result.height} (${formatFileSize(result.size)})`,
+          isCustom: true,
         });
         setUploading(false);
         setShowUploader(false);

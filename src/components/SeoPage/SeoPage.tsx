@@ -25,68 +25,57 @@ const CATEGORY_MAP: Record<string, string> = {
 const MODAL_TITLES: Record<string, React.ReactNode> = {
   'industrial-automation': (
     <>
-      Industrial Automation, AI &amp; IoT{' '}
-      <span className="modal-title-accent">Solutions</span>
+      Industrial Automation, AI &amp; IoT <span className="modal-title-accent">Solutions</span>
     </>
   ),
   'web-development': (
     <>
-      Web Development &amp; Architecture{' '}
-      <span className="modal-title-accent">Solutions</span>
+      Web Development &amp; Architecture <span className="modal-title-accent">Solutions</span>
     </>
   ),
   'mobile-app-development': (
     <>
-      Mobile App Engineering{' '}
-      <span className="modal-title-accent">Solutions</span>
+      Mobile App Engineering <span className="modal-title-accent">Solutions</span>
     </>
   ),
   'saas-development': (
     <>
-      SaaS &amp; Cloud Platform{' '}
-      <span className="modal-title-accent">Engineering</span>
+      SaaS &amp; Cloud Platform <span className="modal-title-accent">Engineering</span>
     </>
   ),
   'crm-automation': (
     <>
-      CRM Automation &amp; Custom{' '}
-      <span className="modal-title-accent">Software</span>
+      CRM Automation &amp; Custom <span className="modal-title-accent">Software</span>
     </>
   ),
   'ui-ux-design': (
     <>
-      UI/UX Design &amp; Product{' '}
-      <span className="modal-title-accent">Experience</span>
+      UI/UX Design &amp; Product <span className="modal-title-accent">Experience</span>
     </>
   ),
   '3d-motion-design': (
     <>
-      3D Motion Design &amp; Digital{' '}
-      <span className="modal-title-accent">Media</span>
+      3D Motion Design &amp; Digital <span className="modal-title-accent">Media</span>
     </>
   ),
   about: (
     <>
-      Enterprise Partnership &amp;{' '}
-      <span className="modal-title-accent">Advisory</span>
+      Enterprise Partnership &amp; <span className="modal-title-accent">Advisory</span>
     </>
   ),
   contact: (
     <>
-      Initiate Executive{' '}
-      <span className="modal-title-accent">Consultation</span>
+      Initiate Executive <span className="modal-title-accent">Consultation</span>
     </>
   ),
   portfolio: (
     <>
-      Discuss an Enterprise{' '}
-      <span className="modal-title-accent">Case Study</span>
+      Discuss an Enterprise <span className="modal-title-accent">Case Study</span>
     </>
   ),
   blog: (
     <>
-      Technical Architecture{' '}
-      <span className="modal-title-accent">Inquiry</span>
+      Technical Architecture <span className="modal-title-accent">Inquiry</span>
     </>
   ),
 };
@@ -275,9 +264,9 @@ export function SeoPageTemplate({ page }: SeoPageProps) {
                   Enterprise <span>Engagement</span>
                 </h2>
                 <p>
-                  DeCode InfoTech partners with global enterprises, high-growth venture startups, and
-                  industry operators worldwide — deploying dedicated engineering pods, cloud-native
-                  architectures, and SLA-backed product maintenance.
+                  DeCode InfoTech partners with global enterprises, high-growth venture startups,
+                  and industry operators worldwide — deploying dedicated engineering pods,
+                  cloud-native architectures, and SLA-backed product maintenance.
                 </p>
                 <button
                   type="button"
@@ -313,10 +302,11 @@ export function SeoPageTemplate({ page }: SeoPageProps) {
                 >
                   <button
                     type="button"
+                    id={`seo-faq-btn-${idx}`}
                     className={styles.accordionQuestionBtn}
                     onClick={() => toggleFaq(idx)}
                     aria-expanded={isOpen}
-                    aria-controls={`faq-answer-${idx}`}
+                    aria-controls={`seo-faq-answer-${idx}`}
                   >
                     <span className={styles.accordionQuestionText}>{faq.question}</span>
                     <span
@@ -327,7 +317,12 @@ export function SeoPageTemplate({ page }: SeoPageProps) {
                     </span>
                   </button>
                   {isOpen && (
-                    <div id={`faq-answer-${idx}`} className={styles.accordionAnswerBody} role="region">
+                    <div
+                      id={`seo-faq-answer-${idx}`}
+                      aria-labelledby={`seo-faq-btn-${idx}`}
+                      className={styles.accordionAnswerBody}
+                      role="region"
+                    >
                       <p className={styles.accordionAnswerText}>{faq.answer}</p>
                     </div>
                   )}
@@ -377,10 +372,7 @@ export function SeoPageTemplate({ page }: SeoPageProps) {
         titleId="seo-project-modal-heading"
         closeLabel="Close project inquiry form"
       >
-        <ContactForm
-          idPrefix={`seo-${page.slug}`}
-          defaultProjectType={defaultCategory}
-        />
+        <ContactForm idPrefix={`seo-${page.slug}`} defaultProjectType={defaultCategory} />
       </SiteModal>
     </article>
   );

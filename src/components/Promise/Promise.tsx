@@ -86,9 +86,25 @@ export function PromiseSection() {
   );
 
   return (
-    <section id="process" className={styles.processSection} aria-label="Process">
+    <section id="process" className={styles.processSection} aria-labelledby="process-heading">
       <div className={styles.container}>
         <header className={styles.sectionHeader}>
+          <h2 id="process-heading" className={styles.sectionTitle}>
+            {siteContent?.processHeading ? (
+              siteContent.processHeading.toLowerCase().includes('better outcome') ? (
+                <>
+                  {siteContent.processHeading.replace(/A better outcome\.?/i, '').trim()}{' '}
+                  <span>A Better Outcome.</span>
+                </>
+              ) : (
+                siteContent.processHeading
+              )
+            ) : (
+              <>
+                A Simple Process. <span>A Better Outcome.</span>
+              </>
+            )}
+          </h2>
           <p className={styles.sectionDesc}>
             {siteContent?.processSubheading ||
               'From the first conversation to launch, we bring clarity to every stage — with a shared plan and a clear next step.'}

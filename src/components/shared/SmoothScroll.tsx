@@ -1,8 +1,11 @@
 'use client';
 
 import { useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 
 export function SmoothScroll() {
+  const pathname = usePathname();
+
   useEffect(() => {
     const elements = document.querySelectorAll('.reveal, .gsap-reveal');
     if (elements.length === 0 || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -26,7 +29,7 @@ export function SmoothScroll() {
     });
 
     return () => observer.disconnect();
-  }, []);
+  }, [pathname]);
 
   return null;
 }

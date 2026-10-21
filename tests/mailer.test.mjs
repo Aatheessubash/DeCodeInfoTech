@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { sendContactEmail } from '../src/lib/mailer.ts';
+import { sendContactEmail, sendCareerEmail } from '../src/lib/mailer.ts';
 
 const previousEnv = { ...process.env };
 
@@ -33,4 +33,19 @@ test('requires SMTP credentials in production', async () => {
   process.env.NODE_ENV = 'production';
 
   await assert.rejects(() => sendContactEmail(lead), /SMTP credentials/);
+});
+
+test('career email handles missing portfolio cleanly in development preview', async () => {
+  delete process.env.SMTP_USER;
+  delete process.env.SMTP_PASS;
+  process.env.NODE_ENV = 'development';
+
+  const app = {
+    name: 'Ada',
+    email: 'ada@example.com',
+    jobTitle: 'Frontend Engineer',
+    portfolio: '',
+  };
+  const result = await sendCareerEmail(app);
+  assert.equal(result.preview, true);
 });

@@ -125,4 +125,5 @@ export interface MediaAsset {
   type: 'image' | 'video' | 'document';
   category: string;
   dimensions?: string;
+  isCustom?: boolean;
 }

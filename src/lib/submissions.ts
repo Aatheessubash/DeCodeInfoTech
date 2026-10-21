@@ -1,8 +1,20 @@
 import { isProjectCategory } from './project-categories.js';
+import { checkRateLimit } from './rate-limit.js';
+import { checkPayloadSize, getClientIp, verifySameOrigin } from './security.js';
 
 type Fields = Record<string, string>;
 
 export class ValidationError extends Error {}
+
+/** Silent honeypot check: automated spam bots fill invisible fields that legitimate users never touch. */
+export function isBotHoneypotTriggered(body: unknown): boolean {
+  if (body && typeof body === 'object' && !Array.isArray(body)) {
+    const input = body as Record<string, unknown>;
+    const honeypot = input.website || input.hp_company;
+    return typeof honeypot === 'string' && honeypot.trim().length > 0;
+  }
+  return false;
+}
 
 function readFields(body: unknown, required: string[], optional: string[]): Fields {
   if (!body || typeof body !== 'object' || Array.isArray(body)) {
@@ -145,15 +157,60 @@ export function parseCareer(body: unknown) {
   };
 }
 
-/** A submission succeeds only after the delivery service accepts it. */
+/** A submission succeeds only after origin, size, rate limit, and delivery service accept it. */
 export async function handleSubmission<T>(
   request: Request,
   parse: (body: unknown) => T,
   deliver: (payload: T) => Promise<unknown>,
+  options: { maxBytes?: number; rateLimitBucket?: string } = {},
 ) {
+  if (!verifySameOrigin(request)) {
+    return Response.json(
+      { success: false, message: 'Cross-origin request forbidden.' },
+      { status: 403 },
+    );
+  }
+
+  const maxBytes = options.maxBytes ?? 10 * 1024 * 1024;
+  if (!checkPayloadSize(request, maxBytes)) {
+    return Response.json(
+      { success: false, message: 'Submission payload exceeds size limit.' },
+      { status: 413 },
+    );
+  }
+
+  const clientIp = getClientIp(request);
+  const bucket = options.rateLimitBucket ?? 'form-submissions';
+  const rateLimit = checkRateLimit(bucket, clientIp, 10, 10 * 60 * 1000);
+
+  if (!rateLimit.allowed) {
+    return Response.json(
+      {
+        success: false,
+        message: 'Too many submissions. Please wait a few minutes before trying again.',
+      },
+      {
+        status: 429,
+        headers: { 'Retry-After': String(rateLimit.resetSeconds) },
+      },
+    );
+  }
+
+  let rawBody: unknown;
+  try {
+    rawBody = await request.json();
+  } catch {
+    return Response.json({ success: false, message: 'Invalid JSON body.' }, { status: 400 });
+  }
+
+  // Silent honeypot trap: if a bot filled the hidden honeypot, return success without delivering email
+  if (isBotHoneypotTriggered(rawBody)) {
+    return Response.json({ success: true, message: 'Submitted successfully.' });
+  }
+
   let payload: T;
   try {
-    payload = parse(await request.json());
+    payload = parse(rawBody);
   } catch (error) {
     return Response.json(
       {

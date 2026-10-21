@@ -170,7 +170,11 @@ export async function sendCareerEmail(app: CareerApplication) {
         <p style="margin: 0 0 10px;"><strong>Candidate Name:</strong> ${escapeHtml(app.name)}</p>
         <p style="margin: 0 0 10px;"><strong>Email:</strong> <a href="mailto:${escapeHtml(app.email)}">${escapeHtml(app.email)}</a></p>
         <p style="margin: 0 0 10px;"><strong>Phone:</strong> ${escapeHtml(app.phone || 'Not specified')}</p>
-        <p style="margin: 0 0 10px;"><strong>Portfolio / GitHub:</strong> <a href="${escapeHtml(app.portfolio)}" target="_blank">${escapeHtml(app.portfolio)}</a></p>
+        <p style="margin: 0 0 10px;"><strong>Portfolio / GitHub:</strong> ${
+          app.portfolio?.trim()
+            ? `<a href="${escapeHtml(app.portfolio)}" target="_blank">${escapeHtml(app.portfolio)}</a>`
+            : 'Not specified'
+        }</p>
         <p style="margin: 0 0 10px;"><strong>Experience:</strong> ${escapeHtml(app.experience || 'Not specified')}</p>
         ${resumeHtml}
         ${coverLetterHtml}

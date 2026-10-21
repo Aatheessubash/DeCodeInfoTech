@@ -116,7 +116,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       'DeCode InfoTech is a Coimbatore-based technology company focused on software engineering, web development, SaaS development, mobile app development, CRM automation, UI UX design, and industrial automation software.',
     slogan: 'Imagine it. Build it. Decode the future.',
     priceRange: '$$',
-    telephone: '+91 70928 02356',
+    telephone: '+91 70928 02364',
     email: 'contact@decodeinfotech.in',
     address: {
       '@type': 'PostalAddress',
@@ -189,7 +189,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     contactPoint: {
       '@type': 'ContactPoint',
       email: 'contact@decodeinfotech.in',
-      telephone: '+91 70928 02356',
+      telephone: '+91 70928 02364',
       contactType: 'customer service',
       areaServed: 'IN',
       availableLanguage: ['English', 'Tamil'],
@@ -230,7 +230,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     description: brandSummary,
     slogan: 'Imagine it. Build it. Decode the future.',
     email: 'contact@decodeinfotech.in',
-    telephone: '+91 70928 02356',
+    telephone: '+91 70928 02364',
     address: {
       '@type': 'PostalAddress',
       addressLocality: 'Coimbatore',
@@ -240,7 +240,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     contactPoint: {
       '@type': 'ContactPoint',
       email: 'contact@decodeinfotech.in',
-      telephone: '+91 70928 02356',
+      telephone: '+91 70928 02364',
       contactType: 'customer service',
       areaServed: 'IN',
       availableLanguage: ['English', 'Tamil'],
@@ -258,7 +258,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     logo: 'https://www.decodeinfotech.in/DeCode_Logo.png',
     description: brandSummary,
     email: 'contact@decodeinfotech.in',
-    telephone: '+91 70928 02356',
+    telephone: '+91 70928 02364',
     address: {
       '@type': 'PostalAddress',
       addressLocality: 'Coimbatore',
@@ -318,7 +318,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     url: [
       'https://www.decodeinfotech.in',
       'https://www.decodeinfotech.in/about',
-      'https://www.decodeinfotech.in/web-development',
+      'https://www.decodeinfotech.in/#services',
       'https://www.decodeinfotech.in/portfolio',
       'https://www.decodeinfotech.in/careers',
       'https://www.decodeinfotech.in/contact',

@@ -53,6 +53,7 @@ export function FAQ() {
             >
               <button
                 type="button"
+                id={`faq-btn-${idx}`}
                 className={styles.questionBtn}
                 onClick={() => toggleAccordion(idx)}
                 aria-expanded={isOpen}
@@ -67,7 +68,12 @@ export function FAQ() {
                 </span>
               </button>
               {isOpen && (
-                <div id={`faq-answer-${idx}`} className={styles.answerBody} role="region">
+                <div
+                  id={`faq-answer-${idx}`}
+                  aria-labelledby={`faq-btn-${idx}`}
+                  className={styles.answerBody}
+                  role="region"
+                >
                   <p className={styles.answerText}>{faq.a}</p>
                 </div>
               )}

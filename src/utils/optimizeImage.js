@@ -50,6 +50,9 @@ export async function optimizeProjectImage(file) {
   }
 
   const image = await loadImage(file);
+  if (!image.naturalWidth || !image.naturalHeight) {
+    throw new Error('The selected image has invalid dimensions.');
+  }
   const scale = Math.min(1, MAX_WIDTH / image.naturalWidth, MAX_HEIGHT / image.naturalHeight);
   const width = Math.max(1, Math.round(image.naturalWidth * scale));
   const height = Math.max(1, Math.round(image.naturalHeight * scale));
@@ -67,9 +70,14 @@ export async function optimizeProjectImage(file) {
   context.drawImage(image, 0, 0, width, height);
 
   let optimizedBlob = null;
-  for (const quality of [0.84, 0.72, 0.6]) {
-    optimizedBlob = await canvasToBlob(canvas, quality);
-    if (optimizedBlob && optimizedBlob.size <= TARGET_BYTES) break;
+  try {
+    for (const quality of [0.84, 0.72, 0.6]) {
+      optimizedBlob = await canvasToBlob(canvas, quality);
+      if (optimizedBlob && optimizedBlob.size <= TARGET_BYTES) break;
+    }
+  } finally {
+    canvas.width = 0;
+    canvas.height = 0;
   }
 
   if (!optimizedBlob) throw new Error('This browser could not optimize the selected image.');

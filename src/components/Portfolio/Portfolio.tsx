@@ -55,7 +55,7 @@ export function Portfolio() {
               >
                 {projects.map((project, projectIndex) => {
                   const cardIndex = projectIndex % 3;
-                  const logo = CLIENT_LOGOS[project.id];
+                  const logo = CLIENT_LOGOS[project.id] || project.image;
 
                   return (
                     <article

@@ -31,7 +31,10 @@ export function Testimonial() {
 
   useEffect(() => {
     if (isPaused || total <= 1) return;
-    if (typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    if (
+      typeof window !== 'undefined' &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    ) {
       return;
     }
     const interval = setInterval(nextSlide, 7000);
@@ -134,14 +137,14 @@ export function Testimonial() {
 
                       <blockquote className={styles.quoteText}>
                         “
-                        {t.text.includes('DeCode') ? (
+                        {(t.text || '').includes('DeCode') ? (
                           <>
-                            {t.text.split('DeCode')[0]}
+                            {(t.text || '').split('DeCode')[0]}
                             <span className={styles.brandWord}>DeCode</span>
-                            {t.text.split('DeCode').slice(1).join('DeCode')}
+                            {(t.text || '').split('DeCode').slice(1).join('DeCode')}
                           </>
                         ) : (
-                          t.text
+                          t.text || ''
                         )}
                         ”
                       </blockquote>

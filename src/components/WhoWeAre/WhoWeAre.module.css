@@ -14,7 +14,12 @@
   right: -5%;
   width: 520px;
   height: 520px;
-  background: radial-gradient(circle, rgba(124, 58, 237, 0.05) 0%, rgba(0, 113, 227, 0.03) 45%, transparent 70%);
+  background: radial-gradient(
+    circle,
+    rgba(124, 58, 237, 0.05) 0%,
+    rgba(0, 113, 227, 0.03) 45%,
+    transparent 70%
+  );
   pointer-events: none;
   z-index: 0;
 }
@@ -103,7 +108,9 @@
   background: #ffffff;
   border: 1px solid #e5e5ea;
   box-shadow: 0 16px 44px -8px rgba(0, 0, 0, 0.08);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .imageCard:hover {

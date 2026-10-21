@@ -80,10 +80,26 @@ export function Navbar() {
       });
     };
 
+    const handleHash = () => {
+      const hash = window.location.hash.replace('#', '');
+      if (!hash) return;
+      const el = document.getElementById(hash);
+      if (el) {
+        const headerOffset = 56;
+        const offsetPosition = el.getBoundingClientRect().top + window.scrollY - headerOffset;
+        window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+        setActiveSection(hash);
+      }
+    };
+
     determineActiveSection();
+    const timer = setTimeout(handleHash, 100);
     window.addEventListener('scroll', determineActiveSection, { passive: true });
+    window.addEventListener('hashchange', handleHash);
     return () => {
+      clearTimeout(timer);
       window.removeEventListener('scroll', determineActiveSection);
+      window.removeEventListener('hashchange', handleHash);
       if (animationFrame) window.cancelAnimationFrame(animationFrame);
     };
   }, [pathname]);
@@ -130,29 +146,24 @@ export function Navbar() {
   const scrollToSection = (id: string) => {
     setMobileMenuOpen(false);
 
-    const performScroll = () => {
-      if (id === 'home') {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        setActiveSection('home');
-        return;
-      }
-
-      const el = document.getElementById(id);
-      if (!el) return;
-
-      const headerOffset = 56;
-      const offsetPosition = el.getBoundingClientRect().top + window.pageYOffset - headerOffset;
-      window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
-      setActiveSection(id);
-    };
-
     if (pathname !== '/') {
-      router.push('/');
-      window.setTimeout(performScroll, 220);
+      router.push(id === 'home' ? '/' : `/#${id}`);
       return;
     }
 
-    performScroll();
+    if (id === 'home') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      setActiveSection('home');
+      return;
+    }
+
+    const el = document.getElementById(id);
+    if (!el) return;
+
+    const headerOffset = 56;
+    const offsetPosition = el.getBoundingClientRect().top + window.scrollY - headerOffset;
+    window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+    setActiveSection(id);
   };
 
   const isHomeActive = pathname === '/' && activeSection === 'home';
@@ -161,6 +172,15 @@ export function Navbar() {
   const isProjectsActive = pathname === '/' && activeSection === 'projects';
   const isCareersActive = pathname === '/' && activeSection === 'careers';
   const isContactActive = pathname === '/' && activeSection === 'contact';
+
+  const navItems = [
+    { id: 'home', label: 'Home', active: isHomeActive },
+    { id: 'about', label: 'About', active: isAboutActive },
+    { id: 'services', label: 'Services', active: isServicesActive },
+    { id: 'projects', label: 'Projects', active: isProjectsActive },
+    { id: 'careers', label: 'Careers', active: isCareersActive },
+    { id: 'contact', label: 'Contact', active: isContactActive },
+  ];
 
   return (
     <header ref={headerRef} className={`${styles.header} ${isScrolled ? styles.scrolled : ''}`}>
@@ -182,64 +202,40 @@ export function Navbar() {
 
         {/* Clean Primary Desktop Navigation */}
         <nav className={styles.desktopNav} aria-label="Primary navigation">
-          <button
-            type="button"
-            className={`${styles.navBtn} ${isHomeActive ? styles.activeNav : ''}`}
-            onClick={() => scrollToSection('home')}
-          >
-            Home
-          </button>
-
-          <button
-            type="button"
-            className={`${styles.navBtn} ${isAboutActive ? styles.activeNav : ''}`}
-            onClick={() => scrollToSection('about')}
-          >
-            About
-          </button>
-
-          <button
-            type="button"
-            className={`${styles.navBtn} ${isServicesActive ? styles.activeNav : ''}`}
-            onClick={() => scrollToSection('services')}
-          >
-            Services
-          </button>
-
-          <button
-            type="button"
-            className={`${styles.navBtn} ${isProjectsActive ? styles.activeNav : ''}`}
-            onClick={() => scrollToSection('projects')}
-          >
-            Projects
-          </button>
-
-          <button
-            type="button"
-            className={`${styles.navBtn} ${isCareersActive ? styles.activeNav : ''}`}
-            onClick={() => scrollToSection('careers')}
-          >
-            Careers
-          </button>
-
-          <button
-            type="button"
-            className={`${styles.navBtn} ${isContactActive ? styles.activeNav : ''}`}
-            onClick={() => scrollToSection('contact')}
-          >
-            Contact
-          </button>
+          {navItems.map(({ id, label, active }) => {
+            const href = id === 'home' ? '/' : `/#${id}`;
+            return (
+              <Link
+                key={id}
+                href={href}
+                className={`${styles.navBtn} ${active ? styles.activeNav : ''}`}
+                onClick={(e) => {
+                  if (pathname === '/') {
+                    e.preventDefault();
+                    scrollToSection(id);
+                  }
+                }}
+              >
+                {label}
+              </Link>
+            );
+          })}
         </nav>
 
         {/* Action Button & Mobile Hamburger */}
         <div className={styles.actions}>
-          <button
-            type="button"
-            onClick={() => scrollToSection('contact')}
+          <Link
+            href="/#contact"
             className={styles.actionBtn}
+            onClick={(e) => {
+              if (pathname === '/') {
+                e.preventDefault();
+                scrollToSection('contact');
+              }
+            }}
           >
             Get Started
-          </button>
+          </Link>
 
           <button
             type="button"
@@ -335,16 +331,23 @@ export function Navbar() {
                   </>
                 );
                 const className = `${styles.mobileLink} ${active ? styles.activeNav : ''}`;
+                const href = id === 'home' ? '/' : `/#${id}`;
                 return (
-                  <button
+                  <Link
                     key={id}
-                    type="button"
+                    href={href}
                     className={className}
                     aria-current={active ? 'location' : undefined}
-                    onClick={() => scrollToSection(id)}
+                    onClick={(e) => {
+                      setMobileMenuOpen(false);
+                      if (pathname === '/') {
+                        e.preventDefault();
+                        scrollToSection(id);
+                      }
+                    }}
                   >
                     {content}
-                  </button>
+                  </Link>
                 );
               })}
             </div>

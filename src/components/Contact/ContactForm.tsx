@@ -12,10 +12,7 @@ type ContactFormProps = {
   defaultProjectType?: string;
 };
 
-export function ContactForm({
-  idPrefix = 'contact',
-  defaultProjectType = '',
-}: ContactFormProps) {
+export function ContactForm({ idPrefix = 'contact', defaultProjectType = '' }: ContactFormProps) {
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [formData, setFormData] = useState<ContactProposal>({
     name: '',
@@ -28,8 +25,9 @@ export function ContactForm({
 
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState('');
+  const [honeypot, setHoneypot] = useState('');
 
-  const fieldId = (name: keyof ContactProposal) => `${idPrefix}-${name}`;
+  const fieldId = (name: keyof ContactProposal | 'website') => `${idPrefix}-${name}`;
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>,
@@ -41,6 +39,7 @@ export function ContactForm({
   const resetForm = () => {
     setFormSubmitted(false);
     setSubmitError('');
+    setHoneypot('');
     setFormData({
       name: '',
       email: '',
@@ -56,15 +55,19 @@ export function ContactForm({
     setSubmitting(true);
     setSubmitError('');
     let submitted = false;
+    let errorMessage = '';
 
     try {
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ ...formData, website: honeypot }),
       });
       const data = await response.json().catch(() => null);
       submitted = Boolean(response.ok && data?.success);
+      if (!submitted && data?.message) {
+        errorMessage = data.message;
+      }
     } catch {
       submitted = false;
     } finally {
@@ -76,7 +79,10 @@ export function ContactForm({
         });
         setFormSubmitted(true);
       } else {
-        setSubmitError('We could not send your request. Please try again or contact us by email.');
+        setSubmitError(
+          errorMessage ||
+            'We could not send your request. Please try again or contact us by email.',
+        );
       }
 
       setSubmitting(false);
@@ -101,6 +107,29 @@ export function ContactForm({
 
   return (
     <form className={styles.formCard} onSubmit={handleSubmit}>
+      {/* Invisible honeypot field to trap automated spam bots */}
+      <div
+        style={{
+          display: 'none',
+          position: 'absolute',
+          left: '-9999px',
+          opacity: 0,
+          pointerEvents: 'none',
+        }}
+        aria-hidden="true"
+      >
+        <label htmlFor={fieldId('website')}>Website</label>
+        <input
+          type="text"
+          id={fieldId('website')}
+          name="website"
+          value={honeypot}
+          onChange={(e) => setHoneypot(e.target.value)}
+          tabIndex={-1}
+          autoComplete="off"
+        />
+      </div>
+
       <div className={styles.formGrid}>
         <div className={styles.fieldGroup}>
           <label htmlFor={fieldId('name')} className={styles.label}>

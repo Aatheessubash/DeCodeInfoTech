@@ -1,5 +1,4 @@
 'use client';
-'use client';
 
 import React, { useEffect, useId, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
@@ -32,8 +31,10 @@ export function SiteModal({
   showCloseButton = true,
 }: SiteModalProps) {
   const [isMounted, setIsMounted] = useState(false);
+  const modalRef = useRef<HTMLDivElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const onCloseRef = useRef(onClose);
+  const previousActiveElement = useRef<HTMLElement | null>(null);
   const generatedTitleId = useId();
   const headingId = titleId || generatedTitleId;
 
@@ -47,21 +48,48 @@ export function SiteModal({
 
   useEffect(() => {
     if (!isOpen) return undefined;
+    previousActiveElement.current = document.activeElement as HTMLElement | null;
 
     const previousOverflow = document.body.style.overflow;
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') onCloseRef.current();
+      if (event.key === 'Escape') {
+        onCloseRef.current();
+        return;
+      }
+      if (event.key === 'Tab' && modalRef.current) {
+        const focusable = modalRef.current.querySelectorAll<HTMLElement>(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
+        );
+        if (focusable.length === 0) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first.focus();
+        }
+      }
     };
 
     document.body.style.overflow = 'hidden';
     document.addEventListener('keydown', handleKeyDown);
-    closeButtonRef.current?.focus();
 
     return () => {
       document.body.style.overflow = previousOverflow;
       document.removeEventListener('keydown', handleKeyDown);
+      previousActiveElement.current?.focus?.();
     };
   }, [isOpen]);
+
+  useEffect(() => {
+    if (!isMounted || !isOpen) return undefined;
+    const frame = requestAnimationFrame(() => {
+      closeButtonRef.current?.focus();
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [isMounted, isOpen]);
 
   if (!isMounted || !isOpen) return null;
 
@@ -76,6 +104,7 @@ export function SiteModal({
       }}
     >
       <div
+        ref={modalRef}
         className={modalClassName}
         role="dialog"
         aria-modal="true"

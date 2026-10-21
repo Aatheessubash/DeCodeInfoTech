@@ -1,12 +1,7 @@
 'use client';
 
 import React from 'react';
-import {
-  ArrowUpRight,
-  CheckCircle2,
-  TrendingUp,
-  ShieldCheck,
-} from 'lucide-react';
+import { ArrowUpRight, CheckCircle2, TrendingUp, ShieldCheck } from 'lucide-react';
 import { useData } from '@/context/useData';
 import styles from './WhoWeAre.module.css';
 

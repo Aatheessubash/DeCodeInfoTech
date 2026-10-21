@@ -175,6 +175,7 @@ export const ParticleText = ({
     const ctx = canvas.getContext('2d');
     if (!ctx) return undefined;
 
+    let isDisposed = false;
     let particles: Particle[] = [];
     let buckets: Particle[][] = Array.from({ length: PALETTE_STEPS + 1 }, () => []);
     let animationFrame: number | null = null;
@@ -325,6 +326,7 @@ export const ParticleText = ({
     };
 
     const sampleText = (): void => {
+      if (isDisposed) return;
       const rect = container?.getBoundingClientRect();
       let width = rect ? Math.floor(rect.width) : 0;
       if (width <= 0) {
@@ -555,9 +557,12 @@ export const ParticleText = ({
     };
 
     const queueSample = (): void => {
+      if (isDisposed) return;
       if (resizeFrame) window.cancelAnimationFrame(resizeFrame);
       resizeFrame = window.requestAnimationFrame(() => {
-        sampleText();
+        if (!isDisposed) {
+          sampleText();
+        }
       });
     };
 
@@ -662,10 +667,13 @@ export const ParticleText = ({
     sampleText();
 
     void document?.fonts?.ready?.then(() => {
-      queueSample();
+      if (!isDisposed) {
+        queueSample();
+      }
     });
 
     return () => {
+      isDisposed = true;
       resizeObserver.disconnect();
       intersectionObserver.disconnect();
       document.removeEventListener('visibilitychange', handleVisibilityChange);

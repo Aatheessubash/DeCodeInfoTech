@@ -109,14 +109,14 @@ export function ProjectEditor({ project, onChange, onSave, onCancel }) {
           <label className={styles.field}>
             <span>Short description</span>
             <textarea
-              value={project.problem}
+              value={project.problem || ''}
               onChange={(event) => update('problem', event.target.value)}
               placeholder="One concise paragraph describing the project and its value."
               rows="4"
               maxLength="260"
               required
             />
-            <small>{project.problem.length}/260 characters</small>
+            <small>{(project.problem || '').length}/260 characters</small>
           </label>
 
           <label className={styles.field}>

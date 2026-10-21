@@ -18,7 +18,11 @@ export function Footer() {
     rawEmail && rawEmail !== 'hello@decode.com' && rawEmail !== 'contact@decodeinfotech.com'
       ? rawEmail
       : 'contact@decodeinfotech.in';
-  const contactPhone = '7092802364';
+  const displayPhone = siteContent?.contactPhone?.trim() || '+91 70928 02364';
+  const cleanDigits = displayPhone.replace(/\D/g, '');
+  const phoneWithoutCountryCode =
+    cleanDigits.startsWith('91') && cleanDigits.length > 10 ? cleanDigits.slice(2) : cleanDigits;
+  const telHref = cleanDigits ? `tel:+${cleanDigits}` : 'tel:+917092802364';
 
   useEffect(() => {
     let animationFrame = 0;
@@ -157,7 +161,7 @@ export function Footer() {
               </svg>
             </a>
             <a
-              href={`https://wa.me/91${contactPhone}`}
+              href={`https://wa.me/91${phoneWithoutCountryCode}`}
               target="_blank"
               rel="noopener noreferrer"
               className={styles.socialBtn}
@@ -189,12 +193,12 @@ export function Footer() {
             <span>{contactEmail}</span>
           </a>
           <a
-            href={`tel:${contactPhone}`}
+            href={telHref}
             className={styles.contactLink}
             onClick={() => trackEvent({ action: 'phone_click', category: 'lead', label: 'footer' })}
           >
             <Phone size={16} aria-hidden="true" />
-            <span>{contactPhone}</span>
+            <span>{displayPhone}</span>
           </a>
         </div>
       </div>

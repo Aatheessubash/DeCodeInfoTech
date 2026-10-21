@@ -18,6 +18,7 @@ export default function CareersPage() {
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState('');
+  const [honeypot, setHoneypot] = useState('');
   const [resume, setResume] = useState<ResumeAttachment | null>(null);
   const [resumeError, setResumeError] = useState('');
   const [isDragging, setIsDragging] = useState(false);
@@ -82,6 +83,7 @@ export default function CareersPage() {
     });
     setResume(null);
     setResumeError('');
+    setHoneypot('');
     if (fileInputRef.current) {
       fileInputRef.current.value = '';
     }
@@ -111,13 +113,10 @@ export default function CareersPage() {
       const response = await fetch('/api/careers', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
+        body: JSON.stringify({ ...payload, website: honeypot }),
       });
       const result = await response.json().catch(() => ({}));
       if (!response.ok || !result.success) {
-        if (response.status === 503) {
-          addJobApplication(payload);
-        }
         throw new Error(
           result.message ||
             'We could not send your application. Please try again or reach us at contact@decodeinfotech.in.',
@@ -268,6 +267,29 @@ export default function CareersPage() {
             </div>
           ) : (
             <form onSubmit={handleSubmit}>
+              {/* Invisible honeypot to trap automated scrapers/bots */}
+              <div
+                style={{
+                  display: 'none',
+                  position: 'absolute',
+                  left: '-9999px',
+                  opacity: 0,
+                  pointerEvents: 'none',
+                }}
+                aria-hidden="true"
+              >
+                <label htmlFor="career-website">Leave this empty</label>
+                <input
+                  id="career-website"
+                  name="website"
+                  type="text"
+                  value={honeypot}
+                  onChange={(e) => setHoneypot(e.target.value)}
+                  tabIndex={-1}
+                  autoComplete="off"
+                />
+              </div>
+
               <div className={styles.formGroup}>
                 <div>
                   <label htmlFor="career-name" className={styles.label}>

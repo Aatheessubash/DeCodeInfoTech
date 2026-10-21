@@ -2,8 +2,9 @@ import React from 'react';
 import { Hero } from '@/components/Hero/Hero';
 import { WhoWeAre } from '@/components/WhoWeAre/WhoWeAre';
 import { Services } from '@/components/Services/Services';
-import { Portfolio } from '@/components/Portfolio/Portfolio';
 import { BusinessTypes } from '@/components/BusinessTypes/BusinessTypes';
+import { PromiseSection } from '@/components/Promise/Promise';
+import { Portfolio } from '@/components/Portfolio/Portfolio';
 import { Testimonial } from '@/components/Testimonial/Testimonial';
 import { Careers } from '@/components/Careers/Careers';
 import { FAQ } from '@/components/FAQ/FAQ';
@@ -16,6 +17,7 @@ export default function HomePage() {
       <WhoWeAre />
       <Services />
       <BusinessTypes />
+      <PromiseSection />
       <Portfolio />
       <Testimonial />
       <Careers />

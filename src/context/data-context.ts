@@ -26,7 +26,7 @@ export interface DataContextValue {
   addProject: (project: Project) => void;
   updateProject: (id: string, project: Partial<Project>) => void;
   deleteProject: (id: string) => void;
-  moveProject: (fromIndex: number, toIndex: number) => void;
+  moveProject: (fromIndexOrId: number | string, toIndexOrDirection: number) => void;
   addService: (service: Service) => void;
   updateService: (id: string, service: Partial<Service>) => void;
   deleteService: (id: string) => void;
@@ -36,7 +36,7 @@ export interface DataContextValue {
   addFaq: (faq: FaqItem) => void;
   updateFaq: (id: string, faq: Partial<FaqItem>) => void;
   deleteFaq: (id: string) => void;
-  moveFaq: (fromIndex: number, toIndex: number) => void;
+  moveFaq: (fromIndexOrId: number | string, toIndexOrDirection: number) => void;
   addStandard: (standard: StandardItem) => void;
   updateStandard: (id: string, standard: Partial<StandardItem>) => void;
   deleteStandard: (id: string) => void;
@@ -45,10 +45,12 @@ export interface DataContextValue {
   addJobPosting: (job: JobPosting) => void;
   updateJobPosting: (id: string, job: Partial<JobPosting>) => void;
   deleteJobPosting: (id: string) => void;
-  moveJobPosting: (fromIndex: number, toIndex: number) => void;
+  moveJobPosting: (fromIndexOrId: number | string, toIndexOrDirection: number) => void;
   addJobApplication: (app: JobApplication) => void;
-  deleteJobApplication: (index: number) => void;
+  deleteJobApplication: (idOrIndex: string | number) => void;
   clearJobApplications: () => void;
+  addMediaAsset: (asset: MediaAsset) => void;
+  deleteMediaAsset: (id: string) => void;
   resetAllData: () => void;
 }
 
