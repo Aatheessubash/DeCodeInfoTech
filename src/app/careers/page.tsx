@@ -304,7 +304,6 @@ export default function CareersPage() {
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     className={styles.input}
-                    autoFocus
                   />
                 </div>
 

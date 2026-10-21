@@ -10,6 +10,7 @@ type SiteModalProps = {
   onClose: () => void;
   eyebrow?: string;
   title?: React.ReactNode;
+  subtitle?: React.ReactNode;
   titleId?: string;
   children: React.ReactNode;
   size?: 'sm' | 'md' | 'lg';
@@ -23,6 +24,7 @@ export function SiteModal({
   onClose,
   eyebrow,
   title,
+  subtitle,
   titleId,
   children,
   size = 'md',
@@ -42,6 +44,7 @@ export function SiteModal({
   const onCloseRef = useRef(onClose);
   const isClosingRef = useRef(false);
   const prevIsOpen = useRef(false);
+  const openTimestampRef = useRef<number>(0);
 
   const touchStartY = useRef<number | null>(null);
   const resetTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -60,7 +63,7 @@ export function SiteModal({
     };
   }, []);
 
-  // Request close with smooth exit animation
+  // Request close with smooth exit transition
   const handleClose = () => {
     if (isClosingRef.current) return;
     isClosingRef.current = true;
@@ -77,6 +80,8 @@ export function SiteModal({
     if (isOpen && !prevIsOpen.current) {
       setShouldRender(true);
       isClosingRef.current = false;
+      openTimestampRef.current = Date.now();
+
       const frame1 = requestAnimationFrame(() => {
         const frame2 = requestAnimationFrame(() => {
           setIsEntered(true);
@@ -97,12 +102,25 @@ export function SiteModal({
     }
   }, [isOpen]);
 
-  // Focus close button smoothly after entrance
+  // Handle backdrop clicks, ignoring ghost clicks right after open
+  const handleBackdropClick = (event: React.MouseEvent) => {
+    if (event.target !== event.currentTarget) return;
+    // Guard against delayed mobile tap clicks from opening the modal
+    if (Date.now() - openTimestampRef.current < 380) return;
+    handleClose();
+  };
+
+  // Only auto-focus close button on non-touch desktop devices (never auto-focus on mobile touch devices)
   useEffect(() => {
     if (!shouldRender || !isEntered || isClosingRef.current) return undefined;
+    const isTouch =
+      typeof window !== 'undefined' &&
+      ('ontouchstart' in window || navigator.maxTouchPoints > 0);
+    if (isTouch) return undefined;
+
     const timer = setTimeout(() => {
       closeButtonRef.current?.focus({ preventScroll: true });
-    }, 260);
+    }, 280);
     return () => clearTimeout(timer);
   }, [shouldRender, isEntered]);
 
@@ -211,9 +229,7 @@ export function SiteModal({
     <div
       className={backdropClasses}
       role="presentation"
-      onClick={(event) => {
-        if (event.target === event.currentTarget) handleClose();
-      }}
+      onClick={handleBackdropClick}
     >
       <div
         ref={modalRef}
@@ -235,12 +251,17 @@ export function SiteModal({
             <span className={styles.handleIndicator} />
           </div>
           <div className={styles.titleGroup}>
-            {eyebrow && <p className={styles.eyebrow}>{eyebrow}</p>}
+            {eyebrow && (
+              <div className={styles.eyebrowWrapper}>
+                <span className={styles.eyebrow}>{eyebrow}</span>
+              </div>
+            )}
             {title && (
               <h2 id={headingId} className={styles.title}>
                 {title}
               </h2>
             )}
+            {subtitle && <p className={styles.subtitle}>{subtitle}</p>}
           </div>
           {showCloseButton && (
             <button
