@@ -7,6 +7,7 @@ import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import { ParticleText } from './ParticleText';
 import { ContactForm } from '@/components/Contact/ContactForm';
 import { SiteModal } from '@/components/shared/SiteModal';
+import { PageSkeleton } from '@/components/shared/PageSkeleton';
 
 const LEGACY_HERO_HEADLINES = new Set([
   'We build digital experiences that help businesses grow. Leading web development company for startups.',
@@ -57,10 +58,30 @@ export function Hero() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const configuredHeroVideoUrl = siteContent?.heroVideoUrl?.trim() || '/sample.webm';
   const [heroVideoUrl, setHeroVideoUrl] = useState(configuredHeroVideoUrl);
+  const [isVideoReady, setIsVideoReady] = useState(false);
+  const [showSkeleton, setShowSkeleton] = useState(true);
 
   useEffect(() => {
     setHeroVideoUrl(configuredHeroVideoUrl);
   }, [configuredHeroVideoUrl]);
+
+  // Safety fallback: Never keep the user waiting longer than 3.2s
+  useEffect(() => {
+    const safetyTimer = setTimeout(() => {
+      setIsVideoReady(true);
+    }, 3200);
+    return () => clearTimeout(safetyTimer);
+  }, []);
+
+  // Remove skeleton overlay from DOM after fade-out transition completes
+  useEffect(() => {
+    if (isVideoReady) {
+      const unmountTimer = setTimeout(() => {
+        setShowSkeleton(false);
+      }, 500);
+      return () => clearTimeout(unmountTimer);
+    }
+  }, [isVideoReady]);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -68,19 +89,27 @@ export function Hero() {
       return;
     }
 
-    const playVideo = () => {
+    const onReady = () => {
+      setIsVideoReady(true);
       void video.play().catch(() => {
         // Muted autoplay can still be interrupted while the browser is restoring the tab.
       });
     };
 
-    if (video.readyState >= HTMLMediaElement.HAVE_ENOUGH_DATA) {
-      playVideo();
+    if (video.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) {
+      onReady();
       return;
     }
 
-    video.addEventListener('canplay', playVideo, { once: true });
-    return () => video.removeEventListener('canplay', playVideo);
+    video.addEventListener('loadeddata', onReady, { once: true });
+    video.addEventListener('canplay', onReady, { once: true });
+    video.addEventListener('playing', onReady, { once: true });
+
+    return () => {
+      video.removeEventListener('loadeddata', onReady);
+      video.removeEventListener('canplay', onReady);
+      video.removeEventListener('playing', onReady);
+    };
   }, [heroVideoUrl]);
 
   const scrollTo = (id: string) => {
@@ -99,24 +128,37 @@ export function Hero() {
   };
 
   return (
-    <section id="home" ref={heroRef} className={styles.heroSection}>
-      <div className={styles.videoWrapper} aria-hidden="true">
-        <video
-          ref={videoRef}
-          key={heroVideoUrl}
-          className={styles.videoBackground}
-          src={heroVideoUrl}
-          autoPlay
-          loop
-          muted
-          playsInline
-          preload="auto"
-          onError={() => {
-            if (heroVideoUrl !== '/sample.webm') {
-              setHeroVideoUrl('/sample.webm');
-            }
-          }}
-        />
+    <>
+      {showSkeleton && (
+        <div
+          className={`${styles.skeletonOverlay} ${isVideoReady ? styles.skeletonFadeOut : ''}`}
+          aria-hidden={isVideoReady}
+        >
+          <PageSkeleton />
+        </div>
+      )}
+
+      <section id="home" ref={heroRef} className={styles.heroSection}>
+        <div className={styles.videoWrapper} aria-hidden="true">
+          <video
+            ref={videoRef}
+            key={heroVideoUrl}
+            className={styles.videoBackground}
+            src={heroVideoUrl}
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="auto"
+            onLoadedData={() => setIsVideoReady(true)}
+            onCanPlay={() => setIsVideoReady(true)}
+            onError={() => {
+              setIsVideoReady(true);
+              if (heroVideoUrl !== '/sample.webm') {
+                setHeroVideoUrl('/sample.webm');
+              }
+            }}
+          />
         <div className={styles.videoOverlay} />
       </div>
 
@@ -205,6 +247,7 @@ export function Hero() {
         <ContactForm idPrefix="hero-project" />
       </SiteModal>
     </section>
+  </>
   );
 }
 

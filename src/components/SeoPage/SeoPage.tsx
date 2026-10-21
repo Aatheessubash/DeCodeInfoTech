@@ -1,11 +1,12 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import { seoPages, siteUrl, type SeoPage } from '@/data/seo-pages';
 import { SiteModal } from '@/components/shared/SiteModal';
 import { ContactForm } from '@/components/Contact/ContactForm';
+import { PageSkeleton } from '@/components/shared/PageSkeleton';
 import styles from './SeoPage.module.css';
 
 type SeoPageProps = {
@@ -97,6 +98,50 @@ function formatHeadingWithGradient(text: string) {
 export function SeoPageTemplate({ page }: SeoPageProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [openFaqIdx, setOpenFaqIdx] = useState<number>(0);
+  const [isVideoReady, setIsVideoReady] = useState(false);
+  const [showSkeleton, setShowSkeleton] = useState(true);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const safetyTimer = setTimeout(() => {
+      setIsVideoReady(true);
+    }, 3200);
+    return () => clearTimeout(safetyTimer);
+  }, []);
+
+  useEffect(() => {
+    if (isVideoReady) {
+      const unmountTimer = setTimeout(() => {
+        setShowSkeleton(false);
+      }, 500);
+      return () => clearTimeout(unmountTimer);
+    }
+  }, [isVideoReady]);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const onReady = () => {
+      setIsVideoReady(true);
+      void video.play().catch(() => {});
+    };
+
+    if (video.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) {
+      onReady();
+      return;
+    }
+
+    video.addEventListener('loadeddata', onReady, { once: true });
+    video.addEventListener('canplay', onReady, { once: true });
+    video.addEventListener('playing', onReady, { once: true });
+
+    return () => {
+      video.removeEventListener('loadeddata', onReady);
+      video.removeEventListener('canplay', onReady);
+      video.removeEventListener('playing', onReady);
+    };
+  }, []);
 
   const toggleFaq = (idx: number) => {
     setOpenFaqIdx(openFaqIdx === idx ? -1 : idx);
@@ -160,25 +205,39 @@ export function SeoPageTemplate({ page }: SeoPageProps) {
   };
 
   return (
-    <article className={styles.page}>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify([serviceJsonLd, faqJsonLd, breadcrumbJsonLd]),
-        }}
-      />
+    <>
+      {showSkeleton && (
+        <div
+          className={`${styles.skeletonOverlay} ${isVideoReady ? styles.skeletonFadeOut : ''}`}
+          aria-hidden={isVideoReady}
+        >
+          <PageSkeleton />
+        </div>
+      )}
 
-      <section className={styles.hero}>
-        <div className={styles.videoWrapper} aria-hidden="true">
-          <video
-            className={styles.videoBackground}
-            src="/sample.webm"
-            autoPlay
-            loop
-            muted
-            playsInline
-            preload="auto"
-          />
+      <article className={styles.page}>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify([serviceJsonLd, faqJsonLd, breadcrumbJsonLd]),
+          }}
+        />
+
+        <section className={styles.hero}>
+          <div className={styles.videoWrapper} aria-hidden="true">
+            <video
+              ref={videoRef}
+              className={styles.videoBackground}
+              src="/sample.webm"
+              autoPlay
+              loop
+              muted
+              playsInline
+              preload="auto"
+              onLoadedData={() => setIsVideoReady(true)}
+              onCanPlay={() => setIsVideoReady(true)}
+              onError={() => setIsVideoReady(true)}
+            />
           <div className={styles.videoOverlay} />
         </div>
         <div className={styles.ambientGlow} aria-hidden="true" />
@@ -374,6 +433,7 @@ export function SeoPageTemplate({ page }: SeoPageProps) {
       >
         <ContactForm idPrefix={`seo-${page.slug}`} defaultProjectType={defaultCategory} />
       </SiteModal>
-    </article>
+      </article>
+    </>
   );
 }
