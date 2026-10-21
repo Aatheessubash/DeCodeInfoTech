@@ -12,7 +12,19 @@
     rgba(15, 23, 42, 0.62);
   backdrop-filter: blur(16px) saturate(145%);
   -webkit-backdrop-filter: blur(16px) saturate(145%);
-  animation: modalBackdropFadeIn 220ms ease-out;
+  opacity: 0;
+  transition: opacity 320ms cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity;
+}
+
+.backdropEntered {
+  opacity: 1;
+}
+
+.backdropExiting {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 240ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .modal {
@@ -35,7 +47,29 @@
   box-shadow:
     0 28px 90px rgba(2, 6, 23, 0.32),
     0 1px 0 rgba(255, 255, 255, 0.7) inset;
-  animation: modalPopIn 240ms cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Smooth bottom-to-top transition initial state */
+  opacity: 0;
+  transform: translate3d(0, 60px, 0) scale(0.97);
+  transition:
+    transform 380ms cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 320ms cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.modalEntered {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+}
+
+.modalExiting {
+  opacity: 0;
+  transform: translate3d(0, 40px, 0) scale(0.97);
+  transition:
+    transform 240ms cubic-bezier(0.4, 0, 1, 1),
+    opacity 200ms ease;
 }
 
 .sm {
@@ -136,40 +170,8 @@
   padding: clamp(22px, 4vw, 34px) clamp(18px, 4vw, 36px) clamp(24px, 4vw, 36px);
 }
 
-/* Keyframe animations */
-@keyframes modalBackdropFadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes modalPopIn {
-  from {
-    opacity: 0;
-    transform: scale(0.96) translateY(12px);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1) translateY(0);
-  }
-}
-
-@keyframes sheetSlideUp {
-  from {
-    opacity: 0.85;
-    transform: translateY(100%);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
 /* Mobile Bottom Sheet Design */
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   .backdrop {
     display: flex;
     flex-direction: column;
@@ -178,12 +180,12 @@
     padding: 0;
     overflow-y: hidden;
     background: rgba(15, 23, 42, 0.68);
-    backdrop-filter: blur(12px) saturate(135%);
-    -webkit-backdrop-filter: blur(12px) saturate(135%);
+    backdrop-filter: blur(14px) saturate(135%);
+    -webkit-backdrop-filter: blur(14px) saturate(135%);
   }
 
   .modal {
-    --modal-radius: 26px;
+    --modal-radius: 28px;
     width: 100%;
     max-width: 100%;
     max-height: 90vh;
@@ -193,10 +195,28 @@
     border-right: none;
     border-bottom: none;
     border-top: 1px solid rgba(255, 255, 255, 0.35);
-    box-shadow: 0 -12px 48px rgba(0, 0, 0, 0.28);
+    box-shadow: 0 -12px 48px rgba(0, 0, 0, 0.3);
     overflow: hidden;
-    animation: sheetSlideUp 300ms cubic-bezier(0.16, 1, 0.3, 1);
-    will-change: transform;
+
+    /* Mobile bottom-to-top transition: starts completely off screen at bottom */
+    opacity: 1;
+    transform: translate3d(0, 100%, 0);
+    transition:
+      transform 380ms cubic-bezier(0.16, 1, 0.3, 1),
+      opacity 280ms ease;
+  }
+
+  .modalEntered {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+
+  .modalExiting {
+    opacity: 0.95;
+    transform: translate3d(0, 100%, 0);
+    transition:
+      transform 250ms cubic-bezier(0.32, 0, 0.67, 0),
+      opacity 200ms ease;
   }
 
   .handleBar {
@@ -214,7 +234,7 @@
     width: 38px;
     height: 4.5px;
     border-radius: 999px;
-    background: rgba(15, 23, 42, 0.2);
+    background: rgba(15, 23, 42, 0.22);
     transition: background-color 150ms ease, transform 150ms ease;
   }
 
@@ -235,7 +255,7 @@
   }
 
   .titleGroup {
-    padding-right: 42px;
+    padding-right: 44px;
   }
 
   .eyebrow {
@@ -299,8 +319,11 @@
 
 @media (prefers-reduced-motion: reduce) {
   .backdrop,
-  .modal {
-    animation: none !important;
+  .modal,
+  .modalEntered,
+  .modalExiting {
+    transition: none !important;
+    transform: none !important;
   }
 
   .closeButton {
