@@ -1,0 +1,382 @@
+.pageSkeleton {
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding-top: clamp(88px, 12vh, 128px);
+  padding-bottom: clamp(64px, 10vh, 112px);
+  position: relative;
+  overflow: hidden;
+  background: var(--bg, #ffffff);
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Top Progress Glow Bar */
+.progressBar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  z-index: 9999;
+  background: rgba(0, 113, 227, 0.08);
+  overflow: hidden;
+}
+
+.progressGlow {
+  height: 100%;
+  width: 45%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    #0071e3 35%,
+    #7c3aed 70%,
+    #d946ef 100%
+  );
+  box-shadow: 0 0 12px rgba(124, 58, 237, 0.6);
+  animation: progressIndeterminate 1.4s infinite cubic-bezier(0.65, 0.815, 0.735, 0.395);
+  will-change: transform;
+}
+
+@keyframes progressIndeterminate {
+  0% {
+    transform: translateX(-100%);
+  }
+  60% {
+    transform: translateX(120%);
+  }
+  100% {
+    transform: translateX(250%);
+  }
+}
+
+.container {
+  max-width: var(--site-max-width, 1240px);
+  margin: 0 auto;
+  padding: 0 var(--section-padding-x, clamp(20px, 4vw, 32px));
+}
+
+/* Base shimmer animation applied to all placeholder items */
+.eyebrow,
+.titleLine1,
+.titleLine2,
+.subLine1,
+.subLine2,
+.subLine3,
+.btnPrimary,
+.btnSecondary,
+.statNumber,
+.statLabel,
+.sectionEyebrow,
+.sectionTitle,
+.sectionDesc,
+.cardMedia,
+.cardPill,
+.cardHeading,
+.cardBodyLine1,
+.cardBodyLine2,
+.cardFooterText,
+.cardFooterIcon {
+  background: linear-gradient(
+    90deg,
+    rgba(235, 235, 240, 0.85) 0%,
+    rgba(247, 247, 252, 0.98) 50%,
+    rgba(235, 235, 240, 0.85) 100%
+  );
+  background-size: 200% 100%;
+  animation: skeletonShimmer 1.6s infinite ease-in-out;
+  border-radius: 8px;
+}
+
+@keyframes skeletonShimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Hero Section Skeleton */
+.heroSection {
+  margin-bottom: clamp(64px, 10vh, 96px);
+}
+
+.eyebrow {
+  width: 150px;
+  height: 28px;
+  border-radius: 999px;
+  margin-bottom: 24px;
+}
+
+.titleGroup {
+  margin-bottom: 28px;
+}
+
+.titleLine1 {
+  width: min(100%, 740px);
+  height: clamp(38px, 6vw, 56px);
+  border-radius: 14px;
+  margin-bottom: 14px;
+}
+
+.titleLine2 {
+  width: min(82%, 540px);
+  height: clamp(38px, 6vw, 56px);
+  border-radius: 14px;
+}
+
+.subtitleGroup {
+  margin-bottom: 36px;
+}
+
+.subLine1 {
+  width: min(92%, 640px);
+  height: 18px;
+  border-radius: 6px;
+  margin-bottom: 10px;
+}
+
+.subLine2 {
+  width: min(85%, 580px);
+  height: 18px;
+  border-radius: 6px;
+  margin-bottom: 10px;
+}
+
+.subLine3 {
+  width: min(60%, 420px);
+  height: 18px;
+  border-radius: 6px;
+}
+
+.actionsGroup {
+  display: flex;
+  gap: 16px;
+  margin-bottom: clamp(48px, 8vh, 72px);
+  flex-wrap: wrap;
+}
+
+.btnPrimary {
+  width: 170px;
+  height: 50px;
+  border-radius: 999px;
+}
+
+.btnSecondary {
+  width: 150px;
+  height: 50px;
+  border-radius: 999px;
+}
+
+/* Metrics / Stats Row */
+.statsRow {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.statCard {
+  height: 104px;
+  border-radius: 20px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+  background: rgba(245, 245, 247, 0.7);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.statNumber {
+  width: 84px;
+  height: 32px;
+  border-radius: 6px;
+}
+
+.statLabel {
+  width: 120px;
+  height: 14px;
+  border-radius: 4px;
+}
+
+/* Content / Cards Grid Skeleton */
+.contentSection {
+  margin-top: 32px;
+}
+
+.sectionHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 36px;
+}
+
+.sectionEyebrow {
+  width: 120px;
+  height: 22px;
+  border-radius: 999px;
+}
+
+.sectionTitle {
+  width: min(75%, 380px);
+  height: 36px;
+  border-radius: 10px;
+}
+
+.sectionDesc {
+  width: min(88%, 520px);
+  height: 16px;
+  border-radius: 6px;
+}
+
+.cardGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 28px;
+}
+
+.card {
+  border-radius: 24px;
+  padding: 22px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.cardMedia {
+  width: 100%;
+  height: 180px;
+  border-radius: 16px;
+}
+
+.cardPill {
+  width: 90px;
+  height: 22px;
+  border-radius: 999px;
+}
+
+.cardHeading {
+  width: 78%;
+  height: 24px;
+  border-radius: 6px;
+}
+
+.cardBodyLine1 {
+  width: 100%;
+  height: 15px;
+  border-radius: 4px;
+}
+
+.cardBodyLine2 {
+  width: 68%;
+  height: 15px;
+  border-radius: 4px;
+}
+
+.cardFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.cardFooterText {
+  width: 80px;
+  height: 16px;
+  border-radius: 4px;
+}
+
+.cardFooterIcon {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .cardGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+  }
+
+  .statsRow {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+}
+
+@media (max-width: 640px) {
+  .pageSkeleton {
+    padding-top: 84px;
+    padding-bottom: 56px;
+  }
+
+  .cardGrid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .statsRow {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .actionsGroup {
+    flex-direction: column;
+  }
+
+  .btnPrimary,
+  .btnSecondary {
+    width: 100%;
+  }
+}
+
+/* Accessibility: reduce motion */
+@media (prefers-reduced-motion: reduce) {
+  .progressGlow {
+    animation: none;
+    width: 100%;
+    opacity: 0.5;
+  }
+
+  .eyebrow,
+  .titleLine1,
+  .titleLine2,
+  .subLine1,
+  .subLine2,
+  .subLine3,
+  .btnPrimary,
+  .btnSecondary,
+  .statNumber,
+  .statLabel,
+  .sectionEyebrow,
+  .sectionTitle,
+  .sectionDesc,
+  .cardMedia,
+  .cardPill,
+  .cardHeading,
+  .cardBodyLine1,
+  .cardBodyLine2,
+  .cardFooterText,
+  .cardFooterIcon {
+    animation: none;
+    background: #e9e9ed;
+  }
+}
+

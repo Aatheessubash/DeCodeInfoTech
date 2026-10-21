@@ -13,18 +13,12 @@
   backdrop-filter: blur(16px) saturate(145%);
   -webkit-backdrop-filter: blur(16px) saturate(145%);
   opacity: 0;
-  transition: opacity 320ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 300ms cubic-bezier(0.16, 1, 0.3, 1);
   will-change: opacity;
 }
 
 .backdropEntered {
   opacity: 1;
-}
-
-.backdropExiting {
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 240ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .modal {
@@ -48,12 +42,12 @@
     0 28px 90px rgba(2, 6, 23, 0.32),
     0 1px 0 rgba(255, 255, 255, 0.7) inset;
 
-  /* Smooth bottom-to-top transition initial state */
+  /* Smooth bottom-to-top transition initial state (desktop) */
   opacity: 0;
-  transform: translate3d(0, 60px, 0) scale(0.97);
+  transform: translate3d(0, 50px, 0) scale(0.97);
   transition:
-    transform 380ms cubic-bezier(0.16, 1, 0.3, 1),
-    opacity 320ms cubic-bezier(0.16, 1, 0.3, 1);
+    transform 340ms cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 280ms cubic-bezier(0.16, 1, 0.3, 1);
   will-change: transform, opacity;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
@@ -62,14 +56,6 @@
 .modalEntered {
   opacity: 1;
   transform: translate3d(0, 0, 0) scale(1);
-}
-
-.modalExiting {
-  opacity: 0;
-  transform: translate3d(0, 40px, 0) scale(0.97);
-  transition:
-    transform 240ms cubic-bezier(0.4, 0, 1, 1),
-    opacity 200ms ease;
 }
 
 .sm {
@@ -143,6 +129,9 @@
   background: rgba(255, 255, 255, 0.88);
   box-shadow: 0 10px 26px rgba(15, 23, 42, 0.18);
   cursor: pointer;
+  z-index: 20;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
   transition:
     transform 180ms ease,
     border-color 180ms ease,
@@ -202,21 +191,13 @@
     opacity: 1;
     transform: translate3d(0, 100%, 0);
     transition:
-      transform 380ms cubic-bezier(0.16, 1, 0.3, 1),
-      opacity 280ms ease;
+      transform 340ms cubic-bezier(0.16, 1, 0.3, 1),
+      opacity 240ms ease;
   }
 
   .modalEntered {
     opacity: 1;
     transform: translate3d(0, 0, 0);
-  }
-
-  .modalExiting {
-    opacity: 0.95;
-    transform: translate3d(0, 100%, 0);
-    transition:
-      transform 250ms cubic-bezier(0.32, 0, 0.67, 0),
-      opacity 200ms ease;
   }
 
   .handleBar {
@@ -255,7 +236,7 @@
   }
 
   .titleGroup {
-    padding-right: 44px;
+    padding-right: 48px;
   }
 
   .eyebrow {
@@ -271,29 +252,37 @@
   }
 
   .closeButton {
+    position: absolute;
     top: 10px;
     right: 14px;
-    width: 34px;
-    height: 34px;
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
-    background: rgba(15, 23, 42, 0.06);
-    border: 1px solid rgba(15, 23, 42, 0.08);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    background: rgba(15, 23, 42, 0.08);
+    border: 1px solid rgba(15, 23, 42, 0.1);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
     color: #171717;
+    z-index: 25;
+    cursor: pointer;
+    touch-action: manipulation;
+    display: inline-grid;
+    place-items: center;
+    -webkit-tap-highlight-color: transparent;
   }
 
   .closeButton::before {
     content: '';
     position: absolute;
-    inset: -6px;
+    inset: -8px;
+    border-radius: 50%;
   }
 
   .closeButton:hover,
   .closeButton:active {
-    background: rgba(15, 23, 42, 0.14);
+    background: rgba(15, 23, 42, 0.18);
     color: #000;
-    transform: scale(0.94);
-    border-color: rgba(0, 0, 0, 0.16);
+    transform: scale(0.92);
+    border-color: rgba(0, 0, 0, 0.2);
   }
 
   .body {
@@ -320,8 +309,7 @@
 @media (prefers-reduced-motion: reduce) {
   .backdrop,
   .modal,
-  .modalEntered,
-  .modalExiting {
+  .modalEntered {
     transition: none !important;
     transform: none !important;
   }
