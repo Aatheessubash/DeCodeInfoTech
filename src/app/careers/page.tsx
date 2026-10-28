@@ -15,6 +15,7 @@ const formatFileSize = (bytes: number): string => {
 
 export default function CareersPage() {
   const [selectedJob, setSelectedJob] = useState<JobPosting | null>(null);
+  const [activeJob, setActiveJob] = useState<JobPosting | null>(null);
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState('');
@@ -36,6 +37,27 @@ export default function CareersPage() {
   const { addJobApplication, jobPostings } = useData();
 
   const openPositions = jobPostings || [];
+
+  const handleOpenApplication = (job?: JobPosting) => {
+    resetForm();
+    if (job) {
+      setActiveJob(job);
+      setSelectedJob(job);
+    } else {
+      const generalJob: JobPosting = {
+        id: 'general-application',
+        title: 'General Application',
+        department: 'General',
+        location: 'Remote / Coimbatore',
+        type: 'Full Time',
+        experience: 'Any experience level',
+        summary: 'General application for future software engineering and design opportunities at DeCode InfoTech',
+        requirements: [],
+      };
+      setActiveJob(generalJob);
+      setSelectedJob(generalJob);
+    }
+  };
 
   const handleFile = (file: File | null) => {
     setResumeError('');
@@ -102,7 +124,7 @@ export default function CareersPage() {
     const payload: JobApplication = {
       ...formData,
       portfolio: portfolioUrl,
-      jobTitle: selectedJob?.title || 'General Application',
+      jobTitle: activeJob?.title || selectedJob?.title || 'General Application',
       ...(resume ? { resume } : {}),
     };
 
@@ -182,9 +204,17 @@ export default function CareersPage() {
           <div className={`card-panel ${styles.emptyJobs}`}>
             <h3>No Open Roles Right Now</h3>
             <p>
-              We are not actively hiring today, but you can still reach us through the contact page
-              for future opportunities.
+              We are not actively posting roles today, but we are always eager to meet exceptional
+              engineers and designers. Submit a general application and our team will get in touch!
             </p>
+            <button
+              type="button"
+              className="btn-primary"
+              onClick={() => handleOpenApplication()}
+              style={{ marginTop: '16px' }}
+            >
+              Submit General Application
+            </button>
           </div>
         ) : (
           <div className={styles.jobsGrid}>
@@ -203,10 +233,7 @@ export default function CareersPage() {
                   <button
                     type="button"
                     className="btn-primary"
-                    onClick={() => {
-                      resetForm();
-                      setSelectedJob(job);
-                    }}
+                    onClick={() => handleOpenApplication(job)}
                   >
                     Apply For Role
                   </button>
@@ -234,33 +261,37 @@ export default function CareersPage() {
       </section>
 
       {/* Application Modal */}
-      {selectedJob && (
-        <SiteModal
-          isOpen={Boolean(selectedJob)}
-          onClose={() => {
-            setSelectedJob(null);
-            resetForm();
-          }}
-          eyebrow={formSubmitted ? 'Application Status' : `Applying for ${selectedJob.title}`}
-          title={
-            formSubmitted ? (
-              'Application Received!'
-            ) : (
-              <>
-                Submit Your <span className="modal-title-accent">Application</span>
-              </>
-            )
-          }
-          titleId="career-dialog-title"
-          size="sm"
-          closeLabel="Close application form"
-        >
-          {formSubmitted ? (
-            <div className={styles.successState}>
-              <div className={styles.successIcon}>✓</div>
-              <p className={styles.jobSummary} style={{ marginBottom: '24px' }}>
-                Thank you <strong>{formData.name}</strong>. Your application for{' '}
-                <strong>{selectedJob.title}</strong>
+      <SiteModal
+        isOpen={Boolean(selectedJob)}
+        onClose={() => {
+          setSelectedJob(null);
+        }}
+        eyebrow={
+          formSubmitted
+            ? 'Application Status'
+            : activeJob
+              ? `Applying for ${activeJob.title}`
+              : 'Career Application'
+        }
+        title={
+          formSubmitted ? (
+            'Application Received!'
+          ) : (
+            <>
+              Submit Your <span className="modal-title-accent">Application</span>
+            </>
+          )
+        }
+        titleId="career-dialog-title"
+        size="sm"
+        closeLabel="Close application form"
+      >
+        {formSubmitted ? (
+          <div className={styles.successState}>
+            <div className={styles.successIcon}>✓</div>
+            <p className={styles.jobSummary} style={{ marginBottom: '24px' }}>
+              Thank you <strong>{formData.name}</strong>. Your application for{' '}
+              <strong>{activeJob?.title || selectedJob?.title || 'the role'}</strong>
                 {resume ? ` (with resume ${resume.name})` : ''} has been submitted. Our engineering
                 leads will review your details and respond via email within 48 hours.
               </p>
@@ -482,7 +513,6 @@ export default function CareersPage() {
             </form>
           )}
         </SiteModal>
-      )}
     </div>
   );
 }

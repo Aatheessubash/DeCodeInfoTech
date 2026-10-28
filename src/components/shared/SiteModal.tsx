@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useId, useRef, useState } from 'react';
+import React, { useEffect, useId, useRef, useState, useSyncExternalStore } from 'react';
 import { createPortal } from 'react-dom';
 import { X } from 'lucide-react';
 import styles from './SiteModal.module.css';
@@ -19,6 +19,8 @@ type SiteModalProps = {
   showCloseButton?: boolean;
 };
 
+const emptySubscribe = () => () => {};
+
 export function SiteModal({
   isOpen,
   onClose,
@@ -32,7 +34,11 @@ export function SiteModal({
   className,
   showCloseButton = true,
 }: SiteModalProps) {
-  const [isMounted, setIsMounted] = useState(false);
+  const isClient = useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false,
+  );
   const [shouldRender, setShouldRender] = useState(isOpen);
   const [isEntered, setIsEntered] = useState(false);
 
@@ -43,7 +49,6 @@ export function SiteModal({
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const onCloseRef = useRef(onClose);
   const isClosingRef = useRef(false);
-  const prevIsOpen = useRef(false);
   const openTimestampRef = useRef<number>(0);
 
   const touchStartY = useRef<number | null>(null);
@@ -57,7 +62,6 @@ export function SiteModal({
   }, [onClose]);
 
   useEffect(() => {
-    setIsMounted(true);
     return () => {
       if (resetTimer.current) clearTimeout(resetTimer.current);
     };
@@ -77,29 +81,29 @@ export function SiteModal({
 
   // Synchronize open / close lifecycle
   useEffect(() => {
-    if (isOpen && !prevIsOpen.current) {
+    let enterTimeout: ReturnType<typeof setTimeout>;
+    let exitTimeout: ReturnType<typeof setTimeout>;
+
+    if (isOpen) {
       setShouldRender(true);
       isClosingRef.current = false;
       openTimestampRef.current = Date.now();
 
-      const frame1 = requestAnimationFrame(() => {
-        const frame2 = requestAnimationFrame(() => {
-          setIsEntered(true);
-        });
-        return () => cancelAnimationFrame(frame2);
-      });
-      prevIsOpen.current = true;
-      return () => cancelAnimationFrame(frame1);
-    } else if (!isOpen && prevIsOpen.current) {
-      prevIsOpen.current = false;
-      if (!isClosingRef.current) {
-        setIsEntered(false);
-        const timer = setTimeout(() => {
-          setShouldRender(false);
-        }, 240);
-        return () => clearTimeout(timer);
-      }
+      enterTimeout = setTimeout(() => {
+        setIsEntered(true);
+      }, 25);
+    } else {
+      setIsEntered(false);
+      exitTimeout = setTimeout(() => {
+        setShouldRender(false);
+        isClosingRef.current = false;
+      }, 240);
     }
+
+    return () => {
+      clearTimeout(enterTimeout);
+      clearTimeout(exitTimeout);
+    };
   }, [isOpen]);
 
   // Handle backdrop clicks, ignoring ghost clicks right after open
@@ -199,7 +203,7 @@ export function SiteModal({
     }, 240);
   };
 
-  if (!isMounted || !shouldRender) return null;
+  if (!isClient || !shouldRender) return null;
 
   const backdropClasses = [
     styles.backdrop,

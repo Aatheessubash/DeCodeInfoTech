@@ -1,0 +1,787 @@
+﻿{
+  "query": "3d floating image seamless orbit loop",
+  "tier": "words",
+  "tier_detail": "local word match",
+  "dropped": 0,
+  "unindexed": 0,
+  "shown": 45,
+  "total": 401,
+  "report_gap": "npx hyperframes feedback --search-miss \"3d floating image seamless orbit loop\" --wanted \"<the move you needed>\" --tier words",
+  "results": [
+    {
+      "name": "carousel-orbit-5",
+      "type": "block",
+      "title": "Orbit Carousel 5",
+      "description": "Image cards on a spinning 3D Fibonacci sphere, billboarded to the camera, sized by camera distance (Orbit style 5); 24 image slots.",
+      "tags": [
+        "carousel",
+        "gallery",
+        "images",
+        "showcase",
+        "orbit",
+        "3d"
+      ],
+      "dimensions": {
+        "width": 1920,
+        "height": 1080
+      },
+      "duration": 6
+    },
+    {
+      "name": "carousel-orbit-4",
+      "type": "block",
+      "title": "Orbit Carousel 4",
+      "description": "Image cards on a spinning 3D Fibonacci sphere, billboarded to the camera, sized by camera distance (Orbit style 4); 24 image slots.",
+      "tags": [
+        "carousel",
+        "gallery",
+        "images",
+        "showcase",
+        "orbit",
+        "3d"
+      ],
+      "dimensions": {
+        "width": 1920,
+        "height": 1080
+      },
+      "duration": 6
+    },
+    {
+      "name": "carousel-orbit-3",
+      "type": "block",
+      "title": "Orbit Carousel 3",
+      "description": "Image cards on a spinning 3D Fibonacci sphere, billboarded to the camera, sized by camera distance (Orbit style 3); 24 image slots.",
+      "tags": [
+        "carousel",
+        "gallery",
+        "images",
+        "showcase",
+        "orbit",
+        "3d"
+      ],
+      "dimensions": {
+        "width": 1920,
+        "height": 1080
+      },
+      "duration": 6
+    },
+    {
+      "name": "carousel-orbit-2",
+      "type": "block",
+      "title": "Orbit Carousel 2",
+      "description": "Image cards on a spinning 3D Fibonacci sphere, billboarded to the camera, sized by camera distance (Orbit style 2); 24 image slots.",
+      "tags": [
+        "carousel",
+        "gallery",
+        "images",
+        "showcase",
+        "orbit",
+        "3d"
+      ],
+      "dimensions": {
+        "width": 1920,
+        "height": 1080
+      },
+      "duration": 6
+    },
+    {
+      "name": "carousel-orbit-1",
+      "type": "block",
+      "title": "Orbit Carousel 1",
+      "description": "Image cards on a spinning 3D Fibonacci sphere, billboarded to the camera, sized by camera distance (Orbit style 1); 24 image slots.",
+      "tags": [
+        "carousel",
+        "gallery",
+        "images",
+        "showcase",
+        "orbit",
+        "3d"
+      ],
+      "dimensions": {
+        "width": 1920,
+        "height": 1080
+      },
+      "duration": 6
+    },
+    {
+      "name": "orbit-card",
+      "type": "block",
+      "title": "Orbit Card",
+      "description": "A single feature card orbits a dot sphere on approved Blender camera motion.",
+      "tags": [
+        "3d-motion",
+        "cards",
+        "feature-reveal",
+        "dots",
+        "orbit",
+        "blender-motion",
+        "sphere"
+      ],
+      "dimensions": {
+        "width": 1920,
+        "height": 1080
+      },
+      "duration": 10
+    },
+    {
+      "name": "locked-nucleus-orbit",
+      "type": "component",
+      "title": "Locked Nucleus Orbit",
+      "description": "A fixed center nucleus anchors deterministic satellite orbits that settle into a composed lockup.",
+      "tags": [
+        "motion-primitive",
+        "intro",
+        "reveal",
+        "orbit",
+        "lockup",
+        "deterministic"
+      ]
+    },
+    {
+      "name": "frost-sequence-camera-orbit",
+      "type": "block",
+      "title": "Frost Sequence Camera Orbit",
+      "description": "An orbiting camera follows an ice logo as it breaks apart, reforms into two text moments, and fades.",
+      "tags": [
+        "3d-motion",
+        "ice",
+        "frost",
+        "camera-orbit",
+        "logo",
+        "particles",
+        "webgpu",
+        "two-headlines"
+      ],
+      "dimensions": {
+        "width": 1920,
+        "height": 1080
+      },
+      "duration": 22.5
+    },
+    {
+      "name": "particle-image-reveal",
+      "type": "component",
+      "title": "Particle Image Reveal",
+      "description": "A seeded deterministic particle field converges and settles while a slotted image reveals beneath it, the trail thinning until the image holds clean.",
+      "tags": [
+        "motion-primitive",
+        "intros-reveals",
+        "particles",
+        "reveal",
+        "canvas",
+        "deterministic"
+      ]
+    },
+    {
+      "name": "app-showcase",
+      "type": "block",
+      "title": "App Showcase",
+      "description": "Fitness app product showcase with three floating smartphone screens",
+      "tags": [
+        "showcase",
+        "app",
+        "3d"
+      ],
+      "dimensions": {
+        "width": 1920,
+        "height": 1080
+      },
+      "duration": 5.5
+    },
+    {
+      "name": "gallery-tunnel",
+      "type": "block",
+      "title": "Gallery Tunnel",
+      "description": "An infinite corridor of panels: a square tunnel receding to a vanishing point, its floor, ceiling and walls tiled with saturated colour slabs and caller-supplied images that swell toward camera and exit past you, the far end dissolving into fog.",
+      "tags": [
+        "webgl",
+        "3d",
+        "background",
+        "showcase",
+        "depth",
+        "loop"
+      ],
+      "dimensions": {
+        "width": 1920,
+        "height": 1080
+      },
+      "duration": 12
+    },
+    {
+      "name": "scroll-feed",
+      "type": "component",
+      "title": "Scroll Feed",
+      "description": "A loop-friendly column of varied skeleton post cards scrolls upward with subtle motion trails and an agitated pace.",
+      "tags": [
+        "motion-primitive",
+        "effects",
+        "scroll",
+        "feed",
+        "loop",
+        "agitation"
+      ]
+    },
+    {
+      "name": "notification-pileup",
+      "type": "component",
+      "title": "Notification Pileup",
+      "description": "Mobile notification cards arrive faster and faster, each new alert pushing the existing stack downward into a dense, anxious tower.",
+      "tags": [
+        "notification",
+        "mobile",
+        "ui-props",
+        "overload",
+        "pileup",
+        "loop",
+        "agitate"
+      ]
+    },
+    {
+      "name": "grain-field",
+      "type": "component",
+      "title": "Grain Field",
+      "description": "A clearly visible accent-tinted dot field drifts over a subtle luminance gradient in an exact ambient loop.",
+      "tags": [
+        "motion-primitive",
+        "background",
+        "grain",
+        "dots",
+        "texture",
+        "ambient",
+        "loopable"
+      ]
+    },
+    {
+      "name": "aurora-drift",
+      "type": "component",
+      "title": "Aurora Drift",
+      "description": "Three soft accent-derived aurora fields drift in an exact ambient loop over a deep base and faint vignette.",
+      "tags": [
+        "motion-primitive",
+        "background",
+        "aurora",
+        "gradient",
+        "ambient",
+        "loopable"
+      ]
+    },
+    {
+      "name": "three-orbiting-cards",
+      "type": "component",
+      "title": "Three Orbiting Cards",
+      "description": "A Three.js-powered orbit scene driven by a paused GSAP timeline for deterministic renders.",
+      "tags": [
+        "video-primitive",
+        "three-js",
+        "webgl",
+        "hyperframes-native"
+      ]
+    },
+    {
+      "name": "multiplayer-cursors",
+      "type": "component",
+      "title": "Multiplayer Cursors",
+      "description": "Labeled collaborator cursors with token-derived colors and soft glows drift from spread positions into a shared center zone, proving live multiplayer presence.",
+      "tags": [
+        "cursor",
+        "pointer",
+        "multiplayer",
+        "collaboration",
+        "presence",
+        "loop",
+        "prove"
+      ]
+    },
+    {
+      "name": "drift-hold",
+      "type": "component",
+      "title": "Drift Hold",
+      "description": "A centered content card stays subtly alive through loop-exact rotation, scale breathing, and a slow light sweep.",
+      "tags": [
+        "motion-primitive",
+        "camera",
+        "ambient",
+        "drift",
+        "hold",
+        "loopable"
+      ]
+    },
+    {
+      "name": "carousel-vision-5",
+      "type": "block",
+      "title": "Vision Carousel 5",
+      "description": "A ring of large image cards tilted into a row under a 3D camera, each card turning toward the centre (Vision style 5); 12 image slots.",
+      "tags": [
+        "carousel",
+        "gallery",
+        "images",
+        "showcase",
+        "vision",
+        "3d"
+      ],
+      "dimensions": {
+        "width": 1920,
+        "height": 1080
+      },
+      "duration": 6
+    },
+    {
+      "name": "carousel-vision-4",
+      "type": "block",
+      "title": "Vision Carousel 4",
+      "description": "A ring of large image cards tilted into a row under a 3D camera, each card turning toward the centre (Vision style 4); 12 image slots.",
+      "tags": [
+        "carousel",
+        "gallery",
+        "images",
+        "showcase",
+        "vision",
+        "3d"
+      ],
+      "dimensions": {
+        "width": 1920,
+        "height": 1080
+      },
+      "duration": 6
+    },
+    {
+      "name": "carousel-vision-3",
+      "type": "block",
+      "title": "Vision Carousel 3",
+      "description": "A ring of large image cards tilted into a row under a 3D camera, each card turning toward the centre (Vision style 3); 12 image slots.",
+      "tags": [
+        "carousel",
+        "gallery",
+        "images",
+        "showcase",
+        "vision",
+        "3d"
+      ],
+      "dimensions": {
+        "width": 1920,
+        "height": 1080
+      },
+      "duration": 6
+    },
+    {
+      "name": "carousel-vision-2",
+      "type": "block",
+      "title": "Vision Carousel 2",
+      "description": "A ring of large image cards tilted into a row under a 3D camera, each card turning toward the centre (Vision style 2); 12 image slots.",
+      "tags": [
+        "carousel",
+        "gallery",
+        "images",
+        "showcase",
+        "vision",
+        "3d"
+      ],
+      "dimensions": {
+        "width": 1920,
+        "height": 1080
+      },
+      "duration": 6
+    },
+    {
+      "name": "carousel-vision-1",
+      "type": "block",
+      "title": "Vision Carousel 1",
+      "description": "A ring of large image cards tilted into a row under a 3D camera, each card turning toward the centre (Vision style 1); 12 image slots.",
+      "tags": [
+        "carousel",
+        "gallery",
+        "images",
+        "showcase",
+        "vision",
+        "3d"
+      ],
+      "dimensions": {
+        "width": 1920,
+        "height": 1080
+      },
+      "duration": 6
+    },
+    {
+      "name": "carousel-circle-5",
+      "type": "block",
+      "title": "Circle Carousel 5",
+      "description": "Image cards ride a circle with a size gradient by depth angle, sweeping in fast-slow-fast swings (Circle style 5); 12 image slots.",
+      "tags": [
+        "carousel",
+        "gallery",
+        "images",
+        "showcase",
+        "circle"
+      ],
+      "dimensions": {
+        "width": 1920,
+        "height": 1080
+      },
+      "duration": 6
+    },
+    {
+      "name": "carousel-circle-4",
+      "type": "block",
+      "title": "Circle Carousel 4",
+      "description": "Image cards ride a circle with a size gradient by depth angle, sweeping in fast-slow-fast swings (Circle style 4); 12 image slots.",
+      "tags": [
+        "carousel",
+        "gallery",
+        "images",
+        "showcase",
+        "circle"
+      ],
+      "dimensions": {
+        "width": 1920,
+        "height": 1080
+      },
+      "duration": 6
+    },
+    {
+      "name": "carousel-circle-3",
+      "type": "block",
+      "title": "Circle Carousel 3",
+      "description": "Image cards ride a circle with a size gradient by depth angle, sweeping in fast-slow-fast swings (Circle style 3); 12 image slots.",
+      "tags": [
+        "carousel",
+        "gallery",
+        "images",
+        "showcase",
+        "circle"
+      ],
+      "dimensions": {
+        "width": 1920,
+        "height": 1080
+      },
+      "duration": 6
+    },
+    {
+      "name": "carousel-circle-2",
+      "type": "block",
+      "title": "Circle Carousel 2",
+      "description": "Image cards ride a circle with a size gradient by depth angle, sweeping in fast-slow-fast swings (Circle style 2); 12 image slots.",
+      "tags": [
+        "carousel",
+        "gallery",
+        "images",
+        "showcase",
+        "circle"
+      ],
+      "dimensions": {
+        "width": 1920,
+        "height": 1080
+      },
+      "duration": 6
+    },
+    {
+      "name": "carousel-circle-1",
+      "type": "block",
+      "title": "Circle Carousel 1",
+      "description": "Image cards ride a circle with a size gradient by depth angle, sweeping in fast-slow-fast swings (Circle style 1); 12 image slots.",
+      "tags": [
+        "carousel",
+        "gallery",
+        "images",
+        "showcase",
+        "circle"
+      ],
+      "dimensions": {
+        "width": 1920,
+        "height": 1080
+      },
+      "duration": 6
+    },
+    {
+      "name": "yt-comment-card",
+      "type": "block",
+      "title": "Comment Cards",
+      "description": "Social comments typing on over footage: avatar pop, username and time, per-character typewriter, likes row; image avatars or initials chips",
+      "tags": [
+        "social",
+        "comments",
+        "creator",
+        "overlay"
+      ],
+      "dimensions": {
+        "width": 1920,
+        "height": 1080
+      },
+      "duration": 8
+    },
+    {
+      "name": "carousel-path-5",
+      "type": "block",
+      "title": "Path Carousel 5",
+      "description": "Image cards ride an open bezier path (arc, V, diagonal, wave, S-curve) with depth scaling and tangent rotation (Path style 5); 24 image slots.",
+      "tags": [
+        "carousel",
+        "gallery",
+        "images",
+        "showcase",
+        "path"
+      ],
+      "dimensions": {
+        "width": 1920,
+        "height": 1080
+      },
+      "duration": 6
+    },
+    {
+      "name": "carousel-path-4",
+      "type": "block",
+      "title": "Path Carousel 4",
+      "description": "Image cards ride an open bezier path (arc, V, diagonal, wave, S-curve) with depth scaling and tangent rotation (Path style 4); 24 image slots.",
+      "tags": [
+        "carousel",
+        "gallery",
+        "images",
+        "showcase",
+        "path"
+      ],
+      "dimensions": {
+        "width": 1920,
+        "height": 1080
+      },
+      "duration": 6
+    },
+    {
+      "name": "carousel-path-3",
+      "type": "block",
+      "title": "Path Carousel 3",
+      "description": "Image cards ride an open bezier path (arc, V, diagonal, wave, S-curve) with depth scaling and tangent rotation (Path style 3); 12 image slots.",
+      "tags": [
+        "carousel",
+        "gallery",
+        "images",
+        "showcase",
+        "path"
+      ],
+      "dimensions": {
+        "width": 1920,
+        "height": 1080
+      },
+      "duration": 6
+    },
+    {
+      "name": "carousel-path-2",
+      "type": "block",
+      "title": "Path Carousel 2",
+      "description": "Image cards ride an open bezier path (arc, V, diagonal, wave, S-curve) with depth scaling and tangent rotation (Path style 2); 12 image slots.",
+      "tags": [
+        "carousel",
+        "gallery",
+        "images",
+        "showcase",
+        "path"
+      ],
+      "dimensions": {
+        "width": 1920,
+        "height": 1080
+      },
+      "duration": 6
+    },
+    {
+      "name": "carousel-path-1",
+      "type": "block",
+      "title": "Path Carousel 1",
+      "description": "Image cards ride an open bezier path (arc, V, diagonal, wave, S-curve) with depth scaling and tangent rotation (Path style 1); 24 image slots.",
+      "tags": [
+        "carousel",
+        "gallery",
+        "images",
+        "showcase",
+        "path"
+      ],
+      "dimensions": {
+        "width": 1920,
+        "height": 1080
+      },
+      "duration": 6
+    },
+    {
+      "name": "spiral-galaxy",
+      "type": "block",
+      "title": "Spiral Galaxy",
+      "description": "A spiral galaxy seen from outside, turning with real differential rotation: inner stars orbit faster than outer ones, so the arms wind up over the shot instead of spinning rigidly. 20,000 additive GPU sprites, seeded once and solved directly from time, so any frame can be rendered on its own.",
+      "tags": [
+        "hero",
+        "space",
+        "particles",
+        "webgl",
+        "background"
+      ],
+      "dimensions": {
+        "width": 1920,
+        "height": 1080
+      },
+      "duration": 10
+    },
+    {
+      "name": "hw-frame",
+      "type": "block",
+      "title": "Sketched Frame",
+      "description": "Media in a hand-drawn border with corner doodles and a handwritten caption; the unit tilts slightly and boils (images inside the block; keep live footage in the host)",
+      "tags": [
+        "handwritten",
+        "frame",
+        "media"
+      ],
+      "dimensions": {
+        "width": 1920,
+        "height": 1080
+      },
+      "duration": 8
+    },
+    {
+      "name": "carousel-text-circle-5",
+      "type": "block",
+      "title": "Text + Circle Carousel 5",
+      "description": "A headline mask-reveals word by word while a circle carousel converges from off-frame and threads the line, collapses to centre, hard-cuts to a second line that arrives at 1.4× (Circle style 5).",
+      "tags": [
+        "carousel",
+        "title-card",
+        "kinetic-text",
+        "images",
+        "showcase",
+        "circle"
+      ],
+      "dimensions": {
+        "width": 1920,
+        "height": 1080
+      },
+      "duration": 5
+    },
+    {
+      "name": "carousel-text-circle-4",
+      "type": "block",
+      "title": "Text + Circle Carousel 4",
+      "description": "A headline mask-reveals word by word while a circle carousel converges from off-frame and threads the line, collapses to centre, hard-cuts to a second line that arrives at 1.4× (Circle style 4).",
+      "tags": [
+        "carousel",
+        "title-card",
+        "kinetic-text",
+        "images",
+        "showcase",
+        "circle"
+      ],
+      "dimensions": {
+        "width": 1920,
+        "height": 1080
+      },
+      "duration": 5
+    },
+    {
+      "name": "carousel-text-circle-3",
+      "type": "block",
+      "title": "Text + Circle Carousel 3",
+      "description": "A headline mask-reveals word by word while a circle carousel converges from off-frame and threads the line, collapses to centre, hard-cuts to a second line that arrives at 1.4× (Circle style 3).",
+      "tags": [
+        "carousel",
+        "title-card",
+        "kinetic-text",
+        "images",
+        "showcase",
+        "circle"
+      ],
+      "dimensions": {
+        "width": 1920,
+        "height": 1080
+      },
+      "duration": 5
+    },
+    {
+      "name": "carousel-text-circle-2",
+      "type": "block",
+      "title": "Text + Circle Carousel 2",
+      "description": "A headline mask-reveals word by word while a circle carousel converges from off-frame and threads the line, collapses to centre, hard-cuts to a second line that arrives at 1.4× (Circle style 2).",
+      "tags": [
+        "carousel",
+        "title-card",
+        "kinetic-text",
+        "images",
+        "showcase",
+        "circle"
+      ],
+      "dimensions": {
+        "width": 1920,
+        "height": 1080
+      },
+      "duration": 5
+    },
+    {
+      "name": "carousel-text-circle-1",
+      "type": "block",
+      "title": "Text + Circle Carousel 1",
+      "description": "A headline mask-reveals word by word while a circle carousel converges from off-frame and threads the line, collapses to centre, hard-cuts to a second line that arrives at 1.4× (Circle style 1).",
+      "tags": [
+        "carousel",
+        "title-card",
+        "kinetic-text",
+        "images",
+        "showcase",
+        "circle"
+      ],
+      "dimensions": {
+        "width": 1920,
+        "height": 1080
+      },
+      "duration": 5
+    },
+    {
+      "name": "yt-vertical-fill",
+      "type": "block",
+      "title": "Vertical Media Filler",
+      "description": "Portrait media filling a widescreen frame via blurred-scale, mirror, or copy side fills; grid texture and foreground contrast lift (images inside the block; keep live footage in the host)",
+      "tags": [
+        "placeholder",
+        "vertical",
+        "media"
+      ],
+      "dimensions": {
+        "width": 1920,
+        "height": 1080
+      },
+      "duration": 8
+    },
+    {
+      "name": "ordered-dither-pass",
+      "type": "component",
+      "title": "Ordered Dither Pass",
+      "description": "Bayer-matrix ordered dithering quantizes a slotted scene (rasterized once at mount): the image emerges from pure 2-tone noise to clean, or dissolves the reverse. Stateless per frame, never error diffusion.",
+      "tags": [
+        "motion-primitive",
+        "experiment",
+        "texture",
+        "dither",
+        "transition",
+        "quantize"
+      ]
+    },
+    {
+      "name": "testimonial-proof-card",
+      "type": "component",
+      "title": "Testimonial Proof Card",
+      "description": "A quote card whose testimonial reveals per-line through a soft mask, with an avatar disc (initials default, image slot), mono name and role, an optional company text mark, and one emphasis substring underlined in accent ink after the quote lands.",
+      "tags": [
+        "motion-primitive",
+        "proof",
+        "testimonial",
+        "quote",
+        "social-proof",
+        "deterministic"
+      ]
+    },
+    {
+      "name": "chat-message",
+      "type": "component",
+      "title": "Chat Message",
+      "description": "One message arrives on the measured entry - scale 0.75, 0.12s, growing from its sender's corner. The type is an enum switched like marker-highlight's style: a received or sent bubble with a real tail, a large emoji row, an image, or a link card with title and domain. The atom that chat-thread builds conversations from",
+      "tags": [
+        "video-primitive",
+        "chat",
+        "mock-ui",
+        "message"
+      ]
+    }
+  ]
+}
