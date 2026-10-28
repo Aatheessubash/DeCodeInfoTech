@@ -104,6 +104,7 @@ export function migrateCopy(key: string, value: unknown): unknown {
     if (typeof item === 'string') {
       const direct = replacements.get(item);
       if (direct !== undefined) return direct;
+      if (item === '/sample.mp4') return '/sample.webm';
       if (item.includes('hello@decode.com') || item.includes('contact@decodeinfotech.com')) {
         return item
           .replaceAll('hello@decode.com', 'contact@decodeinfotech.in')

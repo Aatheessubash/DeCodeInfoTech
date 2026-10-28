@@ -26,7 +26,7 @@ export function WhoWeAre() {
         <div className={styles.grid}>
           {/* Left Column: Narrative & Strategic Positioning */}
           <div className={styles.copyColumn}>
-            <div className={`${styles.copy} reveal`}>
+            <div className={`${styles.copy} reveal`} suppressHydrationWarning>
               <h2 id="about-heading" className={styles.headline}>
                 {hasNext ? (
                   <>
@@ -57,7 +57,7 @@ export function WhoWeAre() {
           </div>
 
           {/* Right Column: Visual Showcase & Dynamic Badges */}
-          <figure className={`${styles.visualContainer} reveal`}>
+          <figure className={`${styles.visualContainer} reveal`} suppressHydrationWarning>
             <div className={styles.imageCard}>
               <img
                 src={siteContent?.aboutImage || '/assets/who-we-are.jpg'}

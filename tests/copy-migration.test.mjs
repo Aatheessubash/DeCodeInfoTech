@@ -148,3 +148,11 @@ test('migrates legacy emails (hello@decode.com, contact@decodeinfotech.com) to c
     'Email us at contact@decodeinfotech.in or contact@decodeinfotech.in anytime.',
   );
 });
+
+test('migrates legacy /sample.mp4 hero video url to /sample.webm', () => {
+  const legacyContent = {
+    heroVideoUrl: '/sample.mp4',
+  };
+  const updated = migrateCopy('decode_site_content', legacyContent);
+  assert.equal(updated.heroVideoUrl, '/sample.webm');
+});

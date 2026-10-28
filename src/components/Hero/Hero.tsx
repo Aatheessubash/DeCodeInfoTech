@@ -56,7 +56,10 @@ export function Hero() {
       : rawSubtext;
   const heroRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const configuredHeroVideoUrl = siteContent?.heroVideoUrl?.trim() || '/sample.webm';
+  const configuredHeroVideoUrl =
+    !siteContent?.heroVideoUrl || siteContent.heroVideoUrl.trim() === '/sample.mp4'
+      ? '/sample.webm'
+      : siteContent.heroVideoUrl.trim();
   const [heroVideoUrl, setHeroVideoUrl] = useState(configuredHeroVideoUrl);
   const [isVideoReady, setIsVideoReady] = useState(false);
   const [showSkeleton, setShowSkeleton] = useState(true);
