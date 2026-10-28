@@ -1,9 +1,16 @@
+'use client';
+
 import Script from 'next/script';
 
 const gaId = process.env.NEXT_PUBLIC_GA_ID || 'G-WXDPZ9GG33';
 
 export function GoogleAnalytics() {
-  if (!gaId) return null;
+  const isDev = process.env.NODE_ENV !== 'production';
+  const allowInDev = process.env.NEXT_PUBLIC_GA_DEV === 'true';
+
+  // Do not track on localhost/development to avoid ad-blocker ERR_BLOCKED_BY_CLIENT
+  // and prevent polluting production GA4 analytics with dev traffic.
+  if (!gaId || (isDev && !allowInDev)) return null;
 
   return (
     <>
@@ -16,7 +23,9 @@ export function GoogleAnalytics() {
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
-          gtag('config', '${gaId}');
+          gtag('config', '${gaId}', {
+            page_path: window.location.pathname,
+          });
         `}
       </Script>
     </>
